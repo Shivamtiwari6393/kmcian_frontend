@@ -57,16 +57,3 @@ margin-top: 5px;
   box-shadow: 0px 3px 2px rgb(195, 195, 195);
 
 }
-
-#cards .names{
-  display: flex;
-  justify-content:  space-between;
-  background-color: white;
-  box-shadow: 0px 4px 5px rgb(195, 195, 195);
-  font-weight: bold;
-  margin: 20px;
-  border-radius: 20px;
-  
-}
-
-

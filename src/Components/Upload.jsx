@@ -7,6 +7,7 @@ export default function Upload() {
     branch: 0,
     semester: 0,
     paper: "",
+    name : "",
   });
 
   const [file, setFile] = useState(null);
@@ -22,24 +23,24 @@ export default function Upload() {
 
 
   const upload = () => {
-    if (uploadData.course == 0) {
-      alert("Please select a Course");
-      return;
-    }
+    // if (uploadData.course == 0) {
+    //   alert("Please select a Course");
+    //   return;
+    // }
 
-    if (uploadData.branch == 0) {
-      alert("Please select a Branch");
-      return;
-    }
+    // if (uploadData.branch == 0) {
+    //   alert("Please select a Branch");
+    //   return;
+    // }
 
-    if (uploadData.semester == 0) {
-      alert("Please select a Semester");
-      return;
-    }
-    if (!file) {
-      alert("Please select a file");
-      return;
-    }
+    // if (uploadData.semester == 0) {
+    //   alert("Please select a Semester");
+    //   return;
+    // }
+    // if (!file) {
+    //   alert("Please select a file");
+    //   return;
+    // }
 
     const url = new URL("http://127.0.0.1:8000/api/paper/upload");
 
@@ -48,6 +49,7 @@ export default function Upload() {
     formData.append("branch", uploadData.branch);
     formData.append("paper", uploadData.paper);
     formData.append("semester", uploadData.semester);
+    formData.append("name",uploadData.name)
     formData.append("pdf", file);
 
     console.log(upload.course, uploadData.branch,uploadData.paper, uploadData.semester, file);
@@ -57,22 +59,24 @@ export default function Upload() {
       method: "POST",
       body: formData,
     })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((data) => {
+            throw new Error(data.error || "An error occurred");
+          });
         }
 
-        if (res.status == 201) {
+        if (response.status == 201) {
           alert("Congrats! File uploaded Successfully");
         }
-        return res.json();
+        return response.json();
       })
       .then((data) => {
         console.log(data);
         setUploadData(data);
       })
       .catch((e) => {
-        alert(`${e}! Check your internet connection`);
+        alert(e);
       });
   };
 
@@ -156,7 +160,7 @@ export default function Upload() {
       <fieldset>
         <legend>Name</legend>
         <div className="name">
-          <input type="text" name="name" placeholder="Enter Your Name" />
+          <input type="text" name="name" placeholder="Enter Your Name" value={uploadData.name} onChange={handleDataChange} />
         </div>
       </fieldset>
 

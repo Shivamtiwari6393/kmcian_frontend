@@ -6,6 +6,7 @@ import Upload from "./Components/Upload.jsx";
 import Card from "./Components/Card.jsx";
 import Discussion from "./Components/Discussion.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Papers from "./Components/Papers.jsx";
 
 const route = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const route = createBrowserRouter([
       },
       {
         path: "/Papers",
-        element: <Card></Card>,
+        element: <Papers></Papers>,
       },
       {
         path: "/Upload",

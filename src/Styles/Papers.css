@@ -1,0 +1,22 @@
+#cards .names{
+    display: flex;
+    justify-content:  space-between;
+    background-color: white;
+    box-shadow: 0px 4px 5px rgb(195, 195, 195);
+    font-weight: bold;
+    margin: 20px;
+    border-radius: 20px;
+    
+  }
+  
+  .nameplate{
+    display: flex;
+    background-color: rgb(216, 184, 143);
+    font-weight: bold;
+    justify-content:space-between;
+    border-radius: 40px;
+  }
+  
+  .nameplate div{
+    padding: 0px 30px 0px 30px;
+  }

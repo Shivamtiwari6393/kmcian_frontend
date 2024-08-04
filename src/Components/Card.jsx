@@ -1,10 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import "../Styles/Card.css";
+import { useNavigate } from 'react-router-dom';
 
-import { saveAs } from "file-saver";
+
 
 export default function Card() {
+  const navigate = useNavigate();
+
   const [paperData, setPaperData] = useState({
     course: 0,
     branch: 0,
@@ -68,66 +71,18 @@ export default function Card() {
       })
       .then((data) => {
         setReqPapers(data);
+        navigate('/papers', { state:data});
       })
       .catch((error) => {
         alert(error.message);
       });
   };
 
-  // ---------------Handle file download----------------------------
 
-  const handleDownload = async (e) => {
-    const encodedBranch = encodeURIComponent(paperData.branch);
-
-    try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/paper/download?course=${paperData.course}&branch=${encodedBranch}&semester=${paperData.semester}`
-      );
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "An error occurred");
-      }
-
-      const blob = await response.blob();
-
-      const filename = response.headers.get("X-Paper") || "Kmcian_Paper.pdf";
-
-      saveAs(blob, filename);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
 
   return (
     <div id={reqPapers ? "cards" : "card"}>
-      {reqPapers ? (
-        reqPapers.length === 0 ? (
-          <div>
-            <p>Sorry no papers found.</p>
-          </div>
-        ) : (
-          <div className="papers">
-            {reqPapers.map((element, index) => (
-              <div className="names" key={index}>
-                <div className="paperName">
-                  <p>{element.paper}</p>
-                </div>
-                {/* <div className="name" key={index}>
-                  <p>{element.course}</p>
-                </div> */}
-                <div className="branch">
-                  <p>{element.branch}</p>
-                </div>
 
-                <div className="download">
-                  <button onClick={handleDownload}>Download</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )
-      ) : (
         <div id="content">
           <select
             name="course"
@@ -187,7 +142,6 @@ export default function Card() {
             <button onClick={request}>Go</button>
           </div>
         </div>
-      )}
     </div>
   );
 }
