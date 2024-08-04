@@ -1,0 +1,72 @@
+#card {
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  height: 60vh;
+}
+#card #content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: none;
+  border-radius: 40px;
+  margin-top: 50px;
+  width: 50%;
+  height: 80%;
+  background-color: rgb(255, 255, 255);
+}
+
+#card select {
+  cursor: pointer;
+  font-weight: bold;
+  margin: 10px;
+  text-align: center;
+  border: none;
+  height: 15%;
+  border-radius: 40px;
+  box-shadow: 0px 0px 6px rgb(195, 195, 195, 0.7);
+}
+#card select:hover {
+  box-shadow: 1px 2px 3px 3px rgb(231, 231, 231);
+}
+#card option {
+  font-size: 16px;
+  padding: 100px;
+  border-radius: 80px;
+  width: 10px;
+  font-weight: bold;
+  border: none;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#card #button {
+margin-top: 5px;
+  display: flex;
+  justify-content: center;
+}
+#button button {
+  padding: 20px;
+  border: none;
+  border-radius: 30px;
+  background-color: rgb(122, 242, 122);
+  box-shadow: 0px 4px 5px rgb(195, 195, 195);
+}
+#button button:hover {
+  scale: 1.06;
+  box-shadow: 0px 3px 2px rgb(195, 195, 195);
+
+}
+
+#cards .names{
+  display: flex;
+  justify-content:  space-between;
+  background-color: white;
+  box-shadow: 0px 4px 5px rgb(195, 195, 195);
+  font-weight: bold;
+  margin: 20px;
+  border-radius: 20px;
+  
+}
+
+
