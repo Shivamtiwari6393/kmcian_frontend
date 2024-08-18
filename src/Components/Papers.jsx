@@ -9,8 +9,7 @@ export default function Papers() {
   const location = useLocation();
   const reqPapers = location.state;
 
-  const [isLoading,setIsLoading] = useState(false)
-
+  const [isLoading, setIsLoading] = useState(false);
 
   // ---------------Handle file download----------------------------
 
@@ -18,14 +17,15 @@ export default function Papers() {
     const selectedPaper = JSON.parse(e.currentTarget.dataset.value);
 
     const encodedBranch = encodeURIComponent(selectedPaper.branch);
- 
 
-    setIsLoading(true)
-  
+    setIsLoading(true);
+
     try {
+      // const url = "http://127.0.0.1:8000"
+      const url = "https://kmcianbackend.vercel.app";
 
       const response = await fetch(
-        `http://127.0.0.1:8000/api/paper/download?paper=${selectedPaper.paper}&branch=${encodedBranch}&semester=${selectedPaper.semester}`
+        `${url}/api/paper/download?paper=${selectedPaper.paper}&branch=${encodedBranch}&semester=${selectedPaper.semester}`
       );
 
       if (!response.ok) {
@@ -37,29 +37,24 @@ export default function Papers() {
 
       // ---------  Accessing filename--------------
 
-
       console.log(response.headers.get("X-Filename"));
       const filename = response.headers.get("X-Filename") || "Kmcian_Paper.pdf";
 
       //------------------ Saving pdf-----------------------------
 
-      
       saveAs(blob, filename);
     } catch (error) {
       alert(error.message);
+    } finally {
+      setIsLoading(false);
     }
-    finally{
-      setIsLoading(false)
-    }
-
-
   };
 
   const ond = (e) => {};
 
   return (
     <div className="papers" id="cards">
-         {isLoading &&  <Loading></Loading>}
+      {isLoading && <Loading></Loading>}
 
       {reqPapers.map((element, index) => (
         <div

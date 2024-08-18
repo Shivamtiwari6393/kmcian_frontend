@@ -22,31 +22,33 @@ export default function Upload() {
   };
 
   const handleDataChange = (e) => {
-    setError("")
+    setError("");
     setUploadData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const upload = () => {
+    setError("");
     if (uploadData.course == 0) {
-      setError("Please select a Course")
+      setError("Please select a Course");
       return;
     }
 
     if (uploadData.branch == 0) {
-      setError("Please select a Branch")
+      setError("Please select a Branch");
       return;
     }
 
     if (uploadData.semester == 0) {
-      setError("Please select a Semester")
+      setError("Please select a Semester");
       return;
     }
     if (!file) {
-      setError("Please select a file")
+      setError("Please select a file");
       return;
     }
 
-    const url = new URL("http://127.0.0.1:8000/api/paper/upload");
+    // const url = new URL("http://127.0.0.1:8000");
+    const url = "https://kmcianbackend.vercel.app";
 
     const formData = new FormData();
     formData.append("course", uploadData.course);
@@ -66,7 +68,7 @@ export default function Upload() {
 
     setIsLoading(true);
 
-    fetch(url, {
+    fetch(`${url}/api/paper/upload`, {
       method: "POST",
       body: formData,
     })
@@ -78,16 +80,14 @@ export default function Upload() {
         }
 
         if (response.status == 201) {
-          setError("Congrats! File uploaded Successfully")
+          setError("Congrats! File uploaded Successfully");
         }
-        return response.json();
       })
       .then((data) => {
         console.log(data);
-        setUploadData(data);
       })
       .catch((e) => {
-        setError(e.message)
+        setError(e.message);
       })
       .finally(() => setIsLoading(false));
   };
@@ -97,7 +97,6 @@ export default function Upload() {
       {isLoading && <Loading></Loading>}
 
       <div className={uploadcss["upload"]}>
-
         {error && (
           <div className="error-container">
             <p>{error}</p>{" "}

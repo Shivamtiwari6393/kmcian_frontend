@@ -55,7 +55,9 @@ export default function Card() {
 
     setError("")
 
-    const url = new URL("http://127.0.0.1:8000/api/paper");
+
+    // const url = new URL("http://127.0.0.1:8000/api/paper")
+    const url = new URL("https://kmcianbackend.vercel.app/api/paper");
 
     // Fetch request
     setIsLoading(true);
