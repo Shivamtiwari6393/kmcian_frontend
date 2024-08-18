@@ -1,8 +1,15 @@
+.error-container{
+  display: flex;
+  justify-content: center;
+  color: brown;
+  font-size: xx-small;
+  font-weight: 800;
+}
+
 #card {
   user-select: none;
   display: flex;
   justify-content: center;
-  height: 60vh;
 }
 #card #content {
   padding: 20px;
@@ -13,35 +20,32 @@
   border-radius: 40px;
   margin-top: 50px;
   width: 50%;
-  height: 80%;
   background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 2px rgba(190, 190, 190, 0.7);
+
 }
 
 #card select {
+  font-family: Georgia, "Times New Roman", Times, serif;
   cursor: pointer;
   font-weight: bold;
   margin: 10px;
+  padding: 10px;
   text-align: center;
   border: none;
-  height: 15%;
   border-radius: 40px;
   box-shadow: 0px 0px 6px rgb(195, 195, 195, 0.7);
+  transition-duration: 0.1s;
 }
 #card select:hover {
   box-shadow: 1px 2px 3px 3px rgb(231, 231, 231);
 }
 #card option {
-  font-size: 16px;
-  padding: 100px;
-  border-radius: 80px;
-  width: 10px;
-  font-weight: bold;
-  border: none;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 #card #button {
-margin-top: 5px;
+  margin-top: 5px;
   display: flex;
   justify-content: center;
 }
@@ -51,9 +55,25 @@ margin-top: 5px;
   border-radius: 30px;
   background-color: rgb(122, 242, 122);
   box-shadow: 0px 4px 5px rgb(195, 195, 195);
+  transition-duration: 0.1s;
+
 }
 #button button:hover {
   scale: 1.06;
   box-shadow: 0px 3px 2px rgb(195, 195, 195);
+}
 
+
+@media screen  and (max-width: 550px) {
+
+  #card #content{
+      width: 90%;
+  }
+}
+
+@media screen  and (max-width: 240px) {
+
+  #card #content{
+      width: 100%;
+  }
 }

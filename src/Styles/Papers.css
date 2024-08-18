@@ -1,22 +1,36 @@
-#cards .names{
-    display: flex;
-    justify-content:  space-between;
-    background-color: white;
-    box-shadow: 0px 4px 5px rgb(195, 195, 195);
-    font-weight: bold;
-    margin: 20px;
-    border-radius: 20px;
-    
+.papers {
+  padding: 5px;
+}
+
+#cards .names {
+  padding: 10px 20px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0px 4px 5px rgb(195, 195, 195);
+  font-weight: bold;
+  margin: 5px;
+}
+
+.papers button {
+  border: none;
+  padding: 10px;
+  background-color: rgb(112, 145, 112);
+  color: white;
+  font-weight: bold;
+  border-radius: 20px;
+  box-shadow: 0px 4px 5px rgb(195, 195, 195);
+
+}
+
+@media screen and (max-width: 400px) {
+
+  .papers{
+    padding: 2px;
+    font-size: small;
   }
+
   
-  .nameplate{
-    display: flex;
-    background-color: rgb(216, 184, 143);
-    font-weight: bold;
-    justify-content:space-between;
-    border-radius: 40px;
-  }
-  
-  .nameplate div{
-    padding: 0px 30px 0px 30px;
-  }
+}

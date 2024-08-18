@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import "../Styles/Card.css";
-import { useNavigate } from 'react-router-dom';
-
-
+import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 
 export default function Card() {
   const navigate = useNavigate();
@@ -15,10 +14,14 @@ export default function Card() {
   });
 
   const [reqPapers, setReqPapers] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [error, setError] = useState("");
 
   //------------ Handle data change-------------------------
 
   const handleChange = (e) => {
+    setError("")
     setPaperData((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
@@ -31,29 +34,31 @@ export default function Card() {
     // Validating the fields
 
     if (paperData.course == 0) {
-      alert("Please select a Course");
+      setError("Please select a Course")
       return;
     }
 
     if (paperData.branch == 0) {
-      alert("Please select a Branch");
+      setError("Please select a Branch")
       return;
     }
 
     if (paperData.year == 0) {
-      alert("Please select a Year");
+     setError("Please select a Year")
       return;
     }
 
     if (paperData.semester == 0) {
-      alert("Please select a Semester");
+      setError("Please select a Semester")
       return;
     }
+
+    setError("")
 
     const url = new URL("http://127.0.0.1:8000/api/paper");
 
     // Fetch request
-
+    setIsLoading(true);
     fetch(url, {
       method: "POST",
       headers: {
@@ -71,19 +76,25 @@ export default function Card() {
       })
       .then((data) => {
         setReqPapers(data);
-        navigate('/papers', { state:data});
+        navigate("/papers", { state: data });
       })
       .catch((error) => {
-        alert(error.message);
-      });
+        setError(error.message)
+      })
+      .finally(() => setIsLoading(false));
   };
 
-
-
   return (
-    <div id={reqPapers ? "cards" : "card"}>
-
+    <>
+      {isLoading && <Loading></Loading>}
+      <div id="card">
         <div id="content">
+          {error && (
+            <div className="error-container">
+              <p>{error}</p>
+            </div>
+          )}
+
           <select
             name="course"
             id="course"
@@ -142,6 +153,7 @@ export default function Card() {
             <button onClick={request}>Go</button>
           </div>
         </div>
-    </div>
+      </div>
+    </>
   );
 }

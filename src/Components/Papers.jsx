@@ -2,10 +2,15 @@
 import "../Styles/Papers.css";
 import { saveAs } from "file-saver";
 import { useLocation } from "react-router-dom";
+import Loading from "./Loading";
+import { useState } from "react";
 
 export default function Papers() {
   const location = useLocation();
   const reqPapers = location.state;
+
+  const [isLoading,setIsLoading] = useState(false)
+
 
   // ---------------Handle file download----------------------------
 
@@ -13,8 +18,12 @@ export default function Papers() {
     const selectedPaper = JSON.parse(e.currentTarget.dataset.value);
 
     const encodedBranch = encodeURIComponent(selectedPaper.branch);
+ 
 
+    setIsLoading(true)
+  
     try {
+
       const response = await fetch(
         `http://127.0.0.1:8000/api/paper/download?paper=${selectedPaper.paper}&branch=${encodedBranch}&semester=${selectedPaper.semester}`
       );
@@ -27,36 +36,31 @@ export default function Papers() {
       const blob = await response.blob();
 
       // ---------  Accessing filename--------------
+
+
       console.log(response.headers.get("X-Filename"));
       const filename = response.headers.get("X-Filename") || "Kmcian_Paper.pdf";
 
       //------------------ Saving pdf-----------------------------
+
+      
       saveAs(blob, filename);
     } catch (error) {
       alert(error.message);
     }
+    finally{
+      setIsLoading(false)
+    }
+
+
   };
 
   const ond = (e) => {};
 
   return (
     <div className="papers" id="cards">
-      <div className="nameplate">
-        <div className="paperName">
-          <p>Paper</p>
-        </div>
+         {isLoading &&  <Loading></Loading>}
 
-        <div className="branch">
-          <p>Branch</p>
-        </div>
-        <div className="branch">
-          <p>Semester</p>
-        </div>
-
-        <div className="download">
-          <p>Available</p>
-        </div>
-      </div>
       {reqPapers.map((element, index) => (
         <div
           className="names"

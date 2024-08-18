@@ -1,86 +1,95 @@
-.upload{
-    user-select: none;
-    margin: 10px auto;
-    width: 90%;
-    padding: 20px;
-    background-color: white;
-    display: flex;
+.upload {
+  user-select: none;
+  margin: 10px auto;
+  width: 90%;
+  padding: 20px 0px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 40px;
+  /* font-weight: bold; */
+}
+
+.upload .content {
+  display: flex;
+  border: none;
+  margin-top: 40px;
+}
+
+.upload select {
+  cursor: pointer;
+  font-weight: bold;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  /* border: none; */
+  border-radius: 40px;
+  box-shadow: 0px 0px 6px rgb(195, 195, 195, 0.7);
+}
+
+.upload fieldset {
+  color: rgba(137, 43, 226, 0.621);
+  border: 1px solid rgba(35, 146, 103, 0.326);
+  margin: 20px;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.upload fieldset:hover {
+  box-shadow: 0px 1px 5px rgba(128, 128, 128, 0.245);
+}
+
+.upload input {
+  border-radius: 20px;
+  border: 2px solid rgba(0, 0, 0, 0.068);
+  font-weight: 700;
+  padding: 10px;
+  margin: 5px;
+}
+
+.upload .inputfile {
+  padding: 5px;
+  margin: 0px;
+  border: none;
+  cursor: pointer;
+}
+
+.upload button {
+  font-weight: 700;
+  border-radius: 50px;
+  padding: 15px;
+  border: none;
+  color: white;
+  background-color: rgb(122, 242, 122);
+  box-shadow: 0px 3px 6px 2px rgba(128, 128, 128, 0.496);
+}
+
+button:hover {
+  box-shadow: 0px 0px 1px 1px rgba(128, 128, 128, 0.496);
+}
+
+@media screen and (max-width: 680px) {
+  .upload .content {
     flex-direction: column;
-    align-items: center;
-    border-radius: 30px;
-    font-weight: bold;
+  }
+  .upload select {
+    padding: 10px 20px;
+  }
 }
-
-.content {
-    display: flex;
-    padding: 20px;
-    border: none;
-    border-radius: 40px;
-    margin-top: 50px;
-    background-color: rgb(255, 255, 255);
+@media screen and (max-width: 450px) {
+  .upload {
+    width: 95%;
   }
 
-select {
-    cursor: pointer;
-    font-weight: bold;
-    margin: 10px;
-    padding: 10px;
-    text-align: center;
-    border: none;
-    border-radius: 40px;
-    box-shadow: 0px 0px 6px rgb(195, 195, 195, 0.7);
-  }
-
-div{
+  .upload input {
+    font-size: x-small;
     padding: 5px;
-}
+    margin: 0px;
+  }
 
-input{
-    border-radius: 30px;
-    border: 2px solid rgba(0, 0, 0, 0.068);
-    font-weight: 700;
-    padding: 10px;
-}
-
-.inputfile{
-    border: none;
-    border-radius: 0px;
-    cursor: pointer;
-}
-fieldset:hover{
-    box-shadow: 0px 1px 5px rgba(128, 128, 128, 0.245);
-
-}
-fieldset{
-    color: rgba(137, 43, 226, 0.621);
-    border: 1px solid rgba(35, 146, 103, 0.326);
-    margin: 20px;
-    border-radius: 30px;
-}
-
-button{
-    font-weight: 700;
-    border-radius: 50px;
-    padding: 15px;
-    border: none;
-    color: white;
-    background-color: rgb(122, 242, 122);
-    box-shadow: 0px 3px 6px 2px rgba(128, 128, 128, 0.496);
-}
-
-button:hover{
-    box-shadow: 0px 0px 1px 1px rgba(128, 128, 128, 0.496);
-
-
-}
-
-@media screen  and (max-width: 680px) {
-
-    .content{
-        flex-direction: column;
-    }
-    select{
-        padding: 10px 20px;
-    }
-    
+  .upload fieldset {
+    margin: 5px;
+    font-size: small;
+  }
 }

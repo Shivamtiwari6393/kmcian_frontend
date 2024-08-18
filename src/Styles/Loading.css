@@ -1,0 +1,34 @@
+.loading-container {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.629);
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.spinner {
+  width:50px;
+  height: 50px;
+  background-color: rgba(0, 255, 255, 0);
+  border-radius: 50%;
+  border-top: solid rgb(62, 58, 58);
+  animation: spin 0.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    rotate: 0deg;
+  }
+
+  25% {
+    border-color: brown;
+  }
+
+  100% {
+    rotate: 360deg;
+    border-color: aqua;
+  }
+}

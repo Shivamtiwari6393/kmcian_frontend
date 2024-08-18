@@ -1,3 +1,10 @@
 body{
   background-color: rgb(241, 241, 241);
 }
+
+
+*{
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
