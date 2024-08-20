@@ -70,7 +70,7 @@ export default function Papers() {
           <div className="branch">
             <p>{element.branch}</p>
           </div>
-          <div className="branch">
+          <div className="semester">
             <p>{element.semester}</p>
           </div>
 
