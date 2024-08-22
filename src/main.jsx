@@ -7,6 +7,7 @@ import Card from "./Components/Card.jsx";
 import Discussion from "./Components/Discussion.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Papers from "./Components/Papers.jsx";
+import Update from "./Components/Update.jsx"
 
 const route = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const route = createBrowserRouter([
         path: "/Discussion",
         element: <Discussion></Discussion>,
       },
+      {
+        path: "/Update",
+        element: <Update></Update>,
+      }
     ],
   },
 ]);

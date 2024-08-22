@@ -2,15 +2,22 @@
 import { useState } from "react";
 import uploadcss from "../Styles/Upload.module.css";
 import Loading from "./Loading";
+import { useLocation } from "react-router-dom";
 export default function Upload() {
+
+  const location = useLocation();
+  const { id, branch, course, paper, semester, year,name } = location.state;
+  
+
   const [uploadData, setUploadData] = useState({
-    course: 0,
-    branch: 0,
-    semester: 0,
-    paper: "",
-    name: "",
-    year: 0,
+    course: course,
+    branch: branch,
+    semester: semester,
+    paper: paper,
+    name: name,
+    year: year,
   });
+
 
   const [file, setFile] = useState(null);
 
@@ -28,53 +35,35 @@ export default function Upload() {
     console.log(uploadData);
   };
 
-  const upload = () => {
+  const update = () => {
     setError("");
-    if (uploadData.course == 0) {
-      setError("Please select a Course");
-      return;
-    }
 
-    if (uploadData.branch == 0) {
-      setError("Please select a Branch");
-      return;
-    }
 
-    if (uploadData.semester == 0) {
-      setError("Please select a Semester");
-      return;
-    }
-    if (!file) {
-      setError("Please select a file");
-      return;
-    }
 
-    // const url = "http://127.0.0.1:8000";
-    const url = "https://kmcianbackend.vercel.app";
+    const url = "http://127.0.0.1:8000";
+    // const url = "https://kmcianbackend.vercel.app";
 
-    const formData = new FormData();
-    formData.append("course", uploadData.course);
-    formData.append("branch", uploadData.branch);
-    formData.append("paper", uploadData.paper);
-    formData.append("semester", uploadData.semester);
-    formData.append("year", uploadData.year);
-    formData.append("name", uploadData.name);
-    formData.append("pdf", file);
 
-    console.log(
-      upload.course,
-      uploadData.branch,
-      uploadData.paper,
-      uploadData.semester,
-      uploadData.year,
-      file
-    );
 
-    setIsLoading(true);
+  
 
-    fetch(`${url}/api/paper/upload`, {
-      method: "POST",
-      body: formData,
+    const updateData = JSON.stringify(
+        {
+            course: uploadData.course,
+            branch: uploadData.branch,
+            semester: uploadData.semester,
+            paper: uploadData.paper,
+            name: uploadData.name,
+            year: uploadData.year,
+          }
+    )
+
+
+     setIsLoading(true);
+
+    fetch(`${url}/api/paper/update/${id}`, {
+      method: "PUT",
+      body: updateData
     })
       .then((response) => {
         if (!response.ok) {
@@ -83,8 +72,8 @@ export default function Upload() {
           });
         }
 
-        if (response.status == 201) {
-          setError("Congrats! Paper uploaded Successfully");
+        if (response.status == 200) {
+          setError("Congrats! Paper updated Successfully");
         }
       })
       .then((data) => {
@@ -213,7 +202,7 @@ export default function Upload() {
           </div>
         </fieldset>
 
-        <button onClick={upload}>Upload</button>
+        <button onClick={update}>Update</button>
       </div>
     </>
   );

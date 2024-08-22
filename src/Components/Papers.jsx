@@ -1,15 +1,19 @@
 /* eslint-disable no-unused-vars */
 import "../Styles/Papers.css";
 import { saveAs } from "file-saver";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import { useState } from "react";
 
 export default function Papers() {
+  const navigate = useNavigate();
+
   const location = useLocation();
   const reqPapers = location.state;
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const [isAdmin, setIsAdmin] = useState(false);
 
   // ---------------Handle file download----------------------------
 
@@ -52,6 +56,11 @@ export default function Papers() {
 
   const ond = (e) => {};
 
+  const handleUpdate = (event) => {
+    const choosed = JSON.parse(event.currentTarget.dataset.value);
+    navigate("/Update", { state: choosed });
+  };
+
   return (
     <div className="papers" id="cards">
       {isLoading && <Loading></Loading>}
@@ -79,6 +88,18 @@ export default function Papers() {
             >
               Download
             </button>
+
+            {isAdmin ? (
+                <button
+                id="update-button"
+                  onClick={handleUpdate}
+                  data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}"}`}
+                >
+                  Update
+                </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       ))}

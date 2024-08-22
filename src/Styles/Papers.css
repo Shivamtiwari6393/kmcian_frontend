@@ -14,15 +14,6 @@
   margin: 5px;
 }
 
-.papers button {
-  border: none;
-  padding: 10px;
-  background-color: rgb(112, 145, 112);
-  color: white;
-  font-weight: bold;
-  border-radius: 20px;
-  box-shadow: 0px 4px 5px rgb(195, 195, 195);
-}
 
 .paperName p {
   width: 500px;
@@ -46,6 +37,34 @@
   overflow: hidden;
 }
 
+.papers .download{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.papers button {
+  width: 100%;
+  border: none;
+  padding: 10px;
+  margin: 5px;
+  background-color: rgb(93, 131, 93);
+  color: white;
+  font-weight: bold;
+  border-radius: 20px;
+  box-shadow: 0px 4px 5px rgb(195, 195, 195);
+  max-width: 300px;
+
+}
+
+
+.papers #update-button{
+  display: none;
+  background-color: rgb(84, 55, 50);
+  max-width: 200px;
+}
+
 
 
 
@@ -55,6 +74,8 @@
     margin: 0px 5px;
   }
 
+
+  
   #cards .names {
     flex-direction: column;
     margin: 20px auto;
@@ -130,13 +151,24 @@
 
   .download {
     margin-top: 10px;
-    width: 60%;
+    width: 100%;
     min-width: 150px;
+    max-width: 300px;
   }
 
   .papers button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
   }
+
+  .papers #update-button{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
 }
 
 @media screen and (max-width: 400px) {
