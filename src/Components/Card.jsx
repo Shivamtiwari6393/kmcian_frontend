@@ -11,6 +11,7 @@ export default function Card() {
     course: 0,
     branch: 0,
     semester: 0,
+    year: 0,
   });
 
   const [reqPapers, setReqPapers] = useState(null);
@@ -21,7 +22,7 @@ export default function Card() {
   //------------ Handle data change-------------------------
 
   const handleChange = (e) => {
-    setError("")
+    setError("");
     setPaperData((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
@@ -34,30 +35,29 @@ export default function Card() {
     // Validating the fields
 
     if (paperData.course == 0) {
-      setError("Please select a Course")
+      setError("Please select a Course");
       return;
     }
 
     if (paperData.branch == 0) {
-      setError("Please select a Branch")
+      setError("Please select a Branch");
       return;
     }
 
     if (paperData.year == 0) {
-     setError("Please select a Year")
+      setError("Please select a Year");
       return;
     }
 
     if (paperData.semester == 0) {
-      setError("Please select a Semester")
+      setError("Please select a Semester");
       return;
     }
 
-    setError("")
+    setError("");
 
-
-    // const url = "http://127.0.0.1:8000/api/paper"
-    const url = "https://kmcianbackend.vercel.app/api/paper"
+    const url = "http://127.0.0.1:8000/api/paper"
+    // const url = "https://kmcianbackend.vercel.app/api/paper";
 
     // Fetch request
     setIsLoading(true);
@@ -81,7 +81,7 @@ export default function Card() {
         navigate("/papers", { state: data });
       })
       .catch((error) => {
-        setError(error.message)
+        setError(error.message);
       })
       .finally(() => setIsLoading(false));
   };
@@ -120,15 +120,17 @@ export default function Card() {
             <option value="0" disabled>
               Branch
             </option>
-            {paperData.course == "Engineering" ? (
+            {paperData.course == "Managment" ? (
+              <>
+                <option value="Managment">MBA</option>
+              </>
+            ) : (
               <>
                 <option value="CSE(AI&ML)">CSE(AI&ML)</option>
                 <option value="CSE">CSE</option>
                 <option value="Bio Technology">Bio Technology</option>
                 <option value="Civil">Civil</option>
               </>
-            ) : (
-              <option value="MBA">MBA</option>
             )}
           </select>
 
@@ -150,6 +152,24 @@ export default function Card() {
             <option value="6">6</option>
             <option value="7">7</option>
             <option value="8">8</option>
+          </select>
+          <select
+            name="year"
+            id="semester"
+            value={paperData.year}
+            onChange={handleChange}
+            required
+          >
+            <option value="0" disabled>
+              Year
+            </option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
           </select>
           <div id="button">
             <button onClick={request}>Go</button>
