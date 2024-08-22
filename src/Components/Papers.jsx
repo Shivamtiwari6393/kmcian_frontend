@@ -54,7 +54,31 @@ export default function Papers() {
     }
   };
 
-  const ond = (e) => {};
+  const verify = (e) => {
+    var value = prompt("Admin Password");
+
+    async function hashMessage(message) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(message);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      return bufferToHex(hashBuffer);
+    }
+
+    function bufferToHex(buffer) {
+      return Array.from(new Uint8Array(buffer))
+        .map((byte) => byte.toString(16).padStart(2, "0"))
+        .join("");
+    }
+
+    hashMessage(value).then((hash) => {
+      if (
+        hash ===
+        "fb1b3fb33e5cdb92d8a068de9dd4847e82e24641567a857a35bd28f2487e03ee"
+      ) {
+        console.log(document.getElementById("update-button").style.display = 'block');
+      }
+    });
+  };
 
   const handleUpdate = (event) => {
     const choosed = JSON.parse(event.currentTarget.dataset.value);
@@ -71,7 +95,7 @@ export default function Papers() {
             <p>{element.paper}</p>
           </div>
 
-          <div className="branch">
+          <div className="branch" onDoubleClick={verify}>
             <p>{element.branch}</p>
           </div>
           <div className="semester">
@@ -89,17 +113,13 @@ export default function Papers() {
               Download
             </button>
 
-            {isAdmin ? (
-                <button
-                id="update-button"
-                  onClick={handleUpdate}
-                  data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}"}`}
-                >
-                  Update
-                </button>
-            ) : (
-              ""
-            )}
+            <button
+              id="update-button"
+              onClick={handleUpdate}
+              data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}"}`}
+            >
+              Update
+            </button>
           </div>
         </div>
       ))}

@@ -23,8 +23,6 @@
 .branch p {
   text-align: center;
   width: 200px;
-  overflow: scroll;
-  scrollbar-width: none;
 }
 
 .semester p {
@@ -164,7 +162,7 @@
   }
 
   .papers #update-button{
-    display: flex;
+    display: none;
     justify-content: center;
     width: 100%;
   }
