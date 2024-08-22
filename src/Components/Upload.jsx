@@ -9,6 +9,7 @@ export default function Upload() {
     semester: 0,
     paper: "",
     name: "",
+    year: 0,
   });
 
   const [file, setFile] = useState(null);
@@ -25,8 +26,6 @@ export default function Upload() {
     setError("");
     setUploadData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     console.log(uploadData);
-    
-    
   };
 
   const upload = () => {
@@ -50,7 +49,7 @@ export default function Upload() {
       return;
     }
 
-    // const url = new URL("http://127.0.0.1:8000");
+    // const url = "http://127.0.0.1:8000";
     const url = "https://kmcianbackend.vercel.app";
 
     const formData = new FormData();
@@ -58,6 +57,7 @@ export default function Upload() {
     formData.append("branch", uploadData.branch);
     formData.append("paper", uploadData.paper);
     formData.append("semester", uploadData.semester);
+    formData.append("year", uploadData.year);
     formData.append("name", uploadData.name);
     formData.append("pdf", file);
 
@@ -66,6 +66,7 @@ export default function Upload() {
       uploadData.branch,
       uploadData.paper,
       uploadData.semester,
+      uploadData.year,
       file
     );
 
@@ -129,7 +130,7 @@ export default function Upload() {
               <>
                 <option value="CSE(AI&ML)">CSE(AI&ML)</option>
                 <option value="CSE">CSE</option>
-                <option value="Bio technology">Bio technology</option>
+                <option value="Bio Technology">Bio technology</option>
                 <option value="Civil">Civil</option>
               </>
             ) : (
@@ -154,6 +155,23 @@ export default function Upload() {
             <option value="7">7</option>
             <option value="8">8</option>
           </select>
+
+          <select
+            name="year"
+            value={uploadData.year}
+            onChange={handleDataChange}
+          >
+            <option value="0" disabled>
+              Paper-Year
+            </option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+          </select>
         </div>
 
         <fieldset>
@@ -165,6 +183,7 @@ export default function Upload() {
               placeholder="Enter Paper Name"
               value={uploadData.paper}
               onChange={handleDataChange}
+              required
             />
           </div>
         </fieldset>
@@ -189,6 +208,7 @@ export default function Upload() {
               placeholder="Enter Your Name"
               value={uploadData.name}
               onChange={handleDataChange}
+              required
             />
           </div>
         </fieldset>

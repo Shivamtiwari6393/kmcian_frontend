@@ -92,4 +92,9 @@ button:hover {
     margin: 5px;
     font-size: small;
   }
+
+ .upload button{
+  margin-top: 10px;
+ }
+
 }

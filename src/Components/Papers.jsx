@@ -19,7 +19,6 @@ export default function Papers() {
     const encodedBranch = encodeURIComponent(selectedPaper.branch);
     const encodedPaper = encodeURIComponent(selectedPaper.paper);
 
-
     setIsLoading(true);
 
     try {
@@ -39,8 +38,7 @@ export default function Papers() {
 
       // ---------  Accessing filename--------------
 
-      console.log(response.headers.get("X-Filename"));
-      const filename = response.headers.get("X-Filename") || selectedPaper.paper ||"Kmcian_Paper.pdf";
+      const filename = selectedPaper.paper || "Kmcian_Paper.pdf";
 
       //------------------ Saving pdf-----------------------------
 
@@ -74,6 +72,9 @@ export default function Papers() {
           </div>
           <div className="semester">
             <p>{element.semester}</p>
+          </div>
+          <div className="year">
+            <p>{element.year}</p>
           </div>
 
           <div className="download">

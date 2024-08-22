@@ -56,8 +56,8 @@ export default function Card() {
     setError("")
 
 
-    // const url = new URL("http://127.0.0.1:8000/api/paper")
-    const url = new URL("https://kmcianbackend.vercel.app/api/paper");
+    // const url = "http://127.0.0.1:8000/api/paper"
+    const url = "https://kmcianbackend.vercel.app/api/paper"
 
     // Fetch request
     setIsLoading(true);
@@ -123,7 +123,7 @@ export default function Card() {
             {paperData.course == "Engineering" ? (
               <>
                 <option value="CSE(AI&ML)">CSE(AI&ML)</option>
-                <option value="cse">CSE</option>
+                <option value="CSE">CSE</option>
                 <option value="Bio Technology">Bio Technology</option>
                 <option value="Civil">Civil</option>
               </>
