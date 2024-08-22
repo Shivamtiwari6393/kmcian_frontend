@@ -57,12 +57,7 @@ export default function Papers() {
       {isLoading && <Loading></Loading>}
 
       {reqPapers.map((element, index) => (
-        <div
-          className="names"
-          key={index}
-          onClick={handleDownload}
-          data-value={`{"branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}"}`}
-        >
+        <div className="names" key={index}>
           <div className="paperName">
             <p>{element.paper}</p>
           </div>
@@ -78,7 +73,12 @@ export default function Papers() {
           </div>
 
           <div className="download">
-            <button>Download</button>
+            <button
+              data-value={`{"branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}"}`}
+              onClick={handleDownload}
+            >
+              Download
+            </button>
           </div>
         </div>
       ))}
