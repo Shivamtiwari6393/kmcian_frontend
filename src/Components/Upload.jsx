@@ -24,6 +24,9 @@ export default function Upload() {
   const handleDataChange = (e) => {
     setError("");
     setUploadData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    console.log(uploadData);
+    
+    
   };
 
   const upload = () => {

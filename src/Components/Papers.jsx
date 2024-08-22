@@ -17,6 +17,8 @@ export default function Papers() {
     const selectedPaper = JSON.parse(e.currentTarget.dataset.value);
 
     const encodedBranch = encodeURIComponent(selectedPaper.branch);
+    const encodedPaper = encodeURIComponent(selectedPaper.paper);
+
 
     setIsLoading(true);
 
@@ -25,7 +27,7 @@ export default function Papers() {
       const url = "https://kmcianbackend.vercel.app";
 
       const response = await fetch(
-        `${url}/api/paper/download?paper=${selectedPaper.paper}&branch=${encodedBranch}&semester=${selectedPaper.semester}`
+        `${url}/api/paper/download?paper=${encodedPaper}&branch=${encodedBranch}&semester=${selectedPaper.semester}`
       );
 
       if (!response.ok) {
@@ -38,7 +40,7 @@ export default function Papers() {
       // ---------  Accessing filename--------------
 
       console.log(response.headers.get("X-Filename"));
-      const filename = response.headers.get("X-Filename") || "Kmcian_Paper.pdf";
+      const filename = response.headers.get("X-Filename") || selectedPaper.paper ||"Kmcian_Paper.pdf";
 
       //------------------ Saving pdf-----------------------------
 
