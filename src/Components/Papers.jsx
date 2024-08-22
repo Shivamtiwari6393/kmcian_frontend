@@ -75,7 +75,10 @@ export default function Papers() {
         hash ===
         "fb1b3fb33e5cdb92d8a068de9dd4847e82e24641567a857a35bd28f2487e03ee"
       ) {
-        console.log(document.getElementById("update-button").style.display = 'block');
+        const elements = document.getElementsByClassName("o");
+        for (let i = 0; i < elements.length; i++) {
+          elements[i].style.display = "block";
+        }
       }
     });
   };
@@ -115,6 +118,7 @@ export default function Papers() {
 
             <button
               id="update-button"
+              className="o"
               onClick={handleUpdate}
               data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}"}`}
             >
