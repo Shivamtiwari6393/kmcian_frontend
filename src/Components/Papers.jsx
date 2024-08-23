@@ -13,8 +13,6 @@ export default function Papers() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [isAdmin, setIsAdmin] = useState(false);
-
   // ---------------Handle file download----------------------------
 
   const handleDownload = async (e) => {
@@ -120,7 +118,7 @@ export default function Papers() {
               id="update-button"
               className="o"
               onClick={handleUpdate}
-              data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}"}`}
+              data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}", "downloadable": "${element.downloadable}"}`}
             >
               Update
             </button>

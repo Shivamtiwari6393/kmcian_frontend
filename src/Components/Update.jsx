@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 export default function Upload() {
 
   const location = useLocation();
-  const { id, branch, course, paper, semester, year,name } = location.state;
+  const { id, branch, course, paper, semester, year,name,downloadable } = location.state;
   
 
   const [uploadData, setUploadData] = useState({
@@ -16,6 +16,7 @@ export default function Upload() {
     paper: paper,
     name: name,
     year: year,
+    downloadable: downloadable
   });
 
 
@@ -55,6 +56,7 @@ export default function Upload() {
             paper: uploadData.paper,
             name: uploadData.name,
             year: uploadData.year,
+            downloadable: uploadData.downloadable
           }
     )
 
@@ -161,6 +163,22 @@ export default function Upload() {
             <option value="2024">2024</option>
             <option value="2025">2025</option>
           </select>
+
+
+          <select
+            name="downloadable"
+            value={uploadData.downloadable}
+            onChange={handleDataChange}
+          >
+            <option value="0" disabled>
+              Downloadable
+            </option>
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
+
+
+
         </div>
 
         <fieldset>
@@ -201,6 +219,11 @@ export default function Upload() {
             />
           </div>
         </fieldset>
+
+
+
+
+        
 
         <button onClick={update}>Update</button>
       </div>

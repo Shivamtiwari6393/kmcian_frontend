@@ -12,6 +12,7 @@ export default function Card() {
     branch: 0,
     semester: 0,
     year: 0,
+    downloadable: true 
   });
 
   const [reqPapers, setReqPapers] = useState(null);
@@ -86,11 +87,39 @@ export default function Card() {
       .finally(() => setIsLoading(false));
   };
 
+
+  
+  const verify = (e) => {
+    var value = prompt("Admin Password");
+
+    async function hashMessage(message) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(message);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      return bufferToHex(hashBuffer);
+    }
+
+    function bufferToHex(buffer) {
+      return Array.from(new Uint8Array(buffer))
+        .map((byte) => byte.toString(16).padStart(2, "0"))
+        .join("");
+    }
+
+    hashMessage(value).then((hash) => {
+      if (
+        hash ===
+        "fb1b3fb33e5cdb92d8a068de9dd4847e82e24641567a857a35bd28f2487e03ee"
+      ) {
+        const elements = document.getElementById("downloadable").style.display = "block";
+      }
+    });
+  };
+
   return (
     <>
       {isLoading && <Loading></Loading>}
       <div id="card">
-        <div id="content">
+        <div id="content" onDoubleClick={verify}>
           {error && (
             <div className="error-container">
               <p>{error}</p>
@@ -171,6 +200,27 @@ export default function Card() {
             <option value="2024">2024</option>
             <option value="2025">2025</option>
           </select>
+
+          <select
+            name="downloadable"
+            id="downloadable"
+            value={paperData.downloadable}
+            onChange={handleChange}
+            required
+            style={{
+
+              display: "none"
+
+            }}
+          >
+            <option value="0" disabled>
+              Downloadable
+            </option>
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
+
+
           <div id="button">
             <button onClick={request}>Go</button>
           </div>
