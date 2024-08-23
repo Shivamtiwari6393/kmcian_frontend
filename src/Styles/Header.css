@@ -18,18 +18,17 @@
   margin-left: 30px;
   margin-top: 5px;
   text-decoration: none;
-  transition-duration: 0.1s;
 }
 #header a:hover {
-  scale: 1.1;
-  color: rgb(136, 200, 99);
+  color: rgb(38, 162, 127);
+
 }
 #header img {
   margin-left: 5px;
   padding: 0px;
 }
 #header img:hover {
-  scale: 1.1;
+  scale: 1.06;
 }
 
 @media screen and (max-width: 450px) {

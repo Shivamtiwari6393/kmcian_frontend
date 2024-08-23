@@ -34,21 +34,24 @@ export default function Upload() {
     console.log(uploadData);
   };
 
-  const url = "http://127.0.0.1:8000";
-  // const url = "https://kmcianbackend.vercel.app";
+  // const url = "http://127.0.0.1:8000";
+  const url = "https://kmcianbackend.vercel.app";
 
   const update = () => {
     setError("");
 
-    const updateData = JSON.stringify({
-      course: uploadData.course,
-      branch: uploadData.branch,
-      semester: uploadData.semester,
-      paper: uploadData.paper,
-      name: uploadData.name,
-      year: uploadData.year,
-      downloadable: uploadData.downloadable,
-    });
+    const updateData = new FormData();
+    updateData.append("course", uploadData.course);
+    updateData.append("branch", uploadData.branch);
+    updateData.append("paper", uploadData.paper);
+    updateData.append("semester", uploadData.semester);
+    updateData.append("year", uploadData.year);
+    updateData.append("name", uploadData.name);
+    updateData.append("downloadable", uploadData.downloadable),
+     
+    file&&updateData.append("updatedpdf", file)
+
+    console.log(updateData, file, "file--------------");
 
     setIsLoading(true);
 
@@ -77,8 +80,8 @@ export default function Upload() {
   };
 
   const handleDelete = (e) => {
-    fetch(`${url}/api/paper/delete/${id}`,{
-      method: "DELETE"
+    fetch(`${url}/api/paper/delete/${id}`, {
+      method: "DELETE",
     })
       .then((res) => {
         return res.json();
@@ -221,12 +224,14 @@ export default function Upload() {
           </div>
         </fieldset>
         <button onClick={update}>Update</button>
-        <button id="delete-button" onClick={handleDelete} style={
-          {
+        <button
+          id="delete-button"
+          onClick={handleDelete}
+          style={{
             marginTop: "10px",
-            backgroundColor: "red"
-          }
-        }>
+            backgroundColor: "red",
+          }}
+        >
           Delete
         </button>
       </div>
