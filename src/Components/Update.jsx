@@ -4,10 +4,9 @@ import uploadcss from "../Styles/Upload.module.css";
 import Loading from "./Loading";
 import { useLocation } from "react-router-dom";
 export default function Upload() {
-
   const location = useLocation();
-  const { id, branch, course, paper, semester, year,name,downloadable } = location.state;
-  
+  const { id, branch, course, paper, semester, year, name, downloadable } =
+    location.state;
 
   const [uploadData, setUploadData] = useState({
     course: course,
@@ -16,9 +15,8 @@ export default function Upload() {
     paper: paper,
     name: name,
     year: year,
-    downloadable: downloadable
+    downloadable: downloadable,
   });
-
 
   const [file, setFile] = useState(null);
 
@@ -36,36 +34,27 @@ export default function Upload() {
     console.log(uploadData);
   };
 
+  const url = "http://127.0.0.1:8000";
+  // const url = "https://kmcianbackend.vercel.app";
+
   const update = () => {
     setError("");
 
+    const updateData = JSON.stringify({
+      course: uploadData.course,
+      branch: uploadData.branch,
+      semester: uploadData.semester,
+      paper: uploadData.paper,
+      name: uploadData.name,
+      year: uploadData.year,
+      downloadable: uploadData.downloadable,
+    });
 
-
-    // const url = "http://127.0.0.1:8000";
-    const url = "https://kmcianbackend.vercel.app";
-
-
-
-  
-
-    const updateData = JSON.stringify(
-        {
-            course: uploadData.course,
-            branch: uploadData.branch,
-            semester: uploadData.semester,
-            paper: uploadData.paper,
-            name: uploadData.name,
-            year: uploadData.year,
-            downloadable: uploadData.downloadable
-          }
-    )
-
-
-     setIsLoading(true);
+    setIsLoading(true);
 
     fetch(`${url}/api/paper/update/${id}`, {
       method: "PUT",
-      body: updateData
+      body: updateData,
     })
       .then((response) => {
         if (!response.ok) {
@@ -85,6 +74,22 @@ export default function Upload() {
         setError(e.message);
       })
       .finally(() => setIsLoading(false));
+  };
+
+  const handleDelete = (e) => {
+    fetch(`${url}/api/paper/delete/${id}`,{
+      method: "DELETE"
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        throw new Error(data.message);
+      })
+      .catch((e) => {
+        setError(e.message);
+        console.log(e);
+      });
   };
 
   return (
@@ -164,7 +169,6 @@ export default function Upload() {
             <option value="2025">2025</option>
           </select>
 
-
           <select
             name="downloadable"
             value={uploadData.downloadable}
@@ -176,9 +180,6 @@ export default function Upload() {
             <option value="true">True</option>
             <option value="false">False</option>
           </select>
-
-
-
         </div>
 
         <fieldset>
@@ -219,13 +220,15 @@ export default function Upload() {
             />
           </div>
         </fieldset>
-
-
-
-
-        
-
         <button onClick={update}>Update</button>
+        <button id="delete-button" onClick={handleDelete} style={
+          {
+            marginTop: "10px",
+            backgroundColor: "red"
+          }
+        }>
+          Delete
+        </button>
       </div>
     </>
   );
