@@ -33,7 +33,7 @@ export default function Card() {
   // ---------------paper data fetch request----------------------
 
   const request = () => {
-    
+
     // Validating the fields
 
     if (paperData.course == 0) {
@@ -54,8 +54,8 @@ export default function Card() {
     }
     setError("");
 
-    const url = "http://127.0.0.1:8000/api/paper";
-    // const url = "https://kmcianbackend.vercel.app/api/paper";
+    // const url = "http://127.0.0.1:8000/api/paper";
+    const url = "https://kmcianbackend.vercel.app/api/paper";
 
     // Fetch request
     setIsLoading(true);
