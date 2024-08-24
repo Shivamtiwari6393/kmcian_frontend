@@ -12,7 +12,7 @@ export default function Card() {
     branch: 0,
     semester: 0,
     year: 0,
-    downloadable: true 
+    downloadable: true,
   });
 
   const [reqPapers, setReqPapers] = useState(null);
@@ -40,24 +40,9 @@ export default function Card() {
       return;
     }
 
-    if (paperData.branch == 0) {
-      setError("Please select a Branch");
-      return;
-    }
-
-    if (paperData.year == 0) {
-      setError("Please select a Year");
-      return;
-    }
-
-    if (paperData.semester == 0) {
-      setError("Please select a Semester");
-      return;
-    }
-
     setError("");
 
-    // const url = "http://127.0.0.1:8000/api/paper"
+    // const url = "http://127.0.0.1:8000/api/paper";
     const url = "https://kmcianbackend.vercel.app/api/paper";
 
     // Fetch request
@@ -87,8 +72,6 @@ export default function Card() {
       .finally(() => setIsLoading(false));
   };
 
-
-  
   const verify = (e) => {
     var value = prompt("Admin Password");
 
@@ -110,7 +93,9 @@ export default function Card() {
         hash ===
         "fb1b3fb33e5cdb92d8a068de9dd4847e82e24641567a857a35bd28f2487e03ee"
       ) {
-        const elements = document.getElementById("downloadable").style.display = "block";
+        const elements = (document.getElementById(
+          "downloadable"
+        ).style.display = "block");
       }
     });
   };
@@ -208,9 +193,7 @@ export default function Card() {
             onChange={handleChange}
             required
             style={{
-
-              display: "none"
-
+              display: "none",
             }}
           >
             <option value="0" disabled>
@@ -219,7 +202,6 @@ export default function Card() {
             <option value="true">True</option>
             <option value="false">False</option>
           </select>
-
 
           <div id="button">
             <button onClick={request}>Go</button>
