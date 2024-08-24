@@ -41,15 +41,15 @@ export default function Card() {
       return;
     }
     if (paperData.branch == 0) {
-      setError("Please select a Course");
+      setError("Please select a Branch");
       return;
     }
     if (paperData.semester == 0) {
-      setError("Please select a Course");
+      setError("Please select a Semester");
       return;
     }
     if (paperData.year == 0) {
-      setError("Please select a Course");
+      setError("Please select a Year");
       return;
     }
     setError("");
