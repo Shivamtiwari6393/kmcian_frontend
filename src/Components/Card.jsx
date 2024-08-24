@@ -33,17 +33,29 @@ export default function Card() {
   // ---------------paper data fetch request----------------------
 
   const request = () => {
+    
     // Validating the fields
 
     if (paperData.course == 0) {
       setError("Please select a Course");
       return;
     }
-
+    if (paperData.branch == 0) {
+      setError("Please select a Course");
+      return;
+    }
+    if (paperData.semester == 0) {
+      setError("Please select a Course");
+      return;
+    }
+    if (paperData.year == 0) {
+      setError("Please select a Course");
+      return;
+    }
     setError("");
 
-    // const url = "http://127.0.0.1:8000/api/paper";
-    const url = "https://kmcianbackend.vercel.app/api/paper";
+    const url = "http://127.0.0.1:8000/api/paper";
+    // const url = "https://kmcianbackend.vercel.app/api/paper";
 
     // Fetch request
     setIsLoading(true);
@@ -135,6 +147,8 @@ export default function Card() {
             <option value="0" disabled>
               Branch
             </option>
+            <option value="All">All</option>
+
             {paperData.course === "Managment" && (
               <>
                 <option value="MBA">MBA</option>
@@ -178,6 +192,8 @@ export default function Card() {
             <option value="0" disabled>
               Semester
             </option>
+            <option value="All">All</option>
+
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -203,6 +219,7 @@ export default function Card() {
             <option value="0" disabled>
               Year
             </option>
+            <option value="All">All</option>
             <option value="2019">2019</option>
             <option value="2020">2020</option>
             <option value="2021">2021</option>
