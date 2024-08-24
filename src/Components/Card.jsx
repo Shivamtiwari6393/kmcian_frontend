@@ -119,7 +119,7 @@ export default function Card() {
             required
           >
             <option value="0" disabled>
-              Course
+              Course*
             </option>
             <option value="Engineering">Engineering</option>
             <option value="Managment">Managment</option>
@@ -136,13 +136,15 @@ export default function Card() {
             </option>
             {paperData.course == "Managment" ? (
               <>
-                <option value="Managment">MBA</option>
+                <option value="MBA">MBA</option>
+                <option value="BBA">BBA</option>
               </>
             ) : (
               <>
                 <option value="CSE(AI&ML)">CSE(AI&ML)</option>
                 <option value="CSE">CSE</option>
                 <option value="Bio Technology">Bio Technology</option>
+                <option value="Machanical">Machanical</option>
                 <option value="Civil">Civil</option>
               </>
             )}

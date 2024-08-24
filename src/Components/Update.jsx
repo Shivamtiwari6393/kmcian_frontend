@@ -48,8 +48,7 @@ export default function Upload() {
     updateData.append("year", uploadData.year);
     updateData.append("name", uploadData.name);
     updateData.append("downloadable", uploadData.downloadable),
-     
-    file&&updateData.append("updatedpdf", file)
+      file && updateData.append("updatedpdf", file);
 
     console.log(updateData, file, "file--------------");
 
@@ -129,11 +128,15 @@ export default function Upload() {
               <>
                 <option value="CSE(AI&ML)">CSE(AI&ML)</option>
                 <option value="CSE">CSE</option>
+                <option value="Machanical">Machanical</option>
                 <option value="Bio Technology">Bio technology</option>
                 <option value="Civil">Civil</option>
               </>
             ) : (
-              <option value="MBA">MBA</option>
+              <>
+                <option value="MBA">MBA</option>
+                <option value="BBA">BBA</option>
+              </>
             )}
           </select>
 

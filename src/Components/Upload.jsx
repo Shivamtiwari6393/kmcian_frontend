@@ -130,11 +130,15 @@ export default function Upload() {
               <>
                 <option value="CSE(AI&ML)">CSE(AI&ML)</option>
                 <option value="CSE">CSE</option>
-                <option value="Bio Technology">Bio technology</option>
+                <option value="Bio Technology">Bio Technology</option>
+                <option value="Machanical">Machanical</option>
                 <option value="Civil">Civil</option>
               </>
             ) : (
-              <option value="MBA">MBA</option>
+              <>
+                <option value="MBA">MBA</option>
+                <option value="BBA">BBA</option>
+              </>
             )}
           </select>
 
