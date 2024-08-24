@@ -116,7 +116,8 @@ export default function Upload() {
               Course
             </option>
             <option value="Engineering">Engineering</option>
-            <option value="Managment">Managment</option>
+            <option value="Managment">Commerce</option>
+            <option value="Legal Studies">Legal Studies</option>
           </select>
           <select
             name="branch"
@@ -126,18 +127,35 @@ export default function Upload() {
             <option value="0" disabled>
               Branch
             </option>
-            {uploadData.course == "Engineering" ? (
+            {uploadData.course === "Managment" && (
+              <>
+                <option value="MBA">MBA</option>
+                <option value="MBA FA">MBA (FA)</option>
+                <option value="BBA">BBA</option>
+                <option value="B COM">B.COM</option>
+                <option value="B COM TT">B.COM (TT)</option>
+                <option value="M COM">M.COM</option>
+              </>
+            )}
+
+            {uploadData.course === "Engineering" && (
               <>
                 <option value="CSE(AI&ML)">CSE(AI&ML)</option>
+                <option value="CSE(AI&DS)">CSE(AI&DS)</option>
                 <option value="CSE">CSE</option>
                 <option value="Bio Technology">Bio Technology</option>
                 <option value="Machanical">Machanical</option>
                 <option value="Civil">Civil</option>
+                <option value="Mtech CSE(AI&ML)">M.Tech: CSE(AI&ML)</option>
+                <option value="Mtech Mechatronics">M.Tech: Mechatronics</option>
               </>
-            ) : (
+            )}
+
+            {uploadData.course === "Legal Studies" && (
               <>
-                <option value="MBA">MBA</option>
-                <option value="BBA">BBA</option>
+                <option value="LLM">LLM</option>
+                <option value="BA LLB">BA LLB</option>
+                <option value="LLB">LLB</option>
               </>
             )}
           </select>
@@ -158,6 +176,12 @@ export default function Upload() {
             <option value="6">6</option>
             <option value="7">7</option>
             <option value="8">8</option>
+            {uploadData.branch == "BA LLB" && (
+              <>
+                <option value="7">9</option>
+                <option value="8">10</option>
+              </>
+            )}
           </select>
 
           <select
