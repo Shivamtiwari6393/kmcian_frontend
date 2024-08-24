@@ -1,13 +1,15 @@
-import React from "react";
+/* eslint-disable react-refresh/only-export-components */
+import React,{lazy} from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
-import Upload from "./Components/Upload.jsx";
-import Card from "./Components/Card.jsx";
-import Discussion from "./Components/Discussion.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Papers from "./Components/Papers.jsx";
-import Update from "./Components/Update.jsx"
+// eslint-disable-next-line react-refresh/only-export-components
+import Card from "./Components/Card.jsx";
+const Upload = lazy(()=> import( "./Components/Upload.jsx"));
+const Discussion =  lazy(()=> import("./Components/Discussion.jsx"))
+const Papers  = lazy(() => import("./Components/Papers.jsx"))
+const Update = lazy(()=> import("./Components/Update.jsx"))
 
 const route = createBrowserRouter([
   {
