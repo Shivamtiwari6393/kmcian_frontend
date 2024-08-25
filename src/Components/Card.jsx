@@ -151,7 +151,7 @@ export default function Card() {
             </option>
             <option value="All">All</option>
 
-            {paperData.course === "Managment" && (
+            {paperData.course === "Commerce" && (
               <>
                 <option value="MBA">MBA</option>
                 <option value="MBA FA">MBA (FA)</option>
