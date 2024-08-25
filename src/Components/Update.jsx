@@ -5,7 +5,7 @@ import Loading from "./Loading";
 import { useLocation } from "react-router-dom";
 export default function Upload() {
   const location = useLocation();
-  const { id, branch, course, paper, semester, year, name, downloadable } =
+  const { id, branch, course, paper, semester, year, name, downloadable,createdAt, updatedAt } =
     location.state;
 
   const [uploadData, setUploadData] = useState({
@@ -16,7 +16,10 @@ export default function Upload() {
     name: name,
     year: year,
     downloadable: downloadable,
+    createdAt: createdAt,
+    updatedAt: updatedAt
   });
+
 
   const [file, setFile] = useState(null);
 
@@ -31,7 +34,6 @@ export default function Upload() {
   const handleDataChange = (e) => {
     setError("");
     setUploadData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(uploadData);
   };
 
   // const url = "http://127.0.0.1:8000";
@@ -67,9 +69,6 @@ export default function Upload() {
           setError("Congrats! Paper updated Successfully");
         }
       })
-      .then((data) => {
-        console.log(data);
-      })
       .catch((e) => {
         setError(e.message);
       })
@@ -77,6 +76,7 @@ export default function Upload() {
   };
 
   const handleDelete = (e) => {
+    setIsLoading(true)
     fetch(`${url}/api/paper/delete/${id}`, {
       method: "DELETE",
     })
@@ -88,8 +88,7 @@ export default function Upload() {
       })
       .catch((e) => {
         setError(e.message);
-        console.log(e);
-      });
+      }).finally(()=> setIsLoading(false))
   };
 
   return (
@@ -242,6 +241,29 @@ export default function Upload() {
             />
           </div>
         </fieldset>
+
+
+
+        <fieldset>
+          <legend>CreatedAt</legend>
+          <div className="name">
+              <p>{uploadData.createdAt}</p>
+          </div>
+        </fieldset>
+
+        
+        <fieldset>
+          <legend>UpdatedAt</legend>
+          <div className="name">
+              <p>{uploadData.updatedAt}</p>
+          </div>
+        </fieldset>
+
+
+
+
+
+
         <button onClick={update}>Update</button>
         <button
           id="delete-button"

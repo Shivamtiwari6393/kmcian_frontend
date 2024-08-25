@@ -15,9 +15,12 @@ export default function Papers() {
 
   // ---------------Handle file download----------------------------
 
+
   const handleDownload = async (e) => {
     const selectedPaper = JSON.parse(e.currentTarget.dataset.value);
-
+    
+    const encodedCourse = encodeURIComponent(selectedPaper.course)
+    const encodedYear = encodeURIComponent(selectedPaper.year)
     const encodedBranch = encodeURIComponent(selectedPaper.branch);
     const encodedPaper = encodeURIComponent(selectedPaper.paper);
 
@@ -28,7 +31,7 @@ export default function Papers() {
       const url = "https://kmcianbackend.vercel.app";
 
       const response = await fetch(
-        `${url}/api/paper/download?paper=${encodedPaper}&branch=${encodedBranch}&semester=${selectedPaper.semester}`
+        `${url}/api/paper/download?course=${encodedCourse}&year=${encodedYear}&paper=${encodedPaper}&branch=${encodedBranch}&semester=${selectedPaper.semester}`
       );
 
       if (!response.ok) {
@@ -108,7 +111,7 @@ export default function Papers() {
 
           <div className="download">
             <button
-              data-value={`{"branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}"}`}
+              data-value={`{"course":"${element.course}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}", "year": "${element.year}"}`}
               onClick={handleDownload}
             >
               Download
@@ -118,7 +121,7 @@ export default function Papers() {
               id="update-button"
               className="o"
               onClick={handleUpdate}
-              data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}", "downloadable": "${element.downloadable}"}`}
+              data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}", "downloadable": "${element.downloadable}", "createdAt": "${element.createdAt}", "updatedAt": "${element.updatedAt}"}`}
             >
               Update
             </button>

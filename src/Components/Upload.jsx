@@ -3,6 +3,7 @@ import { useState } from "react";
 import uploadcss from "../Styles/Upload.module.css";
 import Loading from "./Loading";
 export default function Upload() {
+  //--------------- state for data to be uploaded---------------------
   const [uploadData, setUploadData] = useState({
     course: 0,
     branch: 0,
@@ -12,24 +13,31 @@ export default function Upload() {
     year: 0,
   });
 
+  //------------- state for pdf file to be uploaded------------
   const [file, setFile] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
 
   const [error, setError] = useState("");
 
+  // -----------handle file change-------------
+
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
+  //------------- handle data change-----------
+
   const handleDataChange = (e) => {
     setError("");
     setUploadData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(uploadData);
   };
 
   const upload = () => {
     setError("");
+
+    // validating input fields
+
     if (uploadData.course == 0) {
       setError("Please select a Course");
       return;
@@ -49,8 +57,12 @@ export default function Upload() {
       return;
     }
 
+    //----------- API---------------
+
     // const url = "http://127.0.0.1:8000";
     const url = "https://kmcianbackend.vercel.app";
+
+    //------------------- form data-------------
 
     const formData = new FormData();
     formData.append("course", uploadData.course);
@@ -61,16 +73,9 @@ export default function Upload() {
     formData.append("name", uploadData.name);
     formData.append("pdf", file);
 
-    console.log(
-      upload.course,
-      uploadData.branch,
-      uploadData.paper,
-      uploadData.semester,
-      uploadData.year,
-      file
-    );
-
     setIsLoading(true);
+
+    //------------- POST DATA---------------
 
     fetch(`${url}/api/paper/upload`, {
       method: "POST",
@@ -87,14 +92,13 @@ export default function Upload() {
           setError("Congrats! Paper uploaded Successfully");
         }
       })
-      .then((data) => {
-        console.log(data);
-      })
       .catch((e) => {
         setError(e.message);
       })
       .finally(() => setIsLoading(false));
   };
+
+  // ------------------------------------------------------------
 
   return (
     <>
@@ -116,7 +120,7 @@ export default function Upload() {
               Course
             </option>
             <option value="Engineering">Engineering</option>
-            <option value="Managment">Commerce</option>
+            <option value="Commerce">Commerce</option>
             <option value="Legal Studies">Legal Studies</option>
           </select>
           <select
@@ -127,7 +131,7 @@ export default function Upload() {
             <option value="0" disabled>
               Branch
             </option>
-            {uploadData.course === "Managment" && (
+            {uploadData.course === "Commerce" && (
               <>
                 <option value="MBA">MBA</option>
                 <option value="MBA FA">MBA (FA)</option>

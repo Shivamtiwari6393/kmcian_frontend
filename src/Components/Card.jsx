@@ -7,6 +7,8 @@ import Loading from "./Loading";
 export default function Card() {
   const navigate = useNavigate();
 
+  
+
   const [paperData, setPaperData] = useState({
     course: 0,
     branch: 0,
@@ -134,7 +136,7 @@ export default function Card() {
               Faculty
             </option>
             <option value="Engineering">Engineering</option>
-            <option value="Managment">Managment</option>
+            <option value="Commerce">Commerce</option>
             <option value="Legal Studies">Legal Studies</option>
           </select>
           <select
