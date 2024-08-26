@@ -1,10 +1,11 @@
 .loading-container {
-  position: absolute;
+  position: fixed;
   background-color: rgba(255, 255, 255, 0.777);
   top: 0px;
   bottom: 0px;
   right: 0px;
   left: 0px;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
