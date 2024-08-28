@@ -258,12 +258,7 @@ export default function Upload() {
               <p>{uploadData.updatedAt}</p>
           </div>
         </fieldset>
-
-
-
-
-
-
+        
         <button onClick={update}>Update</button>
         <button
           id="delete-button"

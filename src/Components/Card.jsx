@@ -4,7 +4,7 @@ import "../Styles/Card.css";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import CustomSelect from "./CustomSelect";
-import "../Styles/CustomSelect.css"
+import "../Styles/CustomSelect.css";
 
 export default function Card() {
   const navigate = useNavigate();
@@ -31,6 +31,14 @@ export default function Card() {
       [name]: value,
     }));
   };
+
+  const handleAdminChange = (e)=>{
+    setError("");
+    setPaperData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }));
+  }
 
   // ---------------paper data fetch request----------------------
 
@@ -122,9 +130,6 @@ export default function Card() {
     // { value: "Social Science", label: "Social Science" },
     // { value: "Art and Humanities", label: "Arts & Humanities" },
     { value: "Pharmacy", label: "Pharmacy" },
-
-
-
   ];
 
   const engineeringBranchOptions = [
@@ -155,11 +160,9 @@ export default function Card() {
     { value: "LLB", label: "LLB" },
   ];
 
-
-// science options
+  // science options
 
   const scienceBranchOptions = [
-
     { value: "All", label: "All" },
     { value: "MCA", label: "MCA" },
     { value: "BCA", label: "BCA" },
@@ -175,20 +178,15 @@ export default function Card() {
     { value: "BA_HM", label: "BA Home Science" },
     { value: "MA_HM", label: "MA Home Science" },
     { value: "B_LIB", label: "B.lib." },
-
-  ]
-
+  ];
 
   // pharmacy options
 
-const pharmacyBranchOptions = [
-  { value: "All", label: "All" },
-  { value: "B_PHARM", label: "B.Pharm" },
-  { value: "D_PHARM", label: "D.Pharm" },
-]
-
-
-
+  const pharmacyBranchOptions = [
+    { value: "All", label: "All" },
+    { value: "B_PHARM", label: "B.Pharm" },
+    { value: "D_PHARM", label: "D.Pharm" },
+  ];
 
   const semesterOptions = [
     { value: "All", label: "All" },
@@ -213,17 +211,21 @@ const pharmacyBranchOptions = [
     { value: "2025", label: "2025" },
   ];
 
-  let branchOptions = [
-  ]
+  let branchOptions = [];
 
-  paperData.course === "Engineering" ? branchOptions = engineeringBranchOptions: "";
-  paperData.course === "Commerce" ? branchOptions = commerceBranchOptions: "";
-  paperData.course === "Legal Studies" ? branchOptions = legalStudiesBranchOptions: "";
-  paperData.course === "Science" ? branchOptions = scienceBranchOptions: "";
-  paperData.course === "Pharmacy" ? branchOptions = pharmacyBranchOptions: "";
-
-
-
+  paperData.course === "Engineering"
+    ? (branchOptions = engineeringBranchOptions)
+    : "";
+  paperData.course === "Commerce"
+    ? (branchOptions = commerceBranchOptions)
+    : "";
+  paperData.course === "Legal Studies"
+    ? (branchOptions = legalStudiesBranchOptions)
+    : "";
+  paperData.course === "Science" ? (branchOptions = scienceBranchOptions) : "";
+  paperData.course === "Pharmacy"
+    ? (branchOptions = pharmacyBranchOptions)
+    : "";
 
   return (
     <>
@@ -264,7 +266,7 @@ const pharmacyBranchOptions = [
             name="downloadable"
             id="downloadable"
             value={paperData.downloadable}
-            onChange={handleChange}
+            onChange={handleAdminChange}
             required
             style={{
               display: "none",
@@ -280,6 +282,7 @@ const pharmacyBranchOptions = [
           <div id="button">
             <button onClick={request}>Go</button>
           </div>
+          <div onClick={verify} className="admin"></div>
         </div>
       </div>
     </>

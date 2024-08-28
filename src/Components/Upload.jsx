@@ -2,6 +2,7 @@
 import { useState } from "react";
 import uploadcss from "../Styles/Upload.module.css";
 import Loading from "./Loading";
+import CustomSelect from "./CustomSelect";
 export default function Upload() {
   //--------------- state for data to be uploaded---------------------
   const [uploadData, setUploadData] = useState({
@@ -28,9 +29,14 @@ export default function Upload() {
 
   //------------- handle data change-----------
 
-  const handleDataChange = (e) => {
+  const handleDataChange = (name, value) => {
     setError("");
-    setUploadData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setUploadData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleInputChange = (e) => {
+    setError("");
+    setUploadData((prev) => ({ ...prev, [e.target.name]: e.targetvalue }));
   };
 
   const upload = () => {
@@ -98,6 +104,108 @@ export default function Upload() {
       .finally(() => setIsLoading(false));
   };
 
+  // Options for select inputs
+  const courseOptions = [
+    { value: "Engineering", label: "Engineering" },
+    { value: "Commerce", label: "Commerce" },
+    { value: "Legal Studies", label: "Legal Studies" },
+    { value: "Science", label: "Science" },
+    // { value: "Social Science", label: "Social Science" },
+    // { value: "Art and Humanities", label: "Arts & Humanities" },
+    { value: "Pharmacy", label: "Pharmacy" },
+  ];
+
+  const engineeringBranchOptions = [
+    { value: "All", label: "All" },
+    { value: "CSE(AI&ML)", label: "CSE(AI&ML)" },
+    { value: "CSE(AI&DS)", label: "CSE(AI&DS)" },
+    { value: "CSE", label: "CSE" },
+    { value: "BIO_TECHNOLOGY", label: "Bio Technology" },
+    { value: "CIVIL", label: "Civil" },
+    { value: "MACHANICAL", label: "Machanical" },
+    { value: "M_TECH_CSE(AI&ML)", label: "M.Tech - CSE(AI&ML)" },
+  ];
+
+  const commerceBranchOptions = [
+    { value: "All", label: "All" },
+    { value: "BBA", label: "BBA" },
+    { value: "MBA", label: "MBA" },
+    { value: "MBA_FA", label: "MBA(FA)" },
+    { value: "B_COM", label: "B.COM" },
+    { value: "B_COM_TT", label: "B.COM(TT)" },
+    { value: "M_COM", label: "M.COM" },
+  ];
+
+  const legalStudiesBranchOptions = [
+    { value: "All", label: "All" },
+    { value: "LLM", label: "LLM" },
+    { value: "BA_LLB", label: "BA LLB" },
+    { value: "LLB", label: "LLB" },
+  ];
+
+  // science options
+
+  const scienceBranchOptions = [
+    { value: "MCA", label: "MCA" },
+    { value: "BCA", label: "BCA" },
+    { value: "BSc_PHYSICS", label: "B.Sc Physics" },
+    { value: "BSc_CHEMISTRY", label: "B.Sc Chemistry" },
+    { value: "BSc_MATHEMATICS", label: "B.Sc Mathematics" },
+    { value: "BSc_CS", label: "B.Sc Computer Science" },
+    { value: "BSc_BIOTECHNOLOGY", label: "B.Sc Biotechnology" },
+    { value: "BSc_ZOOLOGY", label: "B.Sc Zoology" },
+    { value: "BSc_BOTANY", label: "B.Sc Botany" },
+    { value: "BSc_MICROBIOLOGY", label: "B.Sc Microbiology" },
+    { value: "BSc_STATISTICS", label: "B.Sc Statistics" },
+    { value: "BA_HM", label: "BA Home Science" },
+    { value: "MA_HM", label: "MA Home Science" },
+    { value: "B_LIB", label: "B.lib." },
+  ];
+
+  // pharmacy options
+
+  const pharmacyBranchOptions = [
+    { value: "B_PHARM", label: "B.Pharm" },
+    { value: "D_PHARM", label: "D.Pharm" },
+  ];
+
+  const semesterOptions = [
+    { value: "1", label: "1" },
+    { value: "2", label: "2" },
+    { value: "3", label: "3" },
+    { value: "4", label: "4" },
+    { value: "5", label: "5" },
+    { value: "6", label: "6" },
+    { value: "7", label: "7" },
+    { value: "8", label: "8" },
+  ];
+
+  const yearOptions = [
+    { value: "2019", label: "2019" },
+    { value: "2020", label: "2020" },
+    { value: "2021", label: "2021" },
+    { value: "2022", label: "2022" },
+    { value: "2023", label: "2023" },
+    { value: "2024", label: "2024" },
+    { value: "2025", label: "2025" },
+  ];
+
+  let branchOptions = [];
+
+  uploadData.course === "Engineering"
+    ? (branchOptions = engineeringBranchOptions)
+    : "";
+  uploadData.course === "Commerce"
+    ? (branchOptions = commerceBranchOptions)
+    : "";
+  uploadData.course === "Legal Studies"
+    ? (branchOptions = legalStudiesBranchOptions)
+    : "";
+  uploadData.course === "Science" ? (branchOptions = scienceBranchOptions) : "";
+  uploadData.course === "Pharmacy"
+    ? (branchOptions = pharmacyBranchOptions)
+    : "";
+
   // ------------------------------------------------------------
 
   return (
@@ -110,7 +218,7 @@ export default function Upload() {
             <p>{error}</p>{" "}
           </div>
         )}
-        <div className={uploadcss["content"]}>
+        {/* <div className={uploadcss["content"]}>
           <select
             name="course"
             value={uploadData.course}
@@ -204,7 +312,32 @@ export default function Upload() {
             <option value="2024">2024</option>
             <option value="2025">2025</option>
           </select>
-        </div>
+        </div> */}
+
+        <CustomSelect
+          options={courseOptions}
+          value={uploadData.course}
+          onChange={(value) => handleDataChange("course", value)}
+          placeholder="Faculty"
+        />
+        <CustomSelect
+          options={branchOptions}
+          value={uploadData.branch}
+          onChange={(value) => handleDataChange("branch", value)}
+          placeholder="Branch"
+        />
+        <CustomSelect
+          options={semesterOptions}
+          value={uploadData.semester}
+          onChange={(value) => handleDataChange("semester", value)}
+          placeholder="Semester"
+        />
+        <CustomSelect
+          options={yearOptions}
+          value={uploadData.year}
+          onChange={(value) => handleDataChange("year", value)}
+          placeholder="Year"
+        />
 
         <fieldset>
           <legend>Paper Name</legend>
@@ -214,7 +347,7 @@ export default function Upload() {
               name="paper"
               placeholder="Enter Paper Name"
               value={uploadData.paper}
-              onChange={handleDataChange}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -239,7 +372,7 @@ export default function Upload() {
               name="name"
               placeholder="Enter Your Name"
               value={uploadData.name}
-              onChange={handleDataChange}
+              onChange={handleInputChange}
               required
             />
           </div>

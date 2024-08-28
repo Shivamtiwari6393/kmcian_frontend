@@ -85,11 +85,11 @@ button:hover {
   .upload input {
     font-size: x-small;
     padding: 5px;
-    margin: 0px;
+    margin-top: 0px;
   }
 
   .upload fieldset {
-    margin: 5px;
+    margin-top: 10px;
     font-size: small;
   }
 
