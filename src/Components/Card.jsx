@@ -228,7 +228,7 @@ const pharmacyBranchOptions = [
     <>
       {isLoading && <Loading></Loading>}
       <div id="card">
-        <div id="content" onDoubleClick={verify}>
+        <div id="content">
           {error && (
             <div className="error-container">
               <p>{error}</p>
