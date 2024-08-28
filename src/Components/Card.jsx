@@ -240,32 +240,28 @@ export default function Card() {
 
           <CustomSelect
             options={courseOptions}
-            value={paperData.course}
             onChange={(value) => handleChange("course", value)}
             placeholder="Faculty"
           />
           <CustomSelect
             options={branchOptions}
-            value={paperData.branch}
             onChange={(value) => handleChange("branch", value)}
             placeholder="Branch"
           />
           <CustomSelect
             options={semesterOptions}
-            value={paperData.semester}
             onChange={(value) => handleChange("semester", value)}
             placeholder="Semester"
           />
           <CustomSelect
             options={yearOptions}
-            value={paperData.year}
             onChange={(value) => handleChange("year", value)}
             placeholder="Year"
           />
           <select
             name="downloadable"
-            id="downloadable"
             value={paperData.downloadable}
+            id="downloadable"
             onChange={handleAdminChange}
             required
             style={{

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 
-const CustomSelect = ({ options,onChange, placeholder}) => {
+const CustomSelect = ({ options, onChange, placeholder }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -17,17 +17,19 @@ const CustomSelect = ({ options,onChange, placeholder}) => {
         {selectedOption ? selectedOption.label : placeholder}
       </div>
       {isOpen && (
-        <div className="select-options">
-          {options.map((option) => (
-            <div
-              key={option.value}
-              className="option"
-              onClick={() => handleSelect(option)}
-            >
-              {option.label}
-            </div>
-          ))}
-        </div>
+        <>
+          <div className="select-options">
+            {options.map((option) => (
+              <div
+                key={option.value}
+                className="option"
+                onClick={() => handleSelect(option)}
+              >
+                {option.label}
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

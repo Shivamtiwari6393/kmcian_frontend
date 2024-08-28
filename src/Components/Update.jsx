@@ -3,12 +3,13 @@ import { useState } from "react";
 import uploadcss from "../Styles/Upload.module.css";
 import Loading from "./Loading";
 import { useLocation } from "react-router-dom";
+import CustomSelect from "./CustomSelect";
 export default function Upload() {
   const location = useLocation();
   const { id, branch, course, paper, semester, year, name, downloadable,createdAt, updatedAt } =
     location.state;
 
-  const [uploadData, setUploadData] = useState({
+  const [updateData, setUpdateData] = useState({
     course: course,
     branch: branch,
     semester: semester,
@@ -19,6 +20,11 @@ export default function Upload() {
     createdAt: createdAt,
     updatedAt: updatedAt
   });
+
+  console.log(location.state);
+  console.log(updateData.course,"upoload");
+  
+  
 
 
   const [file, setFile] = useState(null);
@@ -31,37 +37,73 @@ export default function Upload() {
     setFile(e.target.files[0]);
   };
 
-  const handleDataChange = (e) => {
+  const handleInputChange = (e)=>{
     setError("");
-    setUploadData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setUpdateData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  }
+
+  const handleDataChange = (name,value) => {
+    setError("");
+    setUpdateData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // const url = "http://127.0.0.1:8000";
-  const url = "https://kmcianbackend.vercel.app";
+  const url = "http://127.0.0.1:8000";
+  // const url = "https://kmcianbackend.vercel.app";
 
   const update = () => {
     setError("");
 
-    const updateData = new FormData();
-    updateData.append("course", uploadData.course);
-    updateData.append("branch", uploadData.branch);
-    updateData.append("paper", uploadData.paper);
-    updateData.append("semester", uploadData.semester);
-    updateData.append("year", uploadData.year);
-    updateData.append("name", uploadData.name);
-    updateData.append("downloadable", uploadData.downloadable),
-      file && updateData.append("updatedpdf", file);
+
+    const updatedData = new FormData();
+    updatedData.append("course", updateData.course);
+    updatedData.append("branch", updateData.branch);
+    updatedData.append("paper", updateData.paper);
+    updatedData.append("semester", updateData.semester);
+    updatedData.append("year", updateData.year);
+    updatedData.append("name", updateData.name);
+    updatedData.append("downloadable", updateData.downloadable),
+      file && updatedData.append("updatedpdf", file);
+
+
+
+      if(updateData.course != location.state.course){
+        alert("Paper can be created only")
+        setIsLoading(true)
+
+        fetch(`${url}/api/paper/upload`, {
+          method: "POST",
+          body: updatedData,
+        })
+          .then((response) => {
+            if (!response.ok) {
+              return response.json().then((data) => {
+                throw new Error(data.error || "An error occurred");
+              });
+            }
+    
+            if (response.status == 201) {
+              setError("Congrats! Paper uploaded Successfully");
+            }
+          })
+          .catch((e) => {
+            setError(e.message);
+          })
+          .finally(() => setIsLoading(false));
+
+          return
+    
+      }
+
 
     setIsLoading(true);
-
     fetch(`${url}/api/paper/update/${id}`, {
       method: "PUT",
-      body: updateData,
+      body: updatedData,
     })
       .then((response) => {
         if (!response.ok) {
           return response.json().then((data) => {
-            throw new Error(data.error || "An error occurred");
+            throw new Error(data.message || "An error occurred");
           });
         }
 
@@ -77,7 +119,7 @@ export default function Upload() {
 
   const handleDelete = (e) => {
     setIsLoading(true)
-    fetch(`${url}/api/paper/delete/${id}`, {
+    fetch(`${url}/api/paper/delete/${course}/${id}`, {
       method: "DELETE",
     })
       .then((res) => {
@@ -91,6 +133,106 @@ export default function Upload() {
       }).finally(()=> setIsLoading(false))
   };
 
+    // Options for select inputs
+    const courseOptions = [
+      { value: "Engineering", label: "Engineering" },
+      { value: "Commerce", label: "Commerce" },
+      { value: "Legal Studies", label: "Legal Studies" },
+      { value: "Science", label: "Science" },
+      // { value: "Social Science", label: "Social Science" },
+      // { value: "Art and Humanities", label: "Arts & Humanities" },
+      { value: "Pharmacy", label: "Pharmacy" },
+    ];
+  
+    const engineeringBranchOptions = [
+      { value: "CSE(AI&ML)", label: "CSE(AI&ML)" },
+      { value: "CSE(AI&DS)", label: "CSE(AI&DS)" },
+      { value: "CSE", label: "CSE" },
+      { value: "BIO_TECHNOLOGY", label: "Bio Technology" },
+      { value: "CIVIL", label: "Civil" },
+      { value: "MACHANICAL", label: "Machanical" },
+      { value: "M_TECH_CSE(AI&ML)", label: "M.Tech - CSE(AI&ML)" },
+    ];
+  
+    const commerceBranchOptions = [
+      { value: "BBA", label: "BBA" },
+      { value: "MBA", label: "MBA" },
+      { value: "MBA_FA", label: "MBA(FA)" },
+      { value: "B_COM", label: "B.COM" },
+      { value: "B_COM_TT", label: "B.COM(TT)" },
+      { value: "M_COM", label: "M.COM" },
+    ];
+  
+    const legalStudiesBranchOptions = [
+      { value: "LLM", label: "LLM" },
+      { value: "BA_LLB", label: "BA LLB" },
+      { value: "LLB", label: "LLB" },
+    ];
+  
+    // science options
+  
+    const scienceBranchOptions = [
+      { value: "MCA", label: "MCA" },
+      { value: "BCA", label: "BCA" },
+      { value: "BSc_PHYSICS", label: "B.Sc Physics" },
+      { value: "BSc_CHEMISTRY", label: "B.Sc Chemistry" },
+      { value: "BSc_MATHEMATICS", label: "B.Sc Mathematics" },
+      { value: "BSc_CS", label: "B.Sc Computer Science" },
+      { value: "BSc_BIOTECHNOLOGY", label: "B.Sc Biotechnology" },
+      { value: "BSc_ZOOLOGY", label: "B.Sc Zoology" },
+      { value: "BSc_BOTANY", label: "B.Sc Botany" },
+      { value: "BSc_MICROBIOLOGY", label: "B.Sc Microbiology" },
+      { value: "BSc_STATISTICS", label: "B.Sc Statistics" },
+      { value: "BA_HM", label: "BA Home Science" },
+      { value: "MA_HM", label: "MA Home Science" },
+      { value: "B_LIB", label: "B.lib." },
+    ];
+  
+    // pharmacy options
+  
+    const pharmacyBranchOptions = [
+      { value: "B_PHARM", label: "B.Pharm" },
+      { value: "D_PHARM", label: "D.Pharm" },
+    ];
+  
+    const semesterOptions = [
+      { value: "1", label: "1" },
+      { value: "2", label: "2" },
+      { value: "3", label: "3" },
+      { value: "4", label: "4" },
+      { value: "5", label: "5" },
+      { value: "6", label: "6" },
+      { value: "7", label: "7" },
+      { value: "8", label: "8" },
+    ];
+  
+    const yearOptions = [
+      { value: "2019", label: "2019" },
+      { value: "2020", label: "2020" },
+      { value: "2021", label: "2021" },
+      { value: "2022", label: "2022" },
+      { value: "2023", label: "2023" },
+      { value: "2024", label: "2024" },
+      { value: "2025", label: "2025" },
+    ];
+  
+    let branchOptions = [];
+  
+    updateData.course === "Engineering"
+      ? (branchOptions = engineeringBranchOptions)
+      : "";
+    updateData.course === "Commerce"
+      ? (branchOptions = commerceBranchOptions)
+      : "";
+    updateData.course === "Legal Studies"
+      ? (branchOptions = legalStudiesBranchOptions)
+      : "";
+    updateData.course === "Science" ? (branchOptions = scienceBranchOptions) : "";
+    updateData.course === "Pharmacy"
+      ? (branchOptions = pharmacyBranchOptions)
+      : "";
+  
+
   return (
     <>
       {isLoading && <Loading></Loading>}
@@ -103,97 +245,9 @@ export default function Upload() {
         )}
         <div className={uploadcss["content"]}>
           <select
-            name="course"
-            value={uploadData.course}
-            onChange={handleDataChange}
-          >
-            <option value="0" disabled>
-              Course
-            </option>
-            <option value="Engineering">Engineering</option>
-            <option value="Commerce">Commerce</option>
-            <option value="Legal Studies">Legal Studies</option>
-          </select>
-          <select
-            name="branch"
-            value={uploadData.branch}
-            onChange={handleDataChange}
-          >
-            <option value="0" disabled>
-              Branch
-            </option>
-            {uploadData.course === "Commerce" && (
-              <>
-                <option value="MBA">MBA</option>
-                <option value="MBA FA">MBA (FA)</option>
-                <option value="BBA">BBA</option>
-                <option value="B COM">B.COM</option>
-                <option value="B COM TT">B.COM (TT)</option>
-                <option value="M COM">M.COM</option>
-              </>
-            )}
-
-            {uploadData.course === "Engineering" && (
-              <>
-                <option value="CSE(AI&ML)">CSE(AI&ML)</option>
-                <option value="CSE(AI&DS)">CSE(AI&DS)</option>
-                <option value="CSE">CSE</option>
-                <option value="Bio Technology">Bio Technology</option>
-                <option value="Machanical">Machanical</option>
-                <option value="Civil">Civil</option>
-                <option value="Mtech CSE(AI&ML)">M.Tech: CSE(AI&ML)</option>
-                <option value="Mtech Mechatronics">M.Tech: Mechatronics</option>
-              </>
-            )}
-
-            {uploadData.course === "Legal Studies" && (
-              <>
-                <option value="LLM">LLM</option>
-                <option value="BA LLB">BA LLB</option>
-                <option value="LLB">LLB</option>
-              </>
-            )}
-          </select>
-
-          <select
-            name="semester"
-            value={uploadData.semester}
-            onChange={handleDataChange}
-          >
-            <option value="0" disabled>
-              Semester
-            </option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-          </select>
-
-          <select
-            name="year"
-            value={uploadData.year}
-            onChange={handleDataChange}
-          >
-            <option value="0" disabled>
-              Paper-Year
-            </option>
-            <option value="2019">2019</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-          </select>
-
-          <select
             name="downloadable"
-            value={uploadData.downloadable}
-            onChange={handleDataChange}
+            value={updateData.downloadable}
+            onChange={handleInputChange}
           >
             <option value="0" disabled>
               Downloadable
@@ -203,6 +257,33 @@ export default function Upload() {
           </select>
         </div>
 
+
+           {console.log(updateData.course)}
+        <CustomSelect
+          options={courseOptions}
+          value={updateData.course}
+          onChange={(value) => handleDataChange("course", value)}
+          placeholder={updateData.course}
+        />
+        <CustomSelect
+          options={branchOptions}
+          value={updateData.branch}
+          onChange={(value) => handleDataChange("branch", value)}
+          placeholder={updateData.branch}
+        />
+        <CustomSelect
+          options={semesterOptions}
+          value={updateData.semester}
+          onChange={(value) => handleDataChange("semester", value)}
+          placeholder={updateData.semester}
+        />
+        <CustomSelect
+          options={yearOptions}
+          value={updateData.year}
+          onChange={(value) => handleDataChange("year", value)}
+          placeholder={updateData.year}
+        />
+
         <fieldset>
           <legend>Paper Name</legend>
           <div className="name">
@@ -210,8 +291,8 @@ export default function Upload() {
               type="text"
               name="paper"
               placeholder="Enter Paper Name"
-              value={uploadData.paper}
-              onChange={handleDataChange}
+              value={updateData.paper}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -235,8 +316,8 @@ export default function Upload() {
               type="text"
               name="name"
               placeholder="Enter Your Name"
-              value={uploadData.name}
-              onChange={handleDataChange}
+              value={updateData.name}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -247,7 +328,7 @@ export default function Upload() {
         <fieldset>
           <legend>CreatedAt</legend>
           <div className="name">
-              <p>{uploadData.createdAt}</p>
+              <p>{updateData.createdAt}</p>
           </div>
         </fieldset>
 
@@ -255,10 +336,10 @@ export default function Upload() {
         <fieldset>
           <legend>UpdatedAt</legend>
           <div className="name">
-              <p>{uploadData.updatedAt}</p>
+              <p>{updateData.updatedAt}</p>
           </div>
         </fieldset>
-        
+
         <button onClick={update}>Update</button>
         <button
           id="delete-button"

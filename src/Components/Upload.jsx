@@ -116,7 +116,6 @@ export default function Upload() {
   ];
 
   const engineeringBranchOptions = [
-    { value: "All", label: "All" },
     { value: "CSE(AI&ML)", label: "CSE(AI&ML)" },
     { value: "CSE(AI&DS)", label: "CSE(AI&DS)" },
     { value: "CSE", label: "CSE" },
@@ -127,7 +126,6 @@ export default function Upload() {
   ];
 
   const commerceBranchOptions = [
-    { value: "All", label: "All" },
     { value: "BBA", label: "BBA" },
     { value: "MBA", label: "MBA" },
     { value: "MBA_FA", label: "MBA(FA)" },
@@ -137,7 +135,6 @@ export default function Upload() {
   ];
 
   const legalStudiesBranchOptions = [
-    { value: "All", label: "All" },
     { value: "LLM", label: "LLM" },
     { value: "BA_LLB", label: "BA LLB" },
     { value: "LLB", label: "LLB" },
@@ -316,25 +313,21 @@ export default function Upload() {
 
         <CustomSelect
           options={courseOptions}
-          value={uploadData.course}
           onChange={(value) => handleDataChange("course", value)}
           placeholder="Faculty"
         />
         <CustomSelect
           options={branchOptions}
-          value={uploadData.branch}
           onChange={(value) => handleDataChange("branch", value)}
           placeholder="Branch"
         />
         <CustomSelect
           options={semesterOptions}
-          value={uploadData.semester}
           onChange={(value) => handleDataChange("semester", value)}
           placeholder="Semester"
         />
         <CustomSelect
           options={yearOptions}
-          value={uploadData.year}
           onChange={(value) => handleDataChange("year", value)}
           placeholder="Year"
         />
