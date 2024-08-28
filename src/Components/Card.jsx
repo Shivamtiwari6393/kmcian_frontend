@@ -3,11 +3,11 @@ import { useState } from "react";
 import "../Styles/Card.css";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
+import CustomSelect from "./CustomSelect";
+import "../Styles/CustomSelect.css"
 
 export default function Card() {
   const navigate = useNavigate();
-
-  
 
   const [paperData, setPaperData] = useState({
     course: 0,
@@ -24,18 +24,17 @@ export default function Card() {
 
   //------------ Handle data change-------------------------
 
-  const handleChange = (e) => {
+  const handleChange = (name, value) => {
     setError("");
     setPaperData((prevData) => ({
       ...prevData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
 
   // ---------------paper data fetch request----------------------
 
   const request = () => {
-
     // Validating the fields
 
     if (paperData.course == 0) {
@@ -114,6 +113,117 @@ export default function Card() {
     });
   };
 
+  // Options for select inputs
+  const courseOptions = [
+    { value: "Engineering", label: "Engineering" },
+    { value: "Commerce", label: "Commerce" },
+    { value: "Legal Studies", label: "Legal Studies" },
+    { value: "Science", label: "Science" },
+    { value: "Pharmacy", label: "Pharmacy" },
+
+
+  ];
+
+  const engineeringBranchOptions = [
+    { value: "All", label: "All" },
+    { value: "CSE(AI&ML)", label: "CSE(AI&ML)" },
+    { value: "CSE(AI&DS)", label: "CSE(AI&DS)" },
+    { value: "CSE", label: "CSE" },
+    { value: "BIO_TECHNOLOGY", label: "Bio Technology" },
+    { value: "CIVIL", label: "Civil" },
+    { value: "MACHANICAL", label: "Machanical" },
+    { value: "M_TECH_CSE(AI&ML)", label: "M.Tech - CSE(AI&ML)" },
+  ];
+
+  const commerceBranchOptions = [
+    { value: "All", label: "All" },
+    { value: "BBA", label: "BBA" },
+    { value: "MBA", label: "MBA" },
+    { value: "MBA_FA", label: "MBA(FA)" },
+    { value: "B_COM", label: "B.COM" },
+    { value: "B_COM_TT", label: "B.COM(TT)" },
+    { value: "M_COM", label: "M.COM" },
+  ];
+
+  const legalStudiesBranchOptions = [
+    { value: "All", label: "All" },
+    { value: "LLM", label: "LLM" },
+    { value: "BA_LLB", label: "BA LLB" },
+    { value: "LLB", label: "LLB" },
+  ];
+
+
+// science options
+
+  const scienceBranchOptions = [
+
+    { value: "All", label: "All" },
+    { value: "MCA", label: "MCA" },
+    { value: "BCA", label: "BCA" },
+    { value: "BSc_PHYSICS", label: "B.Sc Physics" },
+    { value: "BSc_CHEMISTRY", label: "B.Sc Chemistry" },
+    { value: "BSc_MATHEMATICS", label: "B.Sc Mathematics" },
+    { value: "BSc_CS", label: "B.Sc Computer Science" },
+    { value: "BSc_BIOTECHNOLOGY", label: "B.Sc Biotechnology" },
+    { value: "BSc_ZOOLOGY", label: "B.Sc Zoology" },
+    { value: "BSc_BOTANY", label: "B.Sc Botany" },
+    { value: "BSc_MICROBIOLOGY", label: "B.Sc Microbiology" },
+    { value: "BSc_STATISTICS", label: "B.Sc Statistics" },
+    { value: "BA_HM", label: "BA Home Science" },
+    { value: "MA_HM", label: "MA Home Science" },
+    { value: "B_LIB", label: "B.lib." },
+
+  ]
+
+
+  // pharmacy options
+
+const pharmacyBranchOptions = [
+  { value: "All", label: "All" },
+  { value: "B_PHARM", label: "B.Pharm" },
+  { value: "D_PHARM", label: "D.Pharm" },
+]
+
+
+
+
+  const semesterOptions = [
+    { value: "All", label: "All" },
+    { value: "1", label: "1" },
+    { value: "2", label: "2" },
+    { value: "3", label: "3" },
+    { value: "4", label: "4" },
+    { value: "5", label: "5" },
+    { value: "6", label: "6" },
+    { value: "7", label: "7" },
+    { value: "8", label: "8" },
+  ];
+
+  const yearOptions = [
+    { value: "All", label: "All" },
+    { value: "2019", label: "2019" },
+    { value: "2020", label: "2020" },
+    { value: "2021", label: "2021" },
+    { value: "2022", label: "2022" },
+    { value: "2023", label: "2023" },
+    { value: "2024", label: "2024" },
+    { value: "2025", label: "2025" },
+  ];
+
+  let branchOptions = [
+    { value: "All", label: "All" },
+
+  ]
+
+  paperData.course === "Engineering" ? branchOptions = engineeringBranchOptions: "";
+  paperData.course === "Commerce" ? branchOptions = commerceBranchOptions: "";
+  paperData.course === "Legal Studies" ? branchOptions = legalStudiesBranchOptions: "";
+  paperData.course === "Science" ? branchOptions = scienceBranchOptions: "";
+  paperData.course === "Pharmacy" ? branchOptions = pharmacyBranchOptions: "";
+
+
+
+
   return (
     <>
       {isLoading && <Loading></Loading>}
@@ -125,112 +235,30 @@ export default function Card() {
             </div>
           )}
 
-          <select
-            name="course"
-            id="course"
+          <CustomSelect
+            options={courseOptions}
             value={paperData.course}
-            onChange={handleChange}
-            required
-          >
-            <option value="0" disabled>
-              Faculty
-            </option>
-            <option value="Engineering">Engineering</option>
-            <option value="Commerce">Commerce</option>
-            <option value="Legal Studies">Legal Studies</option>
-          </select>
-          <select
-            name="branch"
-            id="branch"
+            onChange={(value) => handleChange("course", value)}
+            placeholder="Faculty"
+          />
+          <CustomSelect
+            options={branchOptions}
             value={paperData.branch}
-            onChange={handleChange}
-            required
-          >
-            <option value="0" disabled>
-              Branch
-            </option>
-            <option value="All">All</option>
-
-            {paperData.course === "Commerce" && (
-              <>
-                <option value="MBA">MBA</option>
-                <option value="MBA FA">MBA (FA)</option>
-                <option value="BBA">BBA</option>
-                <option value="B COM">B.COM</option>
-                <option value="B COM TT">B.COM (TT)</option>
-                <option value="M COM">M.COM</option>
-              </>
-            )}
-
-            {paperData.course === "Engineering" && (
-              <>
-                <option value="CSE(AI&ML)">CSE(AI&ML)</option>
-                <option value="CSE(AI&DS)">CSE(AI&DS)</option>
-                <option value="CSE">CSE</option>
-                <option value="Bio Technology">Bio Technology</option>
-                <option value="Machanical">Machanical</option>
-                <option value="Civil">Civil</option>
-                <option value="Mtech CSE(AI&ML)">M.Tech: CSE(AI&ML)</option>
-                <option value="Mtech Mechatronics">M.Tech: Mechatronics</option>
-              </>
-            )}
-
-            {paperData.course === "Legal Studies" && (
-              <>
-                <option value="LLM">LLM</option>
-                <option value="BA LLB">BA LLB</option>
-                <option value="LLB">LLB</option>
-              </>
-            )}
-          </select>
-
-          <select
-            name="semester"
-            id="semester"
+            onChange={(value) => handleChange("branch", value)}
+            placeholder="Branch"
+          />
+          <CustomSelect
+            options={semesterOptions}
             value={paperData.semester}
-            onChange={handleChange}
-            required
-          >
-            <option value="0" disabled>
-              Semester
-            </option>
-            <option value="All">All</option>
-
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            {paperData.branch == "BA LLB" && (
-              <>
-                <option value="7">9</option>
-                <option value="8">10</option>
-              </>
-            )}
-          </select>
-          <select
-            name="year"
-            id="semester"
+            onChange={(value) => handleChange("semester", value)}
+            placeholder="Semester"
+          />
+          <CustomSelect
+            options={yearOptions}
             value={paperData.year}
-            onChange={handleChange}
-            required
-          >
-            <option value="0" disabled>
-              Year
-            </option>
-            <option value="All">All</option>
-            <option value="2019">2019</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-          </select>
-
+            onChange={(value) => handleChange("year", value)}
+            placeholder="Year"
+          />
           <select
             name="downloadable"
             id="downloadable"

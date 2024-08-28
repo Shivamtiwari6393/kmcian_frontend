@@ -4,6 +4,7 @@
   color: brown;
   font-size: xx-small;
   font-weight: 800;
+  margin-bottom: 10px;
 }
 
 #card {
@@ -25,24 +26,6 @@
 
 }
 
-#card select {
-  font-family: Georgia, "Times New Roman", Times, serif;
-  cursor: pointer;
-  font-weight: bold;
-  margin: 10px;
-  padding: 10px;
-  text-align: center;
-  border: none;
-  border-radius: 40px;
-  box-shadow: 0px 0px 6px rgb(195, 195, 195, 0.7);
-  transition-duration: 0.1s;
-}
-#card select:hover {
-  box-shadow: 1px 2px 3px 3px rgb(231, 231, 231);
-}
-#card option {
-  font-family: Georgia, "Times New Roman", Times, serif;
-}
 
 #card #button {
   margin-top: 5px;
@@ -62,6 +45,7 @@
   scale: 1.06;
   box-shadow: 0px 3px 2px rgb(195, 195, 195);
 }
+
 
 
 @media screen  and (max-width: 550px) {
