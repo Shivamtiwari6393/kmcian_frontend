@@ -119,7 +119,10 @@ export default function Card() {
     { value: "Commerce", label: "Commerce" },
     { value: "Legal Studies", label: "Legal Studies" },
     { value: "Science", label: "Science" },
+    // { value: "Social Science", label: "Social Science" },
+    // { value: "Art and Humanities", label: "Arts & Humanities" },
     { value: "Pharmacy", label: "Pharmacy" },
+
 
 
   ];
@@ -211,8 +214,6 @@ const pharmacyBranchOptions = [
   ];
 
   let branchOptions = [
-    { value: "All", label: "All" },
-
   ]
 
   paperData.course === "Engineering" ? branchOptions = engineeringBranchOptions: "";
