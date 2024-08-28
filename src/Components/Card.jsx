@@ -211,7 +211,7 @@ export default function Card() {
     { value: "2025", label: "2025" },
   ];
 
-  let branchOptions = [];
+  let branchOptions = [{value: "All", label: "All"}];
 
   paperData.course === "Engineering"
     ? (branchOptions = engineeringBranchOptions)
