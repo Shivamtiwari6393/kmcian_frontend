@@ -67,7 +67,8 @@ export default function Upload() {
 
 
       if(updateData.course != location.state.course){
-        alert("Paper can be created only")
+       const v =  confirm("Paper can be created only")
+       if(!v) return
         setIsLoading(true)
 
         fetch(`${url}/api/paper/upload`, {

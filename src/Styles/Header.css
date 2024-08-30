@@ -1,51 +1,70 @@
-#header {
-  margin: 2px;
+.header-container {
+  max-width: 97%;
+  margin: 5px auto;
   padding: 5px;
   user-select: none;
-  display: flex;
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  justify-content: center;
+  align-items: center;
   background-color: white;
-  height: 50px;
+  height: 45px;
   border: none;
-  font-weight: 500;
-  box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.203);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.203);
   border-radius: 40px;
+  background: linear-gradient(rgb(255, 180, 196),rgb(234, 166, 237));
+
 }
-#header a {
-  font-weight: 500;
-  padding: 4px;
-  color: rgb(47, 46, 46);
-  display: block;
+
+.logo img{
+  width: 30px;
+  margin-left: 10px;
+  margin-top: 2px;
+}
+
+
+.nav span {
+  margin-left: 20px;
+  position: relative;
+
+}
+
+
+.nav{
   margin-left: 30px;
-  margin-top: 5px;
-  text-decoration: none;
-}
-#header a:hover {
-  color: rgb(38, 162, 127);
-
-}
-#header img {
-  margin-left: 5px;
-  padding: 0px;
-}
-#header img:hover {
-  scale: 1.06;
+  display: flex;
+  justify-content: space-around;
+  max-width: 250px;
 }
 
-@media screen and (max-width: 450px) {
-  #header a {
-    font-size: small;
-    margin-left: 2vw;
+.nav span img {
+  width: 25px;
+  overflow: hidden;
+  
+}
+
+
+.active::after {
+  content: "";
+  position: absolute;
+  padding: 1px;
+  background-color: rgb(37, 42, 42);
+  left: -5px;
+  bottom: 0px;
+  width: 35px;
+  background: linear-gradient(left to right ,rgb(255, 0, 0), rgb(0, 0, 254));
+
+}
+
+
+@media (width <= 700px) {
+
+  .nav{
+    justify-content: flex-start;
   }
-}
 
-@media screen and (max-width: 295px) {
-  #header a {
-    font-size: x-small;
-    margin-left: 2vw;
+  .nav span{
+    margin-left: 30px;
   }
-
-  #header img {
-    padding: 5px;
-    margin-left: 0px;
-  }
+  
 }

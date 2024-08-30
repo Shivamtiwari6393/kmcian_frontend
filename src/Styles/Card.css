@@ -1,4 +1,4 @@
-.error-container{
+.error-container {
   display: flex;
   justify-content: center;
   color: rgb(12, 40, 105);
@@ -11,8 +11,6 @@
   user-select: none;
   display: flex;
   justify-content: center;
-
-  
 }
 #card #content {
   padding: 20px;
@@ -22,15 +20,12 @@
   border: none;
   border-radius: 40px;
   margin-top: 50px;
-  width: 50%;
+  width: 100%;
   max-width: 500px;
   background-color: rgb(255, 255, 255);
   box-shadow: 0px 0px 2px rgba(190, 190, 190, 0.7);
-  background: linear-gradient(rgba(127, 192, 190, 0.577),rgb(142, 98, 212));
-
-
+  background: linear-gradient(rgba(127, 192, 190, 0.577), rgb(142, 98, 212));
 }
-
 
 #card #button {
   margin-top: 5px;
@@ -45,38 +40,34 @@
   background-color: rgb(122, 242, 122);
   box-shadow: 1px 3px 0px rgb(73, 73, 73);
   transition-duration: 0.5s;
-
 }
 
-#button button:active{
+#button button:active {
   scale: 0.9;
 }
 
-.admin{
+.admin {
   width: 10px;
   height: 10px;
 }
 
-#downloadable{
+#downloadable {
   padding: 10px;
   text-align: center;
   font-weight: bold;
   border-radius: 20px;
   border: none;
   box-shadow: 0px 4px 5px rgb(195, 195, 195);
-
 }
 
-@media screen  and (max-width: 550px) {
-
-  #card #content{
-      width: 90%;
+@media screen and (max-width: 550px) {
+  #card #content {
+    width: 90%;
   }
 }
 
-@media screen  and (max-width: 240px) {
-
-  #card #content{
-      width: 100%;
+@media screen and (max-width: 240px) {
+  #card #content {
+    width: 98%;
   }
 }
