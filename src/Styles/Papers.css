@@ -1,6 +1,6 @@
 .papers {
   padding: 5px;
-  font-family:cursive;
+  font-family: cursive;
 }
 
 #cards .names {
@@ -13,9 +13,7 @@
   font-weight: bold;
   margin: 5px;
   background: linear-gradient(rgb(255, 255, 255), rgb(229, 229, 229));
-
 }
-
 
 .paperName p {
   width: 500px;
@@ -37,7 +35,7 @@
   overflow: hidden;
 }
 
-.papers .download{
+.papers .download {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,37 +53,32 @@
   border-radius: 20px;
   box-shadow: 0px 4px 5px rgb(195, 195, 195);
   max-width: 300px;
-
+  transition: all ease 0.5s;
 }
 
 
-.papers #update-button{
+
+.papers #update-button {
   display: none;
   background-color: rgb(84, 55, 50);
   max-width: 200px;
 }
 
 
-
-
 @media screen and (max-width: 1024px) {
-
- .papers {
+  .papers {
     margin: 0px 5px;
   }
 
-
-  
   #cards .names {
     flex-direction: column;
     margin: 20px auto;
     max-width: 700px;
     box-shadow: 0px 4px 2px rgb(195, 195, 195);
-
   }
 
-  #cards .names p {
-  }
+  /* #cards .names p {
+  } */
 
   .paperName {
     width: 90%;
@@ -132,7 +125,7 @@
     margin: 10px 0px;
   }
 
-  .year{
+  .year {
     width: 70%;
   }
 
@@ -146,7 +139,6 @@
     box-shadow: 0px 4px 5px rgb(195, 195, 195);
     margin: 10px 0px;
   }
-  
 
   .download {
     margin-top: 10px;
@@ -162,21 +154,19 @@
     width: 100%;
   }
 
-  .papers #update-button{
+  .papers #update-button {
     display: none;
     justify-content: center;
     width: 100%;
   }
-
 }
 
 @media screen and (max-width: 400px) {
   .papers {
-    font-size: small;
     margin: 0px 5px;
   }
 
-  #cards .names div p{
-    font-size: x-small;
+  #cards .names div p {
+    font-size: small;
   }
 }
