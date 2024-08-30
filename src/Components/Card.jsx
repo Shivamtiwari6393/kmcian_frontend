@@ -32,13 +32,13 @@ export default function Card() {
     }));
   };
 
-  const handleAdminChange = (e)=>{
+  const handleAdminChange = (e) => {
     setError("");
     setPaperData((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
     }));
-  }
+  };
 
   // ---------------paper data fetch request----------------------
 
@@ -211,7 +211,7 @@ export default function Card() {
     { value: "2025", label: "2025" },
   ];
 
-  let branchOptions = [{value: "All", label: "All"}];
+  let branchOptions = [{ value: "All", label: "All" }];
 
   paperData.course === "Engineering"
     ? (branchOptions = engineeringBranchOptions)

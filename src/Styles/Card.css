@@ -1,9 +1,9 @@
 .error-container{
   display: flex;
   justify-content: center;
-  color: brown;
-  font-size: xx-small;
-  font-weight: 800;
+  color: rgb(12, 40, 105);
+  font-size: small;
+  font-weight: bold;
   margin-bottom: 10px;
 }
 
@@ -11,6 +11,7 @@
   user-select: none;
   display: flex;
   justify-content: center;
+
   
 }
 #card #content {
@@ -25,6 +26,8 @@
   max-width: 500px;
   background-color: rgb(255, 255, 255);
   box-shadow: 0px 0px 2px rgba(190, 190, 190, 0.7);
+  background: linear-gradient(rgba(127, 192, 190, 0.577),rgb(142, 98, 212));
+
 
 }
 
@@ -35,17 +38,18 @@
   justify-content: center;
 }
 #button button {
+  font-weight: bold;
   padding: 20px;
   border: none;
   border-radius: 30px;
   background-color: rgb(122, 242, 122);
-  box-shadow: 0px 4px 5px rgb(195, 195, 195);
-  transition-duration: 0.1s;
+  box-shadow: 1px 3px 0px rgb(73, 73, 73);
+  transition-duration: 0.5s;
 
 }
-#button button:hover {
-  scale: 1.06;
-  box-shadow: 0px 3px 2px rgb(195, 195, 195);
+
+#button button:active{
+  scale: 0.9;
 }
 
 .admin{
