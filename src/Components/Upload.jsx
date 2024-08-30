@@ -58,6 +58,12 @@ export default function Upload() {
       setError("Please select a Semester");
       return;
     }
+
+    if (uploadData.year == 0) {
+      setError("Please select a Year");
+      return;
+    }
+
     if (!file) {
       setError("Please select a file");
       return;
