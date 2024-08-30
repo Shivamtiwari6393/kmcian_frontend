@@ -66,11 +66,14 @@
 }
 
 #downloadable {
+  width: 100%;
+  max-width: 400px;
   padding: 10px;
   text-align: center;
   font-weight: bold;
   border-radius: 20px;
   border: none;
+  margin: 5px auto;
   box-shadow: 0px 4px 5px rgb(195, 195, 195);
 }
 

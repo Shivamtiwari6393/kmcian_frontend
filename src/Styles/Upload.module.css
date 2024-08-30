@@ -58,7 +58,9 @@
 }
 
 .upload button {
-  font-weight: 700;
+  width: 100%;
+  max-width: 200px;
+  font-weight: bold;
   border-radius: 50px;
   padding: 15px;
   border: none;
@@ -85,7 +87,7 @@ button:hover {
   }
 
   .upload input {
-    font-size: x-small;
+    font-size: small;
     padding: 5px;
     margin-top: 0px;
   }
