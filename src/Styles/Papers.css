@@ -35,27 +35,23 @@
   overflow: hidden;
 }
 
-.papers .download {
+/* .papers .download-button-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-}
+} */
 
 .papers button {
-  width: 100%;
   border: none;
-  padding: 10px;
-  margin: 5px;
-  background-color: rgb(93, 131, 93);
-  color: white;
-  font-weight: bold;
-  border-radius: 20px;
-  box-shadow: 0px 4px 5px rgb(195, 195, 195);
-  max-width: 300px;
-  transition: all ease 0.5s;
+  min-width: 70px;
+  max-width: 200px;
 }
 
+.papers button img{
+
+
+} 
 
 
 .papers #update-button {
@@ -140,33 +136,32 @@
     margin: 10px 0px;
   }
 
-  .download {
+  .download-button-container {
     margin-top: 10px;
     width: 100%;
-    min-width: 150px;
-    max-width: 300px;
   }
 
-  .papers button {
+  /* .papers button {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-  }
+  } */
 
   .papers #update-button {
     display: none;
     justify-content: center;
     width: 100%;
+    color: white;
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (width <= 300px) {
   .papers {
     margin: 0px 5px;
   }
 
   #cards .names div p {
-    font-size: small;
+    font-size: x-small;
   }
 }

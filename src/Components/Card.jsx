@@ -6,6 +6,8 @@ import Loading from "./Loading";
 import CustomSelect from "./CustomSelect";
 import "../Styles/CustomSelect.css";
 
+import searchIcon from "../assets/search.png"
+
 export default function Card() {
   const navigate = useNavigate();
 
@@ -275,8 +277,8 @@ export default function Card() {
             <option value="false">False</option>
           </select>
 
-          <div id="button">
-            <button onClick={request}>Go</button>
+          <div id="download-button">
+            <button onClick={request}><img src={searchIcon} alt="" /></button>
           </div>
           <div onClick={verify} className="admin"></div>
         </div>

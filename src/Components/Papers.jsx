@@ -4,6 +4,7 @@ import { saveAs } from "file-saver";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import { useState } from "react";
+import downloadIcon from "../assets/download.png"
 
 export default function Papers() {
   const navigate = useNavigate();
@@ -109,12 +110,12 @@ export default function Papers() {
             <p>{element.year}</p>
           </div>
 
-          <div className="download">
+          <div className="download-button-container">
             <button
               data-value={`{"course":"${element.course}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}", "year": "${element.year}"}`}
               onClick={handleDownload}
             >
-              Download
+              <img src={downloadIcon} alt="download button" />
             </button>
 
             <button

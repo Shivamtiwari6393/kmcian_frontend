@@ -27,22 +27,36 @@
   background: linear-gradient(rgba(127, 192, 190, 0.577), rgb(142, 98, 212));
 }
 
-#card #button {
-  margin-top: 5px;
+
+
+
+#download-button button{
+  margin-top: 15px;
+  border: none;
+  padding: 0px;
+  height: 50px;
+  border-radius: 50%;
+
+}
+
+
+
+#download-button img{
+  width: 50px;
+  background: linear-gradient(rgba(127, 192, 190, 0.577), rgb(142, 98, 212));
+  border: none;
+  border-radius: 50%;
+  padding-top: 5px;
+  padding-left: 5px;
+  box-shadow: 1px 2px 9px black;
+}
+
+#card #download-button {
   display: flex;
   justify-content: center;
 }
-#button button {
-  font-weight: bold;
-  padding: 20px;
-  border: none;
-  border-radius: 30px;
-  background-color: rgb(122, 242, 122);
-  box-shadow: 1px 3px 0px rgb(73, 73, 73);
-  transition-duration: 0.5s;
-}
 
-#button button:active {
+#download-button button:active {
   scale: 0.9;
 }
 
