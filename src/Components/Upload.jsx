@@ -45,7 +45,7 @@ export default function Upload() {
     // validating input fields
 
     if (uploadData.course == 0) {
-      setError("Please select a Course");
+      setError("Please select a Faculty");
       return;
     }
 

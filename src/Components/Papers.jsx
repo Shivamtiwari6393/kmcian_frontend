@@ -37,7 +37,7 @@ export default function Papers() {
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.error || "An error occurred");
+        throw new Error(data.message || "An error occurred");
       }
 
       const blob = await response.blob();

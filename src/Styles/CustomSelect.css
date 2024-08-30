@@ -1,58 +1,49 @@
 .select-container {
-    color: #f0f0f0;
-    background-color: rgb(101, 89, 110);
-    text-align: center;
-    position: relative;
-    width: 96%;
-    max-width: 400px;
-    margin: 7px auto;
-    box-shadow: 1px 2px 2px rgb(88, 88, 88);
-    border-radius: 20px;
-  
-  }
-  
-  .select {
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    border-radius: 50px;
-    font-weight: bold;
-  }
-  .select:hover {
-    background-color: rgba(74, 65, 81, 0.353);
-    box-shadow: 0px 2px 2px  rgba(93, 93, 93, 0.7);
-  
-  }
-  .select-options {
-    /* font-family:cursive; */
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background : linear-gradient(rgb(46, 127, 149) , rgb(103, 44, 171));
-    border-radius: 10px;
-    color: #f0f0f0;
-    margin-top: 10px;
-    z-index: 10;
-    font-weight: bold;
-    max-height: 200px;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    scrollbar-width: thin;
+  color: #f0f0f0;
+  background-color: rgb(101, 89, 110);
+  text-align: center;
+  position: relative;
+  width: 96%;
+  max-width: 400px;
+  margin: 7px auto;
+  box-shadow: 1px 2px 2px rgb(88, 88, 88);
+  border-radius: 20px;
+}
 
-  
-  }
-  
-  .option {
-    padding: 10px;
-    cursor: pointer;
-  
-  
-  }
-  
-  .option:hover {
-    background-color: #464646;
-  
-  }
-  
-  
+.select {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  border-radius: 50px;
+  font-weight: bold;
+}
+.select:hover {
+  background-color: rgba(74, 65, 81, 0.353);
+  box-shadow: 0px 2px 2px rgba(93, 93, 93, 0.7);
+}
+.select-options {
+  /* font-family:cursive; */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: linear-gradient(rgb(46, 127, 149), rgb(103, 44, 171));
+  border-radius: 10px;
+  color: #f0f0f0;
+  margin-top: 10px;
+  z-index: 10;
+  font-weight: bold;
+  max-height: 200px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+
+.option {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: #464646;
+}

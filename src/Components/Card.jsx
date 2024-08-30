@@ -48,7 +48,7 @@ export default function Card() {
     // Validating the fields
 
     if (paperData.course == 0) {
-      setError("Please select a Course");
+      setError("Please select a Faculty");
       return;
     }
     if (paperData.branch == 0) {

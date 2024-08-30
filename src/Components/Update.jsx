@@ -6,8 +6,18 @@ import { useLocation } from "react-router-dom";
 import CustomSelect from "./CustomSelect";
 export default function Upload() {
   const location = useLocation();
-  const { id, branch, course, paper, semester, year, name, downloadable,createdAt, updatedAt } =
-    location.state;
+  const {
+    id,
+    branch,
+    course,
+    paper,
+    semester,
+    year,
+    name,
+    downloadable,
+    createdAt,
+    updatedAt,
+  } = location.state;
 
   const [updateData, setUpdateData] = useState({
     course: course,
@@ -18,14 +28,11 @@ export default function Upload() {
     year: year,
     downloadable: downloadable,
     createdAt: createdAt,
-    updatedAt: updatedAt
+    updatedAt: updatedAt,
   });
 
   console.log(location.state);
-  console.log(updateData.course,"upoload");
-  
-  
-
+  console.log(updateData.course, "upoload");
 
   const [file, setFile] = useState(null);
 
@@ -37,12 +44,12 @@ export default function Upload() {
     setFile(e.target.files[0]);
   };
 
-  const handleInputChange = (e)=>{
+  const handleInputChange = (e) => {
     setError("");
     setUpdateData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  }
+  };
 
-  const handleDataChange = (name,value) => {
+  const handleDataChange = (name, value) => {
     setError("");
     setUpdateData((prev) => ({ ...prev, [name]: value }));
   };
@@ -50,9 +57,10 @@ export default function Upload() {
   // const url = "http://127.0.0.1:8000";
   const url = "https://kmcianbackend.vercel.app";
 
+  //---------------------- Update Paper-----------------------------
+
   const update = () => {
     setError("");
-
 
     const updatedData = new FormData();
     updatedData.append("course", updateData.course);
@@ -64,37 +72,35 @@ export default function Upload() {
     updatedData.append("downloadable", updateData.downloadable),
       file && updatedData.append("updatedpdf", file);
 
+    if (updateData.course != location.state.course) {
+      const update = confirm(
+        "You have changed the faculty. Paper can be created only."
+      );
+      if (!update) return;
+      setIsLoading(true);
 
+      fetch(`${url}/api/paper/upload`, {
+        method: "POST",
+        body: updatedData,
+      })
+        .then((response) => {
+          if (!response.ok) {
+            return response.json().then((data) => {
+              throw new Error(data.error || "An error occurred");
+            });
+          }
 
-      if(updateData.course != location.state.course){
-       const v =  confirm("Paper can be created only")
-       if(!v) return
-        setIsLoading(true)
-
-        fetch(`${url}/api/paper/upload`, {
-          method: "POST",
-          body: updatedData,
+          if (response.status == 201) {
+            setError("Congrats! Paper uploaded Successfully");
+          }
         })
-          .then((response) => {
-            if (!response.ok) {
-              return response.json().then((data) => {
-                throw new Error(data.error || "An error occurred");
-              });
-            }
-    
-            if (response.status == 201) {
-              setError("Congrats! Paper uploaded Successfully");
-            }
-          })
-          .catch((e) => {
-            setError(e.message);
-          })
-          .finally(() => setIsLoading(false));
+        .catch((e) => {
+          setError(e.message);
+        })
+        .finally(() => setIsLoading(false));
 
-          return
-    
-      }
-
+      return;
+    }
 
     setIsLoading(true);
     fetch(`${url}/api/paper/update/${id}`, {
@@ -118,8 +124,12 @@ export default function Upload() {
       .finally(() => setIsLoading(false));
   };
 
+  //=========================== Delete Paper=====================================
+
   const handleDelete = (e) => {
-    setIsLoading(true)
+    const del = confirm("Delete?");
+    if (!del) return;
+    setIsLoading(true);
     fetch(`${url}/api/paper/delete/${course}/${id}`, {
       method: "DELETE",
     })
@@ -131,108 +141,108 @@ export default function Upload() {
       })
       .catch((e) => {
         setError(e.message);
-      }).finally(()=> setIsLoading(false))
+      })
+      .finally(() => setIsLoading(false));
   };
 
-    // Options for select inputs
-    const courseOptions = [
-      { value: "Engineering", label: "Engineering" },
-      { value: "Commerce", label: "Commerce" },
-      { value: "Legal Studies", label: "Legal Studies" },
-      { value: "Science", label: "Science" },
-      // { value: "Social Science", label: "Social Science" },
-      // { value: "Art and Humanities", label: "Arts & Humanities" },
-      { value: "Pharmacy", label: "Pharmacy" },
-    ];
-  
-    const engineeringBranchOptions = [
-      { value: "CSE(AI&ML)", label: "CSE(AI&ML)" },
-      { value: "CSE(AI&DS)", label: "CSE(AI&DS)" },
-      { value: "CSE", label: "CSE" },
-      { value: "BIO_TECHNOLOGY", label: "Bio Technology" },
-      { value: "CIVIL", label: "Civil" },
-      { value: "MACHANICAL", label: "Machanical" },
-      { value: "M_TECH_CSE(AI&ML)", label: "M.Tech - CSE(AI&ML)" },
-    ];
-  
-    const commerceBranchOptions = [
-      { value: "BBA", label: "BBA" },
-      { value: "MBA", label: "MBA" },
-      { value: "MBA_FA", label: "MBA(FA)" },
-      { value: "B_COM", label: "B.COM" },
-      { value: "B_COM_TT", label: "B.COM(TT)" },
-      { value: "M_COM", label: "M.COM" },
-    ];
-  
-    const legalStudiesBranchOptions = [
-      { value: "LLM", label: "LLM" },
-      { value: "BA_LLB", label: "BA LLB" },
-      { value: "LLB", label: "LLB" },
-    ];
-  
-    // science options
-  
-    const scienceBranchOptions = [
-      { value: "MCA", label: "MCA" },
-      { value: "BCA", label: "BCA" },
-      { value: "BSc_PHYSICS", label: "B.Sc Physics" },
-      { value: "BSc_CHEMISTRY", label: "B.Sc Chemistry" },
-      { value: "BSc_MATHEMATICS", label: "B.Sc Mathematics" },
-      { value: "BSc_CS", label: "B.Sc Computer Science" },
-      { value: "BSc_BIOTECHNOLOGY", label: "B.Sc Biotechnology" },
-      { value: "BSc_ZOOLOGY", label: "B.Sc Zoology" },
-      { value: "BSc_BOTANY", label: "B.Sc Botany" },
-      { value: "BSc_MICROBIOLOGY", label: "B.Sc Microbiology" },
-      { value: "BSc_STATISTICS", label: "B.Sc Statistics" },
-      { value: "BA_HM", label: "BA Home Science" },
-      { value: "MA_HM", label: "MA Home Science" },
-      { value: "B_LIB", label: "B.lib." },
-    ];
-  
-    // pharmacy options
-  
-    const pharmacyBranchOptions = [
-      { value: "B_PHARM", label: "B.Pharm" },
-      { value: "D_PHARM", label: "D.Pharm" },
-    ];
-  
-    const semesterOptions = [
-      { value: "1", label: "1" },
-      { value: "2", label: "2" },
-      { value: "3", label: "3" },
-      { value: "4", label: "4" },
-      { value: "5", label: "5" },
-      { value: "6", label: "6" },
-      { value: "7", label: "7" },
-      { value: "8", label: "8" },
-    ];
-  
-    const yearOptions = [
-      { value: "2019", label: "2019" },
-      { value: "2020", label: "2020" },
-      { value: "2021", label: "2021" },
-      { value: "2022", label: "2022" },
-      { value: "2023", label: "2023" },
-      { value: "2024", label: "2024" },
-      { value: "2025", label: "2025" },
-    ];
-  
-    let branchOptions = [];
-  
-    updateData.course === "Engineering"
-      ? (branchOptions = engineeringBranchOptions)
-      : "";
-    updateData.course === "Commerce"
-      ? (branchOptions = commerceBranchOptions)
-      : "";
-    updateData.course === "Legal Studies"
-      ? (branchOptions = legalStudiesBranchOptions)
-      : "";
-    updateData.course === "Science" ? (branchOptions = scienceBranchOptions) : "";
-    updateData.course === "Pharmacy"
-      ? (branchOptions = pharmacyBranchOptions)
-      : "";
-  
+  // Options for select inputs
+  const courseOptions = [
+    { value: "Engineering", label: "Engineering" },
+    { value: "Commerce", label: "Commerce" },
+    { value: "Legal Studies", label: "Legal Studies" },
+    { value: "Science", label: "Science" },
+    // { value: "Social Science", label: "Social Science" },
+    // { value: "Art and Humanities", label: "Arts & Humanities" },
+    { value: "Pharmacy", label: "Pharmacy" },
+  ];
+
+  const engineeringBranchOptions = [
+    { value: "CSE(AI&ML)", label: "CSE(AI&ML)" },
+    { value: "CSE(AI&DS)", label: "CSE(AI&DS)" },
+    { value: "CSE", label: "CSE" },
+    { value: "BIO_TECHNOLOGY", label: "Bio Technology" },
+    { value: "CIVIL", label: "Civil" },
+    { value: "MACHANICAL", label: "Machanical" },
+    { value: "M_TECH_CSE(AI&ML)", label: "M.Tech - CSE(AI&ML)" },
+  ];
+
+  const commerceBranchOptions = [
+    { value: "BBA", label: "BBA" },
+    { value: "MBA", label: "MBA" },
+    { value: "MBA_FA", label: "MBA(FA)" },
+    { value: "B_COM", label: "B.COM" },
+    { value: "B_COM_TT", label: "B.COM(TT)" },
+    { value: "M_COM", label: "M.COM" },
+  ];
+
+  const legalStudiesBranchOptions = [
+    { value: "LLM", label: "LLM" },
+    { value: "BA_LLB", label: "BA LLB" },
+    { value: "LLB", label: "LLB" },
+  ];
+
+  // science options
+
+  const scienceBranchOptions = [
+    { value: "MCA", label: "MCA" },
+    { value: "BCA", label: "BCA" },
+    { value: "BSc_PHYSICS", label: "B.Sc Physics" },
+    { value: "BSc_CHEMISTRY", label: "B.Sc Chemistry" },
+    { value: "BSc_MATHEMATICS", label: "B.Sc Mathematics" },
+    { value: "BSc_CS", label: "B.Sc Computer Science" },
+    { value: "BSc_BIOTECHNOLOGY", label: "B.Sc Biotechnology" },
+    { value: "BSc_ZOOLOGY", label: "B.Sc Zoology" },
+    { value: "BSc_BOTANY", label: "B.Sc Botany" },
+    { value: "BSc_MICROBIOLOGY", label: "B.Sc Microbiology" },
+    { value: "BSc_STATISTICS", label: "B.Sc Statistics" },
+    { value: "BA_HM", label: "BA Home Science" },
+    { value: "MA_HM", label: "MA Home Science" },
+    { value: "B_LIB", label: "B.lib." },
+  ];
+
+  // pharmacy options
+
+  const pharmacyBranchOptions = [
+    { value: "B_PHARM", label: "B.Pharm" },
+    { value: "D_PHARM", label: "D.Pharm" },
+  ];
+
+  const semesterOptions = [
+    { value: "1", label: "1" },
+    { value: "2", label: "2" },
+    { value: "3", label: "3" },
+    { value: "4", label: "4" },
+    { value: "5", label: "5" },
+    { value: "6", label: "6" },
+    { value: "7", label: "7" },
+    { value: "8", label: "8" },
+  ];
+
+  const yearOptions = [
+    { value: "2019", label: "2019" },
+    { value: "2020", label: "2020" },
+    { value: "2021", label: "2021" },
+    { value: "2022", label: "2022" },
+    { value: "2023", label: "2023" },
+    { value: "2024", label: "2024" },
+    { value: "2025", label: "2025" },
+  ];
+
+  let branchOptions = [];
+
+  updateData.course === "Engineering"
+    ? (branchOptions = engineeringBranchOptions)
+    : "";
+  updateData.course === "Commerce"
+    ? (branchOptions = commerceBranchOptions)
+    : "";
+  updateData.course === "Legal Studies"
+    ? (branchOptions = legalStudiesBranchOptions)
+    : "";
+  updateData.course === "Science" ? (branchOptions = scienceBranchOptions) : "";
+  updateData.course === "Pharmacy"
+    ? (branchOptions = pharmacyBranchOptions)
+    : "";
 
   return (
     <>
@@ -258,8 +268,7 @@ export default function Upload() {
           </select>
         </div>
 
-
-           {console.log(updateData.course)}
+        {console.log(updateData.course)}
         <CustomSelect
           options={courseOptions}
           value={updateData.course}
@@ -324,20 +333,17 @@ export default function Upload() {
           </div>
         </fieldset>
 
-
-
         <fieldset>
           <legend>CreatedAt</legend>
           <div className="name">
-              <p>{updateData.createdAt}</p>
+            <p>{updateData.createdAt}</p>
           </div>
         </fieldset>
 
-        
         <fieldset>
           <legend>UpdatedAt</legend>
           <div className="name">
-              <p>{updateData.updatedAt}</p>
+            <p>{updateData.updatedAt}</p>
           </div>
         </fieldset>
 
