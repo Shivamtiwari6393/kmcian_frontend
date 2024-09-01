@@ -6,11 +6,12 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // eslint-disable-next-line react-refresh/only-export-components
 import Card from "./Components/Card.jsx";
-import Login from "./Components/Login.jsx";
 const Upload = lazy(()=> import( "./Components/Upload.jsx"));
 const Discussion =  lazy(()=> import("./Components/Discussion.jsx"))
 const Papers  = lazy(() => import("./Components/Papers.jsx"))
 const Update = lazy(()=> import("./Components/Update.jsx"))
+const Login = lazy(()=> import("./Components/Login.jsx"))
+
 
 const route = createBrowserRouter([
   {
