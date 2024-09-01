@@ -1,17 +1,14 @@
 import "../Styles/Header.css";
 import { NavLink } from "react-router-dom";
 
-import logo from "../assets/kmclu-logo.png";
 import home from "../assets/home.png";
 import upload from "../assets/upload.png";
 import discussion from "../assets/discussion.png";
+import loginIcon from "../assets/login.png";
 
 export default function Header() {
   return (
     <div className="header-container">
-      <div className="logo">
-        <img src={logo} alt="KMCLU image" />
-      </div>
       <div className="nav">
         <span>
           <NavLink to={"/"}>
@@ -26,6 +23,11 @@ export default function Header() {
         <span>
           <NavLink to={"/Discussion"}>
             <img src={discussion} alt="" />
+          </NavLink>
+        </span>
+        <span>
+          <NavLink to={"/Login"}>
+            <img src={loginIcon} alt="login png" />
           </NavLink>
         </span>
       </div>

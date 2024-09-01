@@ -79,12 +79,13 @@ export default function Upload() {
       if (!update) return;
       setIsLoading(true);
 
+      //================ upload paper if user changed the faculty=====================
       fetch(`${url}/api/paper/upload`, {
         method: "POST",
         body: updatedData,
       })
         .then((response) => {
-          if (!response.ok) {
+          if (response.status == 400) {
             return response.json().then((data) => {
               throw new Error(data.error || "An error occurred");
             });
@@ -102,9 +103,13 @@ export default function Upload() {
       return;
     }
 
+    //==================================== update ===================================
     setIsLoading(true);
     fetch(`${url}/api/paper/update/${id}`, {
       method: "PUT",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("kmciantoken")}`,
+      },
       body: updatedData,
     })
       .then((response) => {
@@ -132,6 +137,9 @@ export default function Upload() {
     setIsLoading(true);
     fetch(`${url}/api/paper/delete/${course}/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("kmciantoken")}`,
+      },
     })
       .then((res) => {
         return res.json();

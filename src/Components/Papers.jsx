@@ -3,10 +3,25 @@ import "../Styles/Papers.css";
 import { saveAs } from "file-saver";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "./Loading";
-import { useState } from "react";
-import downloadIcon from "../assets/download.png"
+import { useEffect, useState } from "react";
+import downloadIcon from "../assets/download.png";
 
 export default function Papers() {
+  useEffect(() => {
+    setTimeout(() => {
+      const value = localStorage?.getItem("kmciantoken");
+      console.log(value, "token card");
+      if (value) {
+        const elements = document.getElementsByClassName("updatebutton");
+        if (elements) {
+          for (let i = 0; i < elements.length; i++) {
+            const element = elements[i];
+            element.style.display = "block";
+          }
+        }
+      }
+    }, 0);
+  });
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -16,20 +31,19 @@ export default function Papers() {
 
   // ---------------Handle file download----------------------------
 
-
   const handleDownload = async (e) => {
     const selectedPaper = JSON.parse(e.currentTarget.dataset.value);
-    
-    const encodedCourse = encodeURIComponent(selectedPaper.course)
-    const encodedYear = encodeURIComponent(selectedPaper.year)
+
+    const encodedCourse = encodeURIComponent(selectedPaper.course);
+    const encodedYear = encodeURIComponent(selectedPaper.year);
     const encodedBranch = encodeURIComponent(selectedPaper.branch);
     const encodedPaper = encodeURIComponent(selectedPaper.paper);
 
     setIsLoading(true);
 
     try {
-      // const url = "http://127.0.0.1:8000"
-      const url = "https://kmcianbackend.vercel.app";
+      const url = "http://127.0.0.1:8000"
+      // const url = "https://kmcianbackend.vercel.app";
 
       const response = await fetch(
         `${url}/api/paper/download?course=${encodedCourse}&year=${encodedYear}&paper=${encodedPaper}&branch=${encodedBranch}&semester=${selectedPaper.semester}`
@@ -56,35 +70,6 @@ export default function Papers() {
     }
   };
 
-  const verify = (e) => {
-    var value = prompt("Admin Password");
-
-    async function hashMessage(message) {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(message);
-      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-      return bufferToHex(hashBuffer);
-    }
-
-    function bufferToHex(buffer) {
-      return Array.from(new Uint8Array(buffer))
-        .map((byte) => byte.toString(16).padStart(2, "0"))
-        .join("");
-    }
-
-    hashMessage(value).then((hash) => {
-      if (
-        hash ===
-        "fb1b3fb33e5cdb92d8a068de9dd4847e82e24641567a857a35bd28f2487e03ee"
-      ) {
-        const elements = document.getElementsByClassName("o");
-        for (let i = 0; i < elements.length; i++) {
-          elements[i].style.display = "block";
-        }
-      }
-    });
-  };
-
   const handleUpdate = (event) => {
     const choosed = JSON.parse(event.currentTarget.dataset.value);
     navigate("/Update", { state: choosed });
@@ -100,7 +85,7 @@ export default function Papers() {
             <p>{element.paper}</p>
           </div>
 
-          <div className="branch" onDoubleClick={verify}>
+          <div className="branch">
             <p>{element.branch}</p>
           </div>
           <div className="semester">
@@ -120,7 +105,7 @@ export default function Papers() {
 
             <button
               id="update-button"
-              className="o"
+              className="updatebutton"
               onClick={handleUpdate}
               data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}", "downloadable": "${element.downloadable}", "createdAt": "${element.createdAt}", "updatedAt": "${element.updatedAt}"}`}
             >

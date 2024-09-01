@@ -1,14 +1,21 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../Styles/Card.css";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import CustomSelect from "./CustomSelect";
 import "../Styles/CustomSelect.css";
 
-import searchIcon from "../assets/search.png"
+import searchIcon from "../assets/search.png";
 
 export default function Card() {
+  useEffect(() => {
+    const value = localStorage?.getItem("kmciantoken");
+    if (value) {
+      const elements = (document.getElementById("downloadable").style.display =
+        "block");
+    }
+  });
   const navigate = useNavigate();
 
   const [paperData, setPaperData] = useState({
@@ -70,6 +77,7 @@ export default function Card() {
 
     // Fetch request
     setIsLoading(true);
+
     fetch(url, {
       method: "POST",
       headers: {
@@ -93,34 +101,6 @@ export default function Card() {
         setError(error.message);
       })
       .finally(() => setIsLoading(false));
-  };
-
-  const verify = (e) => {
-    var value = prompt("Admin Password");
-
-    async function hashMessage(message) {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(message);
-      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-      return bufferToHex(hashBuffer);
-    }
-
-    function bufferToHex(buffer) {
-      return Array.from(new Uint8Array(buffer))
-        .map((byte) => byte.toString(16).padStart(2, "0"))
-        .join("");
-    }
-
-    hashMessage(value).then((hash) => {
-      if (
-        hash ===
-        "fb1b3fb33e5cdb92d8a068de9dd4847e82e24641567a857a35bd28f2487e03ee"
-      ) {
-        const elements = (document.getElementById(
-          "downloadable"
-        ).style.display = "block");
-      }
-    });
   };
 
   // Options for select inputs
@@ -278,9 +258,10 @@ export default function Card() {
           </select>
 
           <div id="download-button">
-            <button onClick={request}><img src={searchIcon} alt="" /></button>
+            <button onClick={request}>
+              <img src={searchIcon} alt="" />
+            </button>
           </div>
-          <div onClick={verify} className="admin"></div>
         </div>
       </div>
     </>
