@@ -1,4 +1,4 @@
-.papers {
+.papers-container {
   padding: 5px;
 }
 
@@ -34,7 +34,7 @@
   overflow: hidden;
 }
 
-.papers .download-button-container {
+.papers-container .download-button-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,7 +60,7 @@
   box-shadow: 0px 1px 5px rgb(195, 195, 195);
 }
 
-.papers #update-button {
+.papers-container #update-button {
   display: none;
   padding: 11px;
   background-color: rgb(84, 55, 50);
@@ -70,7 +70,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .papers {
+  .papers-container {
     margin: 0px 5px;
   }
 
@@ -146,7 +146,7 @@
     width: 100%;
   }
 
-  .papers #update-button {
+  .papers-container #update-button {
     display: none;
     justify-content: center;
     width: 100%;
@@ -155,7 +155,7 @@
 }
 
 @media screen and (width <= 300px) {
-  .papers {
+  .papers-container {
     margin: 0px 5px;
   }
 

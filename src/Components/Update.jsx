@@ -31,9 +31,6 @@ export default function Upload() {
     updatedAt: updatedAt,
   });
 
-  console.log(location.state);
-  console.log(updateData.course, "upoload");
-
   const [file, setFile] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -62,6 +59,8 @@ export default function Upload() {
   const update = () => {
     setError("");
 
+    //wrapping the data into form data
+
     const updatedData = new FormData();
     updatedData.append("course", updateData.course);
     updatedData.append("branch", updateData.branch);
@@ -70,16 +69,47 @@ export default function Upload() {
     updatedData.append("year", updateData.year);
     updatedData.append("name", updateData.name);
     updatedData.append("downloadable", updateData.downloadable),
-      file && updatedData.append("updatedpdf", file);
+      file && updatedData.append("pdf", file);
+
+    //  if user changed the faculty
 
     if (updateData.course != location.state.course) {
       const update = confirm(
         "You have changed the faculty. Paper can be created only."
       );
+
       if (!update) return;
-      setIsLoading(true);
+
+      const map = {
+        Engineering: engineeringBranchOptions,
+        Commerce: commerceBranchOptions,
+        "Legal Studies": legalStudiesBranchOptions,
+        Science: scienceBranchOptions,
+        Pharmacy: pharmacyBranchOptions,
+      };
+
+      // verify branch in selected faculty branch options
+
+      const exists = map[updateData.course].some(
+        (option) => option.value === updateData.branch
+      );
+      // if branch not matches
+      if (!exists) {
+        setError("Please Select the respective branch");
+        return;
+      }
+
+      // if file not selected
+
+      if (!file) {
+        setError("Select a file");
+        return;
+      }
 
       //================ upload paper if user changed the faculty=====================
+
+      setIsLoading(true);
+
       fetch(`${url}/api/paper/upload`, {
         method: "POST",
         body: updatedData,
@@ -164,6 +194,8 @@ export default function Upload() {
     { value: "Pharmacy", label: "Pharmacy" },
   ];
 
+  // Engineering branch
+
   const engineeringBranchOptions = [
     { value: "CSE(AI&ML)", label: "CSE(AI&ML)" },
     { value: "CSE(AI&DS)", label: "CSE(AI&DS)" },
@@ -174,6 +206,8 @@ export default function Upload() {
     { value: "M_TECH_CSE(AI&ML)", label: "M.Tech - CSE(AI&ML)" },
   ];
 
+  // Commerce options
+
   const commerceBranchOptions = [
     { value: "BBA", label: "BBA" },
     { value: "MBA", label: "MBA" },
@@ -182,6 +216,8 @@ export default function Upload() {
     { value: "B_COM_TT", label: "B.COM(TT)" },
     { value: "M_COM", label: "M.COM" },
   ];
+
+  // legal studies options
 
   const legalStudiesBranchOptions = [
     { value: "LLM", label: "LLM" },
@@ -276,28 +312,25 @@ export default function Upload() {
           </select>
         </div>
 
-        {console.log(updateData.course)}
+        {/* {console.log(updateData.course)} */}
         <CustomSelect
           options={courseOptions}
-          value={updateData.course}
           onChange={(value) => handleDataChange("course", value)}
           placeholder={updateData.course}
         />
+
         <CustomSelect
           options={branchOptions}
-          value={updateData.branch}
           onChange={(value) => handleDataChange("branch", value)}
           placeholder={updateData.branch}
         />
         <CustomSelect
           options={semesterOptions}
-          value={updateData.semester}
           onChange={(value) => handleDataChange("semester", value)}
           placeholder={updateData.semester}
         />
         <CustomSelect
           options={yearOptions}
-          value={updateData.year}
           onChange={(value) => handleDataChange("year", value)}
           placeholder={updateData.year}
         />

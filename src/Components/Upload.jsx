@@ -215,7 +215,7 @@ export default function Upload() {
     <>
       {isLoading && <Loading></Loading>}
 
-      <div className={uploadcss["upload"]}>
+      <div className={uploadcss["upload-container"]}>
         {error && (
           <div className="error-container">
             <p>{error}</p>{" "}

@@ -5,16 +5,32 @@
   font-size: medium;
   font-weight: bold;
   font-style: italic;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  position: relative;
+  left: 0;
+  right: 0;
+  top: -5px;
+  animation-name: j;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
 }
 
-#card {
+@keyframes j {
+  from {
+    top: -50px;
+  }
+
+  to {
+    top: -10px;
+  }
+}
+
+.card-container {
   user-select: none;
   display: flex;
   justify-content: center;
 }
-#card #content {
+.card-container .card-fields {
+  overflow-y: hidden;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -29,21 +45,15 @@
   background: linear-gradient(rgba(127, 192, 190, 0.577), rgb(142, 98, 212));
 }
 
-
-
-
-#download-button button{
+#download-button button {
   margin-top: 15px;
   border: none;
   padding: 0px;
   height: 50px;
   border-radius: 50%;
-
 }
 
-
-
-#download-button img{
+#download-button img {
   width: 50px;
   background: linear-gradient(rgba(127, 192, 190, 0.577), rgb(142, 98, 212));
   border: none;
@@ -53,7 +63,7 @@
   box-shadow: 1px 2px 9px black;
 }
 
-#card #download-button {
+.card-container #download-button {
   display: flex;
   justify-content: center;
 }
@@ -80,13 +90,13 @@
 }
 
 @media screen and (max-width: 550px) {
-  #card #content {
+  .card-container .card-fields {
     width: 90%;
   }
 }
 
 @media screen and (max-width: 240px) {
-  #card #content {
+  .card-container .card-fields {
     width: 98%;
   }
 }

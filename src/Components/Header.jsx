@@ -9,7 +9,7 @@ import loginIcon from "../assets/login.png";
 export default function Header() {
   return (
     <div className="header-container">
-      <div className="nav">
+      <div className="nav-links">
         <span>
           <NavLink to={"/"}>
             <img src={home} alt="home" />
@@ -17,17 +17,17 @@ export default function Header() {
         </span>
         <span>
           <NavLink to={"/Upload"}>
-            <img src={upload} alt="" />
+            <img src={upload} alt="upload" />
           </NavLink>
         </span>
         <span>
           <NavLink to={"/Discussion"}>
-            <img src={discussion} alt="" />
+            <img src={discussion} alt="discussion" />
           </NavLink>
         </span>
         <span>
           <NavLink to={"/Login"}>
-            <img src={loginIcon} alt="login png" />
+            <img src={loginIcon} alt="login" />
           </NavLink>
         </span>
       </div>

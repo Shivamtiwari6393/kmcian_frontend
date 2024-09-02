@@ -42,8 +42,8 @@ export default function Papers() {
     setIsLoading(true);
 
     try {
-      const url = "http://127.0.0.1:8000"
-      // const url = "https://kmcianbackend.vercel.app";
+      // const url = "http://127.0.0.1:8000"
+      const url = "https://kmcianbackend.vercel.app";
 
       const response = await fetch(
         `${url}/api/paper/download?course=${encodedCourse}&year=${encodedYear}&paper=${encodedPaper}&branch=${encodedBranch}&semester=${selectedPaper.semester}`
@@ -76,7 +76,7 @@ export default function Papers() {
   };
 
   return (
-    <div className="papers" id="cards">
+    <div className="papers-container" id="cards">
       {isLoading && <Loading></Loading>}
 
       {reqPapers.map((element, index) => (

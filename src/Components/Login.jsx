@@ -61,7 +61,7 @@ function Login() {
         <div className="login-fields">
           <div className="username-container">
             <label htmlFor="username">
-              <img src={userIcon} alt="user" />
+              <img src={userIcon} alt="username" />
             </label>
             <input
               type="text"

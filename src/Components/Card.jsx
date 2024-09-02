@@ -212,8 +212,8 @@ export default function Card() {
   return (
     <>
       {isLoading && <Loading></Loading>}
-      <div id="card">
-        <div id="content">
+      <div className="card-container">
+        <div className="card-fields">
           {error && (
             <div className="error-container">
               <p>{error}</p>
@@ -259,7 +259,7 @@ export default function Card() {
 
           <div id="download-button">
             <button onClick={request}>
-              <img src={searchIcon} alt="" />
+              <img src={searchIcon} alt="search button" />
             </button>
           </div>
         </div>

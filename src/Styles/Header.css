@@ -21,17 +21,17 @@
   margin-top: 2px;
 } */
 
-.nav span {
+.nav-links span {
   position: relative;
 }
 
-.nav {
+.nav-links {
   display: flex;
   justify-content: space-around;
   max-width: 250px;
 }
 
-.nav span img {
+.nav-links span img {
   width: 25px;
   overflow: hidden;
 }
@@ -48,11 +48,11 @@
 }
 
 @media (width <= 700px) {
-  .nav {
+  .nav-links {
     justify-content: flex-start;
   }
 
-  .nav span {
+  .nav-links span {
     margin-left: 25px;
   }
 }

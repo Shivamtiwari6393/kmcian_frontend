@@ -1,9 +1,11 @@
 .login-container {
+  overflow: hidden;
   border-radius: 30px;
   width: 98%;
   max-width: 700px;
   user-select: none;
-  margin: 5vh auto;
+  margin: 50px auto;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   /* background: linear-gradient(rgb(194, 155, 233), rgb(238, 136, 141)); */
@@ -17,7 +19,7 @@
   color: rgb(228, 228, 228);
   width: 95%;
   max-width: 500px;
-  margin: 20px auto;
+  margin: 10px auto;
   border-radius: 30px;
   padding: 10px;
   text-align: center;
