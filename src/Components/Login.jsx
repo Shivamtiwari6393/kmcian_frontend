@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../Styles/Login.css";
 import userIcon from "../assets/user.png";
 import passwordIcon from "../assets/password.png";
@@ -13,6 +13,27 @@ function Login() {
   const [error, setError] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const [logout, setLogout] = useState(true);
+
+
+
+  const doLogout = ()=>{
+
+    localStorage.removeItem('kmciantoken')
+    setLogout(false)
+
+  }
+
+
+
+  useEffect(() => {
+    const value = localStorage?.getItem("kmciantoken");
+    if (value) {
+      setLogout(true)
+    }
+    else setLogout(false)
+  },[]);
 
   // handle input change
 
@@ -46,6 +67,7 @@ function Login() {
         // if login successfull save the token
         localStorage.setItem("kmciantoken", data.token);
         setError("Login Successfull");
+        setLogout(true);
         setIsLoading(false);
       })
       .catch((e) => {
@@ -96,6 +118,13 @@ function Login() {
           <div className="login-button-container">
             <button onClick={handleButtonClick}>Login</button>
           </div>
+          {logout && (
+            <div className="logout-button-container">
+              <button onClick={doLogout}>
+                Logout
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>

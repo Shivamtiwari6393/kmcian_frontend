@@ -75,6 +75,11 @@
   background: linear-gradient(rgb(81, 131, 86), rgb(65, 136, 90));
 }
 
+.logout-button-container button{
+  margin-top: 0px;
+  background: rgb(158, 54, 54);
+}
+
 @media (width < 350px) {
   .login-fields img {
     width: 20px;
