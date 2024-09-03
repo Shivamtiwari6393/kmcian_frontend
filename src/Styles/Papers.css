@@ -1,8 +1,6 @@
-.papers-container {
-  padding: 5px;
-}
-
-#cards .names {
+.papers-container .names {
+  width: 95%;
+  margin: 25px auto;
   padding: 10px 20px;
   border-radius: 20px;
   display: flex;
@@ -10,28 +8,31 @@
   align-items: center;
   box-shadow: 0px 4px 5px rgb(195, 195, 195);
   font-weight: bold;
-  margin: 5px;
   background: linear-gradient(rgb(255, 255, 255), rgb(229, 229, 229));
 }
 
 .paperName p {
   width: 500px;
   overflow: hidden;
+  color: rgb(120, 58, 58);
 }
 
 .branch p {
   text-align: center;
   width: 200px;
+  color: cadetblue;
 }
 
 .semester p {
   width: 20px;
   overflow: hidden;
+  color: blueviolet;
 }
 
 .year p {
   width: 50px;
   overflow: hidden;
+  color: cornflowerblue;
 }
 
 .papers-container .download-button-container {
@@ -69,12 +70,14 @@
   font-weight: bold;
 }
 
-@media screen and (max-width: 1024px) {
+/* screen <= 1200px */
+
+@media screen and (width <= 1200px) {
   .papers-container {
     margin: 0px 5px;
   }
 
-  #cards .names {
+  .papers-container .names {
     flex-direction: column;
     margin: 20px auto;
     max-width: 700px;
@@ -154,12 +157,22 @@
   }
 }
 
+/* screen <= 500px */
+
+@media screen and (width <= 500px) {
+  .papers-container .names div p {
+    font-size: x-small;
+  }
+}
+
+/* screen <= 300 */
+
 @media screen and (width <= 300px) {
   .papers-container {
     margin: 0px 5px;
   }
 
-  #cards .names div p {
-    font-size: x-small;
+  .papers-container .names div p {
+    font-size: xx-small;
   }
 }

@@ -8,15 +8,11 @@
   padding-top: 20px;
   display: flex;
   flex-direction: column;
-  /* background: linear-gradient(rgb(194, 155, 233), rgb(238, 136, 141)); */
-  /* background-color: rgb(80, 79, 83); */
   background: linear-gradient(rgb(63, 50, 77), rgb(106, 61, 63));
-
-
 }
 
 .login-header h4 {
-  color: rgb(228, 228, 228);
+  color: white;
   width: 95%;
   max-width: 500px;
   margin: 10px auto;
@@ -24,11 +20,7 @@
   padding: 10px;
   text-align: center;
   box-shadow: 1px 1px 4px black;
-  /* background-color: rgb(80, 79, 83); */
-  /* background: linear-gradient(rgb(63, 50, 77), rgb(106, 61, 63)); */
-  background: linear-gradient(rgb(121, 69, 90), rgb(106, 61, 63));
-
-
+  background: linear-gradient(rgb(63, 50, 77), rgb(106, 61, 63));
 
 }
 
@@ -41,31 +33,27 @@
   align-items: center;
 }
 
-.login-fields img{
-    width: 30px;
+.login-fields img {
+  width: 25px;
 }
 
 .login-fields .username-container,
 .password-container {
-  /* color: rgb(131, 194, 152); */
-  color: rgb(181, 181, 181);
   width: 90%;
   margin: 10px auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  padding: 5px;
-  /* background-color: rgb(80, 79, 83); */
+  /* padding: 5px; */
   max-width: 400px;
   border-radius: 30px;
   box-shadow: 1px 1px 4px black;
   background: linear-gradient(rgb(107, 83, 133), rgb(61, 64, 106));
-
 }
 
 .login-fields input {
-    font-weight: bold;
+  font-weight: bold;
+  font-style: italic;
   margin: 10px;
   padding: 10px;
   border: none;
@@ -77,39 +65,28 @@
   font-weight: bold;
   background-color: rgb(86, 86, 86);
   color: white;
-  /* color: rgb(174, 215, 147); */
   width: 85%;
-  max-width: 300px;
-  padding: 13px;
+  max-width: 200px;
+  padding: 10px;
   border-radius: 30px;
   border: none;
   margin: 20px 0px;
   box-shadow: 1px 2px black, -1px 2px black;
   background: linear-gradient(rgb(81, 131, 86), rgb(65, 136, 90));
-
 }
 
 @media (width < 350px) {
+  .login-fields img {
+    width: 20px;
+  }
+
   .login-fields .username-container,
   .password-container {
-    padding-top: 10px;
     font-size: small;
-  }
-
-  .login-fields .username-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .login-fields .password-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-
   }
   .login-fields input {
     padding: 5px;
+    width: 60vw;
+    font-size: x-small;
   }
-
 }

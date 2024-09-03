@@ -14,14 +14,22 @@ function Login() {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  // handle input change
+
   const handleInputChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  // on login button click
+
   const handleButtonClick = () => {
     // const url = "http://127.0.0.1:8000/api/login";
     const url = "https://kmcianbackend.vercel.app/api/login";
+
     setIsLoading(true);
+
+    // fetch request
+
     fetch(url, {
       method: "POST",
       body: JSON.stringify(credentials),
@@ -37,7 +45,7 @@ function Login() {
       .then((data) => {
         // if login successfull save the token
         localStorage.setItem("kmciantoken", data.token);
-        setError("Login Succesfull");
+        setError("Login Successfull");
         setIsLoading(false);
       })
       .catch((e) => {

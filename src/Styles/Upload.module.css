@@ -6,7 +6,7 @@
   width: 90%;
   padding: 20px 0px;
   background-color: white;
-  background: linear-gradient(rgb(231, 199, 199),rgb(151, 151, 238));
+  background: linear-gradient(rgb(231, 199, 199), rgb(151, 151, 238));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,7 +41,6 @@
   padding: 10px;
   border-radius: 20px;
   box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.277);
-
 }
 
 .upload-container fieldset:hover {
@@ -49,13 +48,13 @@
 }
 
 .upload-container input {
+  width: 100%;
   border: none;
   border-radius: 20px;
   font-weight: 700;
   padding: 10px;
   margin: 5px;
   box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.277);
-
 }
 
 .upload-container .inputfile {
@@ -80,7 +79,7 @@
   box-shadow: 0px 3px 6px 2px rgba(128, 128, 128, 0.496);
 }
 
-button:active{
+button:active {
   scale: 0.95;
 }
 
@@ -96,14 +95,25 @@ button:hover {
     padding: 10px 20px;
   }
 }
+
 @media screen and (max-width: 450px) {
+  .upload-container .select-container {
+    max-width: 200px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .upload-container .select-container {
+    max-width: 200px;
+  }
+
   .upload-container {
     width: 95%;
   }
 
   .upload-container input {
     font-size: small;
-    padding: 5px;
+    padding: 10px 5px 10px 5px;
     margin-top: 0px;
   }
 
@@ -112,8 +122,7 @@ button:hover {
     font-size: small;
   }
 
- .upload-container button{
-  margin-top: 10px;
- }
-
+  .upload-container button {
+    margin-top: 10px;
+  }
 }

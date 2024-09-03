@@ -9,13 +9,7 @@ import "../Styles/CustomSelect.css";
 import searchIcon from "../assets/search.png";
 
 export default function Card() {
-  useEffect(() => {
-    const value = localStorage?.getItem("kmciantoken");
-    if (value) {
-      const elements = (document.getElementById("downloadable").style.display =
-        "block");
-    }
-  });
+
   const navigate = useNavigate();
 
   const [paperData, setPaperData] = useState({
@@ -31,6 +25,22 @@ export default function Card() {
 
   const [error, setError] = useState("");
 
+
+  // if user is admin
+  useEffect(() => {
+    const value = localStorage?.getItem("kmciantoken");
+    if (value) {
+      const elements = (document.getElementById("downloadable-select").style.display =
+        "block");
+    }
+  });
+
+  // =============================================
+
+
+
+
+
   //------------ Handle data change-------------------------
 
   const handleChange = (name, value) => {
@@ -40,6 +50,9 @@ export default function Card() {
       [name]: value,
     }));
   };
+
+
+  // when admin changes downloadable state
 
   const handleAdminChange = (e) => {
     setError("");
@@ -51,6 +64,8 @@ export default function Card() {
 
   // ---------------paper data fetch request----------------------
 
+
+  
   const request = () => {
     // Validating the fields
 
@@ -243,7 +258,7 @@ export default function Card() {
           <select
             name="downloadable"
             value={paperData.downloadable}
-            id="downloadable"
+            id="downloadable-select"
             onChange={handleAdminChange}
             required
             style={{
@@ -257,7 +272,7 @@ export default function Card() {
             <option value="false">False</option>
           </select>
 
-          <div id="download-button">
+          <div id="search-button-container">
             <button onClick={request}>
               <img src={searchIcon} alt="search button" />
             </button>

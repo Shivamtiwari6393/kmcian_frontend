@@ -1,10 +1,11 @@
-import "../Styles/Loading.css"
-
+import "../Styles/Loading.css";
 
 function Loading() {
   return (
-    <div className="loading-container"><div className="spinner"></div></div>
-  )
+    <div className="loading-container">
+      <div className="spinner"></div>
+    </div>
+  );
 }
 
-export default Loading
+export default Loading;

@@ -1,27 +1,10 @@
 .error-container {
-  display: flex;
-  justify-content: center;
-  color: rgb(183, 52, 137);
+  position: relative;
+  text-align: center;
+  color: rgb(149, 36, 109);
   font-size: medium;
   font-weight: bold;
   font-style: italic;
-  position: relative;
-  left: 0;
-  right: 0;
-  top: -5px;
-  animation-name: j;
-  animation-duration: 0.5s;
-  animation-timing-function: linear;
-}
-
-@keyframes j {
-  from {
-    top: -50px;
-  }
-
-  to {
-    top: -10px;
-  }
 }
 
 .card-container {
@@ -30,8 +13,7 @@
   justify-content: center;
 }
 .card-container .card-fields {
-  /* overflow-y: hidden; */
-  padding: 20px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,12 +22,19 @@
   margin-top: 50px;
   width: 100%;
   max-width: 500px;
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0px 0px 2px rgba(190, 190, 190, 0.7);
   background: linear-gradient(rgba(127, 192, 190, 0.577), rgb(142, 98, 212));
 }
 
-#download-button button {
+.card-container #search-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+#search-button-container button:active {
+  scale: 0.9;
+}
+
+#search-button-container button {
   margin-top: 15px;
   border: none;
   padding: 0px;
@@ -53,7 +42,7 @@
   border-radius: 50%;
 }
 
-#download-button img {
+#search-button-container button img {
   width: 50px;
   background: linear-gradient(rgba(127, 192, 190, 0.577), rgb(142, 98, 212));
   border: none;
@@ -63,21 +52,7 @@
   box-shadow: 1px 2px 9px black;
 }
 
-.card-container #download-button {
-  display: flex;
-  justify-content: center;
-}
-
-#download-button button:active {
-  scale: 0.9;
-}
-
-.admin {
-  width: 10px;
-  height: 10px;
-}
-
-#downloadable {
+#downloadable-select {
   width: 100%;
   max-width: 400px;
   padding: 10px;
@@ -86,7 +61,6 @@
   border-radius: 20px;
   border: none;
   margin: 5px auto;
-  box-shadow: 0px 4px 5px rgb(195, 195, 195);
 }
 
 @media screen and (max-width: 550px) {

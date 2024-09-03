@@ -7,6 +7,16 @@ import { useEffect, useState } from "react";
 import downloadIcon from "../assets/download.png";
 
 export default function Papers() {
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const reqPapers = location.state;
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  // checking token
+
   useEffect(() => {
     setTimeout(() => {
       const value = localStorage?.getItem("kmciantoken");
@@ -22,12 +32,6 @@ export default function Papers() {
       }
     }, 0);
   });
-  const navigate = useNavigate();
-
-  const location = useLocation();
-  const reqPapers = location.state;
-
-  const [isLoading, setIsLoading] = useState(false);
 
   // ---------------Handle file download----------------------------
 
@@ -70,13 +74,17 @@ export default function Papers() {
     }
   };
 
+  // on update button click
+
   const handleUpdate = (event) => {
     const choosed = JSON.parse(event.currentTarget.dataset.value);
     navigate("/Update", { state: choosed });
   };
 
+  // ==================================================================================
+
   return (
-    <div className="papers-container" id="cards">
+    <div className="papers-container">
       {isLoading && <Loading></Loading>}
 
       {reqPapers.map((element, index) => (
@@ -95,6 +103,8 @@ export default function Papers() {
             <p>{element.year}</p>
           </div>
 
+          {/* download button */}
+
           <div className="download-button-container">
             <button
               data-value={`{"course":"${element.course}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}", "year": "${element.year}"}`}
@@ -102,6 +112,8 @@ export default function Papers() {
             >
               <img src={downloadIcon} alt="download button" />
             </button>
+
+            {/* update botton */}
 
             <button
               id="update-button"
