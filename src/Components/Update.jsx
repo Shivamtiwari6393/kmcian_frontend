@@ -377,14 +377,14 @@ export default function Upload() {
         <fieldset>
           <legend>CreatedAt</legend>
           <div className="name">
-            <p>{updateData.createdAt}</p>
+            <p>{new Date(updateData.createdAt).toLocaleString()}</p>
           </div>
         </fieldset>
 
         <fieldset>
           <legend>UpdatedAt</legend>
           <div className="name">
-            <p>{updateData.updatedAt}</p>
+            <p>{new Date(updateData.updatedAt).toLocaleString()}</p>
           </div>
         </fieldset>
 

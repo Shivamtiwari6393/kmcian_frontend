@@ -34,6 +34,11 @@
 .nav-links span img {
   width: 25px;
   overflow: hidden;
+  transition-duration: 0.5s;
+}
+
+.nav-links span img:active {
+scale: 0.5;
 }
 
 .active::after {

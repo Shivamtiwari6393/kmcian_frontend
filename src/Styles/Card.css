@@ -25,6 +25,8 @@
   background: linear-gradient(rgba(127, 192, 190, 0.577), rgb(142, 98, 212));
 }
 
+
+
 .card-container #search-button-container {
   display: flex;
   justify-content: center;

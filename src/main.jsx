@@ -11,6 +11,7 @@ const Discussion =  lazy(()=> import("./Components/Discussion.jsx"))
 const Papers  = lazy(() => import("./Components/Papers.jsx"))
 const Update = lazy(()=> import("./Components/Update.jsx"))
 const Login = lazy(()=> import("./Components/Login.jsx"))
+const Chat = lazy(()=> import("./Components/Chat.jsx"))
 
 
 const route = createBrowserRouter([
@@ -41,6 +42,10 @@ const route = createBrowserRouter([
       {
         path: "/Login",
         element: <Login></Login>,
+      },
+      {
+        path: "/chat",
+        element: <Chat></Chat>,
       }
     ],
   },

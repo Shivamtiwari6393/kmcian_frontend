@@ -12,22 +12,22 @@ export default function Header() {
       <div className="nav-links">
         <span>
           <NavLink to={"/"}>
-            <img src={home} alt="home" />
+            <img src={home} alt="home" title="Home" />
           </NavLink>
         </span>
         <span>
           <NavLink to={"/Upload"}>
-            <img src={upload} alt="upload" />
+            <img src={upload} alt="upload"  title="Upload"/>
           </NavLink>
         </span>
         <span>
           <NavLink to={"/Discussion"}>
-            <img src={discussion} alt="discussion" />
+            <img src={discussion} alt="discussion"  title="Discussion"/>
           </NavLink>
         </span>
         <span>
           <NavLink to={"/Login"}>
-            <img src={loginIcon} alt="login" />
+            <img src={loginIcon} alt="login" title="Login"/>
           </NavLink>
         </span>
       </div>
