@@ -6,7 +6,11 @@
   width: 90%;
   padding: 20px 0px;
   background-color: white;
-  background: linear-gradient(rgb(231, 199, 199), rgb(151, 151, 238));
+  background: linear-gradient(
+    90deg,
+    rgba(207, 159, 159, 0.833),
+    rgb(151, 151, 238)
+  );
   display: flex;
   flex-direction: column;
   align-items: center;

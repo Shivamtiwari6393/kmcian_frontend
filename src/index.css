@@ -1,9 +1,8 @@
-body{
-  background-color: rgb(241, 241, 241);
+body {
+  background-color: rgb(231, 231, 231);
 }
 
-
-*{
+* {
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
