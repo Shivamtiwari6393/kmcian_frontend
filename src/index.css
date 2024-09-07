@@ -1,6 +1,6 @@
 body {
+  position: relative;
   background-color: rgb(231, 231, 231);
-  height: 100vh;
 }
 
 * {
