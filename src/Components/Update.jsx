@@ -73,9 +73,9 @@ export default function Upload() {
 
     //  if user changed the faculty
 
-    if (updateData.course != location.state.course) {
+    if (updateData.course != location.state.course || updatedData.branch != location.state.branch) {
       const update = confirm(
-        "You have changed the faculty. Paper can be created only."
+        "You have changed the faculty or branch. Paper can be created only."
       );
 
       if (!update) return;
