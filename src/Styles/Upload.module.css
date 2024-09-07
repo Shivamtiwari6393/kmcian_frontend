@@ -1,8 +1,7 @@
 .upload-container {
   overflow: hidden;
-
   user-select: none;
-  margin: 50px auto;
+  margin: 25px auto;
   width: 90%;
   padding: 20px 0px;
   background-color: white;
@@ -100,11 +99,6 @@ button:hover {
   }
 }
 
-@media screen and (max-width: 450px) {
-  .upload-container .select-container {
-    max-width: 200px;
-  }
-}
 
 @media screen and (max-width: 450px) {
   .upload-container .select-container {
@@ -113,6 +107,7 @@ button:hover {
 
   .upload-container {
     width: 95%;
+    border-radius: 20px;
   }
 
   .upload-container input {

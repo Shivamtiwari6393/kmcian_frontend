@@ -1,17 +1,13 @@
 .footer-container {
-    font-size: x-small;
+  font-size: x-small;
   background: rgb(173, 56, 56);
   position: absolute;
   height: 30px;
   width: 100%;
-  top: calc(100%);
-  bottom: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 1px;
   background: linear-gradient(rgb(71, 71, 71), rgb(34, 34, 34));
-
 }
 
 .footer-container p {
