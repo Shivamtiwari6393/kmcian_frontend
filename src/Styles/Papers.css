@@ -9,6 +9,16 @@
   box-shadow: 0px 4px 5px rgb(195, 195, 195);
   font-weight: bold;
   background: linear-gradient(rgb(255, 255, 255), rgb(229, 229, 229));
+  animation-name: scroll;
+  animation-timeline: view();
+  animation-range-start: entry;
+}
+
+@keyframes scroll {
+  from{
+    transform: translateY(100px);
+
+  }
 }
 
 .paperName p {
@@ -54,11 +64,11 @@
   border-radius: 20px;
   box-shadow: 0px 4px 5px rgb(195, 195, 195);
   margin: 5px;
-  transition-duration: 0.2s;
+  transition-duration: 0.3s;
 }
 
-.download-button-container button:hover {
-  box-shadow: 0px 1px 5px rgb(195, 195, 195);
+.download-button-container button:active{
+  scale: 0.5;
 }
 
 .papers-container #update-button {

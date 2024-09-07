@@ -1,0 +1,33 @@
+.footer-container {
+    font-size: x-small;
+  background: rgb(173, 56, 56);
+  position: absolute;
+  height: 30px;
+  width: 100%;
+  top: calc(100%);
+  bottom: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1px;
+  background: linear-gradient(rgb(71, 71, 71), rgb(34, 34, 34));
+}
+
+.footer-container p {
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  color: white;
+}
+
+.footer-container p :nth-child(1) {
+  color: rgb(129, 129, 129);
+}
+
+.footer-container p :nth-child(3) {
+  color: rgb(113, 113, 113);
+}
+
+.footer-container p :nth-child(4) {
+  color: rgb(183, 183, 183);
+}

@@ -12,8 +12,8 @@ const Chat = () => {
 
   useEffect(() => {
 
-    // const url = "http://127.0.0.1:8000"
-    const url = "https://kmcianbackend.vercel.app"
+    const url = "http://127.0.0.1:8000"
+    // const url = "https://kmcianbackend.vercel.app"
     socket.current = io(url);
 
     socket.current.on("connect", () => {

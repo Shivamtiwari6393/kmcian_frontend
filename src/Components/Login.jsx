@@ -85,9 +85,9 @@ function Login() {
             <p>{error}</p>
           </div>
         )}
-        <div className="login-header">
+        {/* <div className="login-header">
           <h4>Login</h4>
-        </div>
+        </div> */}
         <div className="login-fields">
           <div className="username-container">
             <label htmlFor="username">
