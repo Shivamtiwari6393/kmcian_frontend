@@ -1,3 +1,7 @@
+.papers-container{
+  padding-bottom: 50px;
+}
+
 .papers-container .names {
   width: 95%;
   margin: 25px auto;
