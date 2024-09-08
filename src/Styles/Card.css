@@ -29,31 +29,25 @@
 
 
 .card-container #search-button-container {
+  margin-top: 15px;
   display: flex;
   justify-content: center;
 }
 
-#search-button-container button:active {
+
+
+#search-button-container  img {
+  width: 40px;
+  border: none;
+  /* background-color: black; */
+  /* box-shadow: 1px 1px black; */
+  /* border-radius: 50%; */
+}
+
+#search-button-container img:active {
   scale: 0.9;
 }
 
-#search-button-container button {
-  margin-top: 15px;
-  border: none;
-  padding: 0px;
-  height: 50px;
-  border-radius: 50%;
-}
-
-#search-button-container button img {
-  width: 50px;
-  background: linear-gradient(rgba(127, 192, 190, 0.577), rgb(142, 98, 212));
-  border: none;
-  border-radius: 50%;
-  padding-top: 5px;
-  padding-left: 5px;
-  box-shadow: 1px 2px 9px black;
-}
 
 #downloadable-select {
   width: 100%;

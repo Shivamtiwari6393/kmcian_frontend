@@ -142,11 +142,10 @@ export default function Upload() {
           }
         })
         .catch((e) => {
+          setIsLoading(false)
           setError(e.message);
           toast.error(e.message);
         })
-        .finally(() => setIsLoading(false));
-
       return;
     }
 

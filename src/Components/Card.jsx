@@ -20,7 +20,7 @@ export default function Card() {
     downloadable: true,
   });
 
-  const [reqPapers, setReqPapers] = useState(null);
+  // const [reqPapers, setReqPapers] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const [error, setError] = useState("");
@@ -102,7 +102,7 @@ export default function Card() {
         return response.json();
       })
       .then((data) => {
-        setReqPapers(data);
+        // setReqPapers(data);
         navigate("/papers", { state: data });
       })
       .catch((error) => {
@@ -266,9 +266,7 @@ export default function Card() {
           </select>
 
           <div id="search-button-container">
-            <button onClick={request}>
-              <img src={searchIcon} alt="Go" />
-            </button>
+              <img src={searchIcon} alt="Go"  onClick={request} />
           </div>
         </div>
       </div>

@@ -106,9 +106,9 @@ export default function Upload() {
         }
       })
       .catch((e) => {
+        setIsLoading(false)
         toast.error(e.message)
       })
-      .finally(() => setIsLoading(false));
   };
 
   // Options for select inputs

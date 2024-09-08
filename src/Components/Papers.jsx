@@ -69,9 +69,8 @@ export default function Papers() {
       saveAs(blob, filename);
       toast.success('Paper downloaded succesfully')
     } catch (error) {
-      toast.error(error.message);
-    } finally {
       setIsLoading(false);
+      toast.error(error.message);
     }
   };
 
