@@ -4,6 +4,7 @@ import uploadcss from "../Styles/Upload.module.css";
 import Loading from "./Loading";
 import { useLocation } from "react-router-dom";
 import CustomSelect from "./CustomSelect";
+import toast from "react-hot-toast";
 export default function Upload() {
   const location = useLocation();
   const {
@@ -72,8 +73,11 @@ export default function Upload() {
       file && updatedData.append("pdf", file);
 
     //  if user changed the faculty
-    
-    if (updateData.course != location.state.course || updateData.branch != location.state.branch) {
+
+    if (
+      updateData.course != location.state.course ||
+      updateData.branch != location.state.branch
+    ) {
       const update = confirm(
         "You have changed the faculty or branch. Paper can be created only."
       );
@@ -95,7 +99,19 @@ export default function Upload() {
       );
       // if branch not matches
       if (!exists) {
-        setError("Please Select the respective branch");
+        toast.custom(
+          <div
+            style={{
+              padding: "10px",
+              backgroundColor: "red",
+              color: "white",
+              borderRadius: "10px",
+            }}
+          >
+            Please reselect the branch
+          </div>
+        );
+        setError("Please reselect the branch");
         return;
       }
 
@@ -122,11 +138,12 @@ export default function Upload() {
           }
 
           if (response.status == 201) {
-            setError("Congrats! Paper uploaded Successfully");
+            toast.success("Congrats! Paper uploaded Successfully");
           }
         })
         .catch((e) => {
           setError(e.message);
+          toast.error(e.message);
         })
         .finally(() => setIsLoading(false));
 
@@ -150,11 +167,12 @@ export default function Upload() {
         }
 
         if (response.status == 200) {
-          setError("Congrats! Paper updated Successfully");
+          toast.success("Congrats! Paper updated Successfully");
         }
       })
       .catch((e) => {
         setError(e.message);
+        toast.error(e.message);
       })
       .finally(() => setIsLoading(false));
   };
@@ -172,12 +190,14 @@ export default function Upload() {
       },
     })
       .then((res) => {
-        return res.json();
+        if (res.status === 200) return res.json();
+        else if (res.status === 404) throw new Error("Paper not found.");
+        else if (res.status === 500) throw new Error("Server error. try later");
+        else throw new Error("An unexpected error occurred.");
       })
-      .then((data) => {
-        throw new Error(data.message);
-      })
+      .then((data) => toast.success(data.message))
       .catch((e) => {
+        toast.error(e.message);
         setError(e.message);
       })
       .finally(() => setIsLoading(false));

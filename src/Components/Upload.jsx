@@ -3,6 +3,7 @@ import { useState } from "react";
 import uploadcss from "../Styles/Upload.module.css";
 import Loading from "./Loading";
 import CustomSelect from "./CustomSelect";
+import toast from "react-hot-toast";
 export default function Upload() {
   //--------------- state for data to be uploaded---------------------
   const [uploadData, setUploadData] = useState({
@@ -71,8 +72,8 @@ export default function Upload() {
 
     //----------- API---------------
 
-    // const url = "http://127.0.0.1:8000/api/paper";
-    const url = "https://kmcianbackend.vercel.app/api/paper";
+    const url = "http://127.0.0.1:8000/api/paper";
+    // const url = "https://kmcianbackend.vercel.app/api/paper";
 
     //------------------- form data-------------
 
@@ -96,16 +97,16 @@ export default function Upload() {
       .then((response) => {
         if (!response.ok) {
           return response.json().then((data) => {
-            throw new Error(data.error || "An error occurred");
+            throw new Error(data.message || "An error occurred");
           });
         }
 
         if (response.status == 201) {
-          setError("Congrats! Paper uploaded Successfully");
+          toast.success("Thank you!.Paper uploaded.")
         }
       })
       .catch((e) => {
-        setError(e.message);
+        toast.error(e.message)
       })
       .finally(() => setIsLoading(false));
   };

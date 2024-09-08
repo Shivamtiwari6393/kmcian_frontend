@@ -7,9 +7,9 @@ import CustomSelect from "./CustomSelect";
 import "../Styles/CustomSelect.css";
 
 import searchIcon from "../assets/search.png";
+import toast from "react-hot-toast";
 
 export default function Card() {
-
   const navigate = useNavigate();
 
   const [paperData, setPaperData] = useState({
@@ -25,21 +25,17 @@ export default function Card() {
 
   const [error, setError] = useState("");
 
-
   // if user is admin
   useEffect(() => {
     const value = localStorage?.getItem("kmciantoken");
     if (value) {
-      const elements = (document.getElementById("downloadable-select").style.display =
-        "block");
+      const elements = (document.getElementById(
+        "downloadable-select"
+      ).style.display = "block");
     }
   });
 
   // =============================================
-
-
-
-
 
   //------------ Handle data change-------------------------
 
@@ -50,7 +46,6 @@ export default function Card() {
       [name]: value,
     }));
   };
-
 
   // when admin changes downloadable state
 
@@ -64,8 +59,6 @@ export default function Card() {
 
   // ---------------paper data fetch request----------------------
 
-
-  
   const request = () => {
     // Validating the fields
 
@@ -87,8 +80,8 @@ export default function Card() {
     }
     setError("");
 
-    // const url = "http://127.0.0.1:8000/api/paper";
-    const url = "https://kmcianbackend.vercel.app/api/paper";
+    const url = "http://127.0.0.1:8000/api/paper";
+    // const url = "https://kmcianbackend.vercel.app/api/paper";
 
     // Fetch request
     setIsLoading(true);
@@ -103,7 +96,7 @@ export default function Card() {
       .then((response) => {
         if (!response.ok) {
           return response.json().then((data) => {
-            throw new Error(data.error || "An error occurred");
+            throw new Error(data.message);
           });
         }
         return response.json();
@@ -113,7 +106,7 @@ export default function Card() {
         navigate("/papers", { state: data });
       })
       .catch((error) => {
-        setError(error.message);
+        toast.error(error.message);
       })
       .finally(() => setIsLoading(false));
   };
@@ -274,7 +267,7 @@ export default function Card() {
 
           <div id="search-button-container">
             <button onClick={request}>
-              <img src={searchIcon} alt="search button" />
+              <img src={searchIcon} alt="Go" />
             </button>
           </div>
         </div>

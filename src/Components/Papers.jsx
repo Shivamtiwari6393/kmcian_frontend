@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import { useEffect, useState } from "react";
 import downloadIcon from "../assets/download.png";
+import toast from "react-hot-toast";
 
 export default function Papers() {
   const navigate = useNavigate();
@@ -20,7 +21,6 @@ export default function Papers() {
   useEffect(() => {
     setTimeout(() => {
       const value = localStorage?.getItem("kmciantoken");
-      console.log(value, "token card");
       if (value) {
         const elements = document.getElementsByClassName("updatebutton");
         if (elements) {
@@ -46,8 +46,8 @@ export default function Papers() {
     setIsLoading(true);
 
     try {
-      // const url = "http://127.0.0.1:8000/api/paper"
-      const url = "https://kmcianbackend.vercel.app/api/paper";
+      const url = "http://127.0.0.1:8000/api/paper";
+      // const url = "https://kmcianbackend.vercel.app/api/paper";
 
       const response = await fetch(
         `${url}/download?course=${encodedCourse}&year=${encodedYear}&paper=${encodedPaper}&branch=${encodedBranch}&semester=${selectedPaper.semester}`
@@ -55,9 +55,9 @@ export default function Papers() {
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.message || "An error occurred");
+        throw new Error(data.message);
       }
-
+      
       const blob = await response.blob();
 
       // ---------  Accessing filename--------------
@@ -67,8 +67,9 @@ export default function Papers() {
       //------------------ Saving pdf-----------------------------
 
       saveAs(blob, filename);
+      toast.success('Paper downloaded succesfully')
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message);
     } finally {
       setIsLoading(false);
     }

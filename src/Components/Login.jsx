@@ -3,7 +3,7 @@ import "../Styles/Login.css";
 import userIcon from "../assets/user.png";
 import passwordIcon from "../assets/password.png";
 import Loading from "./Loading";
-import toast from 'react-hot-toast'
+import { toast } from "react-hot-toast";
 
 function Login() {
   const [credentials, setCredentials] = useState({
@@ -11,30 +11,22 @@ function Login() {
     password: "",
   });
 
-  const [error, setError] = useState("");
-
   const [isLoading, setIsLoading] = useState(false);
 
   const [logout, setLogout] = useState(true);
 
-
-
-  const doLogout = ()=>{
-
-    localStorage.removeItem('kmciantoken')
-    setLogout(false)
-
-  }
-
-
+  const doLogout = () => {
+    localStorage.removeItem("kmciantoken");
+    setLogout(false);
+    toast.success("Logged out successfully!");
+  };
 
   useEffect(() => {
     const value = localStorage?.getItem("kmciantoken");
     if (value) {
-      setLogout(true)
-    }
-    else setLogout(false)
-  },[]);
+      setLogout(true);
+    } else setLogout(false);
+  }, []);
 
   // handle input change
 
@@ -59,7 +51,7 @@ function Login() {
       .then(async (res) => {
         if (!res.ok) {
           return res.json().then((data) => {
-            throw new Error(data.error || "An error occurred");
+            throw new Error(data.message || "An error occurred");
           });
         }
         return res.json();
@@ -67,14 +59,13 @@ function Login() {
       .then((data) => {
         // if login successfull save the token
         localStorage.setItem("kmciantoken", data.token);
-        toast.success('Login Successsfull')
-        setError("Login Successfull");
+        toast.success("Login successful!");
         setLogout(true);
         setIsLoading(false);
       })
       .catch((e) => {
         setIsLoading(false);
-        setError(e.message);
+        toast.error(e.message);
       });
   };
 
@@ -82,11 +73,6 @@ function Login() {
     <>
       {isLoading && <Loading></Loading>}
       <div className="login-container">
-        {error && (
-          <div className="error-container">
-            <p>{error}</p>
-          </div>
-        )}
         {/* <div className="login-header">
           <h4>Login</h4>
         </div> */}
@@ -122,9 +108,7 @@ function Login() {
           </div>
           {logout && (
             <div className="logout-button-container">
-              <button onClick={doLogout}>
-                Logout
-              </button>
+              <button onClick={doLogout}>Logout</button>
             </div>
           )}
         </div>
