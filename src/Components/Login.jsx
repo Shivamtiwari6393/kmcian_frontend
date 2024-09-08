@@ -3,6 +3,7 @@ import "../Styles/Login.css";
 import userIcon from "../assets/user.png";
 import passwordIcon from "../assets/password.png";
 import Loading from "./Loading";
+import toast from 'react-hot-toast'
 
 function Login() {
   const [credentials, setCredentials] = useState({
@@ -44,8 +45,8 @@ function Login() {
   // on login button click
 
   const handleButtonClick = () => {
-    // const url = "http://127.0.0.1:8000/api/login";
-    const url = "https://kmcianbackend.vercel.app/api/login";
+    // const url = "http://127.0.0.1:8000/api/user/login";
+    const url = "https://kmcianbackend.vercel.app/api/user/login";
 
     setIsLoading(true);
 
@@ -66,6 +67,7 @@ function Login() {
       .then((data) => {
         // if login successfull save the token
         localStorage.setItem("kmciantoken", data.token);
+        toast.success('Login Successsfull')
         setError("Login Successfull");
         setLogout(true);
         setIsLoading(false);

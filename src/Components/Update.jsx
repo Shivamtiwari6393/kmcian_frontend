@@ -51,8 +51,8 @@ export default function Upload() {
     setUpdateData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // const url = "http://127.0.0.1:8000";
-  const url = "https://kmcianbackend.vercel.app";
+  // const url = "http://127.0.0.1:8000/api/paper";
+  const url = "https://kmcianbackend.vercel.app/api/paper";
 
   //---------------------- Update Paper-----------------------------
 
@@ -72,10 +72,7 @@ export default function Upload() {
       file && updatedData.append("pdf", file);
 
     //  if user changed the faculty
-
-    console.log(updatedData,"=========", location.state);
     
-
     if (updateData.course != location.state.course || updateData.branch != location.state.branch) {
       const update = confirm(
         "You have changed the faculty or branch. Paper can be created only."
@@ -113,7 +110,7 @@ export default function Upload() {
 
       setIsLoading(true);
 
-      fetch(`${url}/api/paper/upload`, {
+      fetch(`${url}/post`, {
         method: "POST",
         body: updatedData,
       })
@@ -138,7 +135,7 @@ export default function Upload() {
 
     //==================================== update ===================================
     setIsLoading(true);
-    fetch(`${url}/api/paper/update/${id}`, {
+    fetch(`${url}/update/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("kmciantoken")}`,
@@ -168,7 +165,7 @@ export default function Upload() {
     const del = confirm("Delete?");
     if (!del) return;
     setIsLoading(true);
-    fetch(`${url}/api/paper/delete/${course}/${id}`, {
+    fetch(`${url}/delete/${course}/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("kmciantoken")}`,
