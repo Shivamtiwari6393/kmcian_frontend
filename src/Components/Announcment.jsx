@@ -70,7 +70,7 @@ function Announcment() {
 
         <div className="button-container">
           <button onClick={handleClick}>
-            {announcments[0] ? "more..." : "Show Announcment"}
+            {announcments[0] ? "more..." : "Show Announcments"}
           </button>
         </div>
       </div>
