@@ -5,6 +5,7 @@ import home from "../assets/home.png";
 import upload from "../assets/upload.png";
 import discussion from "../assets/discussion.png";
 import loginIcon from "../assets/login.png";
+import ann from "../assets/announcment.png";
 
 export default function Header() {
   return (
@@ -17,17 +18,23 @@ export default function Header() {
         </span>
         <span>
           <NavLink to={"/Upload"}>
-            <img src={upload} alt="upload"  title="Upload"/>
+            <img src={upload} alt="upload" title="Upload" />
           </NavLink>
         </span>
         <span>
           <NavLink to={"/Discussion"}>
-            <img src={discussion} alt="discussion"  title="Discussion"/>
+            <img src={discussion} alt="discussion" title="Discussion" />
           </NavLink>
         </span>
         <span>
           <NavLink to={"/Login"}>
-            <img src={loginIcon} alt="login" title="Login"/>
+            <img src={loginIcon} alt="login" title="Login" />
+          </NavLink>
+        </span>
+
+        <span>
+          <NavLink to={"/announcment"}>
+            <img src={ann} alt="login" title="Login" />
           </NavLink>
         </span>
       </div>
