@@ -33,7 +33,7 @@ export default function Header() {
         </span>
 
         <span>
-          <NavLink to={"/announcment"}>
+          <NavLink to={"/announcement"}>
             <img src={ann} alt="login" title="Login" />
           </NavLink>
         </span>

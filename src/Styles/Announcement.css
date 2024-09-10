@@ -1,0 +1,77 @@
+.announcement-container-in {
+  position: relative;
+  width: 90%;
+  margin: 30px auto;
+}
+
+.announcement-container-in .announcements .announcement {
+  border-radius: 20px;
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  color: rgb(92, 92, 92);
+  padding: 15px;
+  margin: 10px;
+}
+
+.announcement-container-in .announcements .announcement p {
+  color: rgb(88, 92, 141);
+  font-size: small;
+  margin-bottom: 9px;
+}
+
+.announcements .time-container span {
+  position: absolute;
+  right: 8px;
+  bottom: 5px;
+  color: rgb(188, 188, 188);
+  font-style: italic;
+  font-size: xx-small;
+  margin: 5px;
+}
+
+.announcement-container-in .button-container {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.announcement-container-in .button-container button {
+  border-radius: 20px;
+  font-weight: bold;
+  color: rgb(73, 73, 73);
+  padding: 10px;
+  background-color: rgb(194, 132, 208);
+  border: none;
+  box-shadow: 1px 2px rgb(31, 31, 31);
+}
+
+.announcement-text-container {
+  display: none;
+
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.announcement-text-container input {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 80%;
+  margin: 10px 10px;
+}
+.announcement-text-container button {
+  user-select: none;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: darkolivegreen;
+  color: white;
+  font-weight: bold;
+  transition-duration: 0.2s;
+}
+
+.announcement-text-container button:active {
+  scale: 0.9;
+}

@@ -29,9 +29,7 @@ export default function Card() {
   useEffect(() => {
     const value = localStorage?.getItem("kmciantoken");
     if (value) {
-      const elements = (document.getElementById(
-        "downloadable-select"
-      ).style.display = "block");
+      document.getElementById("downloadable-select").style.display = "block";
     }
   });
 
@@ -266,7 +264,7 @@ export default function Card() {
           </select>
 
           <div id="search-button-container">
-              <img src={searchIcon} alt="Go"  onClick={request} />
+            <img src={searchIcon} alt="Go" onClick={request} />
           </div>
         </div>
       </div>
