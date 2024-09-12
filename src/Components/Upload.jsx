@@ -3,6 +3,7 @@ import { useState } from "react";
 import uploadcss from "../Styles/Upload.module.css";
 import Loading from "./Loading";
 import CustomSelect from "./CustomSelect";
+import pdf from "../assets/pdf.png";
 import toast from "react-hot-toast";
 export default function Upload() {
   //--------------- state for data to be uploaded---------------------
@@ -22,10 +23,18 @@ export default function Upload() {
 
   const [error, setError] = useState("");
 
+  const [fileName, setFileName] = useState("No file chosen");
+
   // -----------handle file change-------------
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      setFile(file);
+      setFileName(file.name);
+    } else {
+      setFileName("No file chosen");
+    }
   };
 
   //------------- handle data change-----------
@@ -44,6 +53,11 @@ export default function Upload() {
     setError("");
 
     // validating input fields
+
+    if (uploadData.paper == "") {
+      setError("Please enter a paper name");
+      return;
+    }
 
     if (uploadData.course == 0) {
       setError("Please select a Faculty");
@@ -70,6 +84,36 @@ export default function Upload() {
       return;
     }
 
+    const map = {
+      Engineering: engineeringBranchOptions,
+      Commerce: commerceBranchOptions,
+      "Legal Studies": legalStudiesBranchOptions,
+      Science: scienceBranchOptions,
+      Pharmacy: pharmacyBranchOptions,
+    };
+
+    // verify branch in selected faculty branch options
+
+    const exists = map[uploadData.course].some(
+      (option) => option.value === uploadData.branch
+    );
+    // if branch not matches
+    if (!exists) {
+      toast.custom(
+        <div
+          style={{
+            padding: "10px",
+            backgroundColor: "red",
+            color: "white",
+            borderRadius: "10px",
+          }}
+        >
+          Please reselect the branch
+        </div>
+      );
+      setError("Please reselect the branch");
+      return;
+    }
     //----------- API---------------
 
     // const url = "http://127.0.0.1:8000/api/paper";
@@ -102,14 +146,14 @@ export default function Upload() {
         }
 
         if (response.status == 201) {
-          setIsLoading(false)
-          toast.success("Thank you!.Paper uploaded.")
+          setIsLoading(false);
+          toast.success("Thank you!.Paper uploaded.");
         }
       })
       .catch((e) => {
-        setIsLoading(false)
-        toast.error(e.message)
-      })
+        setIsLoading(false);
+        toast.error(e.message);
+      });
   };
 
   // Options for select inputs
@@ -118,8 +162,8 @@ export default function Upload() {
     { value: "Commerce", label: "Commerce" },
     { value: "Legal Studies", label: "Legal Studies" },
     { value: "Science", label: "Science" },
-    // { value: "Social Science", label: "Social Science" },
-    // { value: "Art and Humanities", label: "Arts & Humanities" },
+    { value: "Social Science", label: "Social Science" },
+    { value: "Art and Humanities", label: "Arts & Humanities" },
     { value: "Pharmacy", label: "Pharmacy" },
   ];
 
@@ -174,6 +218,48 @@ export default function Upload() {
     { value: "D_PHARM", label: "D.Pharm" },
   ];
 
+  // arts and humanities options
+
+  const artHumnanitiesOptions = [
+    { value: "All", label: "All" },
+    { value: "MA_ARABIC", label: "MA ARABIC" },
+    { value: "MA_ENGLISH", label: "MA ENGLISH" },
+    { value: "MA_HINDI", label: "MA HINDI" },
+    { value: "MA_PERSIAN", label: "MA PERSIAN" },
+    { value: "MA_URDU", label: "MA URDU" },
+    { value: "BA_ARABIC", label: "BA ARABIC" },
+    { value: "BA_ENGLISH", label: "BA ENGLISH" },
+    { value: "BA_HINDI", label: "BA HINDI" },
+    { value: "BA_PERSIAN", label: "BA PERSIAN" },
+    { value: "BA_URDU", label: "BA URDU" },
+    { value: "BA_FRENCH", label: "BA FRENCH" },
+    { value: "BA_CHINESE", label: "BA CHINESE" },
+    { value: "BA_GERMAN", label: "BA GERMAN" },
+    { value: "BA_JAPANESE", label: "BA JAPANESE" },
+    { value: "BA_SANSKRIT", label: "BA SANSKRIT" },
+    { value: "BA_PALI", label: "BA PALI" },
+  ];
+
+  const socialSciencesOptins = [
+    { value: "All", label: "All" },
+    { value: "B_ED", label: "B.ED" },
+    { value: "MA_EDUCATION", label: "MA EDUCATION" },
+    { value: "MA_JOURN_MASS_COMM", label: "MA JOURN MASS COMM" },
+    { value: "MA_HISTORY", label: "MA HISTORY" },
+    { value: "MA_GEOGRAPHY", label: "MA GEOGRAPHY" },
+    { value: "MA_ECONOMICS", label: "MA ECONOMICS" },
+    { value: "MA_FINE_ARTS", label: "MA FINE ARTS" },
+    { value: "BA_EDUCATION", label: "BA EDUCATION" },
+    { value: "BA_HISTORY", label: "BA HISTORY" },
+    { value: "BA_GEOGRAPHY", label: "BA GEOGRAPHY" },
+    { value: "BA_ECONOMICS", label: "BA ECONOMICS" },
+    { value: "BA_FINE_ARTS", label: "BA FINE ARTS" },
+    { value: "BA_POL_SCIENCE", label: "BA POL SCIENCE" },
+    { value: "BA_PHYSICAL_EDU", label: "BA PHYSICAL EDU" },
+    { value: "BA_JOURN_MASS_COMM", label: "BA JOURN MASS COMM" },
+    { value: "BA_SOCIOLOGY", label: "BA SOCIOLOGY" },
+  ];
+
   const semesterOptions = [
     { value: "1", label: "1" },
     { value: "2", label: "2" },
@@ -211,6 +297,14 @@ export default function Upload() {
     ? (branchOptions = pharmacyBranchOptions)
     : "";
 
+  uploadData.course === "Social Science"
+    ? (branchOptions = socialSciencesOptins)
+    : "";
+
+  uploadData.course === "Art and Humanities"
+    ? (branchOptions = artHumnanitiesOptions)
+    : "";
+
   // ------------------------------------------------------------
 
   return (
@@ -223,101 +317,6 @@ export default function Upload() {
             <p>{error}</p>{" "}
           </div>
         )}
-        {/* <div className={uploadcss["content"]}>
-          <select
-            name="course"
-            value={uploadData.course}
-            onChange={handleDataChange}
-          >
-            <option value="0" disabled>
-              Course
-            </option>
-            <option value="Engineering">Engineering</option>
-            <option value="Commerce">Commerce</option>
-            <option value="Legal Studies">Legal Studies</option>
-          </select>
-          <select
-            name="branch"
-            value={uploadData.branch}
-            onChange={handleDataChange}
-          >
-            <option value="0" disabled>
-              Branch
-            </option>
-            {uploadData.course === "Commerce" && (
-              <>
-                <option value="MBA">MBA</option>
-                <option value="MBA FA">MBA (FA)</option>
-                <option value="BBA">BBA</option>
-                <option value="B COM">B.COM</option>
-                <option value="B COM TT">B.COM (TT)</option>
-                <option value="M COM">M.COM</option>
-              </>
-            )}
-
-            {uploadData.course === "Engineering" && (
-              <>
-                <option value="CSE(AI&ML)">CSE(AI&ML)</option>
-                <option value="CSE(AI&DS)">CSE(AI&DS)</option>
-                <option value="CSE">CSE</option>
-                <option value="Bio Technology">Bio Technology</option>
-                <option value="Machanical">Machanical</option>
-                <option value="Civil">Civil</option>
-                <option value="Mtech CSE(AI&ML)">M.Tech: CSE(AI&ML)</option>
-                <option value="Mtech Mechatronics">M.Tech: Mechatronics</option>
-              </>
-            )}
-
-            {uploadData.course === "Legal Studies" && (
-              <>
-                <option value="LLM">LLM</option>
-                <option value="BA LLB">BA LLB</option>
-                <option value="LLB">LLB</option>
-              </>
-            )}
-          </select>
-
-          <select
-            name="semester"
-            value={uploadData.semester}
-            onChange={handleDataChange}
-          >
-            <option value="0" disabled>
-              Semester
-            </option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            {uploadData.branch == "BA LLB" && (
-              <>
-                <option value="7">9</option>
-                <option value="8">10</option>
-              </>
-            )}
-          </select>
-
-          <select
-            name="year"
-            value={uploadData.year}
-            onChange={handleDataChange}
-          >
-            <option value="0" disabled>
-              Paper-Year
-            </option>
-            <option value="2019">2019</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-          </select>
-        </div> */}
 
         <CustomSelect
           options={courseOptions}
@@ -340,44 +339,38 @@ export default function Upload() {
           placeholder="Year"
         />
 
-        <fieldset>
-          <legend>Paper Name</legend>
-          <div className="name">
-            <input
-              type="text"
-              name="paper"
-              placeholder="Enter Paper Name"
-              value={uploadData.paper}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>File*</legend>
-          <div className="file">
-            <input
-              type="file"
-              name="pdf"
-              className={uploadcss["inputfile"]}
-              onChange={handleFileChange}
-              accept=".pdf"
-            />
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Name</legend>
-          <div className="name">
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter Your Name"
-              value={uploadData.name}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-        </fieldset>
+        <div className={uploadcss["name"]}>
+          <input
+            type="text"
+            name="paper"
+            placeholder="Paper Name"
+            value={uploadData.paper}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+
+        <div className={uploadcss["file-container"]}>
+          <label htmlFor="file-upload" className={uploadcss["file-label"]}>
+            <img src={pdf} alt="pdf" />
+            <span id={uploadcss["upload-name"]}>{fileName}</span>
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            onChange={handleFileChange}
+          />
+        </div>
+        <div className="name">
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            value={uploadData.name}
+            onChange={handleInputChange}
+          />
+        </div>
 
         <button onClick={upload}>Upload</button>
       </div>

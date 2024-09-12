@@ -172,10 +172,10 @@ export default function Upload() {
         }
       })
       .catch((e) => {
-        setIsLoading(false)
+        setIsLoading(false);
         setError(e.message);
         toast.error(e.message);
-      })
+      });
   };
 
   //=========================== Delete Paper=====================================
@@ -191,7 +191,7 @@ export default function Upload() {
       },
     })
       .then((res) => {
-        setIsLoading(false)
+        setIsLoading(false);
         if (res.status === 200) return res.json();
         else if (res.status === 404) throw new Error("Paper not found.");
         else if (res.status === 500) throw new Error("Server error. try later");
@@ -199,10 +199,10 @@ export default function Upload() {
       })
       .then((data) => toast.success(data.message))
       .catch((e) => {
-        setIsLoading(false)
+        setIsLoading(false);
         toast.error(e.message);
         setError(e.message);
-      })
+      });
   };
 
   // Options for select inputs
@@ -211,8 +211,8 @@ export default function Upload() {
     { value: "Commerce", label: "Commerce" },
     { value: "Legal Studies", label: "Legal Studies" },
     { value: "Science", label: "Science" },
-    // { value: "Social Science", label: "Social Science" },
-    // { value: "Art and Humanities", label: "Arts & Humanities" },
+    { value: "Social Science", label: "Social Science" },
+    { value: "Art and Humanities", label: "Arts & Humanities" },
     { value: "Pharmacy", label: "Pharmacy" },
   ];
 
@@ -273,6 +273,48 @@ export default function Upload() {
     { value: "D_PHARM", label: "D.Pharm" },
   ];
 
+  // arts and humanities options
+
+  const artHumnanitiesOptions = [
+    { value: "All", label: "All" },
+    { value: "MA_ARABIC", label: "MA ARABIC" },
+    { value: "MA_ENGLISH", label: "MA ENGLISH" },
+    { value: "MA_HINDI", label: "MA HINDI" },
+    { value: "MA_PERSIAN", label: "MA PERSIAN" },
+    { value: "MA_URDU", label: "MA URDU" },
+    { value: "BA_ARABIC", label: "BA ARABIC" },
+    { value: "BA_ENGLISH", label: "BA ENGLISH" },
+    { value: "BA_HINDI", label: "BA HINDI" },
+    { value: "BA_PERSIAN", label: "BA PERSIAN" },
+    { value: "BA_URDU", label: "BA URDU" },
+    { value: "BA_FRENCH", label: "BA FRENCH" },
+    { value: "BA_CHINESE", label: "BA CHINESE" },
+    { value: "BA_GERMAN", label: "BA GERMAN" },
+    { value: "BA_JAPANESE", label: "BA JAPANESE" },
+    { value: "BA_SANSKRIT", label: "BA SANSKRIT" },
+    { value: "BA_PALI", label: "BA PALI" },
+  ];
+
+  const socialSciencesOptins = [
+    { value: "All", label: "All" },
+    { value: "B_ED", label: "B.ED" },
+    { value: "MA_EDUCATION", label: "MA EDUCATION" },
+    { value: "MA_JOURN_MASS_COMM", label: "MA JOURN MASS COMM" },
+    { value: "MA_HISTORY", label: "MA HISTORY" },
+    { value: "MA_GEOGRAPHY", label: "MA GEOGRAPHY" },
+    { value: "MA_ECONOMICS", label: "MA ECONOMICS" },
+    { value: "MA_FINE_ARTS", label: "MA FINE ARTS" },
+    { value: "BA_EDUCATION", label: "BA EDUCATION" },
+    { value: "BA_HISTORY", label: "BA HISTORY" },
+    { value: "BA_GEOGRAPHY", label: "BA GEOGRAPHY" },
+    { value: "BA_ECONOMICS", label: "BA ECONOMICS" },
+    { value: "BA_FINE_ARTS", label: "BA FINE ARTS" },
+    { value: "BA_POL_SCIENCE", label: "BA POL SCIENCE" },
+    { value: "BA_PHYSICAL_EDU", label: "BA PHYSICAL EDU" },
+    { value: "BA_JOURN_MASS_COMM", label: "BA JOURN MASS COMM" },
+    { value: "BA_SOCIOLOGY", label: "BA SOCIOLOGY" },
+  ];
+
   const semesterOptions = [
     { value: "1", label: "1" },
     { value: "2", label: "2" },
@@ -308,6 +350,14 @@ export default function Upload() {
   updateData.course === "Science" ? (branchOptions = scienceBranchOptions) : "";
   updateData.course === "Pharmacy"
     ? (branchOptions = pharmacyBranchOptions)
+    : "";
+
+  updateData.course === "Social Science"
+    ? (branchOptions = socialSciencesOptins)
+    : "";
+
+  updateData.course === "Art and Humanities"
+    ? (branchOptions = artHumnanitiesOptions)
     : "";
 
   return (

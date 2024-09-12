@@ -11,15 +11,11 @@
   height: 45px;
   border: none;
   box-shadow: 0px 2px 1px grey;
-  border-radius: 40px;
+  border-radius: 10px;
   background: linear-gradient(rgb(255, 180, 196), rgb(234, 166, 237));
 }
 
-/* .logo img{
-  width: 30px;
-  margin-left: 5px;
-  margin-top: 2px;
-} */
+
 
 .nav-links span {
   position: relative;

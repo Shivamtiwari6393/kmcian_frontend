@@ -1,10 +1,10 @@
 .upload-container {
   overflow: hidden;
   user-select: none;
-  margin: 25px auto;
+  margin: 50px auto;
+  padding: 20px 20px;
   width: 90%;
-  padding: 20px 0px;
-  background-color: white;
+  max-width: 700px;
   background: linear-gradient(
     90deg,
     rgba(207, 159, 159, 0.833),
@@ -14,114 +14,82 @@
   flex-direction: column;
   align-items: center;
   border-radius: 40px;
-  max-width: 700px;
-  margin-top: 50px;
-
-  /* font-weight: bold; */
-}
-
-.upload-container .content {
-  display: flex;
-  border: none;
-  margin-top: 40px;
-}
-
-.upload-container select {
-  cursor: pointer;
-  font-weight: bold;
-  margin: 10px;
-  padding: 10px;
-  text-align: center;
-  /* border: none; */
-  border-radius: 40px;
-  box-shadow: 0px 0px 6px rgb(195, 195, 195, 0.7);
-}
-
-.upload-container fieldset {
-  color: rgb(0, 0, 0);
-  border: 1px solid rgba(35, 146, 103, 0.326);
-  margin: 20px;
-  padding: 10px;
-  border-radius: 20px;
-  box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.277);
-}
-
-.upload-container fieldset:hover {
-  box-shadow: 0px 1px 5px rgba(128, 128, 128, 0.245);
 }
 
 .upload-container input {
-  width: 100%;
-  border: none;
-  border-radius: 20px;
-  font-weight: 700;
-  padding: 10px;
-  margin: 5px;
-  box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.277);
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  font-size: 16px;
+  cursor: pointer;
+  width: 60vw;
+  max-width: 290px;
+
 }
 
-.upload-container .inputfile {
-  width: 100%;
-  min-width: 230px;
-  padding: 10px 0px 10px 10px;
-  margin: 0px;
-  border: none;
+.upload-container input[type="file"] {
+  display: none;
+}
+
+.file-container label {
+  padding: 5px;
+  display: block;
+  box-sizing: border-box;
+  width: 60vw;
+  max-width: 290px;
+  margin-top: 10px;
+  border: 2px solid #ccc;
+  background-color: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  border-radius: 10px;
   cursor: pointer;
-  background-color: aliceblue;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+}
+
+.file-container label img {
+  width: 25px;
+  margin: 2px 5px;
+}
+
+.file-container span {
+  overflow: hidden;
+  font-size: xx-small;
 }
 
 .upload-container button {
   width: 100%;
   max-width: 200px;
   font-weight: bold;
-  border-radius: 50px;
-  padding: 15px;
+  padding: 10px;
+  margin-top: 20px;
   border: none;
   color: white;
-  background-color: rgb(80, 146, 80);
-  box-shadow: 0px 3px 6px 2px rgba(128, 128, 128, 0.496);
+  background-color: #4caf50;
+  box-shadow: 0px 2px 1px rgba(99, 99, 99, 0.71);
+  border-radius: 11px;
+  transition-duration: 0.5s;
 }
 
 button:active {
   scale: 0.95;
-}
+  background-color: #3a773a;
 
-button:hover {
-  box-shadow: 0px 0px 1px 1px rgba(128, 128, 128, 0.496);
 }
-
-@media screen and (max-width: 680px) {
-  .upload-container .content {
-    flex-direction: column;
-  }
-  .upload-container select {
-    padding: 10px 20px;
-  }
-}
-
 
 @media screen and (max-width: 450px) {
-  .upload-container .select-container {
-    max-width: 200px;
-  }
-
   .upload-container {
-    width: 95%;
     border-radius: 20px;
   }
 
   .upload-container input {
-    font-size: small;
-    padding: 10px 5px 10px 5px;
-    margin-top: 0px;
-  }
-
-  .upload-container fieldset {
-    margin-top: 10px;
-    font-size: small;
-  }
-
-  .upload-container button {
-    margin-top: 10px;
+    /* width: 60vw; */
+    padding: 8px;
+    font-size: x-small;
   }
 }

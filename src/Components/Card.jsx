@@ -116,10 +116,12 @@ export default function Card() {
     { value: "Commerce", label: "Commerce" },
     { value: "Legal Studies", label: "Legal Studies" },
     { value: "Science", label: "Science" },
-    // { value: "Social Science", label: "Social Science" },
-    // { value: "Art and Humanities", label: "Arts & Humanities" },
+    { value: "Social Science", label: "Social Science" },
+    { value: "Art and Humanities", label: "Arts & Humanities" },
     { value: "Pharmacy", label: "Pharmacy" },
   ];
+
+  // branch options
 
   const engineeringBranchOptions = [
     { value: "All", label: "All" },
@@ -177,6 +179,50 @@ export default function Card() {
     { value: "D_PHARM", label: "D.Pharm" },
   ];
 
+  // arts and humanities options
+
+  const artHumnanitiesOptions = [
+    { value: "All", label: "All" },
+    { value: "MA_ARABIC", label: "MA ARABIC" },
+    { value: "MA_ENGLISH", label: "MA ENGLISH" },
+    { value: "MA_HINDI", label: "MA HINDI" },
+    { value: "MA_PERSIAN", label: "MA PERSIAN" },
+    { value: "MA_URDU", label: "MA URDU" },
+    { value: "BA_ARABIC", label: "BA ARABIC" },
+    { value: "BA_ENGLISH", label: "BA ENGLISH" },
+    { value: "BA_HINDI", label: "BA HINDI" },
+    { value: "BA_PERSIAN", label: "BA PERSIAN" },
+    { value: "BA_URDU", label: "BA URDU" },
+    { value: "BA_FRENCH", label: "BA FRENCH" },
+    { value: "BA_CHINESE", label: "BA CHINESE" },
+    { value: "BA_GERMAN", label: "BA GERMAN" },
+    { value: "BA_JAPANESE", label: "BA JAPANESE" },
+    { value: "BA_SANSKRIT", label: "BA SANSKRIT" },
+    { value: "BA_PALI", label: "BA PALI" },
+  ];
+
+  const socialSciencesOptins = [
+    { value: "All", label: "All" },
+    { value: "B_ED", label: "B.ED" },
+    { value: "MA_EDUCATION", label: "MA EDUCATION" },
+    { value: "MA_JOURN_MASS_COMM", label: "MA JOURN MASS COMM" },
+    { value: "MA_HISTORY", label: "MA HISTORY" },
+    { value: "MA_GEOGRAPHY", label: "MA GEOGRAPHY" },
+    { value: "MA_ECONOMICS", label: "MA ECONOMICS" },
+    { value: "MA_FINE_ARTS", label: "MA FINE ARTS" },
+    { value: "BA_EDUCATION", label: "BA EDUCATION" },
+    { value: "BA_HISTORY", label: "BA HISTORY" },
+    { value: "BA_GEOGRAPHY", label: "BA GEOGRAPHY" },
+    { value: "BA_ECONOMICS", label: "BA ECONOMICS" },
+    { value: "BA_FINE_ARTS", label: "BA FINE ARTS" },
+    { value: "BA_POL_SCIENCE", label: "BA POL SCIENCE" },
+    { value: "BA_PHYSICAL_EDU", label: "BA PHYSICAL EDU" },
+    { value: "BA_JOURN_MASS_COMM", label: "BA JOURN MASS COMM" },
+    { value: "BA_SOCIOLOGY", label: "BA SOCIOLOGY" },
+  ];
+
+  // semester options
+
   const semesterOptions = [
     { value: "All", label: "All" },
     { value: "1", label: "1" },
@@ -215,7 +261,13 @@ export default function Card() {
   paperData.course === "Pharmacy"
     ? (branchOptions = pharmacyBranchOptions)
     : "";
+  paperData.course === "Social Science"
+    ? (branchOptions = socialSciencesOptins)
+    : "";
 
+  paperData.course === "Art and Humanities"
+    ? (branchOptions = artHumnanitiesOptions)
+    : "";
   return (
     <>
       {isLoading && <Loading></Loading>}
