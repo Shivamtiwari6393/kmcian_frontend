@@ -100,13 +100,14 @@ export default function Card() {
         return response.json();
       })
       .then((data) => {
+        setIsLoading(false);
         // setReqPapers(data);
         navigate("/papers", { state: data });
       })
       .catch((error) => {
+        setIsLoading(false);
         toast.error(error.message);
-      })
-      .finally(() => setIsLoading(false));
+      });
   };
 
   // Options for select inputs

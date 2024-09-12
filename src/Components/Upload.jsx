@@ -102,6 +102,7 @@ export default function Upload() {
         }
 
         if (response.status == 201) {
+          setIsLoading(false)
           toast.success("Thank you!.Paper uploaded.")
         }
       })

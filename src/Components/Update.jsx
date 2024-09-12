@@ -138,14 +138,15 @@ export default function Upload() {
           }
 
           if (response.status == 201) {
+            setIsLoading(false);
             toast.success("Congrats! Paper uploaded Successfully");
           }
         })
         .catch((e) => {
-          setIsLoading(false)
+          setIsLoading(false);
           setError(e.message);
           toast.error(e.message);
-        })
+        });
       return;
     }
 
@@ -166,14 +167,15 @@ export default function Upload() {
         }
 
         if (response.status == 200) {
+          setIsLoading(false);
           toast.success("Congrats! Paper updated Successfully");
         }
       })
       .catch((e) => {
+        setIsLoading(false)
         setError(e.message);
         toast.error(e.message);
       })
-      .finally(() => setIsLoading(false));
   };
 
   //=========================== Delete Paper=====================================
@@ -189,6 +191,7 @@ export default function Upload() {
       },
     })
       .then((res) => {
+        setIsLoading(false)
         if (res.status === 200) return res.json();
         else if (res.status === 404) throw new Error("Paper not found.");
         else if (res.status === 500) throw new Error("Server error. try later");
@@ -196,10 +199,10 @@ export default function Upload() {
       })
       .then((data) => toast.success(data.message))
       .catch((e) => {
+        setIsLoading(false)
         toast.error(e.message);
         setError(e.message);
       })
-      .finally(() => setIsLoading(false));
   };
 
   // Options for select inputs

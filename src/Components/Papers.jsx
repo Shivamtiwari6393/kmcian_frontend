@@ -54,6 +54,7 @@ export default function Papers() {
       );
 
       if (!response.ok) {
+        setIsLoading(false);
         const data = await response.json();
         throw new Error(data.message);
       }
@@ -67,7 +68,8 @@ export default function Papers() {
       //------------------ Saving pdf-----------------------------
 
       saveAs(blob, filename);
-      toast.success('Paper downloaded succesfully')
+      setIsLoading(false)
+      toast.success("Paper downloaded succesfully");
     } catch (error) {
       setIsLoading(false);
       toast.error(error.message);

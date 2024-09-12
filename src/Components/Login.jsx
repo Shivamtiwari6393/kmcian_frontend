@@ -59,9 +59,9 @@ function Login() {
       .then((data) => {
         // if login successfull save the token
         localStorage.setItem("kmciantoken", data.token);
+        setIsLoading(false);
         toast.success("Login successful!");
         setLogout(true);
-        setIsLoading(false);
       })
       .catch((e) => {
         setIsLoading(false);
