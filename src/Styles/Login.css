@@ -8,12 +8,7 @@
   padding-top: 20px;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(
-    90deg,
-    rgba(50, 135, 47, 0.633),
-    rgb(99, 61, 106)
-  );
-  /* background: linear-gradient(50deg,rgba(255, 0, 0, 0.423), rgba(0, 0, 255, 0.401), rgba(0, 128, 0, 0.604)); */
+  background: linear-gradient(40deg,rgba(39, 39, 39, 0.797), rgba(136, 0, 255, 0.326), rgb(54, 54, 54));
 }
 
 
