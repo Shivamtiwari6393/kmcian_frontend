@@ -3,6 +3,7 @@ import { useState } from "react";
 import uploadcss from "../Styles/Upload.module.css";
 import Loading from "./Loading";
 import { useLocation } from "react-router-dom";
+import pdf from "../assets/pdf.png";
 import CustomSelect from "./CustomSelect";
 import toast from "react-hot-toast";
 export default function Upload() {
@@ -37,9 +38,16 @@ export default function Upload() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [error, setError] = useState("");
+  const [fileName, setFileName] = useState("No file chosen");
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      setFile(file);
+      setFileName(file.name);
+    } else {
+      setFileName("No file chosen");
+    }
   };
 
   const handleInputChange = (e) => {
@@ -370,11 +378,19 @@ export default function Upload() {
             <p>{error}</p>{" "}
           </div>
         )}
-        <div className={uploadcss["content"]}>
+        <div className={uploadcss["select-downloadable"]}>
           <select
             name="downloadable"
             value={updateData.downloadable}
             onChange={handleInputChange}
+            style={{
+              padding: "4px",
+              border: "none",
+              borderRadius : "5px",
+              width: "60vw",
+              maxWidth: "250px",
+              textAlign: "center"
+            }}
           >
             <option value="0" disabled>
               Downloadable
@@ -407,62 +423,46 @@ export default function Upload() {
           placeholder={updateData.year}
         />
 
-        <fieldset>
-          <legend>Paper Name</legend>
-          <div className="name">
-            <input
-              type="text"
-              name="paper"
-              placeholder="Enter Paper Name"
-              value={updateData.paper}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>File*</legend>
-          <div className="file">
-            <input
-              type="file"
-              name="pdf"
-              className={uploadcss["inputfile"]}
-              onChange={handleFileChange}
-              accept=".pdf"
-            />
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Name</legend>
-          <div className="name">
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter Your Name"
-              value={updateData.name}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-        </fieldset>
+        <div className={uploadcss["name"]}>
+          <input
+            type="text"
+            name="paper"
+            placeholder="Enter Paper Name"
+            value={updateData.paper}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className={uploadcss["file-container"]}>
+          <label htmlFor="file-upload" className={uploadcss["file-label"]}>
+            <img src={pdf} alt="pdf" />
+            <span id={uploadcss["upload-name"]}>{fileName}</span>
+          </label>
+          <input id="file-upload" type="file" onChange={handleFileChange} />
+        </div>
 
-        <fieldset>
-          <legend>CreatedAt</legend>
-          <div className="name">
-            <p>{new Date(updateData.createdAt).toLocaleString()}</p>
-          </div>
-        </fieldset>
+        <div className={uploadcss["name"]}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter Your Name"
+            value={updateData.name}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
 
-        <fieldset>
-          <legend>UpdatedAt</legend>
-          <div className="name">
-            <p>{new Date(updateData.updatedAt).toLocaleString()}</p>
-          </div>
-        </fieldset>
+        <div className={uploadcss["time-stamp"]}>
+          <p> C: {new Date(updateData.createdAt).toLocaleString()}</p>
+        </div>
+
+        <div className={uploadcss["time-stamp"]}>
+          <p>U: {new Date(updateData.updatedAt).toLocaleString()}</p>
+        </div>
 
         <button onClick={update}>Update</button>
         <button
-          id="delete-button"
+          id={uploadcss["delete-button"]}
           onClick={handleDelete}
           style={{
             marginTop: "10px",
