@@ -19,8 +19,8 @@ export default function Discussion() {
     setUserQuery(e.target.value);
   };
 
-  const url = "http://127.0.0.1:8000";
-  // const url = "https://kmcianbackend.netlify.app"
+  // const url = "http://127.0.0.1:8000";
+  const url = "https://kmcianbackend.vercel.app";
 
   const handleClick = () => {
     if (pageInfo.currentPage + 1 <= pageInfo.totalPage) fetchQuery();
