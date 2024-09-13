@@ -7,30 +7,13 @@
   grid-template-columns: 1fr;
   justify-content: center;
   align-items: center;
-  /* background-color: white; */
   height: 45px;
   border: none;
   box-shadow: 0px 2px 1px grey;
   border-radius: 10px;
-  background: linear-gradient(rgb(255, 180, 196), rgb(234, 166, 237));
+  /* background: linear-gradient(rgb(255, 180, 196), rgb(234, 166, 237)); */
   background: linear-gradient(to right, rgb(205, 145, 220), rgb(127, 192, 190));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  /* background: linear-gradient(40deg,rgba(241, 194, 194, 0.797), rgba(136, 0, 255, 0.326), rgb(255, 204, 204)); */
 }
 
 .nav-links span {
