@@ -8,13 +8,18 @@ function Announcement() {
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(true);
   const [announcements, setAnnouncements] = useState([]);
+
+  const [pageInfo, setPageInfo] = useState({
+    currentPage: 0,
+    totalPage: 1,
+  });
   const page = useRef(0);
   const [totalPage, setTotalPage] = useState(2);
 
   const [announcementText, setAnnouncementText] = useState("");
 
-  // const url = "http://127.0.0.1:8000";
-  const url = "https://kmcianbackend.vercel.app";
+  const url = "http://127.0.0.1:8000";
+  // const url = "https://kmcianbackend.vercel.app";
 
   useEffect(() => {
     setTimeout(() => {
@@ -65,9 +70,9 @@ function Announcement() {
   // handle more/announcement button click
 
   const handleClick = () => {
-    if (page.current + 1 < totalPage) page.current = page.current + 1;
-    else return;
-    fetchh();
+    if (pageInfo.currentPage + 1 <= pageInfo.totalPage) fetchh();
+
+    return;
   };
 
   // fetch the announcement
@@ -75,7 +80,7 @@ function Announcement() {
   const fetchh = () => {
     setLoading(true);
 
-    fetch(`${url}/api/announcement/${page.current}`)
+    fetch(`${url}/api/announcement/${pageInfo.currentPage + 1}`)
       .then((res) => {
         if (res.status != 200) {
           return res.json().then((data) => {
@@ -85,9 +90,11 @@ function Announcement() {
         return res.json();
       })
       .then((data) => {
-        console.log(data, "fetched data");
         setAnnouncements((prev) => [...prev, ...data.announcements]);
-        setTotalPage(data.totalPage + 1);
+        setPageInfo({
+          currentPage: data.currentPage,
+          totalPage: data.totalPage,
+        });
         setLoading(false);
       })
       .catch((error) => {

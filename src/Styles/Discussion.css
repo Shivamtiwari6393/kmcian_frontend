@@ -1,5 +1,91 @@
 .discussion-container {
-  margin: 20px 0px;
+  position: relative;
+}
+
+.discussion-container .query-container {
+  width: 90%;
+  max-width: 768px;
+  margin: 20px auto;
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+}
+
+.query-container .query-header {
+  width: 100%;
+  margin: 0px auto;
+  padding: 10px;
   display: flex;
+  justify-content: space-between;
+  background-color: rgb(177, 189, 249);
+  border-radius: 10px 10px 0px 0px;
+}
+
+.query-container .query-header .time-stamp {
+  font-size: xx-small;
+  color: rgb(51, 51, 51);
+}
+
+.query-container .query-header .reply-button-container {
+  border: none;
+}
+
+.reply-button-container img {
+  width: 25px;
+  border: none;
+  background-color: rgb(177, 189, 249);
+}
+
+.query-body p {
+  font-size: small;
+  margin-top: 5px;
+  padding: 10px 15px;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.discussion-container .button-container {
+  text-align: center;
+}
+
+.button-container button {
+  margin: 10px;
+  padding: 10px 15px;
+  border: none;
+  color: white;
+  font-style: italic;
+  border-radius: 4px;
+  background-color: rgb(104, 104, 104);
+}
+
+
+.discussion-container .input-container {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+}
+
+.discussion-container .input-container input{
+
+  padding: 5px;
+  margin: 5px;
+  width: 80%;
+  border-radius: 4px;
+  border: none;
+}
+
+.discussion-container .input-container button{
+  user-select: none;
+  border: none;
+  background-color: rgba(0, 128, 0, 0.716);
+  padding: 5px;
+  border-radius: 4px;
+  color: white;
+  margin: 5px;
+  transition-duration: 0.5s;
+}
+
+
+.input-container button:active{
+  scale: 0.9;
 }
