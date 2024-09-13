@@ -13,9 +13,6 @@ function Announcement() {
     currentPage: 0,
     totalPage: 1,
   });
-  const page = useRef(0);
-  const [totalPage, setTotalPage] = useState(2);
-
   const [announcementText, setAnnouncementText] = useState("");
 
   // const url = "http://127.0.0.1:8000";
