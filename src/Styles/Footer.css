@@ -29,3 +29,17 @@
 .footer-container p :nth-child(4) {
   color: rgb(183, 183, 183);
 }
+
+
+.footer-container .counter{
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+
+}
+
+.counter p{
+  font-size: 8px;
+  margin-right: 5px;
+  color: rgb(87, 87, 87);
+}

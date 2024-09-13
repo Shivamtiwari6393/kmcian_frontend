@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { lazy } from "react";
+import { lazy } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
@@ -56,7 +56,5 @@ const route = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
     <RouterProvider router={route}></RouterProvider>
-  </React.StrictMode>
 );
