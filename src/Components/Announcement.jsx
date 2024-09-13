@@ -18,8 +18,8 @@ function Announcement() {
 
   const [announcementText, setAnnouncementText] = useState("");
 
-  // const url = "http://127.0.0.1:8000";
-  const url = "https://kmcianbackend.vercel.app";
+  const url = "http://127.0.0.1:8000";
+  // const url = "https://kmcianbackend.vercel.app";
 
   useEffect(() => {
     setTimeout(() => {

@@ -47,7 +47,10 @@ export default function Discussion() {
 
         setIsLoading(false);
       })
-      .catch((error) => toast.error(error.message));
+      .catch((error) => {
+        setIsLoading(false);
+        toast.error(error.message);
+      });
   };
 
   const handleSubmitClick = () => {
