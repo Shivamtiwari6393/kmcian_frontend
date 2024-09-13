@@ -73,6 +73,11 @@ export default function Discussion() {
         toast.error(error.message);
       });
   };
+
+  const handleReply = () => {
+    toast.error("This feature will be available soon. Please try later.");
+  };
+
   return (
     <>
       {isLoading && <Loading></Loading>}
@@ -86,7 +91,7 @@ export default function Discussion() {
                   {new Date(data.createdAt).toLocaleString()}
                 </span>
                 <div className="reply-button-container">
-                  <img src={reply} alt="reply" />
+                  <img src={reply} alt="reply" onClick={handleReply} />
                 </div>
               </div>
               <div className="query-body">
