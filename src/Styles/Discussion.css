@@ -1,6 +1,85 @@
 .discussion-container {
   position: relative;
 }
+.discussion-container .reply-container {
+  top: 0px;
+  right: 0px;
+  position: fixed;
+  z-index: 9;
+  background-color: rgb(60, 60, 60);
+  border-radius: 4px;
+  width: 90%;
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.reply-container .cancel-button-container {
+  text-align: end;
+  margin: 2px;
+}
+
+.cancel-button-container button {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+}
+
+.reply-container .reply-input-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  /* background-color: rgb(91, 91, 91); */
+  padding: 5px;
+}
+
+.reply-container .reply-input-container textarea {
+  margin: 5px 5px;
+  padding: 5px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  width: 80%;
+}
+
+.reply-input-container button {
+  margin: 5px 5px;
+  border: none;
+  padding: 5px;
+  border-radius: 4px;
+  font-weight: bold;
+  color: white;
+  background-color: rgb(26, 141, 26);
+}
+
+.reply-container .time-stamp {
+  color: white;
+  font-style: italic;
+
+  margin-top: 10px;
+  font-size: xx-small;
+  margin-left: 5px;
+  background-color: rgb(93, 93, 93);
+  width: fit-content;
+  padding: 5px;
+  border-radius: 7px 7px 0px 0px;
+}
+
+.reply-container .reply-body p {
+
+  color: white;
+  position: relative;
+  margin: 0px 0px;
+  padding: 20px;
+  font-size: small;
+  background-color: rgb(91, 90, 90);
+  border-radius: 4px;
+  word-wrap: break-word;
+}
 
 .discussion-container .query-container {
   width: 90%;
@@ -45,6 +124,7 @@
   margin-top: 5px;
   padding: 10px 15px;
   background-color: rgba(255, 255, 255, 0);
+  word-wrap: break-word;
 }
 
 .discussion-container .button-container {
@@ -61,7 +141,6 @@
   background-color: rgb(104, 104, 104);
 }
 
-
 .discussion-container .input-container {
   display: flex;
   flex-wrap: wrap;
@@ -69,8 +148,7 @@
   align-items: center;
 }
 
-.discussion-container .input-container input{
-
+.discussion-container .input-container input {
   padding: 5px;
   margin: 5px;
   width: 80%;
@@ -78,17 +156,25 @@
   border: none;
 }
 
-.discussion-container .input-container button{
+.input-container textarea {
+  padding: 5px;
+  margin: 10px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  width: 80%;
+}
+
+.discussion-container .input-container button {
   user-select: none;
   border: none;
   background-color: rgba(0, 128, 0, 0.716);
   padding: 5px;
   border-radius: 4px;
   color: white;
-  margin: 5px;
+  margin: 10px;
 }
 
-
-.input-container button:active{
+.input-container button:active {
   scale: 0.9;
 }

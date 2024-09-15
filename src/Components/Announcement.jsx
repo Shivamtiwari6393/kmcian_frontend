@@ -136,8 +136,9 @@ function Announcement() {
             name="announcementText"
             placeholder="Annoncement"
             onChange={handleInputChange}
+            
           />
-          <button type="submit" onClick={handleAnnouncementSubmit}>
+          <button  type="submit" disabled = {!announcementText}  onClick={handleAnnouncementSubmit}>
             Submit
           </button>
         </div>

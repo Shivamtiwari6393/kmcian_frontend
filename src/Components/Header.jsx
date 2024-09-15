@@ -1,6 +1,5 @@
 import "../Styles/Header.css";
 import { NavLink } from "react-router-dom";
-
 import home from "../assets/home.png";
 import upload from "../assets/upload.png";
 import discussion from "../assets/discussion.png";
