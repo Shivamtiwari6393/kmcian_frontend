@@ -46,8 +46,8 @@ export default function Papers() {
     setIsLoading(true);
 
     try {
-      const url = "http://127.0.0.1:8000/api/paper";
-      // const url = "https://kmcianbackend.vercel.app/api/paper";
+      // const url = "http://127.0.0.1:8000/api/paper";
+      const url = "https://kmcianbackend.vercel.app/api/paper";
 
       const response = await fetch(
         `${url}/download?course=${encodedCourse}&year=${encodedYear}&paper=${encodedPaper}&branch=${encodedBranch}&semester=${selectedPaper.semester}`
