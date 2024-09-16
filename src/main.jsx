@@ -32,7 +32,7 @@ const route = createBrowserRouter([
         element: <Upload></Upload>,
       },
       {
-        path: "/discussion",
+        path: "/queries",
         element: <Discussion></Discussion>,
       },
       {
@@ -48,7 +48,7 @@ const route = createBrowserRouter([
         element: <Chat></Chat>,
       },
       {
-        path: "/announcement",
+        path: "/announcements",
         element: <Announcement></Announcement>,
       },
     ],

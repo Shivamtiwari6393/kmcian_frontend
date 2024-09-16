@@ -80,7 +80,7 @@ export default function Papers() {
 
   const handleUpdate = (event) => {
     const choosed = JSON.parse(event.currentTarget.dataset.value);
-    navigate("/Update", { state: choosed });
+    navigate("/update", { state: choosed });
   };
 
   // ==================================================================================

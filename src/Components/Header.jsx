@@ -16,23 +16,23 @@ export default function Header() {
           </NavLink>
         </span>
         <span>
-          <NavLink to={"/Upload"}>
+          <NavLink to={"/upload"}>
             <img src={upload} alt="upload" title="Upload" />
           </NavLink>
         </span>
         <span>
-          <NavLink to={"/Discussion"}>
+          <NavLink to={"/queries"}>
             <img src={discussion} alt="discussion" title="Discussion" />
           </NavLink>
         </span>
         <span>
-          <NavLink to={"/Login"}>
+          <NavLink to={"/login"}>
             <img src={loginIcon} alt="login" title="Login" />
           </NavLink>
         </span>
 
         <span>
-          <NavLink to={"/announcement"}>
+          <NavLink to={"/announcements"}>
             <img src={ann} alt="login" title="Login" />
           </NavLink>
         </span>
