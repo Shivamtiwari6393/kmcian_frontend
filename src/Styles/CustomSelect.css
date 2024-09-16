@@ -7,18 +7,29 @@
   margin: 7px auto;
   border-radius: 10px;
   background-color: rgb(92, 79, 101);
+
 }
+
+
 
 .select {
   padding: 10px;
   cursor: pointer;
   font-weight: bold;
-  transition-duration: 0.5s;
+  transition-duration: 0.01s;
+
 }
 
 .select:active {
-  scale: 0.8;
+  scale: 0.9;
 }
+
+@keyframes scalein {
+  from {
+    scale: 0.5;
+  }
+}
+
 .select-options {
   font-style: italic;
   position: absolute;
@@ -36,6 +47,8 @@
   overflow-y: scroll;
   scroll-behavior: smooth;
   scrollbar-width: thin;
+  animation: scalein 0.3s;
+
 }
 
 .option {
@@ -45,7 +58,7 @@
 }
 
 .option:hover {
-  background-color: #b85454;
+  background-color: rgb(61, 48, 90)
 }
 
 @media screen and (max-width: 330px) {

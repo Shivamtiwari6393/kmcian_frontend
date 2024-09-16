@@ -178,7 +178,7 @@ export default function Discussion() {
                   onChange={handleUserReplyChange}
                   value={userReply}
                 ></textarea>
-                <button onClick={handleReplySubmitButtonClick}>Submit</button>
+                <button onClick={handleReplySubmitButtonClick} disabled = {!userReply}>Submit</button>
               </div>
               {reply.map((data) => (
                 <>

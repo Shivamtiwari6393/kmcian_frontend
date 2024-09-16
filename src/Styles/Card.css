@@ -1,7 +1,7 @@
 .error-container {
   position: relative;
   text-align: center;
-  color: rgb(54, 66, 239);
+  color: rgb(127, 9, 9);
   font-size: small;
   font-weight: bold;
   font-style: italic;
@@ -24,9 +24,7 @@
   width: 100%;
   max-width: 500px;
   background: linear-gradient(to right,rgba(127, 192, 190, 0.577), rgb(142, 98, 212));
-
 }
-
 
 
 .card-container #search-button-container {

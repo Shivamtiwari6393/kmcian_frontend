@@ -1,6 +1,35 @@
 .discussion-container {
   position: relative;
+  transform-origin: 1s;
+  animation: opacityin 0.5s;
 }
+
+@keyframes scalein {
+  from {
+    scale: 0;
+    transform-origin: top right ;
+  }
+}
+
+@keyframes opacityin {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slidein {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
 .discussion-container .reply-container {
   top: 0px;
   right: 0px;
@@ -12,11 +41,12 @@
   height: 100%;
   overflow-y: scroll;
   scrollbar-width: thin;
+  animation: scalein 0.5s ease-in-out;
 }
 
 .reply-container .cancel-button-container {
   text-align: end;
-  margin: 2px;
+  margin: 5px;
 }
 
 .cancel-button-container button {
@@ -70,7 +100,6 @@
 }
 
 .reply-container .reply-body p {
-
   color: white;
   position: relative;
   margin: 0px 0px;

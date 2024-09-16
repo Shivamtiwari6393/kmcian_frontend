@@ -14,6 +14,13 @@
   flex-direction: column;
   align-items: center;
   border-radius: 40px;
+  animation: opacityin 0.5s;
+}
+
+@keyframes opacityin {
+  from{
+    opacity: 0.3;
+  }
 }
 
 .upload-container input {
@@ -23,7 +30,6 @@
   border: none;
   border-radius: 5px;
   background-color: #ffffff52;
-
   font-size: 16px;
   cursor: pointer;
   font-weight: bold;
@@ -91,7 +97,6 @@
   background-color: #4caf50;
   box-shadow: 0px 2px 1px rgba(99, 99, 99, 0.71);
   border-radius: 11px;
-  transition-duration: 0.5s;
 }
 
 button:active {
@@ -105,8 +110,7 @@ button:active {
   }
 
   .upload-container input {
-    /* width: 60vw; */
     padding: 8px;
-    font-size: x-small;
+    font-size: small;
   }
 }
