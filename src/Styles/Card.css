@@ -26,14 +26,11 @@
   background: linear-gradient(to right,rgba(127, 192, 190, 0.577), rgb(142, 98, 212));
 }
 
-
 .card-container #search-button-container {
   margin-top: 15px;
   display: flex;
   justify-content: center;
 }
-
-
 
 #search-button-container  img {
   width: 40px;
