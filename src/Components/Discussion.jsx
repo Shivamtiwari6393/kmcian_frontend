@@ -223,7 +223,7 @@ export default function Discussion() {
                 </div>
               </div>
               <div className="query-body">
-                <p className="query">{data.content}</p>
+                <p className="query">{formatData(data.content)}</p>
               </div>
             </div>
           </>
