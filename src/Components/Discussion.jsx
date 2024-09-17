@@ -159,6 +159,19 @@ export default function Discussion() {
       });
   };
 
+
+
+  //------------- data format-----------------
+
+  const formatData = (text) => {
+    return text.split('\n').map((line, index) => (
+      <span key={index}>
+        {line}
+        <br />
+      </span>
+    ));
+  };
+
   // =========================================================================
 
   return (
@@ -186,7 +199,7 @@ export default function Discussion() {
                     {new Date(data.createdAt).toLocaleString()}
                   </div>
                   <div className="reply-body">
-                    <p>{data.content}</p>
+                    <p>{formatData(data.content)}</p>
                   </div>
                 </>
               ))}

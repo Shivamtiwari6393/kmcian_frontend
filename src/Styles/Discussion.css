@@ -70,7 +70,7 @@
 .reply-container .reply-input-container textarea {
   margin: 5px 5px;
   padding: 5px;
-  height: 30px;
+  height: max-content;
   border: none;
   border-radius: 4px;
   width: 80%;
