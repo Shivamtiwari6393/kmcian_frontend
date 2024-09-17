@@ -1,5 +1,7 @@
 .papers-container{
   padding-bottom: 50px;
+  user-select: none;
+
 }
 
 .papers-container .names {

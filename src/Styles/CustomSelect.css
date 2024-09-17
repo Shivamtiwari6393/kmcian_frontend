@@ -7,6 +7,7 @@
   margin: 7px auto;
   border-radius: 10px;
   background-color: rgb(92, 79, 101);
+  user-select: none;
 
 }
 

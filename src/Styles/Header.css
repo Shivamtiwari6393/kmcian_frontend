@@ -1,4 +1,5 @@
 .header-container {
+  user-select: none;
   max-width: 97%;
   margin: 5px auto;
   padding: 5px;

@@ -9,6 +9,8 @@
   align-items: center;
   justify-content: center;
   background: linear-gradient(rgb(71, 71, 71), rgb(34, 34, 34));
+  user-select: none;
+
 }
 
 .footer-container p {
