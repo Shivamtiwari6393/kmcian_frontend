@@ -13,13 +13,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 40px;
-  animation: opacityin 0.5s;
+  border-radius: 10px;
+  transform-origin: 50% 50%;
+  animation: opacityin 0.5s ease-in-out;
 }
 
 @keyframes opacityin {
   from{
-    opacity: 0.3;
+    transform:  scale(1.1);
+    opacity: 0;
   }
 }
 
@@ -106,7 +108,7 @@ button:active {
 
 @media screen and (max-width: 450px) {
   .upload-container {
-    border-radius: 20px;
+    border-radius: 10px;
   }
 
   .upload-container input {

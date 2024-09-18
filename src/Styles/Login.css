@@ -43,6 +43,7 @@
 }
 
 .login-fields input {
+  width: 70%;
   font-weight: bold;
   font-style: italic;
   margin: 10px;
@@ -90,7 +91,7 @@
   }
   .login-fields input {
     padding: 8px;
-    width: 60vw;
+    width: 50vw;
     font-size: x-small;
   }
 }

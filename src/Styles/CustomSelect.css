@@ -11,8 +11,6 @@
 
 }
 
-
-
 .select {
   padding: 10px;
   cursor: pointer;
@@ -25,9 +23,11 @@
   scale: 0.9;
 }
 
-@keyframes scalein {
+@keyframes scaleinn {
   from {
-    scale: 0.5;
+    /* transform: translateY(0%); */
+    /* scale: 0; */
+    transform: scaleY(0);
   }
 }
 
@@ -49,7 +49,7 @@
   scroll-behavior: smooth;
   scrollbar-width: thin;
   transform-origin: 50% 0%;
-  animation: scalein 0.3s;
+  animation: scaleinn 0.3s;
 
 }
 

@@ -1,25 +1,16 @@
 .discussion-container {
   position: relative;
   transform-origin: 1s;
-  animation: opacityin 0.5s;
+  transform-origin: 50% 50%;
+  animation: scalein 0.4s ease;
 }
 
 @keyframes scalein {
   from {
-    scale: 0;
-    transform-origin: top right ;
+  transform: scale(0);
   }
 }
 
-@keyframes opacityin {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
 
 @keyframes slidein {
   from {
@@ -41,6 +32,7 @@
   height: 100%;
   overflow-y: scroll;
   scrollbar-width: thin;
+  transform-origin: top right ;
   animation: scalein 0.5s ease-in-out;
 }
 
