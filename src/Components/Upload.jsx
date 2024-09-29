@@ -90,6 +90,7 @@ export default function Upload() {
       "Legal Studies": legalStudiesBranchOptions,
       Science: scienceBranchOptions,
       Pharmacy: pharmacyBranchOptions,
+      "Art and Humanities": artHumnanitiesOptions
     };
 
     // verify branch in selected faculty branch options
@@ -97,6 +98,7 @@ export default function Upload() {
     const exists = map[uploadData.course].some(
       (option) => option.value === uploadData.branch
     );
+
     // if branch not matches
     if (!exists) {
       toast.custom(
@@ -115,6 +117,10 @@ export default function Upload() {
       return;
     }
     //----------- API---------------
+
+
+    console.log("inside upload");
+    
 
     // const url = "http://127.0.0.1:8000/api/paper";
     const url = "https://kmcianbackend.vercel.app/api/paper";

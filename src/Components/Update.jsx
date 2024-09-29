@@ -98,6 +98,7 @@ export default function Upload() {
         "Legal Studies": legalStudiesBranchOptions,
         Science: scienceBranchOptions,
         Pharmacy: pharmacyBranchOptions,
+        "Art and Humanities": artHumnanitiesOptions,
       };
 
       // verify branch in selected faculty branch options
@@ -386,10 +387,10 @@ export default function Upload() {
             style={{
               padding: "4px",
               border: "none",
-              borderRadius : "5px",
+              borderRadius: "5px",
               width: "60vw",
               maxWidth: "250px",
-              textAlign: "center"
+              textAlign: "center",
             }}
           >
             <option value="0" disabled>
