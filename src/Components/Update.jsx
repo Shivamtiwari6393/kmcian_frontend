@@ -160,7 +160,7 @@ export default function Upload() {
     }
 
     //==================================== update ===================================
-    
+
     setIsLoading(true);
     fetch(`${url}/update/${id}`, {
       method: "PUT",
@@ -226,103 +226,104 @@ export default function Upload() {
     { value: "Pharmacy", label: "Pharmacy" },
   ];
 
-  // Engineering branch
+  // branch options
 
   const engineeringBranchOptions = [
+    { value: "All", label: "All" },
     { value: "CSE(AI&ML)", label: "CSE(AI&ML)" },
     { value: "CSE(AI&DS)", label: "CSE(AI&DS)" },
     { value: "CSE", label: "CSE" },
-    { value: "BIO_TECHNOLOGY", label: "Bio Technology" },
+    { value: "BIO TECHNOLOGY", label: "Bio Technology" },
     { value: "CIVIL", label: "Civil" },
     { value: "MACHANICAL", label: "Machanical" },
-    { value: "M_TECH_CSE(AI&ML)", label: "M.Tech - CSE(AI&ML)" },
+    { value: "M.Tech - CSE(AI&ML)", label: "M.Tech - CSE(AI&ML)" },
   ];
-
-  // Commerce options
 
   const commerceBranchOptions = [
+    { value: "All", label: "All" },
     { value: "BBA", label: "BBA" },
     { value: "MBA", label: "MBA" },
-    { value: "MBA_FA", label: "MBA(FA)" },
-    { value: "B_COM", label: "B.COM" },
-    { value: "B_COM_TT", label: "B.COM(TT)" },
-    { value: "M_COM", label: "M.COM" },
+    { value: "MBA FA", label: "MBA(FA)" },
+    { value: "B.COM", label: "B.COM" },
+    { value: "B.COM(TT)", label: "B.COM(TT)" },
+    { value: "M.COM", label: "M.COM" },
   ];
 
-  // legal studies options
-
   const legalStudiesBranchOptions = [
+    { value: "All", label: "All" },
     { value: "LLM", label: "LLM" },
-    { value: "BA_LLB", label: "BA LLB" },
+    { value: "BA LLB", label: "BA LLB" },
     { value: "LLB", label: "LLB" },
   ];
 
   // science options
 
   const scienceBranchOptions = [
+    { value: "All", label: "All" },
     { value: "MCA", label: "MCA" },
     { value: "BCA", label: "BCA" },
-    { value: "BSc_PHYSICS", label: "B.Sc Physics" },
-    { value: "BSc_CHEMISTRY", label: "B.Sc Chemistry" },
-    { value: "BSc_MATHEMATICS", label: "B.Sc Mathematics" },
-    { value: "BSc_CS", label: "B.Sc Computer Science" },
-    { value: "BSc_BIOTECHNOLOGY", label: "B.Sc Biotechnology" },
-    { value: "BSc_ZOOLOGY", label: "B.Sc Zoology" },
-    { value: "BSc_BOTANY", label: "B.Sc Botany" },
-    { value: "BSc_MICROBIOLOGY", label: "B.Sc Microbiology" },
-    { value: "BSc_STATISTICS", label: "B.Sc Statistics" },
-    { value: "BA_HM", label: "BA Home Science" },
-    { value: "MA_HM", label: "MA Home Science" },
-    { value: "B_LIB", label: "B.lib." },
+    { value: "BSc PHYSICS", label: "B.Sc Physics" },
+    { value: "BSc CHEMISTRY", label: "B.Sc Chemistry" },
+    { value: "BSc MATHEMATICS", label: "B.Sc Mathematics" },
+    { value: "BSc CS", label: "B.Sc Computer Science" },
+    { value: "BSc BIOTECHNOLOGY", label: "B.Sc Biotechnology" },
+    { value: "BSc ZOOLOGY", label: "B.Sc Zoology" },
+    { value: "BSc BOTANY", label: "B.Sc Botany" },
+    { value: "BSc MICROBIOLOGY", label: "B.Sc Microbiology" },
+    { value: "BSc STATISTICS", label: "B.Sc Statistics" },
+    { value: "BA HM", label: "BA Home Science" },
+    { value: "MA HM", label: "MA Home Science" },
+    { value: "B LIB", label: "B.lib." },
   ];
 
   // pharmacy options
 
   const pharmacyBranchOptions = [
-    { value: "B_PHARM", label: "B.Pharm" },
-    { value: "D_PHARM", label: "D.Pharm" },
+    { value: "All", label: "All" },
+    { value: "B PHARM", label: "B.Pharm" },
+    { value: "D PHARM", label: "D.Pharm" },
   ];
 
   // arts and humanities options
 
   const artHumnanitiesOptions = [
     { value: "All", label: "All" },
-    { value: "MA_ARABIC", label: "MA ARABIC" },
-    { value: "MA_ENGLISH", label: "MA ENGLISH" },
-    { value: "MA_HINDI", label: "MA HINDI" },
-    { value: "MA_PERSIAN", label: "MA PERSIAN" },
-    { value: "MA_URDU", label: "MA URDU" },
-    { value: "BA_ARABIC", label: "BA ARABIC" },
-    { value: "BA_ENGLISH", label: "BA ENGLISH" },
-    { value: "BA_HINDI", label: "BA HINDI" },
-    { value: "BA_PERSIAN", label: "BA PERSIAN" },
-    { value: "BA_URDU", label: "BA URDU" },
-    { value: "BA_FRENCH", label: "BA FRENCH" },
-    { value: "BA_CHINESE", label: "BA CHINESE" },
-    { value: "BA_GERMAN", label: "BA GERMAN" },
-    { value: "BA_JAPANESE", label: "BA JAPANESE" },
-    { value: "BA_SANSKRIT", label: "BA SANSKRIT" },
-    { value: "BA_PALI", label: "BA PALI" },
+    { value: "MA ARABIC", label: "MA ARABIC" },
+    { value: "MA ENGLISH", label: "MA ENGLISH" },
+    { value: "MA HINDI", label: "MA HINDI" },
+    { value: "MA PERSIAN", label: "MA PERSIAN" },
+    { value: "MA URDU", label: "MA URDU" },
+    { value: "BA ARABIC", label: "BA ARABIC" },
+    { value: "BA ENGLISH", label: "BA ENGLISH" },
+    { value: "BA HINDI", label: "BA HINDI" },
+    { value: "BA PERSIAN", label: "BA PERSIAN" },
+    { value: "BA URDU", label: "BA URDU" },
+    { value: "BA FRENCH", label: "BA FRENCH" },
+    { value: "BA CHINESE", label: "BA CHINESE" },
+    { value: "BA GERMAN", label: "BA GERMAN" },
+    { value: "BA JAPANESE", label: "BA JAPANESE" },
+    { value: "BA SANSKRIT", label: "BA SANSKRIT" },
+    { value: "BA PALI", label: "BA PALI" },
   ];
 
   const socialSciencesOptins = [
     { value: "All", label: "All" },
-    { value: "B_ED", label: "B.ED" },
-    { value: "MA_EDUCATION", label: "MA EDUCATION" },
-    { value: "MA_JOURN_MASS_COMM", label: "MA JOURN MASS COMM" },
-    { value: "MA_HISTORY", label: "MA HISTORY" },
-    { value: "MA_GEOGRAPHY", label: "MA GEOGRAPHY" },
-    { value: "MA_ECONOMICS", label: "MA ECONOMICS" },
-    { value: "MA_FINE_ARTS", label: "MA FINE ARTS" },
-    { value: "BA_EDUCATION", label: "BA EDUCATION" },
-    { value: "BA_HISTORY", label: "BA HISTORY" },
-    { value: "BA_GEOGRAPHY", label: "BA GEOGRAPHY" },
-    { value: "BA_ECONOMICS", label: "BA ECONOMICS" },
-    { value: "BA_FINE_ARTS", label: "BA FINE ARTS" },
-    { value: "BA_POL_SCIENCE", label: "BA POL SCIENCE" },
-    { value: "BA_PHYSICAL_EDU", label: "BA PHYSICAL EDU" },
-    { value: "BA_JOURN_MASS_COMM", label: "BA JOURN MASS COMM" },
-    { value: "BA_SOCIOLOGY", label: "BA SOCIOLOGY" },
+    { value: "B ED", label: "B.ED" },
+    { value: "MA EDUCATION", label: "MA EDUCATION" },
+    { value: "MA JOURN_MASS_COMM", label: "MA JOURN MASS COMM" },
+    { value: "MA HISTORY", label: "MA HISTORY" },
+    { value: "MA GEOGRAPHY", label: "MA GEOGRAPHY" },
+    { value: "MA ECONOMICS", label: "MA ECONOMICS" },
+    { value: "MA FINE ARTS", label: "MA FINE ARTS" },
+    { value: "BA EDUCATION", label: "BA EDUCATION" },
+    { value: "BA HISTORY", label: "BA HISTORY" },
+    { value: "BA GEOGRAPHY", label: "BA GEOGRAPHY" },
+    { value: "BA ECONOMICS", label: "BA ECONOMICS" },
+    { value: "BA FINE ARTS", label: "BA FINE ARTS" },
+    { value: "BA POL SCIENCE", label: "BA POL SCIENCE" },
+    { value: "BA PHYSICAL EDU", label: "BA PHYSICAL EDU" },
+    { value: "BA JOURN_MASS_COMM", label: "BA JOURN MASS COMM" },
+    { value: "BA SOCIOLOGY", label: "BA SOCIOLOGY" },
   ];
 
   const semesterOptions = [
