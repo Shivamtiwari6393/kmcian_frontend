@@ -68,7 +68,7 @@ export default function Papers() {
       //------------------ Saving pdf-----------------------------
 
       saveAs(blob, filename);
-      setIsLoading(false)
+      setIsLoading(false);
       toast.success("Paper downloaded succesfully");
     } catch (error) {
       setIsLoading(false);
@@ -90,7 +90,7 @@ export default function Papers() {
       {isLoading && <Loading></Loading>}
 
       {reqPapers.map((element) => (
-        <div className="names" key={element['_id']}>
+        <div className="names" key={element["_id"]}>
           <div className="paperName">
             <p>{element.paper}</p>
           </div>

@@ -160,6 +160,7 @@ export default function Upload() {
     }
 
     //==================================== update ===================================
+    
     setIsLoading(true);
     fetch(`${url}/update/${id}`, {
       method: "PUT",

@@ -78,10 +78,11 @@
 
 .papers-container #update-button {
   display: none;
-  padding: 11px;
+  padding: 8px;
   background-color: rgb(84, 55, 50);
   max-width: 200px;
   color: white;
+  width: 50%;
   font-weight: bold;
 }
 
@@ -165,7 +166,6 @@
   .papers-container #update-button {
     display: none;
     justify-content: center;
-    width: 100%;
     color: white;
   }
 }
