@@ -68,7 +68,7 @@
 }
 
 .login-fields .logout-button-container button {
-  background: rgb(185, 46, 46);
+  background: rgba(181, 45, 45, 0.779);
   font-weight: bold;
   color: white;
   width: 85%;

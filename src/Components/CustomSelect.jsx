@@ -1,19 +1,18 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 
-const CustomSelect = ({ options, onChange, placeholder }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const CustomSelect = ({ options, onChange, placeholder, isOpen, onClick }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleSelect = (option) => {
     setSelectedOption(option);
     onChange(option.value);
-    setIsOpen(false);
+    onClick()
   };
 
   return (
     <div className="select-container">
-      <div className="select" onClick={() => setIsOpen(!isOpen)}>
+      <div className="select" onClick={onClick}>
         {selectedOption ? selectedOption.label : placeholder}
       </div>
       {isOpen && (

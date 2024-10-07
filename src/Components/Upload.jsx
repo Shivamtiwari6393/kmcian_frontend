@@ -24,7 +24,12 @@ export default function Upload() {
   const [error, setError] = useState("");
 
   const [fileName, setFileName] = useState("No file chosen");
+  const [openSelect, setOpenSelect] = useState(null);
 
+
+  const handleSelectClick = (selectName) => {
+    setOpenSelect((prev) => (prev === selectName ? null : selectName)); // Toggle open state
+  };
   // -----------handle file change-------------
 
   const handleFileChange = (e) => {
@@ -333,21 +338,29 @@ export default function Upload() {
 
         <CustomSelect
           options={courseOptions}
+          isOpen={openSelect === "course"}
+          onClick={() => handleSelectClick("course")}
           onChange={(value) => handleDataChange("course", value)}
           placeholder="Faculty"
         />
         <CustomSelect
           options={branchOptions}
+          isOpen={openSelect === "branch"}
+          onClick={() => handleSelectClick("branch")}
           onChange={(value) => handleDataChange("branch", value)}
           placeholder="Branch"
         />
         <CustomSelect
           options={semesterOptions}
+          isOpen={openSelect === "semester"}
+          onClick={() => handleSelectClick("semester")}
           onChange={(value) => handleDataChange("semester", value)}
           placeholder="Semester"
         />
         <CustomSelect
           options={yearOptions}
+          isOpen={openSelect === "year"}
+          onClick={() => handleSelectClick("year")}
           onChange={(value) => handleDataChange("year", value)}
           placeholder="Year"
         />

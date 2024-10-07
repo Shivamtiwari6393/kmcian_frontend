@@ -39,6 +39,11 @@ export default function Upload() {
 
   const [error, setError] = useState("");
   const [fileName, setFileName] = useState("No file chosen");
+  const [openSelect, setOpenSelect] = useState(null);
+
+  const handleSelectClick = (selectName) => {
+    setOpenSelect((prev) => (prev === selectName ? null : selectName)); // Toggle open state
+  };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -406,22 +411,30 @@ export default function Upload() {
         {/* {console.log(updateData.course)} */}
         <CustomSelect
           options={courseOptions}
+          isOpen={openSelect === "course"}
+          onClick={() => handleSelectClick("course")}
           onChange={(value) => handleDataChange("course", value)}
           placeholder={updateData.course}
         />
 
         <CustomSelect
           options={branchOptions}
+          isOpen={openSelect === "branch"}
+          onClick={() => handleSelectClick("branch")}
           onChange={(value) => handleDataChange("branch", value)}
           placeholder={updateData.branch}
         />
         <CustomSelect
           options={semesterOptions}
+          isOpen={openSelect === "semester"}
+          onClick={() => handleSelectClick("semester")}
           onChange={(value) => handleDataChange("semester", value)}
           placeholder={updateData.semester}
         />
         <CustomSelect
           options={yearOptions}
+          isOpen={openSelect === "year"}
+          onClick={() => handleSelectClick("year")}
           onChange={(value) => handleDataChange("year", value)}
           placeholder={updateData.year}
         />
@@ -467,10 +480,7 @@ export default function Upload() {
         <button
           id={uploadcss["delete-button"]}
           onClick={handleDelete}
-          style={{
-            marginTop: "10px",
-            backgroundColor: "red",
-          }}
+
         >
           Delete
         </button>

@@ -10,6 +10,8 @@ import searchIcon from "../assets/search.png";
 import toast from "react-hot-toast";
 
 export default function Card() {
+  const [openSelect, setOpenSelect] = useState(null);
+
   const navigate = useNavigate();
 
   const [paperData, setPaperData] = useState({
@@ -24,6 +26,10 @@ export default function Card() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [error, setError] = useState("");
+
+  const handleSelectClick = (selectName) => {
+    setOpenSelect((prev) => (prev === selectName ? null : selectName)); // Toggle open state
+  };
 
   // if user is admin
   useEffect(() => {
@@ -281,21 +287,29 @@ export default function Card() {
 
           <CustomSelect
             options={courseOptions}
+            isOpen={openSelect === "course"}
+            onClick={() => handleSelectClick("course")}
             onChange={(value) => handleChange("course", value)}
             placeholder="Faculty"
           />
           <CustomSelect
             options={branchOptions}
+            isOpen={openSelect === "branch"}
+            onClick={() => handleSelectClick("branch")}
             onChange={(value) => handleChange("branch", value)}
             placeholder="Branch"
           />
           <CustomSelect
             options={semesterOptions}
+            isOpen={openSelect === "semester"}
+            onClick={() => handleSelectClick("semester")}
             onChange={(value) => handleChange("semester", value)}
             placeholder="Semester"
           />
           <CustomSelect
             options={yearOptions}
+            isOpen={openSelect === "year"}
+            onClick={() => handleSelectClick("year")}
             onChange={(value) => handleChange("year", value)}
             placeholder="Year"
           />
