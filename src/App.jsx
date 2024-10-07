@@ -7,8 +7,15 @@ import Loading from "./Components/Loading";
 import Footer from "./Components/Footer";
 import { Toaster } from "react-hot-toast";
 
+import adminContext from "./Components/adminContext";
+
 function App() {
   const [counter, setCounter] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+
+
+  //=============== fetching request count ==================
+
   useEffect(() => {
     const url = "https://kmcianbackend.vercel.app/api/request";
     fetch(`${url}`)
@@ -19,15 +26,30 @@ function App() {
       })
       .then((data) => setCounter(data.count));
   }, []);
+
+
+//========== if token exist ==================
+
+  useEffect(() => {
+    const value = localStorage?.getItem("kmciantoken");
+    if (value) {
+      setIsAdmin(true);
+    }
+  }, []);
+
+  // ============================================================
+
   return (
-    <div className="app">
-      <Toaster />
-      <Header />
-      <Suspense fallback={<Loading></Loading>}>
-        <Outlet></Outlet>
-      </Suspense>
-      <Footer counter = {counter}></Footer>
-    </div>
+    <adminContext.Provider value={[isAdmin, setIsAdmin]}>
+      <div className="app">
+        <Toaster />
+        <Header />
+        <Suspense fallback={<Loading></Loading>}>
+          <Outlet></Outlet>
+        </Suspense>
+        <Footer counter={counter}></Footer>
+      </div>
+    </adminContext.Provider>
   );
 }
 

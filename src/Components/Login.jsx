@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../Styles/Login.css";
 import userIcon from "../assets/user.png";
 import passwordIcon from "../assets/password.png";
 import Loading from "./Loading";
 import { toast } from "react-hot-toast";
+import adminContext from "./adminContext";
 
 function Login() {
   const [credentials, setCredentials] = useState({
@@ -15,18 +16,20 @@ function Login() {
 
   const [logout, setLogout] = useState(true);
 
+  const [isAdmin, setIsAdmin] = useContext(adminContext)
+
   const doLogout = () => {
     localStorage.removeItem("kmciantoken");
     setLogout(false);
+    setIsAdmin(false)
     toast.success("Logged out successfully!");
   };
 
   useEffect(() => {
-    const value = localStorage?.getItem("kmciantoken");
-    if (value) {
+    if (isAdmin) {
       setLogout(true);
     } else setLogout(false);
-  }, []);
+  },[]);
 
   // handle input change
 
@@ -62,6 +65,8 @@ function Login() {
         setIsLoading(false);
         toast.success("Login successful!");
         setLogout(true);
+        setIsAdmin(true)
+
       })
       .catch((e) => {
         setIsLoading(false);

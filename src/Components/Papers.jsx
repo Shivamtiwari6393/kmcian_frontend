@@ -3,9 +3,10 @@ import "../Styles/Papers.css";
 import { saveAs } from "file-saver";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "./Loading";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import downloadIcon from "../assets/download.png";
 import toast from "react-hot-toast";
+import adminContext from "./adminContext";
 
 export default function Papers() {
   const navigate = useNavigate();
@@ -16,12 +17,14 @@ export default function Papers() {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const [isAdmin] = useContext(adminContext)
+
   // checking token
 
   useEffect(() => {
     setTimeout(() => {
-      const value = localStorage?.getItem("kmciantoken");
-      if (value) {
+      // const value = localStorage?.getItem("kmciantoken");
+      if (isAdmin) {
         const elements = document.getElementsByClassName("updatebutton");
         if (elements) {
           for (let i = 0; i < elements.length; i++) {

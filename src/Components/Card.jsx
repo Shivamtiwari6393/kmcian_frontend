@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../Styles/Card.css";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
@@ -8,8 +8,13 @@ import "../Styles/CustomSelect.css";
 
 import searchIcon from "../assets/search.png";
 import toast from "react-hot-toast";
+import adminContext from "./adminContext";
 
 export default function Card() {
+
+
+  const [isAdmin, setIsAdmin] = useContext(adminContext)
+  
   const [openSelect, setOpenSelect] = useState(null);
 
   const navigate = useNavigate();
@@ -33,10 +38,8 @@ export default function Card() {
 
   // if user is admin
   useEffect(() => {
-    const value = localStorage?.getItem("kmciantoken");
-    if (value) {
-      document.getElementById("downloadable-select").style.display = "block";
-    }
+
+    if(isAdmin) document.getElementById("downloadable-select").style.display = "block";
   });
 
   // =============================================
