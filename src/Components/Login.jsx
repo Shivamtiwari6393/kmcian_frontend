@@ -29,7 +29,7 @@ function Login() {
     if (isAdmin) {
       setLogout(true);
     } else setLogout(false);
-  },[]);
+  });
 
   // handle input change
 
