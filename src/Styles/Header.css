@@ -19,6 +19,7 @@
 
 .nav-links span {
   position: relative;
+  margin-left: 25px;
 }
 
 .nav-links {
@@ -48,12 +49,12 @@ scale: 0.5;
   background: linear-gradient(left to right, rgb(255, 0, 0), rgb(0, 0, 254));
 }
 
-@media (width <= 700px) {
+@media (width <= 500px) {
   .nav-links {
     justify-content: flex-start;
   }
 
   .nav-links span {
-    margin-left: 25px;
+    margin-left: 22px;
   }
 }

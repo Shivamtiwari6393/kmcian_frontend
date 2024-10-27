@@ -1,0 +1,41 @@
+.about-container{
+    text-align: center;
+}
+.about-container h4{
+    margin: 20px 0px;
+    font-family: cursive;
+}
+
+.about-container .comment-container{
+    margin: 10px;
+}
+
+.about-container .comment-container textarea{
+    padding: 10px;
+    border-radius: 10px;
+    font-family: cursive;
+    width: 80%;
+    height: 50vh;
+
+}
+
+
+.about-container .welcome-container h4{
+    padding: 10px;
+    margin: 5px;
+    font-size: large;
+}
+
+
+
+
+.about-container .welcome-container p{
+    padding: 10px;
+    margin: 10px;
+    font-family: cursive;
+}
+
+
+.about-container .welcome-container .info p{
+    text-align: left;
+}

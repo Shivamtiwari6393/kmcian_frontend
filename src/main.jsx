@@ -6,6 +6,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // eslint-disable-next-line react-refresh/only-export-components
 import Card from "./Components/Card.jsx";
+import About from "./Components/About.jsx";
 const Announcement = lazy(() => import("./Components/Announcement.jsx"));
 const Upload = lazy(() => import("./Components/Upload.jsx"));
 const Discussion = lazy(() => import("./Components/Discussion.jsx"));
@@ -50,6 +51,10 @@ const route = createBrowserRouter([
       {
         path: "/announcements",
         element: <Announcement></Announcement>,
+      },
+      {
+        path: "/about",
+        element: <About></About>,
       },
     ],
   },

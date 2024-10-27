@@ -5,6 +5,7 @@ import upload from "../assets/upload.png";
 import discussion from "../assets/discussion.png";
 import loginIcon from "../assets/login.png";
 import ann from "../assets/announcment.png";
+import information from "../assets/info.png"
 
 export default function Header() {
   return (
@@ -22,7 +23,7 @@ export default function Header() {
         </span>
         <span>
           <NavLink to={"/queries"}>
-            <img src={discussion} alt="discussion" title="Discussion" />
+            <img src={discussion} alt="queries" title="queries" />
           </NavLink>
         </span>
         <span>
@@ -33,7 +34,12 @@ export default function Header() {
 
         <span>
           <NavLink to={"/announcements"}>
-            <img src={ann} alt="login" title="Login" />
+            <img src={ann} alt="announcements" title="announcements" />
+          </NavLink>
+        </span>
+        <span>
+          <NavLink to={"/about"}>
+            <img src={information} alt="about" title="about" />
           </NavLink>
         </span>
       </div>
