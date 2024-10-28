@@ -95,7 +95,8 @@ export default function Upload() {
       "Legal Studies": legalStudiesBranchOptions,
       Science: scienceBranchOptions,
       Pharmacy: pharmacyBranchOptions,
-      "Art and Humanities": artHumnanitiesOptions
+      "Art and Humanities": artHumnanitiesOptions,
+      "Social Science" : socialSciencesOptions
     };
 
     // verify branch in selected faculty branch options
@@ -258,7 +259,7 @@ export default function Upload() {
     { value: "BA PALI", label: "BA PALI" },
   ];
 
-  const socialSciencesOptins = [
+  const socialSciencesOptions = [
     { value: "All", label: "All" },
     { value: "B ED", label: "B.ED" },
     { value: "MA EDUCATION", label: "MA EDUCATION" },
@@ -316,7 +317,7 @@ export default function Upload() {
     : "";
 
   uploadData.course === "Social Science"
-    ? (branchOptions = socialSciencesOptins)
+    ? (branchOptions = socialSciencesOptions)
     : "";
 
   uploadData.course === "Art and Humanities"
