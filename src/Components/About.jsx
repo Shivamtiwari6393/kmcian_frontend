@@ -43,6 +43,7 @@ function About() {
               updates, or discussing academic topics, Kmcian is here to support
               your university life.
             </p>
+            <i>Email : shivamtiwari6223@gmail.com</i>
           </div>
         </p>
       </div>
@@ -55,6 +56,7 @@ function About() {
           placeholder="Start here..."
         ></textarea>
       </div>
+     
     </div>
   );
 }

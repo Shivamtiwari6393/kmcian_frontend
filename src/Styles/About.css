@@ -1,9 +1,10 @@
 .about-container{
     text-align: center;
+    margin: 20px;
 }
 .about-container h4{
     margin: 20px 0px;
-    font-family: cursive;
+    font-family: monospace;
 }
 
 .about-container .comment-container{
@@ -13,7 +14,8 @@
 .about-container .comment-container textarea{
     padding: 10px;
     border-radius: 10px;
-    font-family: cursive;
+    margin: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     width: 80%;
     height: 50vh;
 
@@ -32,7 +34,7 @@
 .about-container .welcome-container p{
     padding: 10px;
     margin: 10px;
-    font-family: cursive;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 
