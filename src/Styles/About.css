@@ -38,3 +38,13 @@
 .about-container .welcome-container .info p{
     text-align: justify;
 }
+
+
+.about-container .comment-container .button-container button{
+    padding: 5px 7px;
+    font-weight: bold;
+    background-color: rgba(0, 128, 0, 0.77);
+    color: white;
+    border: none;
+    border-radius: 3px;
+}

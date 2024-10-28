@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import "../Styles/About.css";
 
 function About() {
@@ -28,11 +29,11 @@ function About() {
               <br />
               <br />
               <b> Announcements</b> – Stay informed with real-time updates on
-              university and about previous year questions, so you’re always in
+              university and about previous year papers, so you’re always in
               the loop.
               <br />
               <br />
-              <b>Secure Login</b> – After logging in, you can also update and
+              <b>Login</b> – After logging in, you can also update and
               delete papers you’ve uploaded, ensuring that content stays
               relevant and accurate. Plus, logged-in users have the ability to
               post announcements, making it easier to share information with
@@ -55,8 +56,11 @@ function About() {
           id="comment"
           placeholder="Start here..."
         ></textarea>
+
+        <div className="button-container">
+          <button onClick={()=>toast.success("Succesfully Posted")}>Submit</button>
+        </div>
       </div>
-     
     </div>
   );
 }
