@@ -26,7 +26,6 @@ export default function Upload() {
   const [fileName, setFileName] = useState("No file chosen");
   const [openSelect, setOpenSelect] = useState(null);
 
-
   const handleSelectClick = (selectName) => {
     setOpenSelect((prev) => (prev === selectName ? null : selectName)); // Toggle open state
   };
@@ -96,7 +95,7 @@ export default function Upload() {
       Science: scienceBranchOptions,
       Pharmacy: pharmacyBranchOptions,
       "Art and Humanities": artHumnanitiesOptions,
-      "Social Science" : socialSciencesOptions
+      "Social Science": socialSciencesOptions,
     };
 
     // verify branch in selected faculty branch options
@@ -124,9 +123,7 @@ export default function Upload() {
     }
     //----------- API---------------
 
-
     console.log("inside upload");
-    
 
     // const url = "http://127.0.0.1:8000/api/paper";
     const url = "https://kmcianbackend.vercel.app/api/paper";
@@ -377,17 +374,12 @@ export default function Upload() {
           />
         </div>
 
-
         <div className={uploadcss["file-container"]}>
           <label htmlFor="file-upload" className={uploadcss["file-label"]}>
             <img src={pdf} alt="pdf" />
             <span id={uploadcss["upload-name"]}>{fileName}</span>
           </label>
-          <input
-            id="file-upload"
-            type="file"
-            onChange={handleFileChange}
-          />
+          <input id="file-upload" type="file" onChange={handleFileChange} />
         </div>
         <div className="name">
           <input

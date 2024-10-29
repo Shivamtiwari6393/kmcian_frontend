@@ -1,7 +1,50 @@
 import toast from "react-hot-toast";
 import "../Styles/About.css";
+import { useState } from "react";
 
 function About() {
+  const [comment, setComment] = useState("");
+
+  const handleChange = (e) => {
+    setComment(e.target.value);
+  };
+
+  //-------- post comment function--------------
+
+  const postComment = () => {
+    if (comment == "") {
+      return;
+    }
+
+    // const url = "http://127.0.0.1:8000/api/comment";
+    const url = "https://kmcianbackend.vercel.app/api/comment"
+
+   const id =  toast.loading("Posting...")
+
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({ comment: comment }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((data) => {
+            throw new Error(data.message);
+          });
+        }
+
+
+        toast.success("Response posted", {id: id})
+
+
+
+      })
+      .catch((error) => {
+        console.log(error);
+        
+        toast.error(error.message, {id: id});
+      });
+  };
+
   return (
     <div className="about-container">
       <div className="welcome-container">
@@ -29,14 +72,14 @@ function About() {
               <br />
               <br />
               <b> Announcements</b> – Stay informed with real-time updates on
-              university and about previous year papers, so you’re always in
-              the loop.
+              university and about previous year papers, so you’re always in the
+              loop.
               <br />
               <br />
-              <b>Login</b> – After logging in, you can also update and
-              delete papers you’ve uploaded, ensuring that content stays
-              relevant and accurate. Plus, logged-in users have the ability to
-              post announcements, making it easier to share information with
+              <b>Login</b> – After logging in, you can also update and delete
+              papers you’ve uploaded, ensuring that content stays relevant and
+              accurate. Plus, logged-in users have the ability to post
+              announcements, making it easier to share information with
               classmates.
               <br />
               <br />
@@ -44,9 +87,12 @@ function About() {
               updates, or discussing academic topics, Kmcian is here to support
               your university life.
             </p>
-            <i>Email : shivamtiwari6223@gmail.com</i>
           </div>
         </p>
+      </div>
+
+      <div className="contact">
+        <p>Contact: shivamtiwari6223@gmail.com</p>
       </div>
 
       <div className="comment-container">
@@ -55,10 +101,12 @@ function About() {
           name="comment"
           id="comment"
           placeholder="Start here..."
+          onChange={handleChange}
+          value={comment}
         ></textarea>
 
         <div className="button-container">
-          <button onClick={()=>toast.success("Succesfully Posted")}>Submit</button>
+          <button onClick={() => postComment()}>Submit</button>
         </div>
       </div>
     </div>
