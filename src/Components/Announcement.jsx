@@ -100,6 +100,30 @@ function Announcement() {
       });
   };
 
+  //------------------- delete announcement --------------
+
+  const handleDeleteAnnouncement = (id) => {
+    const loadId = toast.loading("Deletion in progress.");
+
+    fetch(`${url}/api/announcement`, {
+      method: "DELETE",
+      body: JSON.stringify({ id: id }),
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("kmciantoken")} `,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((data) => {
+            throw new Error(data.message);
+          });
+        }
+
+        toast.success("Announcement deleted", {id: loadId});
+      })
+      .catch((error) => toast.error(error.message, {id: loadId}));
+  };
+
   return (
     <>
       <div
@@ -119,6 +143,15 @@ function Announcement() {
                     {new Date(Announcement.createdAt).toLocaleString()}
                   </span>
                 </div>
+                <button
+                  onClick={() => {
+                    handleDeleteAnnouncement(Announcement._id);
+                  }}
+                  data-value={`{"id": ${Announcement._id}}`}
+                  className="announcement-delete-button"
+                >
+                  ❌
+                </button>
               </div>
             </>
           ))}
@@ -136,9 +169,12 @@ function Announcement() {
             name="announcementText"
             placeholder="Annoncement"
             onChange={handleInputChange}
-            
           />
-          <button  type="submit" disabled = {!announcementText}  onClick={handleAnnouncementSubmit}>
+          <button
+            type="submit"
+            disabled={!announcementText}
+            onClick={handleAnnouncementSubmit}
+          >
             Submit
           </button>
         </div>

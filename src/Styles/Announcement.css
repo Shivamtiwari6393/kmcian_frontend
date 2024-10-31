@@ -5,7 +5,9 @@
   user-select: none;
 
 }
-
+.announcement{
+  position: relative;
+}
 .announcement-container-in .announcements .announcement {
   border-radius: 5px;
   position: relative;
@@ -19,6 +21,8 @@
   color: rgb(88, 92, 141);
   font-size: small;
   margin-bottom: 9px;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 
 .announcements .time-container span {
@@ -75,4 +79,18 @@
 
 .announcement-text-container button:active {
   scale: 0.9;
+}
+
+.announcement-container-in .announcement-delete-button{
+  scale: 0.7;
+  position: absolute;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  top: 0px;
+  right: 0px;
+  background-color: white;
+}
+.announcement-container-in .announcement-delete-button:active{
+  scale: 0.3;
 }
