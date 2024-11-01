@@ -21,30 +21,44 @@ export default function Discussion() {
 
   const [userReply, setUserReply] = useState("");
 
+  const [show, setShow] = useState(false);
+
   // const url = "http://127.0.0.1:8000";
   const url = "https://kmcianbackend.vercel.app";
+
+  // ===============more button click========
 
   const handleMoreClick = () => {
     if (pageInfo.currentPage + 1 <= pageInfo.totalPage) fetchQuery();
     return;
   };
 
+  // ===========query change=============
+
   const handleUserQueryChange = (e) => {
     setUserQuery(e.target.value);
   };
+
+  // ============handle submit button click==============
 
   const handleSubmitQueryButtonClick = () => {
     postQuery();
   };
 
+  // ============handle reply change===========
+
   const handleUserReplyChange = (e) => {
     setUserReply(e.target.value);
   };
+
+  // ============handle reply submit button click=========
 
   const handleReplySubmitButtonClick = () => {
     postReply(qId);
     setUserReply("");
   };
+
+  // ==========reply button click==============
 
   const replyButtonClick = (e) => {
     const queryId = e.currentTarget.dataset.value;
@@ -126,14 +140,13 @@ export default function Discussion() {
       .catch((error) => {
         setIsLoading(false);
         toast.error(error.message);
-        
       });
   };
 
   //========================== post reply =================
 
   const postReply = (queryId) => {
-    setIsLoading(true)
+    setIsLoading(true);
     fetch(`${url}/api/reply`, {
       method: "POST",
       body: JSON.stringify({
@@ -150,8 +163,8 @@ export default function Discussion() {
         return res.json();
       })
       .then((data) => {
-        setIsLoading(false)
-        toast.success(data.message)
+        setIsLoading(false);
+        toast.success(data.message);
       })
       .catch((error) => {
         setIsLoading(false);
@@ -159,17 +172,48 @@ export default function Discussion() {
       });
   };
 
-
-
   //------------- data format-----------------
 
   const formatData = (text) => {
-    return text.split('\n').map((line, index) => (
+    return text.split("\n").map((line, index) => (
       <span key={index}>
         {line}
         <br />
       </span>
     ));
+  };
+
+
+
+
+  // =========delete query=================
+
+  const handleDeleteQuery = (queryId) => {
+    const loadId = toast.loading("Query deletion in progress...");
+
+    fetch(`${url}/api/query`, {
+      method: "DELETE",
+      body: JSON.stringify({ queryId: queryId }),
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("kmciantoken")}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok)
+          return response.json().then((data) => {
+            throw new Error(data.message);
+          });
+
+        return toast.success("Query deleted successfully", { id: loadId });
+      })
+      .catch((error) => toast.error(error.message, { id: loadId }));
+  };
+
+
+  // delete button show or hide control function
+
+  const handledeleteShow = () => {
+    setShow(!show);
   };
 
   // =========================================================================
@@ -185,13 +229,17 @@ export default function Discussion() {
                 <button onClick={() => setReply(!reply)}>X</button>
               </div>
               <div className="reply-input-container">
-
                 <textarea
                   placeholder="Reply"
                   onChange={handleUserReplyChange}
                   value={userReply}
                 ></textarea>
-                <button onClick={handleReplySubmitButtonClick} disabled = {!userReply}>Submit</button>
+                <button
+                  onClick={handleReplySubmitButtonClick}
+                  disabled={!userReply}
+                >
+                  Submit
+                </button>
               </div>
               {reply.map((data) => (
                 <>
@@ -209,10 +257,21 @@ export default function Discussion() {
         {query.map((data) => (
           <>
             <div className="query-container" key={data["_id"]}>
-              <div className="query-header">
+              <div className="query-header" onDoubleClick={handledeleteShow}>
                 <span className="time-stamp">
                   {new Date(data.createdAt).toLocaleString()}
                 </span>
+                <div
+                  className={
+                    show
+                      ? "delete-button-container"
+                      : "delete-button-container-hide"
+                  }
+                >
+                  <button onClick={() => handleDeleteQuery(data._id)}>
+                    ❌
+                  </button>
+                </div>
                 <div className="reply-button-container">
                   <img
                     src={replyImg}

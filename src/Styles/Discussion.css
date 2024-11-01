@@ -1,4 +1,5 @@
 .discussion-container {
+  user-select: none;
   position: relative;
   transform-origin: 1s;
   transform-origin: 50% 50%;
@@ -109,6 +110,27 @@
   position: relative;
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
+}
+
+
+.query-container .delete-button-container-hide{
+  display: none;
+}
+
+
+.query-container .delete-button-container{
+  user-select: none;
+  border: none;
+  background-color: white;
+  padding: 0px;
+  height: fit-content;
+  background-color: transparent;
+}
+
+.query-container .delete-button-container button{
+  
+  border: none;
+  background: transparent;
 }
 
 .query-container .query-header {

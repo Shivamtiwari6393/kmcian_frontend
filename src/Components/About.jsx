@@ -79,8 +79,7 @@ function About() {
               <b>Login</b> – After logging in, you can also update and delete
               papers you’ve uploaded, ensuring that content stays relevant and
               accurate. Plus, logged-in users have the ability to post
-              announcements, making it easier to share information with
-              classmates.
+              announcements, making it easier to share information.
               <br />
               <br />
               Whether it’s accessing study materials, catching up on campus
