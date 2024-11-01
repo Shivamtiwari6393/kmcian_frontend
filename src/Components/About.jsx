@@ -91,7 +91,12 @@ function About() {
       </div>
 
       <div className="contact">
-        <p>Contact: shivamtiwari6223@gmail.com</p>
+        <p >Contact: <a href="mailto:shivamtiwari6223@gmail.com">shivamtiwari6223@gmail.com</a> </p>
+       
+
+
+
+        
       </div>
 
       <div className="comment-container">
