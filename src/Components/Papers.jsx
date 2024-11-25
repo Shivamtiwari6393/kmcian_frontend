@@ -107,6 +107,9 @@ export default function Papers() {
           <div className="year">
             <p>{element.year}</p>
           </div>
+          <div className="name">
+            <p><div>Uploaded by</div>{element.name}</p>
+          </div>
 
           {/* download button */}
 

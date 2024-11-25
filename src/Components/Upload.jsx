@@ -125,8 +125,8 @@ export default function Upload() {
 
     console.log("inside upload");
 
-    // const url = "http://127.0.0.1:8000/api/paper";
-    const url = "https://kmcianbackend.vercel.app/api/paper";
+    const url = "http://127.0.0.1:8000/api/paper";
+    // const url = "https://kmcianbackend.vercel.app/api/paper";
 
     //------------------- form data-------------
 

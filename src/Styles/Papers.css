@@ -1,7 +1,6 @@
-.papers-container{
+.papers-container {
   padding-bottom: 50px;
   user-select: none;
-
 }
 
 .papers-container .names {
@@ -21,9 +20,8 @@
 }
 
 @keyframes scroll {
-  from{
+  from {
     transform: translateY(50px);
-    
   }
 }
 .paperName p {
@@ -49,6 +47,11 @@
   overflow: hidden;
   color: cornflowerblue;
 }
+.name p {
+  overflow: hidden;
+  color: rgb(111, 120, 137);
+  padding: 10px;
+}
 
 .papers-container .download-button-container {
   display: flex;
@@ -72,7 +75,7 @@
   transition-duration: 0.3s;
 }
 
-.download-button-container button:active{
+.download-button-container button:active {
   scale: 0.5;
 }
 
@@ -156,6 +159,24 @@
     padding: 10px;
     box-shadow: 0px 4px 5px rgb(195, 195, 195);
     margin: 10px 0px;
+  }
+
+
+  .name{
+    width: 90%;
+    margin: 10px 0px;
+  }
+
+
+  .name div{
+    color: rgb(69, 69, 195);
+  }
+
+
+  .name p {
+    color: rgb(141, 46, 188);
+    text-align: center;
+    box-shadow: 0px 4px 5px rgb(195, 195, 195);
   }
 
   .download-button-container {
