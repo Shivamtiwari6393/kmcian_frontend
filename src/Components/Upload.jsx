@@ -179,7 +179,6 @@ export default function Upload() {
   // branch options
 
   const engineeringBranchOptions = [
-    { value: "All", label: "All" },
     { value: "CSE(AI&ML)", label: "CSE(AI&ML)" },
     { value: "CSE(AI&DS)", label: "CSE(AI&DS)" },
     { value: "CSE", label: "CSE" },
@@ -190,7 +189,6 @@ export default function Upload() {
   ];
 
   const commerceBranchOptions = [
-    { value: "All", label: "All" },
     { value: "BBA", label: "BBA" },
     { value: "MBA", label: "MBA" },
     { value: "MBA FA", label: "MBA(FA)" },
@@ -200,7 +198,6 @@ export default function Upload() {
   ];
 
   const legalStudiesBranchOptions = [
-    { value: "All", label: "All" },
     { value: "LLM", label: "LLM" },
     { value: "BA LLB", label: "BA LLB" },
     { value: "LLB", label: "LLB" },
@@ -209,7 +206,6 @@ export default function Upload() {
   // science options
 
   const scienceBranchOptions = [
-    { value: "All", label: "All" },
     { value: "MCA", label: "MCA" },
     { value: "BCA", label: "BCA" },
     { value: "BSc PHYSICS", label: "B.Sc Physics" },
@@ -230,7 +226,6 @@ export default function Upload() {
   // pharmacy options
 
   const pharmacyBranchOptions = [
-    { value: "All", label: "All" },
     { value: "B PHARM", label: "B.Pharm" },
     { value: "D PHARM", label: "D.Pharm" },
   ];
@@ -238,7 +233,6 @@ export default function Upload() {
   // arts and humanities options
 
   const artHumnanitiesOptions = [
-    { value: "All", label: "All" },
     { value: "MA ARABIC", label: "MA ARABIC" },
     { value: "MA ENGLISH", label: "MA ENGLISH" },
     { value: "MA HINDI", label: "MA HINDI" },
@@ -258,7 +252,6 @@ export default function Upload() {
   ];
 
   const socialSciencesOptions = [
-    { value: "All", label: "All" },
     { value: "B ED", label: "B.ED" },
     { value: "MA EDUCATION", label: "MA EDUCATION" },
     { value: "MA JOURN_MASS_COMM", label: "MA JOURN MASS COMM" },
