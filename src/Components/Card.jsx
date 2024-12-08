@@ -176,6 +176,7 @@ export default function Card() {
     { value: "BSc MICROBIOLOGY", label: "B.Sc Microbiology" },
     { value: "BSc STATISTICS", label: "B.Sc Statistics" },
     { value: "BSc HomeScience", label: "B.Sc Home Science" },
+    { value: "BSc English", label: "B.Sc English" },
     { value: "BA HM", label: "BA Home Science" },
     { value: "MA HM", label: "MA Home Science" },
     { value: "B LIB", label: "B.lib." },
