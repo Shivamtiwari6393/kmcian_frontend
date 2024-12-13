@@ -21,9 +21,7 @@ export default function Papers() {
 
   const [searchInput, setSearchInput] = useState("");
 
-  const [FilterdData, setFilterdData] = useState(reqPapers)
-
-
+  const [FilterdData, setFilterdData] = useState(reqPapers);
 
   // checking token
 
@@ -46,7 +44,7 @@ export default function Papers() {
 
   const onSearchInputChange = (e) => {
     setSearchInput(e.target.value);
-    setFilterdData(filter())
+    setFilterdData(filter());
   };
 
   const filter = () => {
@@ -54,9 +52,8 @@ export default function Papers() {
       return element.paper.toLowerCase().includes(searchInput.toLowerCase());
     });
 
-    return filterdData
+    return filterdData;
   };
-  
 
   // ---------------Handle file download----------------------------
 
@@ -66,7 +63,7 @@ export default function Papers() {
     const encodedCourse = encodeURIComponent(selectedPaper.course);
     const encodedYear = encodeURIComponent(selectedPaper.year);
     const encodedBranch = encodeURIComponent(selectedPaper.branch);
-    const encodedPaper = encodeURIComponent(selectedPaper.element);
+    const encodedPaper = encodeURIComponent(selectedPaper.paper);
 
     setIsLoading(true);
 
