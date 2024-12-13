@@ -14,7 +14,7 @@
   text-align: center;
   border: none;
   border-radius: 5px;
-  width: 50%;
+  width: 80%;
 }
 
 .papers-container .names {
@@ -61,10 +61,17 @@
   overflow: hidden;
   color: cornflowerblue;
 }
+
 .name p {
+  text-align: center;
   overflow: hidden;
   color: rgb(111, 120, 137);
   padding: 10px;
+}
+
+.name p div {
+  margin: 5px 0px;
+  color: rgb(80, 80, 246);
 }
 
 .papers-container .download-button-container {
@@ -105,7 +112,7 @@
 
 /* screen <= 1200px */
 
-@media screen and (width <= 1200px) {
+@media screen and (width <= 1300px) {
   .papers-container {
     margin: 0px 5px;
   }
