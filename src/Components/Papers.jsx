@@ -17,7 +17,13 @@ export default function Papers() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [isAdmin] = useContext(adminContext)
+  const [isAdmin] = useContext(adminContext);
+
+  const [searchInput, setSearchInput] = useState("");
+
+  const [FilterdData, setFilterdData] = useState(reqPapers)
+
+
 
   // checking token
 
@@ -36,6 +42,22 @@ export default function Papers() {
     }, 0);
   });
 
+  // -------------search function----------------------
+
+  const onSearchInputChange = (e) => {
+    setSearchInput(e.target.value);
+    setFilterdData(filter())
+  };
+
+  const filter = () => {
+    const filterdData = reqPapers.filter((element) => {
+      return element.paper.toLowerCase().includes(searchInput.toLowerCase());
+    });
+
+    return filterdData
+  };
+  
+
   // ---------------Handle file download----------------------------
 
   const handleDownload = async (e) => {
@@ -44,7 +66,7 @@ export default function Papers() {
     const encodedCourse = encodeURIComponent(selectedPaper.course);
     const encodedYear = encodeURIComponent(selectedPaper.year);
     const encodedBranch = encodeURIComponent(selectedPaper.branch);
-    const encodedPaper = encodeURIComponent(selectedPaper.paper);
+    const encodedPaper = encodeURIComponent(selectedPaper.element);
 
     setIsLoading(true);
 
@@ -90,9 +112,18 @@ export default function Papers() {
 
   return (
     <div className="papers-container">
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search"
+          onChange={onSearchInputChange}
+          value={searchInput}
+        />
+      </div>
+
       {isLoading && <Loading></Loading>}
 
-      {reqPapers.map((element) => (
+      {FilterdData.map((element) => (
         <div className="names" key={element["_id"]}>
           <div className="paperName">
             <p>{element.paper}</p>
@@ -108,7 +139,10 @@ export default function Papers() {
             <p>{element.year}</p>
           </div>
           <div className="name">
-            <p><div>Uploaded by</div>{element.name}</p>
+            <p>
+              <div>Uploaded by</div>
+              {element.name}
+            </p>
           </div>
 
           {/* download button */}

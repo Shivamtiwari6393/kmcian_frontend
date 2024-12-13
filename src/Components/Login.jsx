@@ -29,7 +29,7 @@ function Login() {
     if (isAdmin) {
       setLogout(true);
     } else setLogout(false);
-  });
+  },[isAdmin]);
 
   // handle input change
 
@@ -109,7 +109,7 @@ function Login() {
           </div>
 
           <div className="login-button-container">
-            <button onClick={handleButtonClick}>Login</button>
+            <button onClick={handleButtonClick} disabled = {isAdmin}>Login</button>
           </div>
           {logout && (
             <div className="logout-button-container">

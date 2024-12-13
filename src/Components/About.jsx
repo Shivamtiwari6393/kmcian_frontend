@@ -17,9 +17,9 @@ function About() {
     }
 
     // const url = "http://127.0.0.1:8000/api/comment";
-    const url = "https://kmcianbackend.vercel.app/api/comment"
+    const url = "https://kmcianbackend.vercel.app/api/comment";
 
-   const id =  toast.loading("Posting...")
+    const id = toast.loading("Posting...");
 
     fetch(url, {
       method: "POST",
@@ -32,16 +32,12 @@ function About() {
           });
         }
 
-
-        toast.success("Response posted", {id: id})
-
-
-
+        toast.success("Response posted", { id: id });
       })
       .catch((error) => {
         console.log(error);
-        
-        toast.error(error.message, {id: id});
+
+        toast.error(error.message, { id: id });
       });
   };
 
@@ -91,14 +87,13 @@ function About() {
       </div>
 
       <div className="contact">
-        <p >Contact: <a href="mailto:shivamtiwari6223@gmail.com">shivamtiwari6223@gmail.com</a> </p>
-       
-
-
-
-        
+        <p>
+          Contact:{" "}
+          <a href="mailto:shivamtiwari6223@gmail.com">
+            shivamtiwari6223@gmail.com
+          </a>{" "}
+        </p>
       </div>
-
       <div className="comment-container">
         <h4>Suggestions/Comment</h4>
         <textarea

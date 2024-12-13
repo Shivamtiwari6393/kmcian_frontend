@@ -3,6 +3,20 @@
   user-select: none;
 }
 
+.papers-container .search-container {
+  text-align: center;
+  padding: 5px;
+  margin: 5px 0px;
+}
+
+.papers-container .search-container input {
+  padding: 10px;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  width: 50%;
+}
+
 .papers-container .names {
   width: 95%;
   margin: 25px auto;
@@ -161,17 +175,14 @@
     margin: 10px 0px;
   }
 
-
-  .name{
+  .name {
     width: 90%;
     margin: 10px 0px;
   }
 
-
-  .name div{
+  .name div {
     color: rgb(69, 69, 195);
   }
-
 
   .name p {
     color: rgb(141, 46, 188);
