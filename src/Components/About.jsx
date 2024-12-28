@@ -3,6 +3,9 @@ import "../Styles/About.css";
 import { useState } from "react";
 
 function About() {
+  // const url = "http://127.0.0.1:8000/api/comment";
+  const url = "https://kmcianbackend.vercel.app/api/comment";
+
   const [comment, setComment] = useState("");
 
   const handleChange = (e) => {
@@ -15,9 +18,6 @@ function About() {
     if (comment == "") {
       return;
     }
-
-    // const url = "http://127.0.0.1:8000/api/comment";
-    const url = "https://kmcianbackend.vercel.app/api/comment";
 
     const id = toast.loading("Posting...");
 

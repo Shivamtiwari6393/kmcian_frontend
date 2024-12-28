@@ -6,6 +6,9 @@ import CustomSelect from "./CustomSelect";
 import pdf from "../assets/pdf.png";
 import toast from "react-hot-toast";
 export default function Upload() {
+  // const url = "http://127.0.0.1:8000/api/paper";
+  const url = "https://kmcianbackend.vercel.app/api/paper";
+
   //--------------- state for data to be uploaded---------------------
   const [uploadData, setUploadData] = useState({
     course: 0,
@@ -125,9 +128,6 @@ export default function Upload() {
 
     console.log("inside upload");
 
-    // const url = "http://127.0.0.1:8000/api/paper";
-    const url = "https://kmcianbackend.vercel.app/api/paper";
-
     //------------------- form data-------------
 
     const formData = new FormData();
@@ -156,7 +156,7 @@ export default function Upload() {
 
         if (response.status == 201) {
           setIsLoading(false);
-          toast.success("Thank you!. Paper uploaded.");
+          toast.success("Thank you! Paper uploaded.");
         }
       })
       .catch((e) => {
@@ -219,7 +219,6 @@ export default function Upload() {
     { value: "BSc STATISTICS", label: "B.Sc Statistics" },
     { value: "BSc HomeScience", label: "B.Sc Home Science" },
     { value: "BSc English", label: "B.Sc English" },
-    
 
     { value: "BA HM", label: "BA Home Science" },
     { value: "MA HM", label: "MA Home Science" },

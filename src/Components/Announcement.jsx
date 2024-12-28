@@ -5,6 +5,9 @@ import Loading from "./Loading";
 import toast from "react-hot-toast";
 
 function Announcement() {
+  const url = "http://127.0.0.1:8000";
+  // const url = "https://kmcianbackend.vercel.app";
+
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(true);
   const [announcements, setAnnouncements] = useState([]);
@@ -14,9 +17,6 @@ function Announcement() {
     totalPage: 1,
   });
   const [announcementText, setAnnouncementText] = useState("");
-
-  // const url = "http://127.0.0.1:8000";
-  const url = "https://kmcianbackend.vercel.app";
 
   useEffect(() => {
     setTimeout(() => {
@@ -40,10 +40,8 @@ function Announcement() {
     setLoading(true);
     fetch(`${url}/api/announcement`, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("kmciantoken")}`,
-      },
       body: JSON.stringify(announcementText),
+      credentials: "include",
     })
       .then((res) => {
         if (!res.ok)
@@ -111,6 +109,7 @@ function Announcement() {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("kmciantoken")} `,
       },
+      credentials: "include",
     })
       .then((response) => {
         if (!response.ok) {
@@ -119,9 +118,9 @@ function Announcement() {
           });
         }
 
-        toast.success("Announcement deleted", {id: loadId});
+        toast.success("Announcement deleted", { id: loadId });
       })
-      .catch((error) => toast.error(error.message, {id: loadId}));
+      .catch((error) => toast.error(error.message, { id: loadId }));
   };
 
   return (

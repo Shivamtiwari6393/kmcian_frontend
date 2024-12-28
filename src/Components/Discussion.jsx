@@ -5,6 +5,9 @@ import toast from "react-hot-toast";
 import Loading from "./Loading";
 
 export default function Discussion() {
+  // const url = "http://127.0.0.1:8000";
+  const url = "https://kmcianbackend.vercel.app";
+  
   const [query, setQuery] = useState([]);
   const [pageInfo, setPageInfo] = useState({
     currentPage: 0,
@@ -22,9 +25,6 @@ export default function Discussion() {
   const [userReply, setUserReply] = useState("");
 
   const [show, setShow] = useState(false);
-
-  // const url = "http://127.0.0.1:8000";
-  const url = "https://kmcianbackend.vercel.app";
 
   // ===============more button click========
 
@@ -183,9 +183,6 @@ export default function Discussion() {
     ));
   };
 
-
-
-
   // =========delete query=================
 
   const handleDeleteQuery = (queryId) => {
@@ -197,6 +194,7 @@ export default function Discussion() {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("kmciantoken")}`,
       },
+      credentials: "include",
     })
       .then((response) => {
         if (!response.ok)
@@ -208,7 +206,6 @@ export default function Discussion() {
       })
       .catch((error) => toast.error(error.message, { id: loadId }));
   };
-
 
   // delete button show or hide control function
 

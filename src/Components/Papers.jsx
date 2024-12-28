@@ -9,6 +9,10 @@ import toast from "react-hot-toast";
 import adminContext from "./adminContext";
 
 export default function Papers() {
+  // const url = "http://127.0.0.1:8000/api/paper";
+  const url = "https://kmcianbackend.vercel.app/api/paper";
+
+  
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -27,7 +31,6 @@ export default function Papers() {
 
   useEffect(() => {
     setTimeout(() => {
-      // const value = localStorage?.getItem("kmciantoken");
       if (isAdmin) {
         const elements = document.getElementsByClassName("updatebutton");
         if (elements) {
@@ -68,11 +71,8 @@ export default function Papers() {
     setIsLoading(true);
 
     try {
-      // const url = "http://127.0.0.1:8000/api/paper";
-      const url = "https://kmcianbackend.vercel.app/api/paper";
-
       const response = await fetch(
-        `${url}/download?course=${encodedCourse}&year=${encodedYear}&paper=${encodedPaper}&branch=${encodedBranch}&semester=${selectedPaper.semester}`
+        `${url}/download?course=${encodedCourse}&year=${encodedYear}&paper=${encodedPaper}&branch=${encodedBranch}&semester=${selectedPaper.semester}&t=${selectedPaper.t}`
       );
 
       if (!response.ok) {
@@ -146,7 +146,15 @@ export default function Papers() {
 
           <div className="download-button-container">
             <button
-              data-value={`{"course":"${element.course}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}", "year": "${element.year}"}`}
+              id="update-button"
+              className="updatebutton"
+              onClick={handleDownload}
+              data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}", "downloadable": "${element.downloadable}", "createdAt": "${element.createdAt}", "updatedAt": "${element.updatedAt}", "t" : "s"}`}
+            >
+              Preview
+            </button>
+            <button
+              data-value={`{"course":"${element.course}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}", "year": "${element.year}", "t" : "d"}`}
               onClick={handleDownload}
             >
               <img src={downloadIcon} alt="download button" />

@@ -7,6 +7,10 @@ import pdf from "../assets/pdf.png";
 import CustomSelect from "./CustomSelect";
 import toast from "react-hot-toast";
 export default function Upload() {
+  // const url = "http://127.0.0.1:8000/api/paper";
+  const url = "https://kmcianbackend.vercel.app/api/paper";
+
+  
   const location = useLocation();
   const {
     id,
@@ -64,9 +68,6 @@ export default function Upload() {
     setError("");
     setUpdateData((prev) => ({ ...prev, [name]: value }));
   };
-
-  // const url = "http://127.0.0.1:8000/api/paper";
-  const url = "https://kmcianbackend.vercel.app/api/paper";
 
   //---------------------- Update Paper-----------------------------
 
@@ -142,6 +143,7 @@ export default function Upload() {
 
       fetch(`${url}/post`, {
         method: "POST",
+        credentials: "include",
         body: updatedData,
       })
         .then((response) => {
@@ -172,6 +174,7 @@ export default function Upload() {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("kmciantoken")}`,
       },
+      credentials: "include",
       body: updatedData,
     })
       .then((response) => {
@@ -204,6 +207,7 @@ export default function Upload() {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("kmciantoken")}`,
       },
+      credentials: "include",
     })
       .then((res) => {
         setIsLoading(false);
@@ -477,11 +481,7 @@ export default function Upload() {
         </div>
 
         <button onClick={update}>Update</button>
-        <button
-          id={uploadcss["delete-button"]}
-          onClick={handleDelete}
-
-        >
+        <button id={uploadcss["delete-button"]} onClick={handleDelete}>
           Delete
         </button>
       </div>

@@ -7,6 +7,9 @@ import { toast } from "react-hot-toast";
 import adminContext from "./adminContext";
 
 function Login() {
+  // const url = "http://127.0.0.1:8000/api/user/login";
+  const url = "https://kmcianbackend.vercel.app/api/user/login";
+  
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -16,12 +19,12 @@ function Login() {
 
   const [logout, setLogout] = useState(true);
 
-  const [isAdmin, setIsAdmin] = useContext(adminContext)
+  const [isAdmin, setIsAdmin] = useContext(adminContext);
 
   const doLogout = () => {
     localStorage.removeItem("kmciantoken");
     setLogout(false);
-    setIsAdmin(false)
+    setIsAdmin(false);
     toast.success("Logged out successfully!");
   };
 
@@ -29,7 +32,7 @@ function Login() {
     if (isAdmin) {
       setLogout(true);
     } else setLogout(false);
-  },[isAdmin]);
+  }, [isAdmin]);
 
   // handle input change
 
@@ -40,15 +43,13 @@ function Login() {
   // on login button click
 
   const handleButtonClick = () => {
-    // const url = "http://127.0.0.1:8000/api/user/login";
-    const url = "https://kmcianbackend.vercel.app/api/user/login";
-
     setIsLoading(true);
 
     // fetch request
 
     fetch(url, {
       method: "POST",
+      credentials: "include",
       body: JSON.stringify(credentials),
     })
       .then(async (res) => {
@@ -65,8 +66,7 @@ function Login() {
         setIsLoading(false);
         toast.success("Login successful!");
         setLogout(true);
-        setIsAdmin(true)
-
+        setIsAdmin(true);
       })
       .catch((e) => {
         setIsLoading(false);
@@ -109,7 +109,9 @@ function Login() {
           </div>
 
           <div className="login-button-container">
-            <button onClick={handleButtonClick} disabled = {isAdmin}>Login</button>
+            <button onClick={handleButtonClick} disabled={isAdmin}>
+              Login
+            </button>
           </div>
           {logout && (
             <div className="logout-button-container">
