@@ -141,27 +141,23 @@ export default function Upload() {
 
     setIsLoading(true);
 
+    const loadId = toast.loading("Paper upload in progress...")
+
     //------------- POST DATA---------------
 
     fetch(`${url}/post`, {
       method: "POST",
       body: formData,
     })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((data) => {
-            throw new Error(data.message || "An error occurred");
-          });
-        }
-
-        if (response.status == 201) {
-          setIsLoading(false);
-          toast.success("Thank you! Paper uploaded.");
-        }
+      .then(async (response) => {
+        setIsLoading(false);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || "An error occurred");
+        toast.success(data.message , {id: loadId});
       })
       .catch((e) => {
         setIsLoading(false);
-        toast.error(e.message);
+        toast.error(e.message, {id: loadId});
       });
   };
 

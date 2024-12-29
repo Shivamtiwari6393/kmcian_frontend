@@ -7,7 +7,7 @@ import Loading from "./Loading";
 export default function Discussion() {
   // const url = "http://127.0.0.1:8000";
   const url = "https://kmcianbackend.vercel.app";
-  
+
   const [query, setQuery] = useState([]);
   const [pageInfo, setPageInfo] = useState({
     currentPage: 0,
@@ -71,21 +71,14 @@ export default function Discussion() {
   const fetchQuery = () => {
     setIsLoading(true);
     fetch(`${url}/api/query/${pageInfo.currentPage + 1}`)
-      .then((res) => {
-        if (!res.ok)
-          return res.json().then((data) => {
-            throw new Error(data.message);
-          });
-
-        return res.json();
-      })
-      .then((data) => {
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "An error occurred");
         setQuery((prev) => [...prev, ...data.query]);
         setPageInfo({
           currentPage: data.currentPage,
           totalPage: data.totalPage,
         });
-
         setIsLoading(false);
       })
       .catch((error) => {
@@ -102,15 +95,9 @@ export default function Discussion() {
       method: "POST",
       body: JSON.stringify({ content: userQuery, name: "unknown person" }),
     })
-      .then((res) => {
-        if (!res.ok)
-          return res.json().then((data) => {
-            throw new Error(data.message);
-          });
-
-        return res.json();
-      })
-      .then((data) => {
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "An error occurred");
         setIsLoading(false);
         toast.success(data.message);
       })
@@ -125,15 +112,9 @@ export default function Discussion() {
   const fetchReply = (queryId) => {
     setIsLoading(true);
     fetch(`${url}/api/reply/${queryId}`)
-      .then((res) => {
-        if (!res.ok)
-          return res.json().then((data) => {
-            throw new Error(data.message);
-          });
-
-        return res.json();
-      })
-      .then((data) => {
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "An error occurred");
         setReply(data);
         setIsLoading(false);
       })
@@ -154,16 +135,10 @@ export default function Discussion() {
         content: userReply,
       }),
     })
-      .then((res) => {
-        if (!res.ok) {
-          return res.json().then((data) => {
-            throw new Error(data.message);
-          });
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setIsLoading(false);
+      .then(async(res) => {
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.message)
+          setIsLoading(false);
         toast.success(data.message);
       })
       .catch((error) => {
@@ -191,18 +166,12 @@ export default function Discussion() {
     fetch(`${url}/api/query`, {
       method: "DELETE",
       body: JSON.stringify({ queryId: queryId }),
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("kmciantoken")}`,
-      },
       credentials: "include",
     })
-      .then((response) => {
-        if (!response.ok)
-          return response.json().then((data) => {
-            throw new Error(data.message);
-          });
-
-        return toast.success("Query deleted successfully", { id: loadId });
+      .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message);
+        return toast.success(data.message || "Query deleted successfully", { id: loadId });
       })
       .catch((error) => toast.error(error.message, { id: loadId }));
   };

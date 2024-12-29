@@ -12,7 +12,7 @@ export default function Papers() {
   // const url = "http://127.0.0.1:8000/api/paper";
   const url = "https://kmcianbackend.vercel.app/api/paper";
 
-  
+
   const navigate = useNavigate();
 
   const location = useLocation();

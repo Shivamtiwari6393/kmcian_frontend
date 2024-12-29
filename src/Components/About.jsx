@@ -25,18 +25,13 @@ function About() {
       method: "POST",
       body: JSON.stringify({ comment: comment }),
     })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((data) => {
-            throw new Error(data.message);
-          });
-        }
+      .then(async(response) => {
 
-        toast.success("Response posted", { id: id });
+        const data = await response.json()
+        if (!response.ok) throw new Error(data.message);
+        toast.success(data.message || "Response posted", { id: id });
       })
       .catch((error) => {
-        console.log(error);
-
         toast.error(error.message, { id: id });
       });
   };

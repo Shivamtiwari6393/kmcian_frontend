@@ -9,7 +9,7 @@ import adminContext from "./adminContext";
 function Login() {
   // const url = "http://127.0.0.1:8000/api/user/login";
   const url = "https://kmcianbackend.vercel.app/api/user/login";
-  
+
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -53,18 +53,11 @@ function Login() {
       body: JSON.stringify(credentials),
     })
       .then(async (res) => {
-        if (!res.ok) {
-          return res.json().then((data) => {
-            throw new Error(data.message || "An error occurred");
-          });
-        }
-        return res.json();
-      })
-      .then((data) => {
-        // if login successfull save the token
+        const data =await res.json();
+        if (!res.ok) throw new Error(data.message || "An error occurred");
         localStorage.setItem("kmciantoken", data.token);
         setIsLoading(false);
-        toast.success("Login successful!");
+        toast.success(data.message || "Login successful!");
         setLogout(true);
         setIsAdmin(true);
       })

@@ -10,7 +10,6 @@ export default function Upload() {
   // const url = "http://127.0.0.1:8000/api/paper";
   const url = "https://kmcianbackend.vercel.app/api/paper";
 
-  
   const location = useLocation();
   const {
     id,
@@ -133,7 +132,7 @@ export default function Upload() {
       // if file not selected
 
       if (!file) {
-        setError("Select a file");
+        setError("Please select a file");
         return;
       }
 
@@ -146,17 +145,12 @@ export default function Upload() {
         credentials: "include",
         body: updatedData,
       })
-        .then((response) => {
-          if (response.status == 400) {
-            return response.json().then((data) => {
-              throw new Error(data.error || "An error occurred");
-            });
-          }
+        .then(async (response) => {
+          setIsLoading(false);
 
-          if (response.status == 201) {
-            setIsLoading(false);
-            toast.success("Congrats! Paper uploaded Successfully");
-          }
+          const data = response.json();
+          if (!response.ok) throw new Error(data.message|| "An error occurred");
+          toast.success(data.message);
         })
         .catch((e) => {
           setIsLoading(false);
@@ -171,23 +165,16 @@ export default function Upload() {
     setIsLoading(true);
     fetch(`${url}/update/${id}`, {
       method: "PUT",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("kmciantoken")}`,
-      },
       credentials: "include",
       body: updatedData,
     })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((data) => {
-            throw new Error(data.message || "An error occurred");
-          });
-        }
-
-        if (response.status == 200) {
-          setIsLoading(false);
-          toast.success("Congrats! Paper updated Successfully");
-        }
+      .then(async (response) => {
+        setIsLoading(false);
+        const data = await response.json();
+        // if there is an error
+        if (!response.ok) throw new Error(data.message || "An error occurred");
+        //  if response is ok
+        toast.success(data.message);
       })
       .catch((e) => {
         setIsLoading(false);
@@ -204,19 +191,15 @@ export default function Upload() {
     setIsLoading(true);
     fetch(`${url}/delete/${course}/${id}`, {
       method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("kmciantoken")}`,
-      },
       credentials: "include",
     })
-      .then((res) => {
+      .then(async (res) => {
         setIsLoading(false);
-        if (res.status === 200) return res.json();
-        else if (res.status === 404) throw new Error("Paper not found.");
-        else if (res.status === 500) throw new Error("Server error. try later");
-        else throw new Error("An unexpected error occurred.");
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "An error occurred");
+        toast.success(data.message);
+        return;
       })
-      .then((data) => toast.success(data.message))
       .catch((e) => {
         setIsLoading(false);
         toast.error(e.message);

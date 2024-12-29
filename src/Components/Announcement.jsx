@@ -43,21 +43,15 @@ function Announcement() {
       body: JSON.stringify(announcementText),
       credentials: "include",
     })
-      .then((res) => {
-        if (!res.ok)
-          return res.json().then((data) => {
-            throw new Error(data.message);
-          });
+      .then(async (res) => {
+        const data = await res.json();
 
-        return res.json();
-      })
-      .then((data) => {
+        if (!res.ok) throw new Error(data.message);
         setLoading(false);
         toast.success(data.message);
       })
       .catch((error) => {
         setLoading(false);
-
         toast.error(error.message);
       });
   };
@@ -74,27 +68,24 @@ function Announcement() {
 
   const fetchh = () => {
     setLoading(true);
+    const id = toast.loading("fetching announcements...");
+
 
     fetch(`${url}/api/announcement/${pageInfo.currentPage + 1}`)
-      .then((res) => {
-        if (res.status != 200) {
-          return res.json().then((data) => {
-            throw new Error(data.message);
-          });
-        }
-        return res.json();
-      })
-      .then((data) => {
+      .then(async(res) => {
+        const data = await res.json()
+        if(!res.ok) throw new Error(data.message);
         setAnnouncements((prev) => [...prev, ...data.announcements]);
         setPageInfo({
           currentPage: data.currentPage,
           totalPage: data.totalPage,
         });
         setLoading(false);
-      })
+        toast.success("fetching completed", {id: id})
+        })
       .catch((error) => {
         setLoading(false);
-        toast.error(error.message);
+        toast.error(error.message, {id: id});
       });
   };
 
@@ -106,19 +97,13 @@ function Announcement() {
     fetch(`${url}/api/announcement`, {
       method: "DELETE",
       body: JSON.stringify({ id: id }),
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("kmciantoken")} `,
-      },
       credentials: "include",
     })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((data) => {
-            throw new Error(data.message);
-          });
-        }
+      .then(async(response) => {
 
-        toast.success("Announcement deleted", { id: loadId });
+        const data = await response.json()
+        if (!response.ok) throw new Error(data.message);
+        toast.success(data.message || "Announcement deleted", { id: loadId });
       })
       .catch((error) => toast.error(error.message, { id: loadId }));
   };

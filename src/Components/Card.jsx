@@ -11,10 +11,11 @@ import toast from "react-hot-toast";
 import adminContext from "./adminContext";
 
 export default function Card() {
+  // const url = "http://127.0.0.1:8000/api/paper";
+  const url = "https://kmcianbackend.vercel.app/api/paper";
 
+  const [isAdmin, setIsAdmin] = useContext(adminContext);
 
-  const [isAdmin, setIsAdmin] = useContext(adminContext)
-  
   const [openSelect, setOpenSelect] = useState(null);
 
   const navigate = useNavigate();
@@ -38,8 +39,8 @@ export default function Card() {
 
   // if user is admin
   useEffect(() => {
-
-    if(isAdmin) document.getElementById("downloadable-select").style.display = "block";
+    if (isAdmin)
+      document.getElementById("downloadable-select").style.display = "block";
   });
 
   // =============================================
@@ -87,11 +88,9 @@ export default function Card() {
     }
     setError("");
 
-    // const url = "http://127.0.0.1:8000/api/paper";
-    const url = "https://kmcianbackend.vercel.app/api/paper";
-
     // Fetch request
     setIsLoading(true);
+    const loadId = toast.loading("fetching papers info...")
 
     fetch(url, {
       method: "POST",
@@ -100,22 +99,17 @@ export default function Card() {
       },
       body: JSON.stringify(paperData),
     })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((data) => {
-            throw new Error(data.message);
-          });
-        }
-        return response.json();
-      })
-      .then((data) => {
+      .then(async(response) => {
+        const data = await response.json()
+        if(!response.ok) throw new Error(data.message);
         setIsLoading(false);
+        toast.success("fetching completed", {id: loadId})
         // setReqPapers(data);
         navigate("/papers", { state: data });
       })
       .catch((error) => {
         setIsLoading(false);
-        toast.error(error.message);
+        toast.error(error.message, {id: loadId});
       });
   };
 
