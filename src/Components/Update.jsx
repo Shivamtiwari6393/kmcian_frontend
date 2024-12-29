@@ -142,7 +142,9 @@ export default function Upload() {
 
       fetch(`${url}/post`, {
         method: "POST",
-        credentials: "include",
+        headers : {
+          'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`
+        },
         body: updatedData,
       })
         .then(async (response) => {
@@ -165,7 +167,9 @@ export default function Upload() {
     setIsLoading(true);
     fetch(`${url}/update/${id}`, {
       method: "PUT",
-      credentials: "include",
+      headers : {
+        'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`
+      },
       body: updatedData,
     })
       .then(async (response) => {
@@ -191,7 +195,9 @@ export default function Upload() {
     setIsLoading(true);
     fetch(`${url}/delete/${course}/${id}`, {
       method: "DELETE",
-      credentials: "include",
+      headers : {
+        'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`
+      },
     })
       .then(async (res) => {
         setIsLoading(false);

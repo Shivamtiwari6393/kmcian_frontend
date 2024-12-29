@@ -166,7 +166,9 @@ export default function Discussion() {
     fetch(`${url}/api/query`, {
       method: "DELETE",
       body: JSON.stringify({ queryId: queryId }),
-      credentials: "include",
+      headers : {
+        'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`
+      },
     })
       .then(async (response) => {
         const data = await response.json();

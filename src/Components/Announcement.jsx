@@ -20,7 +20,7 @@ function Announcement() {
 
   useEffect(() => {
     setTimeout(() => {
-      const value = localStorage?.getItem("kmciantoken");
+      const value = sessionStorage?.getItem("kmcianToken");
       if (value) {
         const element = document.getElementById("announcement-text");
         if (element) element.style.display = "flex";
@@ -40,8 +40,10 @@ function Announcement() {
     setLoading(true);
     fetch(`${url}/api/announcement`, {
       method: "POST",
+      headers : {
+        'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`
+      },
       body: JSON.stringify(announcementText),
-      credentials: "include",
     })
       .then(async (res) => {
         const data = await res.json();
@@ -96,8 +98,10 @@ function Announcement() {
 
     fetch(`${url}/api/announcement`, {
       method: "DELETE",
+      headers : {
+        'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`
+      },
       body: JSON.stringify({ id: id }),
-      credentials: "include",
     })
       .then(async(response) => {
 
@@ -116,7 +120,6 @@ function Announcement() {
         }
       >
         {loading && <Loading></Loading>}
-        {console.log(announcements, "wanna")}
         <div className="announcements">
           {announcements?.map((Announcement, index) => (
             <>

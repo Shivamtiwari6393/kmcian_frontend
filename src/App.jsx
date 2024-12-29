@@ -28,15 +28,6 @@ function App() {
   }, []);
 
 
-//========== if token exist ==================
-
-  useEffect(() => {
-    const value = localStorage?.getItem("kmciantoken");
-    if (value) {
-      setIsAdmin(true);
-    }
-  }, []);
-
   // ============================================================
 
   return (

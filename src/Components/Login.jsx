@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import "../Styles/Login.css";
 import userIcon from "../assets/user.png";
 import passwordIcon from "../assets/password.png";
@@ -17,22 +17,27 @@ function Login() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [logout, setLogout] = useState(true);
+  const [logout, setLogout] = useState(false);
 
   const [isAdmin, setIsAdmin] = useContext(adminContext);
 
+  let timerId = null;
+
   const doLogout = () => {
-    localStorage.removeItem("kmciantoken");
+    sessionStorage.removeItem("kmcianToken");
     setLogout(false);
     setIsAdmin(false);
     toast.success("Logged out successfully!");
+    if (timerId) {
+      clearTimeout(timerId);
+    }
   };
 
-  useEffect(() => {
-    if (isAdmin) {
-      setLogout(true);
-    } else setLogout(false);
-  }, [isAdmin]);
+  const setcounter = () => {
+    timerId = setTimeout(() => {
+      doLogout();
+    }, 3600000);
+  };
 
   // handle input change
 
@@ -45,19 +50,19 @@ function Login() {
   const handleButtonClick = () => {
     setIsLoading(true);
 
-    // fetch request
+    //============ login fetch request==============
 
     fetch(url, {
       method: "POST",
-      credentials: "include",
       body: JSON.stringify(credentials),
     })
       .then(async (res) => {
-        const data =await res.json();
+        const data = await res.json();
         if (!res.ok) throw new Error(data.message || "An error occurred");
-        localStorage.setItem("kmciantoken", data.token);
         setIsLoading(false);
+        sessionStorage.setItem("kmcianToken", data.token);
         toast.success(data.message || "Login successful!");
+        setcounter();
         setLogout(true);
         setIsAdmin(true);
       })
