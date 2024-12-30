@@ -101,7 +101,6 @@
 }
 
 .papers-container #update-button {
-  display: none;
   padding: 8px;
   background-color: rgb(84, 55, 50);
   max-width: 200px;
@@ -203,7 +202,6 @@
   }
 
   .papers-container #update-button {
-    display: none;
     justify-content: center;
     color: white;
   }

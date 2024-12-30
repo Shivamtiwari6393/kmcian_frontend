@@ -69,6 +69,9 @@ export default function Discussion() {
   //================== fetch query===============
 
   const fetchQuery = () => {
+
+    const loadId = toast.loading('fetching queries...')
+
     setIsLoading(true);
     fetch(`${url}/api/query/${pageInfo.currentPage + 1}`)
       .then(async (res) => {
@@ -80,16 +83,19 @@ export default function Discussion() {
           totalPage: data.totalPage,
         });
         setIsLoading(false);
+        toast.success('fetching completed.', {id: loadId})
       })
       .catch((error) => {
         setIsLoading(false);
-        toast.error(error.message);
+        toast.error(error.message, {id: loadId});
       });
   };
 
   //====================== Post query====================
 
   const postQuery = () => {
+    const loadId = toast.loading('posting query...')
+
     setIsLoading(true);
     fetch(`${url}/api/query`, {
       method: "POST",
@@ -99,17 +105,19 @@ export default function Discussion() {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || "An error occurred");
         setIsLoading(false);
-        toast.success(data.message);
+        toast.success(data.message, {id: loadId});
       })
       .catch((error) => {
         setIsLoading(false);
-        toast.error(error.message);
+        toast.error(error.message, {id: loadId});
       });
   };
 
   // =============== fetch reply ==========================
 
   const fetchReply = (queryId) => {
+    const loadId = toast.loading('fetching reply...')
+
     setIsLoading(true);
     fetch(`${url}/api/reply/${queryId}`)
       .then(async (res) => {
@@ -117,16 +125,19 @@ export default function Discussion() {
         if (!res.ok) throw new Error(data.message || "An error occurred");
         setReply(data);
         setIsLoading(false);
+        toast.success("fetching completed", {id: loadId})
       })
       .catch((error) => {
         setIsLoading(false);
-        toast.error(error.message);
+        toast.error(error.message, {id: loadId});
       });
   };
 
   //========================== post reply =================
 
   const postReply = (queryId) => {
+    const loadId = toast.loading('posting reply...')
+
     setIsLoading(true);
     fetch(`${url}/api/reply`, {
       method: "POST",
@@ -139,11 +150,11 @@ export default function Discussion() {
         const data = await res.json()
         if (!res.ok) throw new Error(data.message)
           setIsLoading(false);
-        toast.success(data.message);
+        toast.success(data.message, {id: loadId});
       })
       .catch((error) => {
         setIsLoading(false);
-        toast.error(error.message);
+        toast.error(error.message, {id: loadId});
       });
   };
 

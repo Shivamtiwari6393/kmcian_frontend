@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useContext, useState } from "react";
 import "../Styles/Login.css";
 import userIcon from "../assets/user.png";
@@ -42,6 +43,8 @@ function Login() {
   // handle input change
 
   const handleInputChange = (e) => {
+    console.log(isAdmin);
+    
     setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -111,7 +114,7 @@ function Login() {
               Login
             </button>
           </div>
-          {logout && (
+          {isAdmin && (
             <div className="logout-button-container">
               <button onClick={doLogout}>Logout</button>
             </div>

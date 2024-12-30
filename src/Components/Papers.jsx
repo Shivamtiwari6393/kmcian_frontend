@@ -12,7 +12,6 @@ export default function Papers() {
   // const url = "http://127.0.0.1:8000/api/paper";
   const url = "https://kmcianbackend.vercel.app/api/paper";
 
-
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -29,23 +28,11 @@ export default function Papers() {
 
   // checking token
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (isAdmin) {
-        const elements = document.getElementsByClassName("updatebutton");
-        if (elements) {
-          for (let i = 0; i < elements.length; i++) {
-            const element = elements[i];
-            element.style.display = "block";
-          }
-        }
-      }
-    }, 0);
-  });
-
   // -------------search function----------------------
 
   const onSearchInputChange = (e) => {
+    console.log(isAdmin);
+
     setSearchInput(e.target.value);
     setFilterdData(filter());
   };
@@ -68,6 +55,7 @@ export default function Papers() {
     const encodedBranch = encodeURIComponent(selectedPaper.branch);
     const encodedPaper = encodeURIComponent(selectedPaper.paper);
 
+    const loadId = toast.loading("Downloading...");
     setIsLoading(true);
 
     try {
@@ -91,10 +79,10 @@ export default function Papers() {
 
       saveAs(blob, filename);
       setIsLoading(false);
-      toast.success("Paper downloaded succesfully");
+      toast.success("Paper downloaded succesfully", { id: loadId });
     } catch (error) {
       setIsLoading(false);
-      toast.error(error.message);
+      toast.error(error.message, { id: loadId });
     }
   };
 
@@ -145,14 +133,18 @@ export default function Papers() {
           {/* download button */}
 
           <div className="download-button-container">
-            <button
-              id="update-button"
-              className="updatebutton"
-              onClick={handleDownload}
-              data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}", "downloadable": "${element.downloadable}", "createdAt": "${element.createdAt}", "updatedAt": "${element.updatedAt}", "t" : "s"}`}
-            >
-              Preview
-            </button>
+            {isAdmin && (
+              <>
+                <button
+                  id="update-button"
+                  className="updatebutton"
+                  onClick={handleDownload}
+                  data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}", "downloadable": "${element.downloadable}", "createdAt": "${element.createdAt}", "updatedAt": "${element.updatedAt}", "t" : "s"}`}
+                >
+                  Preview
+                </button>
+              </>
+            )}
             <button
               data-value={`{"course":"${element.course}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}", "year": "${element.year}", "t" : "d"}`}
               onClick={handleDownload}
@@ -162,14 +154,18 @@ export default function Papers() {
 
             {/* update botton */}
 
-            <button
-              id="update-button"
-              className="updatebutton"
-              onClick={handleUpdate}
-              data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}", "downloadable": "${element.downloadable}", "createdAt": "${element.createdAt}", "updatedAt": "${element.updatedAt}"}`}
-            >
-              Update
-            </button>
+            {isAdmin && (
+              <>
+                <button
+                  id="update-button"
+                  className="updatebutton"
+                  onClick={handleUpdate}
+                  data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}", "downloadable": "${element.downloadable}", "createdAt": "${element.createdAt}", "updatedAt": "${element.updatedAt}"}`}
+                >
+                  Update
+                </button>
+              </>
+            )}
           </div>
         </div>
       ))}
