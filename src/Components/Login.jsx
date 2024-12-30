@@ -51,6 +51,12 @@ function Login() {
   // on login button click
 
   const handleButtonClick = () => {
+
+
+    if(!credentials.email) return toast.error("Please enter your email.")
+    if (!credentials.password) return toast.error("Please enter the password.")
+
+    
     setIsLoading(true);
 
     //============ login fetch request==============

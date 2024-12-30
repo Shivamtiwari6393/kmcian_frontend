@@ -140,6 +140,8 @@ export default function Upload() {
 
       setIsLoading(true);
 
+      const loadId = toast.loading("Paper upload in progress...")
+
       fetch(`${url}/post`, {
         method: "POST",
         headers : {
@@ -152,12 +154,12 @@ export default function Upload() {
 
           const data = response.json();
           if (!response.ok) throw new Error(data.message|| "An error occurred");
-          toast.success(data.message);
+          toast.success(data.message, {id: loadId});
         })
         .catch((e) => {
           setIsLoading(false);
           setError(e.message);
-          toast.error(e.message);
+          toast.error(e.message, {id: loadId});
         });
       return;
     }
@@ -165,6 +167,7 @@ export default function Upload() {
     //==================================== update ===================================
 
     setIsLoading(true);
+    const loadId = toast.loading("Paper update in progress...")
     fetch(`${url}/update/${id}`, {
       method: "PUT",
       headers : {
@@ -178,12 +181,12 @@ export default function Upload() {
         // if there is an error
         if (!response.ok) throw new Error(data.message || "An error occurred");
         //  if response is ok
-        toast.success(data.message);
+        toast.success(data.message, {id: loadId});
       })
       .catch((e) => {
         setIsLoading(false);
         setError(e.message);
-        toast.error(e.message);
+        toast.error(e.message, {id: loadId});
       });
   };
 
@@ -193,6 +196,7 @@ export default function Upload() {
     const del = confirm("Delete?");
     if (!del) return;
     setIsLoading(true);
+    const loadId = toast.loading("Deletion in progress...")
     fetch(`${url}/delete/${course}/${id}`, {
       method: "DELETE",
       headers : {
@@ -203,12 +207,12 @@ export default function Upload() {
         setIsLoading(false);
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || "An error occurred");
-        toast.success(data.message);
+        toast.success(data.message, {id: loadId});
         return;
       })
       .catch((e) => {
         setIsLoading(false);
-        toast.error(e.message);
+        toast.error(e.message, {id: loadId});
         setError(e.message);
       });
   };
