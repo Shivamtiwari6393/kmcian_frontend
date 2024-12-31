@@ -29,6 +29,8 @@ export default function Upload() {
   const [fileName, setFileName] = useState("No file chosen");
   const [openSelect, setOpenSelect] = useState(null);
 
+  const [progress, setProgress] = useState(0);
+
   const handleSelectClick = (selectName) => {
     setOpenSelect((prev) => (prev === selectName ? null : selectName)); // Toggle open state
   };
@@ -139,26 +141,69 @@ export default function Upload() {
     formData.append("name", uploadData.name);
     formData.append("pdf", file);
 
-    setIsLoading(true);
 
-    const loadId = toast.loading("Paper upload in progress...")
 
     //------------- POST DATA---------------
 
-    fetch(`${url}/post`, {
-      method: "POST",
-      body: formData,
-    })
-      .then(async (response) => {
-        setIsLoading(false);
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.message || "An error occurred");
-        toast.success(data.message , {id: loadId});
-      })
-      .catch((e) => {
-        setIsLoading(false);
-        toast.error(e.message, {id: loadId});
-      });
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", `${url}/post`);
+    
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable) {
+        const percentage = Math.round((e.loaded / e.total) * 100);
+        setProgress(percentage);
+        console.log(`Progress: ${percentage}%`);
+      }
+    };
+    
+    xhr.onload = () => {
+      setIsLoading(false);
+      try {
+        const data = JSON.parse(xhr.response); // Ensure the response is parsed as JSON
+        console.log(data);
+    
+        if (xhr.status === 201) {
+          toast.success(data.message, { id: loadId });
+          setProgress(0);
+        } else {
+          toast.error(data.message, { id: loadId });
+        }
+      } catch (err) {
+        console.error("Failed to parse response:", err);
+        toast.error("An unexpected error occurred.", { id: loadId });
+      }
+    };
+    
+    xhr.onerror = () => {
+      setIsLoading(false);
+      toast.error("Network error occurred.", { id: loadId });
+    };
+    
+    xhr.ontimeout = () => {
+      setIsLoading(false);
+      toast.error("Request timed out.", { id: loadId });
+    };
+
+    setIsLoading(true);
+
+    const loadId = toast.loading("Paper upload in progress...");
+    
+    xhr.send(formData);
+       // fetch(`${url}/post`, {
+    //   method: "POST",
+    //   body: formData,
+    // })
+    //   .then(async (response) => {
+    //     setIsLoading(false);
+    //     const data = await response.json();
+    //     if (!response.ok) throw new Error(data.message || "An error occurred");
+    //     toast.success(data.message, { id: loadId });
+    //   })
+    //   .catch((e) => {
+    //     setIsLoading(false);
+    //     toast.error(e.message, { id: loadId });
+    //   });
   };
 
   // Options for select inputs
@@ -317,7 +362,7 @@ export default function Upload() {
 
   return (
     <>
-      {isLoading && <Loading></Loading>}
+      {isLoading && <Loading progress = {progress}></Loading>}
 
       <div className={uploadcss["upload-container"]}>
         {error && (

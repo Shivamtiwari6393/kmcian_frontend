@@ -11,27 +11,25 @@
   justify-content: center;
   align-items: center;
   z-index: 999;
+  font-weight: bold;
 }
 .spinner {
-  width:150px;
+  position: absolute;
+  width: 150px;
   height: 150px;
   background-color: rgba(0, 255, 255, 0);
   border-radius: 50%;
-  border-top: solid rgb(62, 58, 58);
-  animation: spin 0.5s linear infinite;
+  border: 5px solid rgb(182, 182, 182);
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
   0% {
-    rotate: 0deg;
-  }
-
-  25% {
-    border-color: brown;
+    border-top: 5px solid rgb(255, 255, 255);
   }
 
   100% {
     rotate: 360deg;
-    border-color: aqua;
+    border-top: 5px solid rgb(255, 255, 255);
   }
 }
