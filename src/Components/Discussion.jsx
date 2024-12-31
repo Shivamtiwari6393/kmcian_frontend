@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import "../Styles/Discussion.css";
 import replyImg from "../assets/reply.png";
 import { useState } from "react";
@@ -69,8 +70,7 @@ export default function Discussion() {
   //================== fetch query===============
 
   const fetchQuery = () => {
-
-    const loadId = toast.loading('fetching queries...')
+    const loadId = toast.loading("fetching queries...");
 
     setIsLoading(true);
     fetch(`${url}/api/query/${pageInfo.currentPage + 1}`)
@@ -83,18 +83,18 @@ export default function Discussion() {
           totalPage: data.totalPage,
         });
         setIsLoading(false);
-        toast.success('fetching completed.', {id: loadId})
+        toast.success("fetching completed.", { id: loadId });
       })
       .catch((error) => {
         setIsLoading(false);
-        toast.error(error.message, {id: loadId});
+        toast.error(error.message, { id: loadId });
       });
   };
 
   //====================== Post query====================
 
   const postQuery = () => {
-    const loadId = toast.loading('posting query...')
+    const loadId = toast.loading("posting query...");
 
     setIsLoading(true);
     fetch(`${url}/api/query`, {
@@ -105,18 +105,18 @@ export default function Discussion() {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || "An error occurred");
         setIsLoading(false);
-        toast.success(data.message, {id: loadId});
+        toast.success(data.message, { id: loadId });
       })
       .catch((error) => {
         setIsLoading(false);
-        toast.error(error.message, {id: loadId});
+        toast.error(error.message, { id: loadId });
       });
   };
 
   // =============== fetch reply ==========================
 
   const fetchReply = (queryId) => {
-    const loadId = toast.loading('fetching reply...')
+    const loadId = toast.loading("fetching reply...");
 
     setIsLoading(true);
     fetch(`${url}/api/reply/${queryId}`)
@@ -125,18 +125,18 @@ export default function Discussion() {
         if (!res.ok) throw new Error(data.message || "An error occurred");
         setReply(data);
         setIsLoading(false);
-        toast.success("fetching completed", {id: loadId})
+        toast.success("fetching completed", { id: loadId });
       })
       .catch((error) => {
         setIsLoading(false);
-        toast.error(error.message, {id: loadId});
+        toast.error(error.message, { id: loadId });
       });
   };
 
   //========================== post reply =================
 
   const postReply = (queryId) => {
-    const loadId = toast.loading('posting reply...')
+    const loadId = toast.loading("posting reply...");
 
     setIsLoading(true);
     fetch(`${url}/api/reply`, {
@@ -146,15 +146,15 @@ export default function Discussion() {
         content: userReply,
       }),
     })
-      .then(async(res) => {
-        const data = await res.json()
-        if (!res.ok) throw new Error(data.message)
-          setIsLoading(false);
-        toast.success(data.message, {id: loadId});
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message);
+        setIsLoading(false);
+        toast.success(data.message, { id: loadId });
       })
       .catch((error) => {
         setIsLoading(false);
-        toast.error(error.message, {id: loadId});
+        toast.error(error.message, { id: loadId });
       });
   };
 
@@ -177,14 +177,16 @@ export default function Discussion() {
     fetch(`${url}/api/query`, {
       method: "DELETE",
       body: JSON.stringify({ queryId: queryId }),
-      headers : {
-        'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
       },
     })
       .then(async (response) => {
         const data = await response.json();
         if (!response.ok) throw new Error(data.message);
-        return toast.success(data.message || "Query deleted successfully", { id: loadId });
+        return toast.success(data.message || "Query deleted successfully", {
+          id: loadId,
+        });
       })
       .catch((error) => toast.error(error.message, { id: loadId }));
   };
@@ -201,38 +203,6 @@ export default function Discussion() {
     <>
       {isLoading && <Loading></Loading>}
       <div className="discussion-container">
-        {reply && (
-          <>
-            <div className="reply-container">
-              <div className="cancel-button-container">
-                <button onClick={() => setReply(!reply)}>X</button>
-              </div>
-              <div className="reply-input-container">
-                <textarea
-                  placeholder="Reply"
-                  onChange={handleUserReplyChange}
-                  value={userReply}
-                ></textarea>
-                <button
-                  onClick={handleReplySubmitButtonClick}
-                  disabled={!userReply}
-                >
-                  Submit
-                </button>
-              </div>
-              {reply.map((data) => (
-                <>
-                  <div className="time-stamp">
-                    {new Date(data.createdAt).toLocaleString()}
-                  </div>
-                  <div className="reply-body">
-                    <p>{formatData(data.content)}</p>
-                  </div>
-                </>
-              ))}
-            </div>
-          </>
-        )}
         {query.map((data) => (
           <>
             <div className="query-container" key={data["_id"]}>
@@ -263,6 +233,43 @@ export default function Discussion() {
               <div className="query-body">
                 <p className="query">{formatData(data.content)}</p>
               </div>
+              {data["_id"] === qId && (
+                <>
+                  <div className="reply-container">
+                    <div className="cancel-button-container">
+                      <button onClick={() => setReply("") || setQId("")}>
+                        ❌
+                      </button>
+                    </div>
+
+                    {reply !== "" &&
+                      reply.map((data) => (
+                        <>
+                          <div className="time-stamp">
+                            {new Date(data.createdAt).toLocaleString()}
+                          </div>
+                          <div className="reply-body">
+                            <p>{formatData(data.content)}</p>
+                          </div>
+                        </>
+                      ))}
+
+                    <div className="reply-input-container">
+                      <textarea
+                        placeholder="Reply"
+                        onChange={handleUserReplyChange}
+                        value={userReply}
+                      ></textarea>
+                      <button
+                        onClick={handleReplySubmitButtonClick}
+                        disabled={!userReply}
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </>
         ))}
