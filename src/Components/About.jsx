@@ -23,6 +23,9 @@ function About() {
 
     fetch(url, {
       method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+    },
       body: JSON.stringify({ comment: comment }),
     })
       .then(async(response) => {

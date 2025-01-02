@@ -41,9 +41,9 @@ function Announcement() {
     fetch(`${url}/api/announcement`, {
       method: "POST",
       headers : {
-        'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`
+        'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`,
       },
-      body: JSON.stringify(announcementText),
+      body: announcementText
     })
       .then(async (res) => {
         const data = await res.json();
@@ -99,7 +99,8 @@ function Announcement() {
     fetch(`${url}/api/announcement`, {
       method: "DELETE",
       headers : {
-        'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`
+        'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`,
+         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ id: id }),
     })

@@ -99,6 +99,9 @@ export default function Discussion() {
     setIsLoading(true);
     fetch(`${url}/api/query`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ content: userQuery, name: "unknown person" }),
     })
       .then(async (res) => {
@@ -141,6 +144,9 @@ export default function Discussion() {
     setIsLoading(true);
     fetch(`${url}/api/reply`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         queryId: queryId,
         content: userReply,
@@ -179,6 +185,7 @@ export default function Discussion() {
       body: JSON.stringify({ queryId: queryId }),
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
+        "Content-Type": "application/json",
       },
     })
       .then(async (response) => {
