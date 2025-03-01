@@ -3,7 +3,7 @@
   position: relative;
   transform-origin: 1s;
   transform-origin: 50% 50%;
-  animation: scalein 0.4s ease;
+  animation: scalein 0.5s ease;
 }
 
 @keyframes scalein {
@@ -34,7 +34,7 @@
   overflow-y: scroll;
   /* scrollbar-width: thin; */
   transform-origin: top;
-  animation: slidein 1s ease-in-out;
+  animation: slidein 0.5s ease-in-out;
 }
 
 .reply-container .cancel-button-container {

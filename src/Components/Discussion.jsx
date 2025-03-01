@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import "../Styles/Discussion.css";
 import replyImg from "../assets/reply.png";
@@ -72,7 +73,7 @@ export default function Discussion() {
   const fetchQuery = () => {
     const loadId = toast.loading("fetching queries...");
 
-    setIsLoading(true);
+    // setIsLoading(true);
     fetch(`${url}/api/query/${pageInfo.currentPage + 1}`)
       .then(async (res) => {
         const data = await res.json();
@@ -82,11 +83,11 @@ export default function Discussion() {
           currentPage: data.currentPage,
           totalPage: data.totalPage,
         });
-        setIsLoading(false);
+        // setIsLoading(false);
         toast.success("fetching completed.", { id: loadId });
       })
       .catch((error) => {
-        setIsLoading(false);
+        // setIsLoading(false);
         toast.error(error.message, { id: loadId });
       });
   };
@@ -94,9 +95,9 @@ export default function Discussion() {
   //====================== Post query====================
 
   const postQuery = () => {
-    const loadId = toast.loading("posting query...");
+    const loadId = toast.loading("Posting query...");
 
-    setIsLoading(true);
+    // setIsLoading(true);
     fetch(`${url}/api/query`, {
       method: "POST",
       headers: {
@@ -107,11 +108,11 @@ export default function Discussion() {
       .then(async (res) => {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || "An error occurred");
-        setIsLoading(false);
+        // setIsLoading(false);
         toast.success(data.message, { id: loadId });
       })
       .catch((error) => {
-        setIsLoading(false);
+        // setIsLoading(false);
         toast.error(error.message, { id: loadId });
       });
   };
@@ -121,17 +122,17 @@ export default function Discussion() {
   const fetchReply = (queryId) => {
     const loadId = toast.loading("fetching reply...");
 
-    setIsLoading(true);
+    // setIsLoading(true);
     fetch(`${url}/api/reply/${queryId}`)
       .then(async (res) => {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || "An error occurred");
         setReply(data);
-        setIsLoading(false);
+        // setIsLoading(false);
         toast.success("fetching completed", { id: loadId });
       })
       .catch((error) => {
-        setIsLoading(false);
+        // setIsLoading(false);
         toast.error(error.message, { id: loadId });
       });
   };
@@ -141,7 +142,7 @@ export default function Discussion() {
   const postReply = (queryId) => {
     const loadId = toast.loading("posting reply...");
 
-    setIsLoading(true);
+    // setIsLoading(true);
     fetch(`${url}/api/reply`, {
       method: "POST",
       headers: {
@@ -155,11 +156,11 @@ export default function Discussion() {
       .then(async (res) => {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);
-        setIsLoading(false);
+        // setIsLoading(false);
         toast.success(data.message, { id: loadId });
       })
       .catch((error) => {
-        setIsLoading(false);
+        // setIsLoading(false);
         toast.error(error.message, { id: loadId });
       });
   };

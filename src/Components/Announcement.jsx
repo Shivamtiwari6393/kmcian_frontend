@@ -69,7 +69,7 @@ function Announcement() {
   // fetch the announcement
 
   const fetchh = () => {
-    setLoading(true);
+    // setLoading(true);
     const id = toast.loading("fetching announcements...");
 
 
@@ -82,11 +82,11 @@ function Announcement() {
           currentPage: data.currentPage,
           totalPage: data.totalPage,
         });
-        setLoading(false);
+        // setLoading(false);
         toast.success("fetching completed", {id: id})
         })
       .catch((error) => {
-        setLoading(false);
+        // setLoading(false);
         toast.error(error.message, {id: id});
       });
   };
