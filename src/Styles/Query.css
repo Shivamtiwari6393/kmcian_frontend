@@ -1,4 +1,5 @@
 .discussion-container {
+  color: white;
   user-select: none;
   position: relative;
   transform-origin: 1s;
@@ -8,11 +9,9 @@
 
 @keyframes scalein {
   from {
-  transform: translateY(-1000);
+    transform: translateY(-1000);
   }
-
 }
-
 
 @keyframes slidein {
   from {
@@ -28,13 +27,16 @@
   margin-top: 5px;
   border-top: 1px solid rgba(128, 128, 128, 0.311);
   padding: 10px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(32, 32, 32);
   border-radius: 4px 10px 30px 10px;
-  /* height: 100%; */
   overflow-y: scroll;
-  /* scrollbar-width: thin; */
   transform-origin: top;
   animation: slidein 0.5s ease-in-out;
+  color: white;
+}
+
+.discussion-container .reply-container {
+  border-top: 1px solid rgba(255, 255, 255, 0.618);
 }
 
 .reply-container .cancel-button-container {
@@ -42,15 +44,13 @@
   margin: 5px;
 }
 
-
 .cancel-button-container button {
   border-radius: 4px;
   border: none;
   background-color: white;
 }
 
-
-.cancel-button-container button:active{
+.cancel-button-container button:active {
   transform: scale(0.7);
 }
 
@@ -67,9 +67,11 @@
   margin: 20px 5px;
   padding: 5px;
   height: max-content;
-  /* border: 2px solid grey; */
   border-radius: 4px;
   width: 80%;
+  border: 1px solid white;
+  background: none;
+  color: white;
 }
 
 .reply-input-container button {
@@ -77,14 +79,14 @@
   border: none;
   padding: 5px 7px;
   border-radius: 2px;
-  font-weight: bold;
   color: white;
-  background-color: rgba(26, 141, 26, 0.805);
+  background-color: rgba(26, 26, 26, 0.805);
   box-shadow: 2px 2px 6px grey;
+  border: 1px solid rgba(255, 255, 255, 0.500);
 }
 
 .reply-container .time-stamp {
-  color: rgb(144, 144, 144);
+  color: rgba(255, 255, 255, 0.5);
   font-style: italic;
   margin-top: 10px;
   font-size: xx-small;
@@ -96,8 +98,8 @@
 }
 
 .reply-container .reply-body p {
-  border: 1px solid grey;
-  color: rgb(32, 32, 32);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: rgb(255, 255, 255);
   position: relative;
   margin: 0px 0px;
   padding: 20px;
@@ -113,17 +115,15 @@
   max-width: 768px;
   margin: 20px auto;
   position: relative;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(30, 30, 30);
   border-radius: 10px;
 }
 
-
-.query-container .delete-button-container-hide{
+.query-container .delete-button-container-hide {
   display: none;
 }
 
-
-.query-container .delete-button-container{
+.query-container .delete-button-container {
   user-select: none;
   border: none;
   background-color: white;
@@ -132,11 +132,10 @@
   background-color: transparent;
 }
 
-.query-container .delete-button-container button{
+.query-container .delete-button-container button {
   border: none;
   background: transparent;
 }
-
 
 .query-container .query-header {
   width: 100%;
@@ -144,13 +143,13 @@
   padding: 10px;
   display: flex;
   justify-content: space-between;
-  background-color: rgb(177, 189, 249);
+  background-color: rgb(67, 67, 67);
   border-radius: 10px 10px 0px 0px;
 }
 
 .query-container .query-header .time-stamp {
   font-size: xx-small;
-  color: rgb(51, 51, 51);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .query-container .query-header .reply-button-container {
@@ -187,10 +186,10 @@
   font-style: italic;
   border-radius: 5px;
   background-color: rgb(26, 26, 26);
-  border: 1px solid rgba(255, 255, 255, 0.500);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-.button-container button:active{
+.button-container button:active {
   transform: scale(0.9);
   background-color: rgb(78, 78, 78);
 }
@@ -210,6 +209,7 @@
 }
 
 .input-container textarea {
+  color: white;
   padding: 5px;
   margin: 10px;
   /* height: 30px; */
@@ -217,9 +217,7 @@
   border-radius: 5px;
   width: 80%;
   background: rgb(26, 26, 26);
-  border: 1px solid rgba(255, 255, 255, 0.500);
-
-
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .discussion-container .input-container button {

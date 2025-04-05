@@ -6,9 +6,21 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import Loading from "./Loading";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHouse,
+  faUser,
+  faUpload,
+  faQuestion,
+  faBullhorn,
+  faInfo,
+  faSearch,
+  faReply,
+} from "@fortawesome/free-solid-svg-icons";
+
 export default function Query() {
-  // const url = "http://127.0.0.1:8000";
-  const url = "https://kmcianbackend.vercel.app";
+  const url = "http://127.0.0.1:8000";
+  // const url = "https://kmcianbackend.vercel.app";
 
   const [query, setQuery] = useState([]);
   const [pageInfo, setPageInfo] = useState({
@@ -237,9 +249,9 @@ export default function Query() {
                   </button>
                 </div>
                 <div className="reply-button-container">
-                  <img
-                    src={replyImg}
-                    alt="reply"
+                  <FontAwesomeIcon
+                    icon={faReply}
+                    style={{ color: "#ffffff" }}
                     onClick={replyButtonClick}
                     data-value={data["_id"]}
                   />
