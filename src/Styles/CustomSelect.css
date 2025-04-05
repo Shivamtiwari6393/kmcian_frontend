@@ -37,7 +37,7 @@
   left: 0;
   right: 0;
   background-color: rgb(26, 26, 26);
-  border-radius: 10px;
+  border-radius: 5px;
   color: #f0f0f0;
   margin-top: 2px;
   z-index: 10;
@@ -48,6 +48,9 @@
   scrollbar-width: thin;
   transform-origin: 50% 0%;
   animation: scaleinn 0.1s;
+  border: 1px solid rgb(255, 255, 255);
+  border-top: none;
+
 
 }
 
@@ -55,6 +58,7 @@
   padding: 10px 0px;
   cursor: pointer;
   transition-duration: 0.4s;
+  border: 1px solid rgba(255, 255, 255, 0.266);
 }
 
 .option:hover {

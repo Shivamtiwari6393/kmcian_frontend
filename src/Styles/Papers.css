@@ -7,6 +7,7 @@
   text-align: center;
   padding: 5px;
   margin: 5px 0px;
+  
 }
 
 .papers-container .search-container input {
@@ -15,6 +16,10 @@
   border: none;
   border-radius: 5px;
   width: 80%;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.500);
+  color: white;
+
 }
 
 .papers-container .names {
@@ -25,12 +30,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0px 4px 5px rgb(195, 195, 195);
+  /* box-shadow: 0px 4px 5px rgb(195, 195, 195); */
   font-weight: bold;
-  background: linear-gradient(rgb(255, 255, 255), rgb(229, 229, 229));
   animation-name: scroll;
   animation-timeline: view();
   animation-range-start: entry;
+  border: 1px solid rgba(255, 255, 255, 0.573);
 }
 
 @keyframes scroll {
@@ -42,24 +47,31 @@
   width: 500px;
   overflow: hidden;
   color: rgb(120, 58, 58);
+  background: rgb(32, 32, 32);
 }
 
 .branch p {
   text-align: center;
   width: 200px;
   color: cadetblue;
+  background: rgb(32, 32, 32);
+
 }
 
 .semester p {
   width: 20px;
   overflow: hidden;
   color: blueviolet;
+  background: rgb(32, 32, 32);
+
 }
 
 .year p {
   width: 50px;
   overflow: hidden;
   color: cornflowerblue;
+  background: rgb(32, 32, 32);
+
 }
 
 .name p {
@@ -67,6 +79,8 @@
   overflow: hidden;
   color: rgb(111, 120, 137);
   padding: 10px;
+  background: rgb(32, 32, 32);
+
 }
 
 .name p div {
@@ -91,7 +105,7 @@
   max-width: 200px;
   background-color: rgb(45, 159, 91);
   border-radius: 5px;
-  box-shadow: 0px 4px 5px rgb(195, 195, 195);
+  /* box-shadow: 0px 4px 5px rgb(195, 195, 195); */
   margin: 5px;
   transition-duration: 0.3s;
 }
@@ -120,7 +134,7 @@
     flex-direction: column;
     margin: 20px auto;
     max-width: 700px;
-    box-shadow: 0px 4px 2px rgb(195, 195, 195);
+    /* box-shadow: 0px 4px 2px rgb(195, 195, 195); */
   }
 
   .paperName {
@@ -135,7 +149,7 @@
     padding: 10px;
     margin: 10px 0px;
     border-radius: 5px;
-    box-shadow: 0px 4px 5px rgb(195, 195, 195);
+    /* box-shadow: 0px 4px 5px rgb(195, 195, 195); */
   }
 
   .branch {
@@ -150,7 +164,7 @@
     padding: 10px;
     margin: 10px 0px;
     border-radius: 5px;
-    box-shadow: 0px 4px 5px rgb(195, 195, 195);
+    /* box-shadow: 0px 4px 5px rgb(195, 195, 195); */
   }
 
   .semester {
@@ -163,7 +177,7 @@
     text-align: center;
     width: 100%;
     padding: 10px;
-    box-shadow: 0px 4px 5px rgb(195, 195, 195);
+    /* box-shadow: 0px 4px 5px rgb(195, 195, 195); */
     margin: 10px 0px;
   }
 
@@ -177,7 +191,7 @@
     text-align: center;
     width: 100%;
     padding: 10px;
-    box-shadow: 0px 4px 5px rgb(195, 195, 195);
+    /* box-shadow: 0px 4px 5px rgb(195, 195, 195); */
     margin: 10px 0px;
   }
 
@@ -193,7 +207,7 @@
   .name p {
     color: rgb(141, 46, 188);
     text-align: center;
-    box-shadow: 0px 4px 5px rgb(195, 195, 195);
+    /* box-shadow: 0px 4px 5px rgb(195, 195, 195); */
   }
 
   .download-button-container {
