@@ -185,8 +185,9 @@
   border: none;
   color: white;
   font-style: italic;
-  border-radius: 4px;
-  background-color: rgb(104, 104, 104);
+  border-radius: 5px;
+  background-color: rgb(26, 26, 26);
+  border: 1px solid rgba(255, 255, 255, 0.500);
 }
 
 .button-container button:active{
@@ -206,16 +207,19 @@
   margin: 5px;
   width: 80%;
   border-radius: 4px;
-  border: none;
 }
 
 .input-container textarea {
   padding: 5px;
   margin: 10px;
-  height: 30px;
+  /* height: 30px; */
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   width: 80%;
+  background: rgb(26, 26, 26);
+  border: 1px solid rgba(255, 255, 255, 0.500);
+
+
 }
 
 .discussion-container .input-container button {

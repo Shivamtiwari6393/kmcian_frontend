@@ -1,7 +1,7 @@
 .header-container {
   user-select: none;
   max-width: 97%;
-  margin: 5px auto;
+  margin: 10px auto;
   user-select: none;
   display: grid;
   grid-template-columns: 1fr;
@@ -14,6 +14,8 @@
   /* background: linear-gradient(to right, rgb(205, 145, 220), rgb(127, 192, 190)); */
   background:rgb(26, 26, 26);
   box-shadow: 0px 0px 0px rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255 , 0.500);
+
 
 }
 

@@ -9,7 +9,7 @@
   padding-top: 20px;
   display: flex;
   flex-direction: column;
-  background-color: rgb(27, 27, 27);
+  background: rgb(27, 27, 27);
 }
 
 .login-fields {
@@ -21,9 +21,6 @@
   align-items: center;
 }
 
-.login-fields img {
-  width: 25px;
-}
 
 .login-fields .username-container,
 .password-container {
@@ -39,27 +36,27 @@
 }
 
 .login-fields input {
-  width: 70%;
+  color: white;
+  width: 100%;
   font-weight: bold;
   font-style: italic;
   margin: 10px;
   padding: 10px;
-  border: none;
   border-radius: 5px;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.500);
 }
 
 .login-fields .login-button-container button {
   font-weight: bold;
-  background-color: rgb(86, 86, 86);
-  color: white;
+  background-color: rgb(26, 26, 26);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: rgb(109, 143, 109);
   width: 85%;
   max-width: 200px;
   padding: 10px;
   border-radius: 5px;
-  border: none;
   margin: 15px 0px;
-  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.41);
-  background: linear-gradient(rgb(81, 131, 86), rgb(65, 136, 90));
 }
 
 .login-fields .logout-button-container button {
@@ -75,18 +72,4 @@
   box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.399);
 }
 
-@media (width < 350px) {
-  .login-fields img {
-    width: 20px;
-  }
 
-  .login-fields .username-container,
-  .password-container {
-    font-size: small;
-  }
-  .login-fields input {
-    padding: 8px;
-    width: 50vw;
-    font-size: x-small;
-  }
-}

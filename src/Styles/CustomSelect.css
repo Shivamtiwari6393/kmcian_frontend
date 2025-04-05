@@ -1,5 +1,5 @@
 .select-container {
-  color: #bbbbbb;
+  color: rgb(187, 187, 187);
   text-align: center;
   position: relative;
   width: 96%;
@@ -8,7 +8,7 @@
   border-radius: 5px;
   background-color: rgb(26, 26, 26);
   user-select: none;
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.500);
 
 }
 
