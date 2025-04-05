@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import "../Styles/Discussion.css";
+import "../Styles/Query.css";
 import replyImg from "../assets/reply.png";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Loading from "./Loading";
 
-export default function Discussion() {
+export default function Query() {
   // const url = "http://127.0.0.1:8000";
   const url = "https://kmcianbackend.vercel.app";
 
@@ -30,8 +30,10 @@ export default function Discussion() {
 
   // ===============more button click========
 
-  const handleMoreClick = () => {
-    if (pageInfo.currentPage + 1 <= pageInfo.totalPage) fetchQuery();
+  const handleMoreClick = async (e) => {
+    console.log(pageInfo);
+
+    if (pageInfo.currentPage + 1 <= pageInfo.totalPage) await fetchQuery(e);
     return;
   };
 
@@ -70,7 +72,7 @@ export default function Discussion() {
 
   //================== fetch query===============
 
-  const fetchQuery = () => {
+  const fetchQuery = (e) => {
     const loadId = toast.loading("fetching queries...");
 
     // setIsLoading(true);
@@ -84,7 +86,12 @@ export default function Discussion() {
           totalPage: data.totalPage,
         });
         // setIsLoading(false);
+
+        // hide the more button if current page = total page
+
+        if (data.currentPage == data.totalPage) e.target.hidden = true;
         toast.success("fetching completed.", { id: loadId });
+        return;
       })
       .catch((error) => {
         // setIsLoading(false);
@@ -283,7 +290,7 @@ export default function Discussion() {
         ))}
 
         <div className="button-container">
-          <button onClick={handleMoreClick}>
+          <button onClick={handleMoreClick} id="more-button">
             {query[0] ? "more..." : "Show queries"}
           </button>
         </div>

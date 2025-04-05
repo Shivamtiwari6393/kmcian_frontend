@@ -2,8 +2,8 @@
   user-select: none;
   text-align: center;
   margin: 20px auto;
-  padding: 10px;
-  width: 100vw;
+  /* padding: 10px; */
+  width: 95vw;
 }
 .about-container h4 {
   font-family: monospace;
@@ -17,7 +17,7 @@
   padding: 5px;
   margin: 10px 0px;
   font-family: "Times New Roman", Times, serif;
-  text-align: left;
+  text-align: justify;
 }
 .about-container .welcome-container .info p {
   padding: 0px;

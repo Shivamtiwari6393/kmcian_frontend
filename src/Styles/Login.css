@@ -1,7 +1,7 @@
 .login-container {
   user-select: none;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 5px;
   width: 95%;
   max-width: 600px;
   user-select: none;
@@ -60,7 +60,7 @@
   width: 85%;
   max-width: 200px;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   border: none;
   margin: 15px 0px;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.41);

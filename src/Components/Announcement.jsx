@@ -40,10 +40,10 @@ function Announcement() {
     setLoading(true);
     fetch(`${url}/api/announcement`, {
       method: "POST",
-      headers : {
-        'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`,
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
       },
-      body: announcementText
+      body: announcementText,
     })
       .then(async (res) => {
         const data = await res.json();
@@ -60,34 +60,35 @@ function Announcement() {
 
   // handle more/announcement button click
 
-  const handleClick = () => {
-    if (pageInfo.currentPage + 1 <= pageInfo.totalPage) fetchh();
-
+  const handleClick = (e) => {
+    if (pageInfo.currentPage + 1 <= pageInfo.totalPage) fetchAnnouncement(e);
     return;
   };
 
   // fetch the announcement
 
-  const fetchh = () => {
+  const fetchAnnouncement = (e) => {
     // setLoading(true);
     const id = toast.loading("fetching announcements...");
 
-
     fetch(`${url}/api/announcement/${pageInfo.currentPage + 1}`)
-      .then(async(res) => {
-        const data = await res.json()
-        if(!res.ok) throw new Error(data.message);
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message);
         setAnnouncements((prev) => [...prev, ...data.announcements]);
         setPageInfo({
           currentPage: data.currentPage,
           totalPage: data.totalPage,
         });
         // setLoading(false);
-        toast.success("fetching completed", {id: id})
-        })
+        // hide the more button if current page = total page
+
+        if (data.currentPage == data.totalPage) e.target.hidden = true;
+        toast.success("fetching completed", { id: id });
+      })
       .catch((error) => {
         // setLoading(false);
-        toast.error(error.message, {id: id});
+        toast.error(error.message, { id: id });
       });
   };
 
@@ -98,15 +99,14 @@ function Announcement() {
 
     fetch(`${url}/api/announcement`, {
       method: "DELETE",
-      headers : {
-        'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`,
-         'Content-Type': 'application/json'
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ id: id }),
     })
-      .then(async(response) => {
-
-        const data = await response.json()
+      .then(async (response) => {
+        const data = await response.json();
         if (!response.ok) throw new Error(data.message);
         toast.success(data.message || "Announcement deleted", { id: loadId });
       })
