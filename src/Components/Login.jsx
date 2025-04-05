@@ -6,6 +6,17 @@ import passwordIcon from "../assets/password.png";
 import Loading from "./Loading";
 import { toast } from "react-hot-toast";
 import adminContext from "./adminContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHouse,
+  faUser,
+  faUpload,
+  faQuestion,
+  faBullhorn,
+  faInfo,
+  faSearch,
+  faLock,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Login() {
   // const url = "http://127.0.0.1:8000/api/user/login";
@@ -44,19 +55,16 @@ function Login() {
 
   const handleInputChange = (e) => {
     console.log(isAdmin);
-    
+
     setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   // on login button click
 
   const handleButtonClick = () => {
+    if (!credentials.email) return toast.error("Please enter your email.");
+    if (!credentials.password) return toast.error("Please enter the password.");
 
-
-    if(!credentials.email) return toast.error("Please enter your email.")
-    if (!credentials.password) return toast.error("Please enter the password.")
-
-    
     setIsLoading(true);
 
     //============ login fetch request==============
@@ -64,8 +72,8 @@ function Login() {
     fetch(url, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
-    },
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(credentials),
     })
       .then(async (res) => {
@@ -94,7 +102,7 @@ function Login() {
         <div className="login-fields">
           <div className="username-container">
             <label htmlFor="username">
-              <img src={userIcon} alt="username" />
+              <FontAwesomeIcon icon={faUser} style={{ color: "#ffffff" }} />
             </label>
             <input
               type="text"
@@ -107,7 +115,8 @@ function Login() {
 
           <div className="password-container">
             <label htmlFor="password">
-              <img src={passwordIcon} alt="password" />
+              {/* <img src={passwordIcon} alt="password" /> */}
+              <FontAwesomeIcon icon={faLock} style={{ color: "#ffffff" }} />
             </label>
             <input
               type="password"

@@ -87,7 +87,7 @@ function About() {
       <div className="contact">
         <p>
           Contact:{" "}
-          <a href="mailto:shivamtiwari6223@gmail.com">
+          <a href="mailto:shivamtiwari6223@gmail.com" style={{color: "white"}}>
             shivamtiwari6223@gmail.com
           </a>{" "}
         </p>

@@ -1,8 +1,8 @@
 .about-container {
+  color: rgb(226, 226, 226);
   user-select: none;
   text-align: center;
   margin: 20px auto;
-  /* padding: 10px; */
   width: 95vw;
 }
 .about-container h4 {
@@ -36,6 +36,8 @@
 }
 
 .about-container .comment-container textarea {
+  color: white;
+  background-color:rgb(26, 26, 26) ;
   padding: 10px;
   border-radius: 10px;
   margin: 10px 0px;

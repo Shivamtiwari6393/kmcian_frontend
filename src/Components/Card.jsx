@@ -10,6 +10,9 @@ import searchIcon from "../assets/search.png";
 import toast from "react-hot-toast";
 import adminContext from "./adminContext";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse, faUser , faUpload, faQuestion, faBullhorn, faInfo, faSearch} from '@fortawesome/free-solid-svg-icons';
+
 export default function Card() {
   // const url = "http://127.0.0.1:8000/api/paper";
   const url = "https://kmcianbackend.vercel.app/api/paper";
@@ -330,7 +333,7 @@ export default function Card() {
           </select>
 
           <div id="search-button-container">
-            <img src={searchIcon} alt="Go" onClick={request} />
+            <FontAwesomeIcon icon={faSearch} style={{color: "#ffffff", scale: "1.9"}} onClick={request} />
           </div>
         </div>
       </div>

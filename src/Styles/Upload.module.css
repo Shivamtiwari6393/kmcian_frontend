@@ -5,11 +5,7 @@
   padding: 20px 20px;
   width: 90%;
   max-width: 700px;
-  background: linear-gradient(
-    90deg,
-    rgba(207, 159, 159, 0.833),
-    rgb(151, 151, 238)
-  );
+  background: rgb(26, 26, 26);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,25 +15,26 @@
 }
 
 @keyframes opacityin {
-  from{
-    transform:  scale(1.1);
+  from {
+    transform: scale(1.1);
     opacity: 0;
   }
 }
 
 .upload-container input {
-  color: rgb(42, 103, 102);
+  color: rgb(255, 255, 255);
   margin-top: 10px;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: #ffffff52;
+  background-color: rgba(31, 31, 31, 0.322);
   font-size: 16px;
   cursor: pointer;
   font-weight: bold;
   width: 60vw;
   max-width: 290px;
-  box-shadow: 0px 2px 1px rgba(99, 99, 99, 0.851);
+  box-shadow: 0px 2px 1px rgba(28, 28, 28, 0.851);
+  border: 1px solid rgba(255, 255, 255, 0.45);
 }
 
 .upload-container input[type="file"] {
@@ -51,18 +48,17 @@
   width: 60vw;
   max-width: 290px;
   margin-top: 10px;
-  background-color: #ffffff52;
+  background-color: rgba(26, 26, 26, 0.322);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: black;
+  color: rgba(255, 255, 255, 0.9);
   border-radius: 5px;
   cursor: pointer;
   text-overflow: ellipsis;
   overflow-wrap: break-word;
   box-shadow: 0px 2px 1px rgba(99, 99, 99, 0.803);
-
-
+  border: 1px solid rgba(255, 255, 255, 0.45);
 }
 
 .file-container label img {
@@ -95,9 +91,11 @@
   margin-top: 20px;
   border: none;
   color: white;
-  background-color: #26a22a;
-  box-shadow: 0px 2px 1px rgba(99, 99, 99, 0.71);
-  border-radius: 11px;
+  background-color: rgb(24, 24, 24);
+  border-radius: 5px;
+  color: rgb(105, 186, 105);
+  border: 1px solid rgba(255, 255, 255, 0.714);
+
 }
 
 button:active {
@@ -105,7 +103,7 @@ button:active {
   background-color: #3a773a;
 }
 
-#delete-button{
+#delete-button {
   background-color: rgba(255, 0, 0, 0.563);
 }
 

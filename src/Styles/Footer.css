@@ -1,6 +1,5 @@
 .footer-container {
   font-size: x-small;
-  background: rgb(173, 56, 56);
   position: absolute;
   height: 30px;
   width: 100%;
@@ -8,8 +7,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(rgb(71, 71, 71), rgb(34, 34, 34));
   user-select: none;
+  background-color: rgb(27, 27, 27);
 
 }
 

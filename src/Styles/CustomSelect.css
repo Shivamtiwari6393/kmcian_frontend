@@ -1,13 +1,14 @@
 .select-container {
-  color: #f0f0f0;
+  color: #bbbbbb;
   text-align: center;
   position: relative;
   width: 96%;
   max-width: 300px;
   margin: 7px auto;
-  border-radius: 10px;
-  background-color: rgb(92, 79, 101);
+  border-radius: 5px;
+  background-color: rgb(26, 26, 26);
   user-select: none;
+  border: 1px solid white;
 
 }
 
@@ -35,8 +36,7 @@
   top: 100%;
   left: 0;
   right: 0;
-  /* background: linear-gradient(rgb(46, 127, 149), rgb(103, 44, 171)); */
-  background-color: rgb(100, 78, 147);
+  background-color: rgb(26, 26, 26);
   border-radius: 10px;
   color: #f0f0f0;
   margin-top: 2px;
@@ -58,7 +58,8 @@
 }
 
 .option:hover {
-  background-color: rgb(61, 48, 90)
+  color: #efefef;
+  background-color: rgb(17, 17, 17)
 }
 
 @media screen and (max-width: 330px) {

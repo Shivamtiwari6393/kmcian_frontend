@@ -43,13 +43,12 @@
 }
 
 .announcement-container-in .button-container button {
-  border-radius: 20px;
+  border-radius: 5px;
   font-weight: bold;
-  color: rgb(73, 73, 73);
+  color: rgb(240, 240, 240);
   padding: 10px;
-  background-color: rgb(194, 132, 208);
-  border: none;
-  box-shadow: 1px 2px rgb(31, 31, 31);
+  background-color: rgb(35, 35, 35);
+  border: 1px solid white;
 }
 
 .announcement-text-container {

@@ -1,11 +1,7 @@
 import "../Styles/Header.css";
 import { NavLink } from "react-router-dom";
-import home from "../assets/home.png";
-import upload from "../assets/upload.png";
-import discussion from "../assets/discussion.png";
-import loginIcon from "../assets/login.png";
-import ann from "../assets/announcment.png";
-import information from "../assets/info.png"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse, faUser , faUpload, faQuestion, faBullhorn, faInfo} from '@fortawesome/free-solid-svg-icons';
 
 export default function Header() {
   return (
@@ -13,33 +9,44 @@ export default function Header() {
       <div className="nav-links">
         <span>
           <NavLink to={"/"}>
-            <img src={home} alt="home" title="Home" />
+            {/* <img src={home} alt="home" title="Home" /> */}
+            <FontAwesomeIcon icon={faHouse} style={{color: "#ffffff",}} />
           </NavLink>
         </span>
         <span>
           <NavLink to={"/upload"}>
-            <img src={upload} alt="upload" title="Upload" />
+            {/* <img src={upload} alt="upload" title="Upload" /> */}
+            <FontAwesomeIcon icon={faUpload} style={{color: "#ffffff",}} />
+
           </NavLink>
         </span>
         <span>
           <NavLink to={"/queries"}>
-            <img src={discussion} alt="queries" title="queries" />
+            {/* <img src={discussion} alt="queries" title="queries" /> */}
+            <FontAwesomeIcon icon={faQuestion} style={{color: "#ffffff",}} />
+
           </NavLink>
         </span>
         <span>
           <NavLink to={"/login"}>
-            <img src={loginIcon} alt="login" title="Login" />
+            {/* <img src={loginIcon} alt="login" title="Login" /> */}
+
+            <FontAwesomeIcon icon={faUser} style={{color: "#ffffff",}} />
+
+
           </NavLink>
         </span>
 
         <span>
           <NavLink to={"/announcements"}>
-            <img src={ann} alt="announcements" title="announcements" />
+            {/* <img src={ann} alt="announcements" title="announcements" /> */}
+            <FontAwesomeIcon icon={faBullhorn} style={{color: "#ffffff",}}  />
           </NavLink>
         </span>
         <span>
           <NavLink to={"/about"}>
-            <img src={information} alt="about" title="about" />
+            {/* <img src={information} alt="about" title="about" /> */}
+            <FontAwesomeIcon icon={faInfo}  style={{color: "#ffffff",}} />
           </NavLink>
         </span>
       </div>

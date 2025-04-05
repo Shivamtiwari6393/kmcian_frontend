@@ -1,7 +1,7 @@
 .error-container {
   position: relative;
   text-align: center;
-  color: rgb(127, 9, 9);
+  color: rgb(152, 58, 82);
   font-size: small;
   font-weight: bold;
   font-style: italic;
@@ -19,26 +19,19 @@
   flex-direction: column;
   justify-content: center;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   margin-top: 50px;
   width: 100%;
   max-width: 500px;
-  background: linear-gradient(to right,rgba(127, 192, 190, 0.812), rgba(142, 98, 212, 0.89));
+  /* background: linear-gradient(to right,rgba(127, 192, 190, 0.812), rgba(142, 98, 212, 0.89)); */
+  /* background: rgba(255, 255, 255, 0.979); */
+  background-color:	#1a1a1a;
 }
 
 .card-container #search-button-container {
-  margin-top: 15px;
+  margin: 20px 10px;
   display: flex;
   justify-content: center;
-}
-
-#search-button-container  img {
-  width: 40px;
-  border: none;
-}
-
-#search-button-container img:active {
-  scale: 0.9;
 }
 
 

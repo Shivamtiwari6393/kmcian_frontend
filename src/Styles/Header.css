@@ -2,7 +2,6 @@
   user-select: none;
   max-width: 97%;
   margin: 5px auto;
-  padding: 5px;
   user-select: none;
   display: grid;
   grid-template-columns: 1fr;
@@ -10,44 +9,27 @@
   align-items: center;
   height: 45px;
   border: none;
-  box-shadow: 0px 2px 1px grey;
-  border-radius: 10px;
+  border-radius: 5px;
   /* background: linear-gradient(rgb(255, 180, 196), rgb(234, 166, 237)); */
-  background: linear-gradient(to right, rgb(205, 145, 220), rgb(127, 192, 190));
-  /* background: linear-gradient(40deg,rgba(241, 194, 194, 0.797), rgba(136, 0, 255, 0.326), rgb(255, 204, 204)); */
-}
+  /* background: linear-gradient(to right, rgb(205, 145, 220), rgb(127, 192, 190)); */
+  background:rgb(26, 26, 26);
+  box-shadow: 0px 0px 0px rgb(255, 255, 255);
 
-.nav-links span {
-  position: relative;
-  margin-left: 25px;
 }
 
 .nav-links {
   display: flex;
   justify-content: space-around;
   max-width: 250px;
+  margin-left: 1vw;
+  
 }
 
-.nav-links span img {
-  width: 25px;
-  overflow: hidden;
-  transition-duration: 0.5s;
+
+.nav-links span :active {
+  scale: 0.5;
 }
 
-.nav-links span img:active {
-scale: 0.5;
-}
-
-.active::after {
-  content: "";
-  position: absolute;
-  padding: 1px;
-  background-color: rgb(37, 42, 42);
-  left: -5px;
-  bottom: 0px;
-  width: 35px;
-  background: linear-gradient(left to right, rgb(255, 0, 0), rgb(0, 0, 254));
-}
 
 @media (width <= 500px) {
   .nav-links {
