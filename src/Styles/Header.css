@@ -32,20 +32,21 @@
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-
 .nav-links {
   display: flex;
   justify-content: space-around;
   max-width: 250px;
   margin-left: 1vw;
-  
 }
 
+.active {
+  border-bottom: 1px solid white;
+  padding: 3px;
+}
 
 .nav-links span :active {
   scale: 0.5;
 }
-
 
 @media (width <= 500px) {
   .nav-links {
