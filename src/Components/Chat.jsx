@@ -1,8 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import "../Styles/Chat.css";
-
-import go from '../assets/go.png'
 
 const Chat = () => {
   const [message, setMessage] = useState("");
@@ -70,7 +69,7 @@ const Chat = () => {
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Drop your Query"
         />
-       <img src={go} alt="go" onClick={handleSendMessage} title="Send"/>
+       {/* <img src={go} alt="go" onClick={handleSendMessage} title="Send"/> */}
       </div>
     </div>
   );
