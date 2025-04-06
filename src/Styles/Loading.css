@@ -1,7 +1,7 @@
 .loading-container {
   user-select: none;
   position: fixed;
-  background-color: rgba(255, 255, 255, 0.777);
+  /* background-color: rgba(255, 255, 255, 0.777); */
   top: 0px;
   bottom: 0px;
   right: 0px;
@@ -12,24 +12,43 @@
   align-items: center;
   z-index: 999;
   font-weight: bold;
+  color: white;
+  background: rgba(0, 0, 0, 0.618);
+
 }
 .spinner {
   position: absolute;
-  width: 150px;
-  height: 150px;
-  background-color: rgba(0, 255, 255, 0);
-  border-radius: 50%;
-  border: 5px solid rgb(182, 182, 182);
-  animation: spin 1s linear infinite;
+  width: 100px;
+  height: 100px;
+  border-radius: 5%;
+  /* border: 5px solid rgb(182, 182, 182); */
+  animation: spin 0.5s linear infinite;
 }
 
 @keyframes spin {
   0% {
-    border-top: 5px solid rgb(255, 255, 255);
+    border-top: 5px solid rgb(231, 125, 125);
+    /* box-shadow:  0px 0px 5px 2px rgb(231, 125, 125); */
+  }
+  25%{
+    border-right: 5px solid blue;
+    /* box-shadow:  0px 0px 10px 2px blue; */
+
+
+  }
+
+  75%{
+    border-bottom: 5px solid rgb(154, 246, 223);
+    /* box-shadow:  0px 0px 10px 2px rgb(154, 246, 223); */
+  
+
   }
 
   100% {
-    rotate: 360deg;
-    border-top: 5px solid rgb(255, 255, 255);
+    /* rotate: 360deg; */
+    border-left: 5px solid rgb(130, 175, 216);
+    /* box-shadow:  0px 0px 1px 5px rgb(130, 175, 216); */
+
+
   }
 }
