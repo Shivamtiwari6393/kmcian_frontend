@@ -1,22 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useContext, useState } from "react";
 import "../Styles/Login.css";
-import userIcon from "../assets/user.png";
-import passwordIcon from "../assets/password.png";
 import Loading from "./Loading";
 import { toast } from "react-hot-toast";
 import adminContext from "./adminContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHouse,
-  faUser,
-  faUpload,
-  faQuestion,
-  faBullhorn,
-  faInfo,
-  faSearch,
-  faLock,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 
 function Login() {
   // const url = "http://127.0.0.1:8000/api/user/login";
@@ -96,9 +85,9 @@ function Login() {
     <>
       {isLoading && <Loading></Loading>}
       <div className="login-container">
-        {/* <div className="login-header">
-          <h4>Login</h4>
-        </div> */}
+        <div className="login-header">
+          <h3>Login</h3>
+        </div>
         <div className="login-fields">
           <div className="username-container">
             <label htmlFor="username">
@@ -115,7 +104,6 @@ function Login() {
 
           <div className="password-container">
             <label htmlFor="password">
-              {/* <img src={passwordIcon} alt="password" /> */}
               <FontAwesomeIcon icon={faLock} style={{ color: "#ffffff" }} />
             </label>
             <input

@@ -3,6 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import "../Styles/Announcement.css";
 import Loading from "./Loading";
 import toast from "react-hot-toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faRemove} from '@fortawesome/free-solid-svg-icons';
+
 
 function Announcement() {
   // const url = "http://127.0.0.1:8000";
@@ -138,7 +141,7 @@ function Announcement() {
                   data-value={`{"id": ${Announcement._id}}`}
                   className="announcement-delete-button"
                 >
-                  ❌
+                  <FontAwesomeIcon icon= {faRemove}></FontAwesomeIcon>
                 </button>
               </div>
             </>

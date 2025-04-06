@@ -6,12 +6,11 @@ import Loading from "./Loading";
 import CustomSelect from "./CustomSelect";
 import "../Styles/CustomSelect.css";
 
-import searchIcon from "../assets/search.png";
 import toast from "react-hot-toast";
 import adminContext from "./adminContext";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faUser , faUpload, faQuestion, faBullhorn, faInfo, faSearch} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export default function Card() {
   // const url = "http://127.0.0.1:8000/api/paper";
@@ -93,7 +92,7 @@ export default function Card() {
 
     // Fetch request
     setIsLoading(true);
-    const loadId = toast.loading("fetching papers info...")
+    const loadId = toast.loading("fetching papers info...");
 
     fetch(url, {
       method: "POST",
@@ -102,17 +101,17 @@ export default function Card() {
       },
       body: JSON.stringify(paperData),
     })
-      .then(async(response) => {
-        const data = await response.json()
-        if(!response.ok) throw new Error(data.message);
+      .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message);
         setIsLoading(false);
-        toast.success("fetching completed", {id: loadId})
+        toast.success("fetching completed", { id: loadId });
         // setReqPapers(data);
         navigate("/papers", { state: data });
       })
       .catch((error) => {
         setIsLoading(false);
-        toast.error(error.message, {id: loadId});
+        toast.error(error.message, { id: loadId });
       });
   };
 
@@ -281,6 +280,9 @@ export default function Card() {
       {isLoading && <Loading></Loading>}
       <div className="card-container">
         <div className="card-fields">
+          <div className="card-header">
+            <h3>Search Paper</h3>
+          </div>
           {error && (
             <div className="error-container">
               <p>{error}</p>
@@ -333,7 +335,11 @@ export default function Card() {
           </select>
 
           <div id="search-button-container">
-            <FontAwesomeIcon icon={faSearch} style={{color: "#ffffff", scale: "1.9"}} onClick={request} />
+            <FontAwesomeIcon
+              icon={faSearch}
+              style={{ color: "#ffffff", scale: "1.9" }}
+              onClick={request}
+            />
           </div>
         </div>
       </div>

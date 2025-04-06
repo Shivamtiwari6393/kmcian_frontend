@@ -1,22 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import "../Styles/Query.css";
-import replyImg from "../assets/reply.png";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Loading from "./Loading";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHouse,
-  faUser,
-  faUpload,
-  faQuestion,
-  faBullhorn,
-  faInfo,
-  faSearch,
-  faReply,
-} from "@fortawesome/free-solid-svg-icons";
+import { faReply, faCross, faRemove, faBoltLightning, faRemoveFormat } from "@fortawesome/free-solid-svg-icons";
+import { faBomb } from "@fortawesome/free-solid-svg-icons/faBomb";
 
 export default function Query() {
   // const url = "http://127.0.0.1:8000";
@@ -237,24 +228,31 @@ export default function Query() {
                 <span className="time-stamp">
                   {new Date(data.createdAt).toLocaleString()}
                 </span>
-                <div
-                  className={
-                    show
-                      ? "delete-button-container"
-                      : "delete-button-container-hide"
-                  }
-                >
-                  <button onClick={() => handleDeleteQuery(data._id)}>
-                    ❌
-                  </button>
-                </div>
-                <div className="reply-button-container">
-                  <FontAwesomeIcon
-                    icon={faReply}
-                    style={{ color: "#ffffff" }}
-                    onClick={replyButtonClick}
-                    data-value={data["_id"]}
-                  />
+                <div className="query-header-side-menu">
+                  <div
+                    className={
+                      show
+                        ? "delete-button-container"
+                        : "delete-button-container-hide"
+                    }
+                  >
+                    <button onClick={() => handleDeleteQuery(data._id)}>
+                      <FontAwesomeIcon
+                        icon={faRemove}
+                        style={{ color: "#ffffff" }}
+                        onClick={replyButtonClick}
+                        data-value={data["_id"]}
+                      />
+                    </button>
+                  </div>
+                  <div className="reply-button-container">
+                    <FontAwesomeIcon
+                      icon={faReply}
+                      style={{ color: "#ffffff" }}
+                      onClick={replyButtonClick}
+                      data-value={data["_id"]}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="query-body">
@@ -265,7 +263,12 @@ export default function Query() {
                   <div className="reply-container">
                     <div className="cancel-button-container">
                       <button onClick={() => setReply("") || setQId("")}>
-                        ❌
+                        <FontAwesomeIcon
+                          icon={faRemove}
+                          style={{ color: "#ffffff" }}
+                          onClick={replyButtonClick}
+                          data-value={data["_id"]}
+                        />
                       </button>
                     </div>
 

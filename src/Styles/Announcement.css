@@ -3,18 +3,20 @@
   width: 90%;
   margin: 30px auto;
   user-select: none;
-
 }
-.announcement{
+.announcement {
   position: relative;
 }
 .announcement-container-in .announcements .announcement {
   border-radius: 5px;
   position: relative;
-  background-color: rgb(38, 38, 38);
+  /* background-color: rgb(38, 38, 38); */
   color: rgb(92, 92, 92);
-  padding: 15px;
+  padding: 10px 30px 30px 10px;
   margin: 10px;
+  
+  background-color: rgb(30, 30, 30);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 .announcement-container-in .announcements .announcement p {
@@ -80,16 +82,14 @@
   scale: 0.9;
 }
 
-.announcement-container-in .announcement-delete-button{
-  scale: 0.7;
+.announcement-container-in .announcement-delete-button {
   position: absolute;
   color: white;
-  border: none;
-  border-radius: 5px;
   top: 0px;
   right: 0px;
-  background-color: white;
+  background: none;
+  padding: 1px 4px;
 }
-.announcement-container-in .announcement-delete-button:active{
+.announcement-container-in .announcement-delete-button:active {
   scale: 0.3;
 }

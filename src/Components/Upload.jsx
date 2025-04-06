@@ -364,7 +364,19 @@ export default function Upload() {
     <>
       {isLoading && <Loading progress = {progress}></Loading>}
 
+
+
+
       <div className={uploadcss["upload-container"]}>
+
+
+        <div className={uploadcss["upload-container-header"]}>
+
+             <h3>Upload Paper</h3>
+
+
+
+        </div>
         {error && (
           <div className="error-container">
             <p>{error}</p>{" "}

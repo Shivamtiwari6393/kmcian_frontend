@@ -3,7 +3,7 @@ import "../Styles/Papers.css";
 import { saveAs } from "file-saver";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "./Loading";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import downloadIcon from "../assets/download.png";
 import toast from "react-hot-toast";
 import adminContext from "./adminContext";

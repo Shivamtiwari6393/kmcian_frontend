@@ -1,7 +1,7 @@
 .login-container {
   user-select: none;
   overflow: hidden;
-  border-radius: 5px;
+  border-radius: 10px;
   width: 95%;
   max-width: 600px;
   user-select: none;
@@ -9,7 +9,24 @@
   padding-top: 20px;
   display: flex;
   flex-direction: column;
-  background: rgb(27, 27, 27);
+  background-color: rgb(30, 30, 30);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+
+}
+
+
+.login-container .login-header {
+
+  color: #f3f4f6;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.638);
+  padding: 0px 0px 10px 0px;
+  border-bottom-width: 2px;
+  border-bottom-style: dotted;
+
+
 }
 
 .login-fields {

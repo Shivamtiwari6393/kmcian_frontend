@@ -42,7 +42,7 @@ function About() {
   return (
     <div className="about-container">
       <div className="welcome-container">
-        <h4>Welcome, KMCLU Students</h4>
+        <h3>Welcome, KMCLU Students</h3>
         <p>
           We are excited to introduce Kmcian, student portal designed
           exclusively for KMCLU! This platform has been thoughtfully crafted to
