@@ -62,19 +62,18 @@
 
 .announcement-text-container input {
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 4px;
   border: none;
   width: 80%;
   margin: 10px 10px;
 }
 .announcement-text-container button {
-  user-select: none;
-  padding: 10px;
-  border: none;
-  border-radius: 10px;
-  background-color: darkolivegreen;
-  color: white;
+  padding: 10px 15px;
   font-weight: bold;
+  background-color: rgba(0, 128, 0, 0.77);
+  color: white;
+  border: none;
+  border-radius: 3px;
   transition-duration: 0.2s;
 }
 

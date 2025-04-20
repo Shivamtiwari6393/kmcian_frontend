@@ -43,14 +43,12 @@ function Login() {
   // handle input change
 
   const handleInputChange = (e) => {
-    console.log(isAdmin);
-
     setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   // on login button click
 
-  const handleButtonClick = () => {
+  const handleLoginButtonClick = () => {
     if (!credentials.email) return toast.error("Please enter your email.");
     if (!credentials.password) return toast.error("Please enter the password.");
 
@@ -116,7 +114,7 @@ function Login() {
           </div>
 
           <div className="login-button-container">
-            <button onClick={handleButtonClick} disabled={isAdmin}>
+            <button onClick={handleLoginButtonClick} hidden ={isAdmin}>
               Login
             </button>
           </div>

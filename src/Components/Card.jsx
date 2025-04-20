@@ -281,7 +281,7 @@ export default function Card() {
       <div className="card-container">
         <div className="card-fields">
           <div className="card-header">
-            <h3>Search Paper</h3>
+            <h3>Search PYQs</h3>
           </div>
           {error && (
             <div className="error-container">

@@ -63,14 +63,13 @@
 }
 
 .reply-input-container button {
-  margin: 5px 5px;
-  border: none;
-  padding: 5px 7px;
-  border-radius: 2px;
+  padding: 5px 10px;
+  font-weight: bold;
+  background-color: rgba(0, 128, 0, 0.77);
   color: white;
-  background-color: rgba(26, 26, 26, 0.805);
-  box-shadow: 2px 2px 6px grey;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: none;
+  border-radius: 3px;
+  margin-left: 10px;
 }
 
 .reply-container .time-stamp {
@@ -213,12 +212,12 @@
 
 .discussion-container .input-container button {
   user-select: none;
-  background-color: rgba(26, 26, 26);
-  padding: 5px;
-  border-radius: 4px;
-  color: rgb(63, 202, 63);
-  margin: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 10px 15px;
+  font-weight: bold;
+  background-color: rgba(0, 128, 0, 0.77);
+  color: white;
+  border: none;
+  border-radius: 3px;
 }
 
 .input-container button:active {

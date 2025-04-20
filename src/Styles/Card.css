@@ -8,10 +8,11 @@
 }
 
 .card-container {
+  margin-top: 30px;
   user-select: none;
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 /* .card-container .card-fields {
   padding: 15px;
@@ -33,37 +34,45 @@
 
 
 .card-container .card-fields {
-  padding: 20px;
+  padding: 0px 0px 15px 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   border: none;
-  border-radius: 12px;
-  margin-top: 50px;
   width: 100%;
   max-width: 500px;
   background-color: rgb(30, 30, 30);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   color: #f0f0f0;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.250);
+
 }
 
 
 .card-fields .card-header {
-  color: #f3f4f6;
+  padding-top: 10px;
   font-weight: 600;
   margin-bottom: 1rem;
   letter-spacing: 0.5px;
   text-align: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.800);
-  border-bottom-width: 2px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   padding-bottom: 10px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255,0.8);
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.250);
+  /* color: rgb(195, 92, 51); */
+
+
 }
 
 
 .card-container #search-button-container {
-  margin: 20px 10px;
+  margin-top: 35px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: center;
 

@@ -41,7 +41,7 @@
 
 .active {
   border-bottom: 1px solid white;
-  padding: 3px;
+  padding: 5px;
 }
 
 .nav-links span :active {

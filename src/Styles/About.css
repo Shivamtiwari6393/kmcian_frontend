@@ -1,5 +1,5 @@
 .about-container {
-  color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255, 0.8);
   user-select: none;
   text-align: center;
   margin: 20px auto;
@@ -47,7 +47,7 @@
 }
 
 .about-container .comment-container .button-container button {
-  padding: 5px 7px;
+  padding: 10px 15px;
   font-weight: bold;
   background-color: rgba(0, 128, 0, 0.77);
   color: white;

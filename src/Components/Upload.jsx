@@ -372,7 +372,7 @@ export default function Upload() {
 
         <div className={uploadcss["upload-container-header"]}>
 
-             <h3>Upload Paper</h3>
+             <h3>Upload PYQs</h3>
 
 
 
