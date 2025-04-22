@@ -7,6 +7,18 @@ import { useContext, useState } from "react";
 import downloadIcon from "../assets/download.png";
 import toast from "react-hot-toast";
 import adminContext from "./adminContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHouse,
+  faUser,
+  faUpload,
+  faQuestion,
+  faBullhorn,
+  faInfo,
+  faDownload,
+  faArrowUpFromGroundWater,
+  faEdit,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Papers() {
   // const url = "http://127.0.0.1:8000/api/paper";
@@ -132,38 +144,44 @@ export default function Papers() {
 
           {/* download button */}
 
-          <div className="download-button-container">
-            {isAdmin && (
-              <>
-                <button
-                  id="update-button"
-                  className="updatebutton"
-                  onClick={handleDownload}
-                  data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}", "downloadable": "${element.downloadable}", "createdAt": "${element.createdAt}", "updatedAt": "${element.updatedAt}", "t" : "s"}`}
-                >
-                  Preview
-                </button>
-              </>
-            )}
-            <button
-              data-value={`{"course":"${element.course}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}", "year": "${element.year}", "t" : "d"}`}
-              onClick={handleDownload}
-            >
-              <img src={downloadIcon} alt="download button" />
-            </button>
+          <div
+            className="download-button-container"
+            data-value={`{"course":"${element.course}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}", "year": "${element.year}", "t" : "d"}`}
+            onClick={handleDownload}
+          >
+            {/* <img
+                src={downloadIcon}
+                alt="download button"
+                data-value={`{"course":"${element.course}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}", "year": "${element.year}", "t" : "d"}`}
+                onClick={handleDownload}
+              /> */}
+            <FontAwesomeIcon
+              icon={faDownload}
+              style={{fontSize: "1.2rem" }}
+              alt="download button"
+            />
 
             {/* update botton */}
+          </div>
 
+          <div className="update-button-container">
             {isAdmin && (
               <>
-                <button
+                <FontAwesomeIcon
+                  icon={faEdit}
+                  style={{fontSize: "1.2rem" }}
+                  alt="download button"
+                  onClick={handleUpdate}
+                  data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}", "downloadable": "${element.downloadable}", "createdAt": "${element.createdAt}", "updatedAt": "${element.updatedAt}"}`}
+                />
+                {/* <button
                   id="update-button"
                   className="updatebutton"
                   onClick={handleUpdate}
                   data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}", "downloadable": "${element.downloadable}", "createdAt": "${element.createdAt}", "updatedAt": "${element.updatedAt}"}`}
                 >
                   Update
-                </button>
+                </button> */}
               </>
             )}
           </div>

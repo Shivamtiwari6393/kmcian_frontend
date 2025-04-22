@@ -1,12 +1,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import "../Styles/Query.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Loading from "./Loading";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faReply, faCross, faRemove, faBoltLightning, faRemoveFormat } from "@fortawesome/free-solid-svg-icons";
+import {
+  faReply,
+  faCross,
+  faRemove,
+  faBoltLightning,
+  faRemoveFormat,
+} from "@fortawesome/free-solid-svg-icons";
 import { faBomb } from "@fortawesome/free-solid-svg-icons/faBomb";
 
 export default function Query() {
@@ -31,12 +37,18 @@ export default function Query() {
 
   const [show, setShow] = useState(false);
 
+  useEffect(() => {
+    // setIsLoading(true);
+    fetchQuery();
+    // setIsLoading(false);
+  }, []);
+
   // ===============more button click========
 
-  const handleMoreClick = async (e) => {
+  const handleMoreClick = (e) => {
     console.log(pageInfo);
 
-    if (pageInfo.currentPage + 1 <= pageInfo.totalPage) await fetchQuery(e);
+    if (pageInfo.currentPage + 1 <= pageInfo.totalPage) fetchQuery(e);
     return;
   };
 
@@ -76,9 +88,9 @@ export default function Query() {
   //================== fetch query===============
 
   const fetchQuery = (e) => {
-    const loadId = toast.loading("fetching queries...");
+    // const loadId = toast.loading("Fetching queries...");
 
-    // setIsLoading(true);
+    setIsLoading(true);
     fetch(`${url}/api/query/${pageInfo.currentPage + 1}`)
       .then(async (res) => {
         const data = await res.json();
@@ -88,17 +100,18 @@ export default function Query() {
           currentPage: data.currentPage,
           totalPage: data.totalPage,
         });
-        // setIsLoading(false);
+        setIsLoading(false);
 
         // hide the more button if current page = total page
 
         if (data.currentPage == data.totalPage) e.target.hidden = true;
-        toast.success("fetching completed.", { id: loadId });
+        // toast.success("Completed", { id: loadId });
+        setIsLoading(false);
         return;
       })
       .catch((error) => {
-        // setIsLoading(false);
-        toast.error(error.message, { id: loadId });
+        setIsLoading(false);
+        // toast.error(error.message, { id: loadId });
       });
   };
 
@@ -138,11 +151,11 @@ export default function Query() {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || "An error occurred");
         setReply(data);
-        // setIsLoading(false);
         toast.success("fetching completed", { id: loadId });
+        setIsLoading(false);
       })
       .catch((error) => {
-        // setIsLoading(false);
+        setIsLoading(false);
         toast.error(error.message, { id: loadId });
       });
   };

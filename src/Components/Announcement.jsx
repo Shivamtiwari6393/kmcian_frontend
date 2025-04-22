@@ -4,8 +4,7 @@ import "../Styles/Announcement.css";
 import Loading from "./Loading";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faRemove} from '@fortawesome/free-solid-svg-icons';
-
+import { faRemove } from "@fortawesome/free-solid-svg-icons";
 
 function Announcement() {
   // const url = "http://127.0.0.1:8000";
@@ -22,6 +21,9 @@ function Announcement() {
   const [announcementText, setAnnouncementText] = useState("");
 
   useEffect(() => {
+    setLoading(true);
+    fetchAnnouncement();
+
     setTimeout(() => {
       const value = sessionStorage?.getItem("kmcianToken");
       if (value) {
@@ -29,7 +31,7 @@ function Announcement() {
         if (element) element.style.display = "flex";
       }
     }, 0);
-  });
+  }, []);
 
   // handle input  change
 
@@ -71,8 +73,8 @@ function Announcement() {
   // fetch the announcement
 
   const fetchAnnouncement = (e) => {
-    // setLoading(true);
-    const id = toast.loading("fetching announcements...");
+    setLoading(true);
+    // const id = toast.loading("Fetching announcements...");
 
     fetch(`${url}/api/announcement/${pageInfo.currentPage + 1}`)
       .then(async (res) => {
@@ -83,15 +85,16 @@ function Announcement() {
           currentPage: data.currentPage,
           totalPage: data.totalPage,
         });
-        // setLoading(false);
+        setLoading(false);
         // hide the more button if current page = total page
 
         if (data.currentPage == data.totalPage) e.target.hidden = true;
-        toast.success("fetching completed", { id: id });
+        // toast.success("Completed", { id: id });
+        setLoading(false);
       })
       .catch((error) => {
-        // setLoading(false);
-        toast.error(error.message, { id: id });
+        setLoading(false);
+        // toast.error(error.message, { id: id });
       });
   };
 
@@ -141,7 +144,7 @@ function Announcement() {
                   data-value={`{"id": ${Announcement._id}}`}
                   className="announcement-delete-button"
                 >
-                  <FontAwesomeIcon icon= {faRemove}></FontAwesomeIcon>
+                  <FontAwesomeIcon icon={faRemove}></FontAwesomeIcon>
                 </button>
               </div>
             </>

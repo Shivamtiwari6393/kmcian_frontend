@@ -141,14 +141,11 @@ export default function Upload() {
     formData.append("name", uploadData.name);
     formData.append("pdf", file);
 
-
-
     //------------- POST DATA---------------
-
 
     const xhr = new XMLHttpRequest();
     xhr.open("POST", `${url}/post`);
-    
+
     xhr.upload.onprogress = (e) => {
       if (e.lengthComputable) {
         const percentage = Math.round((e.loaded / e.total) * 100);
@@ -156,13 +153,11 @@ export default function Upload() {
         console.log(`Progress: ${percentage}%`);
       }
     };
-    
+
     xhr.onload = () => {
       setIsLoading(false);
       try {
         const data = JSON.parse(xhr.response); // Ensure the response is parsed as JSON
-        console.log(data);
-    
         if (xhr.status === 201) {
           toast.success(data.message, { id: loadId });
           setProgress(0);
@@ -174,12 +169,12 @@ export default function Upload() {
         toast.error("An unexpected error occurred.", { id: loadId });
       }
     };
-    
+
     xhr.onerror = () => {
       setIsLoading(false);
       toast.error("Network error occurred.", { id: loadId });
     };
-    
+
     xhr.ontimeout = () => {
       setIsLoading(false);
       toast.error("Request timed out.", { id: loadId });
@@ -188,9 +183,9 @@ export default function Upload() {
     setIsLoading(true);
 
     const loadId = toast.loading("Paper upload in progress...");
-    
+
     xhr.send(formData);
-       // fetch(`${url}/post`, {
+    // fetch(`${url}/post`, {
     //   method: "POST",
     //   body: formData,
     // })
@@ -362,20 +357,11 @@ export default function Upload() {
 
   return (
     <>
-      {isLoading && <Loading progress = {progress}></Loading>}
-
-
-
+      {isLoading && <Loading progress={progress}></Loading>}
 
       <div className={uploadcss["upload-container"]}>
-
-
         <div className={uploadcss["upload-container-header"]}>
-
-             <h3>Upload PYQs</h3>
-
-
-
+          <h3>Upload PYQs</h3>
         </div>
         {error && (
           <div className="error-container">

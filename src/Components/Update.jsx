@@ -6,6 +6,18 @@ import { useLocation } from "react-router-dom";
 import pdf from "../assets/pdf.png";
 import CustomSelect from "./CustomSelect";
 import toast from "react-hot-toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  fa5,
+  faDeleteLeft,
+  faSearch,
+  faSign,
+  faSignal,
+  faSignIn,
+  faSignsPost,
+  faSquarePersonConfined,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 export default function Upload() {
   // const url = "http://127.0.0.1:8000/api/paper";
   const url = "https://kmcianbackend.vercel.app/api/paper";
@@ -140,12 +152,12 @@ export default function Upload() {
 
       setIsLoading(true);
 
-      const loadId = toast.loading("Paper upload in progress...")
+      const loadId = toast.loading("Paper upload in progress...");
 
       fetch(`${url}/post`, {
         method: "POST",
-        headers : {
-          'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
         },
         body: updatedData,
       })
@@ -153,13 +165,14 @@ export default function Upload() {
           setIsLoading(false);
 
           const data = response.json();
-          if (!response.ok) throw new Error(data.message|| "An error occurred");
-          toast.success(data.message, {id: loadId});
+          if (!response.ok)
+            throw new Error(data.message || "An error occurred");
+          toast.success(data.message, { id: loadId });
         })
         .catch((e) => {
           setIsLoading(false);
           setError(e.message);
-          toast.error(e.message, {id: loadId});
+          toast.error(e.message, { id: loadId });
         });
       return;
     }
@@ -167,11 +180,11 @@ export default function Upload() {
     //==================================== update ===================================
 
     setIsLoading(true);
-    const loadId = toast.loading("Paper update in progress...")
+    const loadId = toast.loading("Paper update in progress...");
     fetch(`${url}/update/${id}`, {
       method: "PUT",
-      headers : {
-        'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
       },
       body: updatedData,
     })
@@ -181,12 +194,12 @@ export default function Upload() {
         // if there is an error
         if (!response.ok) throw new Error(data.message || "An error occurred");
         //  if response is ok
-        toast.success(data.message, {id: loadId});
+        toast.success(data.message, { id: loadId });
       })
       .catch((e) => {
         setIsLoading(false);
         setError(e.message);
-        toast.error(e.message, {id: loadId});
+        toast.error(e.message, { id: loadId });
       });
   };
 
@@ -196,23 +209,23 @@ export default function Upload() {
     const del = confirm("Delete?");
     if (!del) return;
     setIsLoading(true);
-    const loadId = toast.loading("Deletion in progress...")
+    const loadId = toast.loading("Deletion in progress...");
     fetch(`${url}/delete/${course}/${id}`, {
       method: "DELETE",
-      headers : {
-        'Authorization' : `Bearer ${sessionStorage.getItem('kmcianToken')}`
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
       },
     })
       .then(async (res) => {
         setIsLoading(false);
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || "An error occurred");
-        toast.success(data.message, {id: loadId});
+        toast.success(data.message, { id: loadId });
         return;
       })
       .catch((e) => {
         setIsLoading(false);
-        toast.error(e.message, {id: loadId});
+        toast.error(e.message, { id: loadId });
         setError(e.message);
       });
   };
@@ -474,9 +487,17 @@ export default function Upload() {
         </div>
 
         <button onClick={update}>Update</button>
-        <button id={uploadcss["delete-button"]} onClick={handleDelete}>
+        {/* <button id={uploadcss["delete-button"]} onClick={handleDelete}>
           Delete
-        </button>
+        </button> */}
+
+        <div className={uploadcss["delete-button-container"]}>
+          <FontAwesomeIcon
+            icon={faTrash}
+            style={{ color: "red" }}
+            onClick={handleDelete}
+          ></FontAwesomeIcon>
+        </div>
       </div>
     </>
   );

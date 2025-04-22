@@ -117,8 +117,17 @@ button:active {
   background-color: #171717;
 }
 
-#delete-button {
-  background-color: rgba(255, 0, 0, 0.563);
+
+.delete-button-container{
+  width: 100%;
+  max-width: 200px;
+  padding: 10px;
+  margin: 10px 0px 15px 0px;
+  background-color: rgb(24, 24, 24);
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.250);
+  display: flex;
+  justify-content: center;
 }
 
 @media screen and (max-width: 450px) {

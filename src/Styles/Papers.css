@@ -7,7 +7,6 @@
   text-align: center;
   padding: 5px;
   margin: 5px 0px;
-  
 }
 
 .papers-container .search-container input {
@@ -17,9 +16,8 @@
   border-radius: 5px;
   width: 80%;
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.500);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   color: white;
-
 }
 
 .papers-container .names {
@@ -55,7 +53,6 @@
   width: 200px;
   color: cadetblue;
   background: rgb(32, 32, 32);
-
 }
 
 .semester p {
@@ -63,7 +60,6 @@
   overflow: hidden;
   color: blueviolet;
   background: rgb(32, 32, 32);
-
 }
 
 .year p {
@@ -71,7 +67,6 @@
   overflow: hidden;
   color: cornflowerblue;
   background: rgb(32, 32, 32);
-
 }
 
 .name p {
@@ -80,7 +75,6 @@
   color: rgb(111, 120, 137);
   padding: 10px;
   background: rgb(32, 32, 32);
-
 }
 
 .name p div {
@@ -90,37 +84,39 @@
 
 .papers-container .download-button-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-}
-.download-button-container button img {
-  width: 20px;
-}
-.download-button-container button {
   padding: 5px;
   border: none;
   width: 50%;
   min-width: 60px;
   max-width: 200px;
-  background-color: rgb(45, 159, 91);
+  background-color: rgb(37, 37, 37);
   border-radius: 5px;
-  /* box-shadow: 0px 4px 5px rgb(195, 195, 195); */
   margin: 5px;
   transition-duration: 0.3s;
+  color: green;
+}
+.download-button-container svg {
+  margin: 5px;
+}
+.download-button-container {
 }
 
-.download-button-container button:active {
+.download-button-container svg:active {
   scale: 0.5;
 }
 
-.papers-container #update-button {
-  padding: 8px;
-  background-color: rgb(84, 55, 50);
+.papers-container .update-button-container{
+  display: flex;
+  justify-content: center;
+  padding: 10px;
   max-width: 200px;
-  color: white;
   width: 50%;
-  font-weight: bold;
+  background: rgb(37, 37, 37);
+  color: rgb(156, 111, 181);
 }
 
 /* screen <= 1200px */

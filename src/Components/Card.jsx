@@ -92,7 +92,7 @@ export default function Card() {
 
     // Fetch request
     setIsLoading(true);
-    const loadId = toast.loading("fetching papers info...");
+    // const loadId = toast.loading("fetching papers info...");
 
     fetch(url, {
       method: "POST",
@@ -105,13 +105,13 @@ export default function Card() {
         const data = await response.json();
         if (!response.ok) throw new Error(data.message);
         setIsLoading(false);
-        toast.success("fetching completed", { id: loadId });
+        // toast.success("fetching completed", { id: loadId });
         // setReqPapers(data);
         navigate("/papers", { state: data });
       })
       .catch((error) => {
         setIsLoading(false);
-        toast.error(error.message, { id: loadId });
+        // toast.error(error.message, { id: loadId });
       });
   };
 
