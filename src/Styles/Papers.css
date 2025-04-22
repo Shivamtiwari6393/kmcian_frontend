@@ -102,8 +102,7 @@
 .download-button-container svg {
   margin: 5px;
 }
-.download-button-container {
-}
+
 
 .download-button-container svg:active {
   scale: 0.5;
@@ -112,11 +111,15 @@
 .papers-container .update-button-container{
   display: flex;
   justify-content: center;
-  padding: 10px;
+  /* padding: 10px; */
   max-width: 200px;
   width: 50%;
   background: rgb(37, 37, 37);
   color: rgb(156, 111, 181);
+}
+
+.update-button-container svg {
+  margin: 10px;
 }
 
 /* screen <= 1200px */
