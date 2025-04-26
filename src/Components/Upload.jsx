@@ -31,10 +31,11 @@ export default function Upload() {
 
   const [progress, setProgress] = useState(0);
 
-  const handleSelectClick = (selectName) => {
+  const handleSelectClick = (selectName,e) => {
+    e.stopPropagation()
     setOpenSelect((prev) => (prev === selectName ? null : selectName)); // Toggle open state
   };
-  // -----------handle file change-------------
+  // -----------handle file change------------- 
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -359,7 +360,7 @@ export default function Upload() {
     <>
       {isLoading && <Loading progress={progress}></Loading>}
 
-      <div className={uploadcss["upload-container"]}>
+      <div className={uploadcss["upload-container"]} onClick={()=> setOpenSelect(null)}>
         <div className={uploadcss["upload-container-header"]}>
           <h3>Upload PYQs</h3>
         </div>
@@ -372,28 +373,28 @@ export default function Upload() {
         <CustomSelect
           options={courseOptions}
           isOpen={openSelect === "course"}
-          onClick={() => handleSelectClick("course")}
+          onClick={(e) => handleSelectClick("course",e)}
           onChange={(value) => handleDataChange("course", value)}
           placeholder="Faculty"
         />
         <CustomSelect
           options={branchOptions}
           isOpen={openSelect === "branch"}
-          onClick={() => handleSelectClick("branch")}
+          onClick={(e) => handleSelectClick("branch",e)}
           onChange={(value) => handleDataChange("branch", value)}
           placeholder="Branch"
         />
         <CustomSelect
           options={semesterOptions}
           isOpen={openSelect === "semester"}
-          onClick={() => handleSelectClick("semester")}
+          onClick={(e) => handleSelectClick("semester",e)}
           onChange={(value) => handleDataChange("semester", value)}
           placeholder="Semester"
         />
         <CustomSelect
           options={yearOptions}
           isOpen={openSelect === "year"}
-          onClick={() => handleSelectClick("year")}
+          onClick={(e) => handleSelectClick("year",e)}
           onChange={(value) => handleDataChange("year", value)}
           placeholder="Year"
         />
