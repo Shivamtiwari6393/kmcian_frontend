@@ -55,7 +55,7 @@ function About() {
           <div className="info">
             <p>
               <br />
-              <b>Previous Year Papers</b> – Browse, download, and even upload
+              <b>PYQs</b> – Browse, download, and even upload
               previous year papers! Contribute to a shared resource pool, making
               exam preparation more accessible for everyone.
               <br />

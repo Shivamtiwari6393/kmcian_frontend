@@ -35,7 +35,8 @@ export default function Card() {
 
   const [error, setError] = useState("");
 
-  const handleSelectClick = (selectName) => {
+  const handleSelectClick = (selectName, e) => {
+    e.stopPropagation();
     setOpenSelect((prev) => (prev === selectName ? null : selectName)); // Toggle open state
   };
 
@@ -278,7 +279,8 @@ export default function Card() {
   return (
     <>
       {isLoading && <Loading></Loading>}
-      <div className="card-container">
+      <div className="card-container" onClick={(e)=> setOpenSelect(null)
+      } >
         <div className="card-fields">
           <div className="card-header">
             <h3>Search PYQs</h3>
@@ -292,28 +294,28 @@ export default function Card() {
           <CustomSelect
             options={courseOptions}
             isOpen={openSelect === "course"}
-            onClick={() => handleSelectClick("course")}
+            onClick={(e) => handleSelectClick("course", e)}
             onChange={(value) => handleChange("course", value)}
             placeholder="Faculty"
           />
           <CustomSelect
             options={branchOptions}
             isOpen={openSelect === "branch"}
-            onClick={() => handleSelectClick("branch")}
+            onClick={(e) => handleSelectClick("branch", e)}
             onChange={(value) => handleChange("branch", value)}
             placeholder="Branch"
           />
           <CustomSelect
             options={semesterOptions}
             isOpen={openSelect === "semester"}
-            onClick={() => handleSelectClick("semester")}
+            onClick={(e) => handleSelectClick("semester", e)}
             onChange={(value) => handleChange("semester", value)}
             placeholder="Semester"
           />
           <CustomSelect
             options={yearOptions}
             isOpen={openSelect === "year"}
-            onClick={() => handleSelectClick("year")}
+            onClick={(e) => handleSelectClick("year", e)}
             onChange={(value) => handleChange("year", value)}
             placeholder="Year"
           />

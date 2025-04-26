@@ -127,35 +127,39 @@ function Announcement() {
         }
       >
         {loading && <Loading></Loading>}
-        <div className="announcements">
-          {announcements?.map((Announcement, index) => (
-            <>
-              <div className="announcement" key={index}>
-                <p>{Announcement.content}</p>
-                <div className="time-container">
-                  <span>
-                    {new Date(Announcement.createdAt).toLocaleString()}
-                  </span>
-                </div>
-                <button
-                  onClick={() => {
-                    handleDeleteAnnouncement(Announcement._id);
-                  }}
-                  data-value={`{"id": ${Announcement._id}}`}
-                  className="announcement-delete-button"
-                >
-                  <FontAwesomeIcon icon={faRemove}></FontAwesomeIcon>
-                </button>
-              </div>
-            </>
-          ))}
-        </div>
-
-        <div className="button-container">
-          <button onClick={handleClick}>
-            {announcements[0] ? "more..." : "Show Announcements"}
-          </button>
-        </div>
+        {announcements[0] && (
+          <>
+            {" "}
+            <div className="announcements">
+              {announcements?.map((Announcement, index) => (
+                <>
+                  <div className="announcement" key={index}>
+                    <p>{Announcement.content}</p>
+                    <div className="time-container">
+                      <span>
+                        {new Date(Announcement.createdAt).toLocaleString()}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => {
+                        handleDeleteAnnouncement(Announcement._id);
+                      }}
+                      data-value={`{"id": ${Announcement._id}}`}
+                      className="announcement-delete-button"
+                    >
+                      <FontAwesomeIcon icon={faRemove}></FontAwesomeIcon>
+                    </button>
+                  </div>
+                </>
+              ))}
+            </div>
+            <div className="button-container">
+              <button onClick={handleClick}>
+                {announcements[0] ? "more..." : "Show Announcements"}
+              </button>
+            </div>
+          </>
+        )}
 
         <div className="announcement-text-container" id="announcement-text">
           <input
