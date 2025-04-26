@@ -12,7 +12,7 @@
   z-index: 999;
   font-weight: bold;
   color: white;
-  background: rgba(0, 0, 0, 0.618);
+  background: rgba(0, 0, 0, 0.7);
   
 
 }
@@ -127,27 +127,27 @@
 
 
 .loading-text{
-  border-left: 20px solid black;
+  background: transparent;
+  margin-left: 20px;
 }
 
 
 .loader {
+  border: 10px solid rgba(0, 0, 0, 0);
   height: 50px;
   aspect-ratio: 2;
-  border: 5px solid #000;
   box-sizing: border-box;
-  background: 
-    radial-gradient(farthest-side,#fff 98%,#0000) left/20px 20px,
-    radial-gradient(farthest-side,#fff 98%,#0000) left/20px 20px,
-    radial-gradient(farthest-side,#fff 98%,#0000) center/20px 20px,
-    radial-gradient(farthest-side,#fff 98%,#0000) right/20px 20px,
-    #000;
+  background:
+    radial-gradient(farthest-side,#ffffff 98%, transparent) left/20px 20px,
+    radial-gradient(farthest-side,#ffffff 98%, transparent) left/20px 20px,
+    radial-gradient(farthest-side,#ffffff 98%, transparent) center/20px 20px,
+    radial-gradient(farthest-side,#ffffff 98%, transparent) right/20px 20px;
   background-repeat: no-repeat;
-  filter: blur(4px) contrast(10);
+  background-color: transparent; /* make sure background is transparent */
+  filter: blur(0px) contrast(10);
   animation: l14 1.5s infinite;
-
-
 }
+
 @keyframes l14 {
   100%  {background-position:right,left,center,right}
 }

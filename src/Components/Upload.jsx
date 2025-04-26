@@ -416,7 +416,7 @@ export default function Upload() {
           </label>
           <input id="file-upload" type="file" onChange={handleFileChange} />
         </div>
-        <div className="name">
+        <div className={uploadcss["name"]}>
           <input
             type="text"
             name="name"

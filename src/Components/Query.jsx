@@ -6,14 +6,7 @@ import toast from "react-hot-toast";
 import Loading from "./Loading";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faReply,
-  faCross,
-  faRemove,
-  faBoltLightning,
-  faRemoveFormat,
-} from "@fortawesome/free-solid-svg-icons";
-import { faBomb } from "@fortawesome/free-solid-svg-icons/faBomb";
+import { faReply, faRemove } from "@fortawesome/free-solid-svg-icons";
 
 export default function Query() {
   // const url = "http://127.0.0.1:8000";
@@ -42,6 +35,27 @@ export default function Query() {
     fetchQuery();
     // setIsLoading(false);
   }, []);
+
+  // fetches updated 1st page
+
+  const fetchUpdatedPage = () => {
+    setQuery("");
+    pageInfo.currentPage = 0;
+    fetchQuery();
+  };
+
+
+  // fetch updated reply
+
+
+  const fetchUpdatedReply = (queryId)=>{
+
+
+    fetchReply(queryId)
+
+
+
+  }
 
   // ===============more button click========
 
@@ -132,6 +146,9 @@ export default function Query() {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || "An error occurred");
         // setIsLoading(false);
+
+        // fetching the updated page after successfull post of query
+            fetchUpdatedPage()
         toast.success(data.message, { id: loadId });
       })
       .catch((error) => {
@@ -143,6 +160,7 @@ export default function Query() {
   // =============== fetch reply ==========================
 
   const fetchReply = (queryId) => {
+    setReply(null);
     const loadId = toast.loading("fetching reply...");
 
     // setIsLoading(true);
@@ -180,6 +198,7 @@ export default function Query() {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);
         // setIsLoading(false);
+        fetchUpdatedReply(queryId)
         toast.success(data.message, { id: loadId });
       })
       .catch((error) => {
@@ -215,6 +234,7 @@ export default function Query() {
       .then(async (response) => {
         const data = await response.json();
         if (!response.ok) throw new Error(data.message);
+        fetchUpdatedPage()
         return toast.success(data.message || "Query deleted successfully", {
           id: loadId,
         });
@@ -233,107 +253,118 @@ export default function Query() {
   return (
     <>
       {isLoading && <Loading></Loading>}
-      <div className="discussion-container">
-        {query.map((data) => (
-          <>
-            <div className="query-container" key={data["_id"]}>
-              <div className="query-header" onDoubleClick={handledeleteShow}>
-                <span className="time-stamp">
-                  {new Date(data.createdAt).toLocaleString()}
-                </span>
-                <div className="query-header-side-menu">
+
+      {query[0] && (
+        <div className="discussion-container">
+          {query &&
+            query.map((data) => (
+              <>
+                <div className="query-container" key={data["_id"]}>
                   <div
-                    className={
-                      show
-                        ? "delete-button-container"
-                        : "delete-button-container-hide"
-                    }
+                    className="query-header"
+                    onDoubleClick={handledeleteShow}
                   >
-                    <button onClick={() => handleDeleteQuery(data._id)}>
-                      <FontAwesomeIcon
-                        icon={faRemove}
-                        style={{ color: "#ffffff" }}
-                        onClick={replyButtonClick}
-                        data-value={data["_id"]}
-                      />
-                    </button>
-                  </div>
-                  <div className="reply-button-container">
-                    <FontAwesomeIcon
-                      icon={faReply}
-                      style={{ color: "#ffffff" }}
-                      onClick={replyButtonClick}
-                      data-value={data["_id"]}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="query-body">
-                <p className="query">{formatData(data.content)}</p>
-              </div>
-              {data["_id"] === qId && (
-                <>
-                  <div className="reply-container">
-                    <div className="cancel-button-container">
-                      <button onClick={() => setReply("") || setQId("")}>
+                    <span className="time-stamp">
+                      {new Date(data.createdAt).toLocaleString()}
+                    </span>
+                    <div className="query-header-side-menu">
+                      <div
+                        className={
+                          show
+                            ? "delete-button-container"
+                            : "delete-button-container-hide"
+                        }
+                      >
+                        <button onClick={() => handleDeleteQuery(data._id)}>
+                          <FontAwesomeIcon
+                            icon={faRemove}
+                            style={{ color: "#ffffff" }}
+                            data-value={data["_id"]}
+                          />
+                        </button>
+                      </div>
+                      <div className="reply-button-container">
                         <FontAwesomeIcon
-                          icon={faRemove}
+                          icon={faReply}
                           style={{ color: "#ffffff" }}
                           onClick={replyButtonClick}
                           data-value={data["_id"]}
                         />
-                      </button>
-                    </div>
-
-                    {reply !== "" &&
-                      reply.map((data) => (
-                        <>
-                          <div className="time-stamp">
-                            {new Date(data.createdAt).toLocaleString()}
-                          </div>
-                          <div className="reply-body">
-                            <p>{formatData(data.content)}</p>
-                          </div>
-                        </>
-                      ))}
-
-                    <div className="reply-input-container">
-                      <textarea
-                        placeholder="Reply"
-                        onChange={handleUserReplyChange}
-                        value={userReply}
-                      ></textarea>
-                      <button
-                        onClick={handleReplySubmitButtonClick}
-                        disabled={!userReply}
-                      >
-                        Submit
-                      </button>
+                      </div>
                     </div>
                   </div>
-                </>
-              )}
-            </div>
-          </>
-        ))}
+                  <div className="query-body">
+                    <p className="query">
+                      {data.content && formatData(data.content)}
+                    </p>
+                  </div>
+                  {reply && data["_id"] === qId && (
+                    <>
+                      <div className="reply-container">
+                        <div className="cancel-button-container">
+                          <button
+                            onClick={() => setReply(null) || setQId(null)}
+                          >
+                            <FontAwesomeIcon
+                              icon={faRemove}
+                              style={{ color: "#ffffff" }}
+                              data-value={data["_id"]}
+                            />
+                          </button>
+                        </div>
 
-        <div className="button-container">
-          <button onClick={handleMoreClick} id="more-button">
-            {query[0] ? "more..." : "Show queries"}
-          </button>
-        </div>
+                        {reply.map((data) => (
+                          <>
+                            <div className="time-stamp">
+                              {new Date(data.createdAt).toLocaleString()}
+                            </div>
+                            <div className="reply-body">
+                              <p>{formatData(data.content)}</p>
+                            </div>
+                          </>
+                        ))}
 
-        <div className="input-container">
-          <textarea
-            placeholder="Query"
-            value={userQuery}
-            onChange={handleUserQueryChange}
-          ></textarea>
-          <button onClick={handleSubmitQueryButtonClick} disabled={!userQuery}>
-            Submit
-          </button>
+                        <div className="reply-input-container">
+                          <textarea
+                            placeholder="Reply"
+                            onChange={handleUserReplyChange}
+                            value={userReply}
+                          ></textarea>
+                          <button
+                            onClick={handleReplySubmitButtonClick}
+                            disabled={!userReply}
+                          >
+                            Submit
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </>
+            ))}
+
+          <div className="button-container">
+            <button onClick={handleMoreClick} id="more-button">
+              {query[0] ? "more..." : "Show queries"}
+            </button>
+          </div>
+
+          <div className="input-container">
+            <textarea
+              placeholder="Query"
+              value={userQuery}
+              onChange={handleUserQueryChange}
+            ></textarea>
+            <button
+              onClick={handleSubmitQueryButtonClick}
+              disabled={!userQuery}
+            >
+              Submit
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

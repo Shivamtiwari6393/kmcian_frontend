@@ -92,7 +92,7 @@ export default function Card() {
 
     // Fetch request
     setIsLoading(true);
-    // const loadId = toast.loading("fetching papers info...");
+    const loadId = 1;
 
     fetch(url, {
       method: "POST",
@@ -111,7 +111,7 @@ export default function Card() {
       })
       .catch((error) => {
         setIsLoading(false);
-        // toast.error(error.message, { id: loadId });
+        toast.error(error.message, { id: loadId });
       });
   };
 
