@@ -31,11 +31,11 @@ export default function Upload() {
 
   const [progress, setProgress] = useState(0);
 
-  const handleSelectClick = (selectName,e) => {
-    e.stopPropagation()
+  const handleSelectClick = (selectName, e) => {
+    e.stopPropagation();
     setOpenSelect((prev) => (prev === selectName ? null : selectName)); // Toggle open state
   };
-  // -----------handle file change------------- 
+  // -----------handle file change-------------
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -360,74 +360,79 @@ export default function Upload() {
     <>
       {isLoading && <Loading progress={progress}></Loading>}
 
-      <div className={uploadcss["upload-container"]} onClick={()=> setOpenSelect(null)}>
-        <div className={uploadcss["upload-container-header"]}>
-          <h3>Upload PYQs</h3>
-        </div>
-        {error && (
-          <div className="error-container">
-            <p>{error}</p>{" "}
+      <div
+        className={uploadcss["upload-container"]}
+        onClick={() => setOpenSelect(null)}
+      >
+        <div className={uploadcss["upload-container-fields"]}>
+          <div className={uploadcss["upload-container-header"]}>
+            <h3>Upload PYQs</h3>
           </div>
-        )}
+          {error && (
+            <div className="error-container">
+              <p>{error}</p>{" "}
+            </div>
+          )}
 
-        <CustomSelect
-          options={courseOptions}
-          isOpen={openSelect === "course"}
-          onClick={(e) => handleSelectClick("course",e)}
-          onChange={(value) => handleDataChange("course", value)}
-          placeholder="Faculty"
-        />
-        <CustomSelect
-          options={branchOptions}
-          isOpen={openSelect === "branch"}
-          onClick={(e) => handleSelectClick("branch",e)}
-          onChange={(value) => handleDataChange("branch", value)}
-          placeholder="Branch"
-        />
-        <CustomSelect
-          options={semesterOptions}
-          isOpen={openSelect === "semester"}
-          onClick={(e) => handleSelectClick("semester",e)}
-          onChange={(value) => handleDataChange("semester", value)}
-          placeholder="Semester"
-        />
-        <CustomSelect
-          options={yearOptions}
-          isOpen={openSelect === "year"}
-          onClick={(e) => handleSelectClick("year",e)}
-          onChange={(value) => handleDataChange("year", value)}
-          placeholder="Year"
-        />
-
-        <div className={uploadcss["name"]}>
-          <input
-            type="text"
-            name="paper"
-            placeholder="Paper Name"
-            value={uploadData.paper}
-            onChange={handleInputChange}
-            required
+          <CustomSelect
+            options={courseOptions}
+            isOpen={openSelect === "course"}
+            onClick={(e) => handleSelectClick("course", e)}
+            onChange={(value) => handleDataChange("course", value)}
+            placeholder="Faculty"
           />
-        </div>
-
-        <div className={uploadcss["file-container"]}>
-          <label htmlFor="file-upload" className={uploadcss["file-label"]}>
-            <img src={pdf} alt="pdf" />
-            <span id={uploadcss["upload-name"]}>{fileName}</span>
-          </label>
-          <input id="file-upload" type="file" onChange={handleFileChange} />
-        </div>
-        <div className={uploadcss["name"]}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            value={uploadData.name}
-            onChange={handleInputChange}
+          <CustomSelect
+            options={branchOptions}
+            isOpen={openSelect === "branch"}
+            onClick={(e) => handleSelectClick("branch", e)}
+            onChange={(value) => handleDataChange("branch", value)}
+            placeholder="Branch"
           />
-        </div>
+          <CustomSelect
+            options={semesterOptions}
+            isOpen={openSelect === "semester"}
+            onClick={(e) => handleSelectClick("semester", e)}
+            onChange={(value) => handleDataChange("semester", value)}
+            placeholder="Semester"
+          />
+          <CustomSelect
+            options={yearOptions}
+            isOpen={openSelect === "year"}
+            onClick={(e) => handleSelectClick("year", e)}
+            onChange={(value) => handleDataChange("year", value)}
+            placeholder="Year"
+          />
 
-        <button onClick={upload}>Upload</button>
+          <div className={uploadcss["name"]}>
+            <input
+              type="text"
+              name="paper"
+              placeholder="Paper Name"
+              value={uploadData.paper}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className={uploadcss["file-container"]}>
+            <label htmlFor="file-upload" className={uploadcss["file-label"]}>
+              <img src={pdf} alt="pdf" />
+              <span id={uploadcss["upload-name"]}>{fileName}</span>
+            </label>
+            <input id="file-upload" type="file" onChange={handleFileChange} />
+          </div>
+          <div className={uploadcss["name"]}>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              value={uploadData.name}
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <button onClick={upload}>Upload</button>
+        </div>
       </div>
     </>
   );

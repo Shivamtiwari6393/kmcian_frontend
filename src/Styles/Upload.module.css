@@ -1,33 +1,44 @@
 .upload-container {
   overflow: hidden;
   user-select: none;
-  margin: 50px auto;
-  width: 90%;
-  max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
   transform-origin: 50% 50%;
   animation: opacityin 0.5s ease-in-out;
-  background-color: rgb(30, 30, 30);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
-  border: 1px solid rgba(255, 255, 255, 0.250);
+  overflow-y: scroll;
+  min-height: 85vh;
+  width: 100vw;
+  margin-bottom: 20px;
+  /* background-color: rgb(41, 86, 91); */
+}
+
+.upload-container .upload-container-fields {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 500px;
+  border: 1px solid grey;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  justify-content: center;
+  align-items: center;
+
 }
 
 .upload-container .upload-container-header {
   width: 100%;
-  font-weight: 600;
+  /* font-weight: 600; */
   margin-bottom: 1.5rem;
   /* letter-spacing: 0px; */
   text-align: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color: rgb(255, 255, 255,0.8);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.250);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: rgb(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   padding: 13px;
-
 }
 
 @keyframes opacityin {
@@ -39,7 +50,7 @@
 
 .upload-container input {
   color: rgb(255, 255, 255);
-  margin-top: 10px;
+  margin: 10px auto;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -48,7 +59,7 @@
   font-weight: bold;
   width: 60vw;
   max-width: 290px;
-  border: 1px solid rgba(255, 255, 255, 0.250);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   background: none;
 }
 
@@ -72,7 +83,7 @@
   cursor: pointer;
   text-overflow: ellipsis;
   overflow-wrap: break-word;
-  border: 1px solid rgba(255, 255, 255, 0.250);
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .file-container label img {
@@ -108,7 +119,7 @@
   background-color: rgb(24, 24, 24);
   border-radius: 5px;
   color: rgb(105, 186, 105);
-  border: 1px solid rgba(255, 255, 255, 0.250);
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 button:active {
@@ -116,15 +127,14 @@ button:active {
   background-color: #171717;
 }
 
-
-.delete-button-container{
+.delete-button-container {
   width: 100%;
   max-width: 200px;
   padding: 10px;
   margin: 10px 0px 15px 0px;
   background-color: rgb(24, 24, 24);
   border-radius: 5px;
-  border: 1px solid rgba(255, 255, 255, 0.250);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   display: flex;
   justify-content: center;
 }
