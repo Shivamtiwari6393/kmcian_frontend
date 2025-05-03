@@ -16,33 +16,33 @@ export default function Header() {
       <div className="nav-links">
         <span>
           <NavLink to={"/"}>
-            <FontAwesomeIcon icon={faHouse} style={{ color: "#ffffff" }} />
+            <FontAwesomeIcon icon={faHouse} />
           </NavLink>
         </span>
         <span>
           <NavLink to={"/upload"}>
-            <FontAwesomeIcon icon={faUpload} style={{ color: "#ffffff" }} />
+            <FontAwesomeIcon icon={faUpload} />
           </NavLink>
         </span>
         <span>
           <NavLink to={"/queries"}>
-            <FontAwesomeIcon icon={faQuestion} style={{ color: "#ffffff" }} />
+            <FontAwesomeIcon icon={faQuestion} />
           </NavLink>
         </span>
         <span>
           <NavLink to={"/login"}>
-            <FontAwesomeIcon icon={faUser} style={{ color: "#ffffff" }} />
+            <FontAwesomeIcon icon={faUser} />
           </NavLink>
         </span>
 
         <span>
           <NavLink to={"/announcements"}>
-            <FontAwesomeIcon icon={faBullhorn} style={{ color: "#ffffff" }} />
+            <FontAwesomeIcon icon={faBullhorn} />
           </NavLink>
         </span>
         <span>
           <NavLink to={"/about"}>
-            <FontAwesomeIcon icon={faInfo} style={{ color: "#ffffff" }} />
+            <FontAwesomeIcon icon={faInfo} />
           </NavLink>
         </span>
       </div>

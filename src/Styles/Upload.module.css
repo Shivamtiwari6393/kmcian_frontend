@@ -21,11 +21,11 @@
   flex-direction: column;
   width: 90%;
   max-width: 500px;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   justify-content: center;
   align-items: center;
-
+  background: #2a2a2a;
 }
 
 .upload-container .upload-container-header {
@@ -59,8 +59,12 @@
   font-weight: bold;
   width: 60vw;
   max-width: 290px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  /* border: 1px solid rgba(255, 255, 255, 0.25); */
   background: none;
+
+  background: #2a2a2a;
+  box-shadow: inset 3px 3px 6px #141414, inset -6px -6px 12px #373737;
+  outline: none;
 }
 
 .upload-container input[type="file"] {
@@ -83,7 +87,9 @@
   cursor: pointer;
   text-overflow: ellipsis;
   overflow-wrap: break-word;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  /* border: 1px solid rgba(255, 255, 255, 0.25); */
+  background: #2a2a2a;
+  box-shadow: inset 3px 3px 6px #141414, inset -6px -6px 12px #373737;
 }
 
 .file-container label img {

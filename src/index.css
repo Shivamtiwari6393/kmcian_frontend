@@ -1,10 +1,13 @@
 body {
   position: relative;
   background-color: 	#121212;
+  background :  #232323;
+  user-select: none;
 }
 
 * {
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
+
 }
