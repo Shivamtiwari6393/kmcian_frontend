@@ -4,25 +4,14 @@ import { saveAs } from "file-saver";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import { useContext, useState } from "react";
-import downloadIcon from "../assets/download.png";
 import toast from "react-hot-toast";
 import adminContext from "./adminContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHouse,
-  faUser,
-  faUpload,
-  faQuestion,
-  faBullhorn,
-  faInfo,
-  faDownload,
-  faArrowUpFromGroundWater,
-  faEdit,
-} from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faEdit, faFlag } from "@fortawesome/free-solid-svg-icons";
 
 export default function Papers() {
-  // const url = "http://127.0.0.1:8000/api/paper";
-  const url = "https://kmcianbackend.vercel.app/api/paper";
+  // const url = "http://127.0.0.1:8000/api";
+  const url = "https://kmcianbackend.vercel.app/api";
 
   const navigate = useNavigate();
 
@@ -37,6 +26,11 @@ export default function Papers() {
   const [searchInput, setSearchInput] = useState("");
 
   const [FilterdData, setFilterdData] = useState(reqPapers);
+
+  const [description, setDescription] = useState("");
+  const [showDescription, setShowDescription] = useState(false);
+  const [id, setId] = useState(null);
+  const [clicked, setClicked] = useState(null);
 
   // checking token
 
@@ -59,8 +53,8 @@ export default function Papers() {
 
   // ---------------Handle file download----------------------------
 
-  const handleDownload = async (e) => {
-    const selectedPaper = JSON.parse(e.currentTarget.dataset.value);
+  const handleDownload = async (element) => {
+    const selectedPaper = element;
 
     const encodedCourse = encodeURIComponent(selectedPaper.course);
     const encodedYear = encodeURIComponent(selectedPaper.year);
@@ -72,7 +66,7 @@ export default function Papers() {
 
     try {
       const response = await fetch(
-        `${url}/download?course=${encodedCourse}&year=${encodedYear}&paper=${encodedPaper}&branch=${encodedBranch}&semester=${selectedPaper.semester}&t=${selectedPaper.t}`
+        `${url}/paper/download?course=${encodedCourse}&year=${encodedYear}&paper=${encodedPaper}&branch=${encodedBranch}&semester=${selectedPaper.semester}&t=${selectedPaper.t}`
       );
 
       if (!response.ok) {
@@ -100,15 +94,60 @@ export default function Papers() {
 
   // on update button click
 
-  const handleUpdate = (event) => {
-    const choosed = JSON.parse(event.currentTarget.dataset.value);
-    navigate("/update", { state: choosed });
+  const handleUpdate = (selectedOption) => {
+    navigate("/update", { state: selectedOption });
+  };
+
+  // handle flag button click
+
+  const handleFlagButtonClick = async (e,element) => {
+    e.stopPropagation()
+    setId(element._id);
+    setShowDescription(!showDescription);
+  };
+
+  // description
+
+  const descriptionOptions = [
+    "It's not a PYQ.",
+    "Wrong paper name.",
+    "Wrong semester or year.",
+    "Wrong faculty.",
+  ];
+
+  const handleSubmitFlagReason = async (element) => {
+    const resposeId = toast.loading("Submitting response...");
+
+    try {
+      const response = await fetch(`${url}/flag`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...element,
+          description: descriptionOptions[clicked],
+        }),
+      });
+
+      if (response.ok) return toast.success("Done", { id: resposeId });
+
+      const data = await response.json();
+
+      throw new Error(data.message);
+    } catch (error) {
+      return toast.error(error.message, { id: resposeId });
+    }finally{
+      setId(null)
+      setClicked(null)
+      setDescription(null)
+    }
   };
 
   // ==================================================================================
 
   return (
-    <div className="papers-container">
+    <div className="papers-container" onClick={()=> setId(null)}>
       <div className="search-container">
         <input
           type="text"
@@ -121,7 +160,44 @@ export default function Papers() {
       {isLoading && <Loading></Loading>}
 
       {FilterdData.map((element) => (
-        <div className="names" key={element["_id"]}>
+        <div className="paper-details" key={element["_id"]}>
+          <div className="report">
+            <FontAwesomeIcon
+              icon={faFlag}
+              alt="flag button"
+              onClick={(e) => handleFlagButtonClick(e,element)}
+            />
+            {element._id === id && showDescription && (
+              <>
+                <div className="description-container">
+                  <h3>Reason</h3>
+                  <hr />
+                  {showDescription &&
+                    descriptionOptions.map((data, index) => (
+                      <div className="description-options" key={index}>
+                        <p
+                          style={{
+                            backgroundColor:
+                              clicked === index
+                                ? "rgb(95, 164, 193)"
+                                : "rgb(255, 255, 255)",
+                          }}
+                          onClick={() => setClicked(index)}
+                        >
+                          {data}
+                        </p>
+                      </div>
+                    ))}
+                  <div className="submit-button-container">
+                    <button onClick={() => handleSubmitFlagReason(element)}>
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+
           <div className="paperName">
             <p>{element.paper}</p>
           </div>
@@ -142,48 +218,32 @@ export default function Papers() {
             </p>
           </div>
 
-          {/* download button */}
-
-          <div
-            className="download-button-container"
-            data-value={`{"course":"${element.course}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}", "year": "${element.year}", "t" : "d"}`}
-            onClick={handleDownload}
-          >
-            {/* <img
-                src={downloadIcon}
+          <div className="button-container">
+            <div
+              className="download-button-container"
+              onClick={() => handleDownload(element)}
+            >
+              <FontAwesomeIcon
+                icon={faDownload}
+                style={{ fontSize: "1.2rem" }}
                 alt="download button"
-                data-value={`{"course":"${element.course}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}", "year": "${element.year}", "t" : "d"}`}
-                onClick={handleDownload}
-              /> */}
-            <FontAwesomeIcon
-              icon={faDownload}
-              style={{fontSize: "1.2rem" }}
-              alt="download button"
-            />
+              />
+            </div>
 
-            {/* update botton */}
-          </div>
-
-          <div className="update-button-container">
-            {isAdmin && (
-              <>
-                <FontAwesomeIcon
-                  icon={faEdit}
-                  style={{fontSize: "1.2rem" }}
-                  alt="download button"
-                  onClick={handleUpdate}
-                  data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}", "downloadable": "${element.downloadable}", "createdAt": "${element.createdAt}", "updatedAt": "${element.updatedAt}"}`}
-                />
-                {/* <button
-                  id="update-button"
-                  className="updatebutton"
-                  onClick={handleUpdate}
-                  data-value={`{"id":"${element._id}","branch": "${element.branch}", "paper": "${element.paper}", "semester": "${element.semester}","year": "${element.year}","course": "${element.course}", "name": "${element.name}", "downloadable": "${element.downloadable}", "createdAt": "${element.createdAt}", "updatedAt": "${element.updatedAt}"}`}
-                >
-                  Update
-                </button> */}
-              </>
-            )}
+            <div
+              className="update-button-container"
+              onClick={(e) => handleUpdate(element)}
+            >
+              {isAdmin && (
+                <>
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    style={{ fontSize: "1.2rem" }}
+                    alt="download button"
+                  />
+                </>
+              )}
+            </div>
           </div>
         </div>
       ))}

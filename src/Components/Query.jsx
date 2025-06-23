@@ -34,7 +34,7 @@ export default function Query() {
     // setIsLoading(true);
     fetchQuery();
     // setIsLoading(false);
-  }, []);
+  },[]);
 
   // fetches updated 1st page
 
