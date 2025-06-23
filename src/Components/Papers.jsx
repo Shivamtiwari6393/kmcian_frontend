@@ -100,8 +100,8 @@ export default function Papers() {
 
   // handle flag button click
 
-  const handleFlagButtonClick = async (e,element) => {
-    e.stopPropagation()
+  const handleFlagButtonClick = async (e, element) => {
+    e.stopPropagation();
     setId(element._id);
     setShowDescription(!showDescription);
   };
@@ -115,7 +115,13 @@ export default function Papers() {
     "Wrong faculty.",
   ];
 
-  const handleSubmitFlagReason = async (element) => {
+  const handleDescriptionOptionClick = (e, index) => {
+    e.stopPropagation();
+    setClicked(index);
+  };
+
+  const handleSubmitFlagReason = async (e, element) => {
+    e.stopPropagation();
     const resposeId = toast.loading("Submitting response...");
 
     try {
@@ -137,17 +143,17 @@ export default function Papers() {
       throw new Error(data.message);
     } catch (error) {
       return toast.error(error.message, { id: resposeId });
-    }finally{
-      setId(null)
-      setClicked(null)
-      setDescription(null)
+    } finally {
+      setId(null);
+      setClicked(null);
+      setDescription(null);
     }
   };
 
   // ==================================================================================
 
   return (
-    <div className="papers-container" onClick={()=> setId(null)}>
+    <div className="papers-container" onClick={() => setId(null)}>
       <div className="search-container">
         <input
           type="text"
@@ -165,12 +171,12 @@ export default function Papers() {
             <FontAwesomeIcon
               icon={faFlag}
               alt="flag button"
-              onClick={(e) => handleFlagButtonClick(e,element)}
+              onClick={(e) => handleFlagButtonClick(e, element)}
             />
             {element._id === id && showDescription && (
               <>
                 <div className="description-container">
-                  <h3>Reason</h3>
+                  <h3>Select a Reason</h3>
                   <hr />
                   {showDescription &&
                     descriptionOptions.map((data, index) => (
@@ -179,17 +185,18 @@ export default function Papers() {
                           style={{
                             backgroundColor:
                               clicked === index
-                                ? "rgb(95, 164, 193)"
+                                ? "rgb(54, 170, 220)"
                                 : "rgb(255, 255, 255)",
                           }}
-                          onClick={() => setClicked(index)}
+                          onClick={(e) => handleDescriptionOptionClick(e, index)}
                         >
-                          {data}
+                        {index+1}.{data}
                         </p>
+                        <hr />
                       </div>
                     ))}
                   <div className="submit-button-container">
-                    <button onClick={() => handleSubmitFlagReason(element)}>
+                    <button onClick={(e) => handleSubmitFlagReason(e, element)}>
                       Submit
                     </button>
                   </div>
