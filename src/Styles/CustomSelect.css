@@ -9,11 +9,9 @@
   background-color: rgb(26, 26, 26);
   user-select: none;
   border: 1px solid rgba(255, 255, 255, 0.164);
-
   background: #2a2a2a;
   /* box-shadow: inset 3px 3px 6px #141414, inset -6px -6px 12px #373737; */
   box-shadow: 1px 3px 4px rgb(0, 0, 0);
-
   background: #2a2a2a;
 }
 
@@ -22,7 +20,23 @@
   cursor: pointer;
   font-weight: bold;
   transition-duration: 0.01s;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 10fr 1fr;
 }
+
+
+.select .placeholder{
+  margin-left: 10px;
+  justify-self: start;
+}
+
+
+.select .drop-down-icon-container-rotate{
+  transform: rotate(180deg);
+}
+
+
 
 .select:active {
   box-shadow: 0px 0px 5px rgb(255, 255, 255);

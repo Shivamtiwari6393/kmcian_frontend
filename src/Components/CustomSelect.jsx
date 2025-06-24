@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 const CustomSelect = ({ options, onChange, placeholder, isOpen, onClick }) => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -7,13 +9,18 @@ const CustomSelect = ({ options, onChange, placeholder, isOpen, onClick }) => {
   const handleSelect = (option) => {
     setSelectedOption(option);
     onChange(option.value);
-    onClick()
+    onClick();
   };
 
   return (
     <div className="select-container">
       <div className="select" onClick={onClick}>
-        {selectedOption ? selectedOption.label : placeholder}
+        <div className="placeholder">
+          {selectedOption ? selectedOption.label : placeholder}
+        </div>
+        <div className={isOpen? "drop-down-icon-container-rotate": "drop-down-icon-container"}>
+          <FontAwesomeIcon icon={faCaretDown} />
+        </div>
       </div>
       {isOpen && (
         <>
