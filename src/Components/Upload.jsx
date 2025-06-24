@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import uploadcss from "../Styles/Upload.module.css";
 import Loading from "./Loading";
 import CustomSelect from "./CustomSelect";
@@ -361,11 +361,23 @@ export default function Upload() {
     ? (branchOptions = artHumnanitiesOptions)
     : "";
 
+
+
+// for auto hide the notice 
+  useEffect(() => {
+    if (error) {
+      const timeout = setTimeout(() => {
+        setError("");
+      }, 5000);
+      return () => clearTimeout(timeout);
+    }
+  }, [error]);
+
   // ------------------------------------------------------------
 
   return (
     <>
-      {error && <Notice m={error}></Notice>}
+      {error && <Notice m={error} />}
       {isLoading && <Loading progress={progress}></Loading>}
 
       <div

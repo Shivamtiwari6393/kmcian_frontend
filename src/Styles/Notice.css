@@ -1,33 +1,35 @@
 .notice-container {
   text-align: center;
-  padding: 15px;
+  padding: 10px;
   color: rgb(255, 255, 255);
-  font-weight: bold;
-
-  position: absolute;
-  top: -2%;
+  font-style: italic;
+  position: fixed;
+  top: -1%;
   transform: rotateX(180deg);
-  left: 30%;
-  width: 40%;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: rgb(158, 58, 84);
   animation-name: flipp;
-  animation-duration: 0.5s;
   perspective: 1000px;
   transform-origin: 0% 0%;
   animation-fill-mode: forwards;
   transform-style: preserve-3d;
   animation-timing-function: ease-in;
+  animation-duration: 0.5s;
+  z-index: 9;
+
 }
 
 @keyframes flipp {
   from {
-    transform: rotateX(120deg);
+    transform: rotateX(180deg) translateX(-50%);
   }
   95% {
-    transform: rotateX(-10deg);
+    transform: rotateX(-10deg) translateX(-50%);
   }
 
   100% {
-    transform: rotateX(0deg);
+    transform: rotateX(0deg) translateX(-50%);
+    width: max-content;
   }
 }
