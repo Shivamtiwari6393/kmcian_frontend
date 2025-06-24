@@ -5,6 +5,7 @@ import Loading from "./Loading";
 import CustomSelect from "./CustomSelect";
 import pdf from "../assets/pdf.png";
 import toast from "react-hot-toast";
+import Notice from "./Notice";
 export default function Upload() {
   // const url = "http://127.0.0.1:8000/api/paper";
   const url = "https://kmcianbackend.vercel.app/api/paper";
@@ -31,8 +32,8 @@ export default function Upload() {
 
   const [progress, setProgress] = useState(0);
 
-  const handleSelectClick = (selectName, e) => {
-    e.stopPropagation();
+  const handleSelectClick = (event, selectName) => {
+    event.stopPropagation();
     setOpenSelect((prev) => (prev === selectName ? null : selectName)); // Toggle open state
   };
   // -----------handle file change-------------
@@ -51,6 +52,7 @@ export default function Upload() {
 
   const handleDataChange = (name, value) => {
     setError("");
+    // if (name === "course") setUploadData((prev)=> ({...prev, ["branch"] : ""}))
     setUploadData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -63,11 +65,6 @@ export default function Upload() {
     setError("");
 
     // validating input fields
-
-    if (uploadData.paper == "") {
-      setError("Please enter a paper name");
-      return;
-    }
 
     if (uploadData.course == 0) {
       setError("Please select a Faculty");
@@ -86,6 +83,16 @@ export default function Upload() {
 
     if (uploadData.year == 0) {
       setError("Please select a Year");
+      return;
+    }
+
+    if (uploadData.paper == "") {
+      setError("Please enter a paper name");
+      return;
+    }
+
+    if (uploadData.paper.length > 50 || uploadData.name > 25) {
+      setError("Name length limit exceeded");
       return;
     }
 
@@ -112,18 +119,18 @@ export default function Upload() {
 
     // if branch not matches
     if (!exists) {
-      toast.custom(
-        <div
-          style={{
-            padding: "10px",
-            backgroundColor: "red",
-            color: "white",
-            borderRadius: "10px",
-          }}
-        >
-          Please reselect the branch
-        </div>
-      );
+      // toast.custom(
+      //   <div
+      //     style={{
+      //       padding: "10px",
+      //       backgroundColor: "red",
+      //       color: "white",
+      //       borderRadius: "10px",
+      //     }}
+      //   >
+      //     Please reselect the branch
+      //   </div>
+      // );
       setError("Please reselect the branch");
       return;
     }
@@ -358,6 +365,7 @@ export default function Upload() {
 
   return (
     <>
+      {error && <Notice m={error}></Notice>}
       {isLoading && <Loading progress={progress}></Loading>}
 
       <div
@@ -368,37 +376,37 @@ export default function Upload() {
           <div className={uploadcss["upload-container-header"]}>
             <h3>Upload PYQs</h3>
           </div>
-          {error && (
+          {/* {error && (
             <div className="error-container">
               <p>{error}</p>{" "}
             </div>
-          )}
+          )} */}
 
           <CustomSelect
             options={courseOptions}
             isOpen={openSelect === "course"}
-            onClick={(e) => handleSelectClick("course", e)}
+            onClick={(event) => handleSelectClick(event, "course")}
             onChange={(value) => handleDataChange("course", value)}
             placeholder="Faculty"
           />
           <CustomSelect
             options={branchOptions}
             isOpen={openSelect === "branch"}
-            onClick={(e) => handleSelectClick("branch", e)}
+            onClick={(event) => handleSelectClick(event, "branch")}
             onChange={(value) => handleDataChange("branch", value)}
             placeholder="Branch"
           />
           <CustomSelect
             options={semesterOptions}
             isOpen={openSelect === "semester"}
-            onClick={(e) => handleSelectClick("semester", e)}
+            onClick={(event) => handleSelectClick(event, "semester")}
             onChange={(value) => handleDataChange("semester", value)}
             placeholder="Semester"
           />
           <CustomSelect
             options={yearOptions}
             isOpen={openSelect === "year"}
-            onClick={(e) => handleSelectClick("year", e)}
+            onClick={(event) => handleSelectClick(event, "year")}
             onChange={(value) => handleDataChange("year", value)}
             placeholder="Year"
           />
