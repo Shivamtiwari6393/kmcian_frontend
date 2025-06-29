@@ -12,6 +12,8 @@
   }
 }
 
+
+/* ----------------------------------------------------------------- */
 .papers-container {
   position: relative;
   padding-bottom: 50px;
@@ -58,7 +60,7 @@
 }
 
 .description-container {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   position: absolute;
   right: 100%;
   display: flex;

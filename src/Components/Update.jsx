@@ -7,24 +7,14 @@ import pdf from "../assets/pdf.png";
 import CustomSelect from "./CustomSelect";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  fa5,
-  faDeleteLeft,
-  faSearch,
-  faSign,
-  faSignal,
-  faSignIn,
-  faSignsPost,
-  faSquarePersonConfined,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 export default function Upload() {
   // const url = "http://127.0.0.1:8000/api/paper";
   const url = "https://kmcianbackend.vercel.app/api/paper";
 
   const location = useLocation();
   const {
-    id,
+    _id,
     branch,
     course,
     paper,
@@ -57,7 +47,7 @@ export default function Upload() {
   const [openSelect, setOpenSelect] = useState(null);
 
   const handleSelectClick = (selectName) => {
-    setOpenSelect((prev) => (prev === selectName ? null : selectName)); // Toggle open state
+    setOpenSelect((prev) => (prev === selectName ? null : selectName)); 
   };
 
   const handleFileChange = (e) => {
@@ -180,8 +170,10 @@ export default function Upload() {
     //==================================== update ===================================
 
     setIsLoading(true);
+    console.log("iddddd", _id);
+    
     const loadId = toast.loading("Paper update in progress...");
-    fetch(`${url}/update/${id}`, {
+    fetch(`${url}/update/${_id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
@@ -210,7 +202,7 @@ export default function Upload() {
     if (!del) return;
     setIsLoading(true);
     const loadId = toast.loading("Deletion in progress...");
-    fetch(`${url}/delete/${course}/${id}`, {
+    fetch(`${url}/delete/${course}/${_id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,

@@ -52,6 +52,12 @@
   justify-content: center;
 }
 
+#search-button-container:active {
+
+  transform: scale(0.8);
+
+}
+
 #downloadable-select {
   width: 100%;
   max-width: 300px;

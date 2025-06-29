@@ -122,15 +122,15 @@
   margin: 30px 0px 15px 0px;
   border: none;
   color: white;
-  background-color: rgb(24, 24, 24);
+  background-color: rgb(52, 52, 52);
   border-radius: 5px;
   color: rgb(105, 186, 105);
   border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 button:active {
-  scale: 0.95;
-  background-color: #171717;
+  transform: scale(0.9);
+  background-color: #666666;
 }
 
 .delete-button-container {
