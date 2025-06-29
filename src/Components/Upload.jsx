@@ -6,6 +6,11 @@ import CustomSelect from "./CustomSelect";
 import pdf from "../assets/pdf.png";
 import toast from "react-hot-toast";
 import Notice from "./Notice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCaretSquareRight,
+  faCaretSquareUp,
+} from "@fortawesome/free-solid-svg-icons";
 export default function Upload() {
   // const url = "http://127.0.0.1:8000/api/paper";
   const url = "https://kmcianbackend.vercel.app/api/paper";
@@ -361,9 +366,7 @@ export default function Upload() {
     ? (branchOptions = artHumnanitiesOptions)
     : "";
 
-
-
-// for auto hide the notice 
+  // for auto hide the notice
   useEffect(() => {
     if (error) {
       const timeout = setTimeout(() => {
@@ -451,7 +454,9 @@ export default function Upload() {
             />
           </div>
 
-          <button onClick={upload}>Upload</button>
+          <div className={uploadcss["upload-button-container"]}>
+            <button onClick={upload}>Upload</button>
+          </div>
         </div>
       </div>
     </>
