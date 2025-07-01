@@ -14,6 +14,7 @@ const Update = lazy(() => import("./Components/Update.jsx"));
 const Login = lazy(() => import("./Components/Login.jsx"));
 const Chat = lazy(() => import("./Components/Chat.jsx"));
 const About = lazy(()=> import("./Components/About.jsx"))
+const Flag = lazy(()=> import("./Components/flag.jsx"))
 
 const route = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const route = createBrowserRouter([
       {
         path: "/about",
         element: <About></About>,
+      },
+      {
+        path: "/flag",
+        element: <Flag></Flag>,
       },
     ],
   },
