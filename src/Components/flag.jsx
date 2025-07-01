@@ -1,5 +1,5 @@
 import React from 'react'
-
+import "../Styles/Flag.css"
 function flag() {
   return (
     <div className='flag-container'>
