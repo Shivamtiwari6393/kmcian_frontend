@@ -8,6 +8,7 @@ import {
   faQuestion,
   faBullhorn,
   faInfo,
+  faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
@@ -43,6 +44,11 @@ export default function Header() {
         <span>
           <NavLink to={"/about"}>
             <FontAwesomeIcon icon={faInfo} />
+          </NavLink>
+        </span>
+        <span>
+          <NavLink to={"/flag"}>
+            <FontAwesomeIcon icon={faFlag} />
           </NavLink>
         </span>
       </div>
