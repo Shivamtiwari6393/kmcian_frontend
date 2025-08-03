@@ -3,7 +3,7 @@ body {
   background-color: 	#121212;
   background :  #232323;
   user-select: none;
-  font-family: 'Courier New', Courier, monospace;
+  /* font-family: 'Courier New', Courier, monospace; */
 }
 
 * {

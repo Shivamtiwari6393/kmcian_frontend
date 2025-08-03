@@ -60,8 +60,6 @@
   width: 60vw;
   max-width: 290px;
   /* border: 1px solid rgba(255, 255, 255, 0.25); */
-  background: none;
-
   background: #2a2a2a;
   box-shadow: inset 3px 3px 6px #141414, inset -6px -6px 12px #373737;
   outline: none;
