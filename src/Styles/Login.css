@@ -71,7 +71,7 @@ label {
 
 .login-fields .login-button-container button {
   cursor: pointer;
-  background-color: rgb(6, 153, 3);
+  background-color: rgba(0, 128, 0, 0.77);
   color: rgb(255, 255, 255);
   width: 40%;
   max-width: 200px;
