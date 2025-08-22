@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import "./App.css";
 import "./Components/Header";
 import Header from "./Components/Header";
@@ -11,6 +11,13 @@ import adminContext from "./Components/adminContext";
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("kmcianToken");
+    if (token) {
+      setIsAdmin(true);
+    }
+  }, []);
 
   // ============================================================
 

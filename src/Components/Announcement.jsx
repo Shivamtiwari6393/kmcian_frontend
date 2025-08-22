@@ -14,7 +14,7 @@ function Announcement() {
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(true);
   const [announcements, setAnnouncements] = useState([]);
-  const [admin, setIsAdmin] = useContext(adminContext);
+  const [admin] = useContext(adminContext);
 
   const [pageInfo, setPageInfo] = useState({
     currentPage: 0,
