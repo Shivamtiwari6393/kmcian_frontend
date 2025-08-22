@@ -6,12 +6,23 @@ import CustomSelect from "./CustomSelect";
 import pdf from "../assets/pdf.png";
 import toast from "react-hot-toast";
 import Notice from "./Notice";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCaretSquareRight,
-  faCaretSquareUp,
-} from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import data from "./data.js";
+
 export default function Upload() {
+  const [
+    yearOptions,
+    semesterOptions,
+    socialSciencesOptions,
+    artHumnanitiesOptions,
+    pharmacyBranchOptions,
+    scienceBranchOptions,
+    legalStudiesBranchOptions,
+    commerceBranchOptions,
+    engineeringBranchOptions,
+    courseOptions,
+  ] = data;
+
   // const url = "http://127.0.0.1:8000/api/paper";
   const url = "https://kmcianbackend.vercel.app/api/paper";
 
@@ -66,7 +77,7 @@ export default function Upload() {
     setUploadData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const upload = () => {
+  const upload = async () => {
     setError("");
 
     // validating input fields
@@ -124,18 +135,6 @@ export default function Upload() {
 
     // if branch not matches
     if (!exists) {
-      // toast.custom(
-      //   <div
-      //     style={{
-      //       padding: "10px",
-      //       backgroundColor: "red",
-      //       color: "white",
-      //       borderRadius: "10px",
-      //     }}
-      //   >
-      //     Please reselect the branch
-      //   </div>
-      // );
       setError("Please reselect the branch");
       return;
     }
@@ -156,191 +155,44 @@ export default function Upload() {
 
     //------------- POST DATA---------------
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", `${url}/post`);
-
-    xhr.upload.onprogress = (e) => {
-      if (e.lengthComputable) {
-        const percentage = Math.round((e.loaded / e.total) * 100);
-        setProgress(percentage);
-        console.log(`Progress: ${percentage}%`);
-      }
-    };
-
-    xhr.onload = () => {
-      setIsLoading(false);
-      try {
-        const data = JSON.parse(xhr.response); // Ensure the response is parsed as JSON
-        if (xhr.status === 201) {
-          toast.success(data.message, { id: loadId });
-          setProgress(0);
-        } else {
-          toast.error(data.message, { id: loadId });
-        }
-      } catch (err) {
-        console.error("Failed to parse response:", err);
-        toast.error("An unexpected error occurred.", { id: loadId });
-      }
-    };
-
-    xhr.onerror = () => {
-      setIsLoading(false);
-      toast.error("Network error occurred.", { id: loadId });
-    };
-
-    xhr.ontimeout = () => {
-      setIsLoading(false);
-      toast.error("Request timed out.", { id: loadId });
-    };
-
-    setIsLoading(true);
-
     const loadId = toast.loading("Paper upload in progress...");
+    try {
+      const response = await axios.post(`${url}/post`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (progressEvent) => {
+          if (progressEvent.total) {
+            const percentage = Math.round(
+              (progressEvent.loaded / progressEvent.total) * 100
+            );
+            setProgress(percentage);
+            console.log(`Progress: ${percentage}%`);
+          }
+        },
+        timeout: 10000, // Optional: 10 sec timeout
+      });
 
-    xhr.send(formData);
-    // fetch(`${url}/post`, {
-    //   method: "POST",
-    //   body: formData,
-    // })
-    //   .then(async (response) => {
-    //     setIsLoading(false);
-    //     const data = await response.json();
-    //     if (!response.ok) throw new Error(data.message || "An error occurred");
-    //     toast.success(data.message, { id: loadId });
-    //   })
-    //   .catch((e) => {
-    //     setIsLoading(false);
-    //     toast.error(e.message, { id: loadId });
-    //   });
+      if (response.status === 201) {
+        toast.success(response.data.message, { id: loadId });
+        setProgress(0);
+      } else {
+        toast.error(response.data.message || "Upload failed", { id: loadId });
+      }
+    } catch (error) {
+      if (error.code === "ECONNABORTED") {
+        toast.error("Request timed out.", { id: loadId });
+      } else if (error.response) {
+        toast.error(error.response.data?.message || "Server error", {
+          id: loadId,
+        });
+      } else {
+        toast.error("Network error occurred.", { id: loadId });
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
-
-  // Options for select inputs
-  const courseOptions = [
-    { value: "Engineering", label: "Engineering" },
-    { value: "Commerce", label: "Commerce" },
-    { value: "Legal Studies", label: "Legal Studies" },
-    { value: "Science", label: "Science" },
-    { value: "Social Science", label: "Social Science" },
-    { value: "Art and Humanities", label: "Arts & Humanities" },
-    { value: "Pharmacy", label: "Pharmacy" },
-  ];
-
-  // branch options
-
-  const engineeringBranchOptions = [
-    { value: "CSE(AI&ML)", label: "CSE(AI&ML)" },
-    { value: "CSE(AI&DS)", label: "CSE(AI&DS)" },
-    { value: "CSE", label: "CSE" },
-    { value: "BIO TECHNOLOGY", label: "Bio Technology" },
-    { value: "CIVIL", label: "Civil" },
-    { value: "MACHANICAL", label: "Machanical" },
-    { value: "M.Tech - CSE(AI&ML)", label: "M.Tech - CSE(AI&ML)" },
-  ];
-
-  const commerceBranchOptions = [
-    { value: "BBA", label: "BBA" },
-    { value: "MBA", label: "MBA" },
-    { value: "MBA FA", label: "MBA(FA)" },
-    { value: "B.COM", label: "B.COM" },
-    { value: "B.COM(TT)", label: "B.COM(TT)" },
-    { value: "M.COM", label: "M.COM" },
-  ];
-
-  const legalStudiesBranchOptions = [
-    { value: "LLM", label: "LLM" },
-    { value: "BA LLB", label: "BA LLB" },
-    { value: "LLB", label: "LLB" },
-  ];
-
-  // science options
-
-  const scienceBranchOptions = [
-    { value: "MCA", label: "MCA" },
-    { value: "BCA", label: "BCA" },
-    { value: "BSc PHYSICS", label: "B.Sc Physics" },
-    { value: "BSc CHEMISTRY", label: "B.Sc Chemistry" },
-    { value: "BSc MATHEMATICS", label: "B.Sc Mathematics" },
-    { value: "BSc CS", label: "B.Sc Computer Science" },
-    { value: "BSc BIOTECHNOLOGY", label: "B.Sc Biotechnology" },
-    { value: "BSc ZOOLOGY", label: "B.Sc Zoology" },
-    { value: "BSc BOTANY", label: "B.Sc Botany" },
-    { value: "BSc MICROBIOLOGY", label: "B.Sc Microbiology" },
-    { value: "BSc STATISTICS", label: "B.Sc Statistics" },
-    { value: "BSc HomeScience", label: "B.Sc Home Science" },
-    { value: "BSc English", label: "B.Sc English" },
-
-    { value: "BA HM", label: "BA Home Science" },
-    { value: "MA HM", label: "MA Home Science" },
-    { value: "B LIB", label: "B.lib." },
-  ];
-
-  // pharmacy options
-
-  const pharmacyBranchOptions = [
-    { value: "B PHARM", label: "B.Pharm" },
-    { value: "D PHARM", label: "D.Pharm" },
-  ];
-
-  // arts and humanities options
-
-  const artHumnanitiesOptions = [
-    { value: "MA ARABIC", label: "MA ARABIC" },
-    { value: "MA ENGLISH", label: "MA ENGLISH" },
-    { value: "MA HINDI", label: "MA HINDI" },
-    { value: "MA PERSIAN", label: "MA PERSIAN" },
-    { value: "MA URDU", label: "MA URDU" },
-    { value: "BA ARABIC", label: "BA ARABIC" },
-    { value: "BA ENGLISH", label: "BA ENGLISH" },
-    { value: "BA HINDI", label: "BA HINDI" },
-    { value: "BA PERSIAN", label: "BA PERSIAN" },
-    { value: "BA URDU", label: "BA URDU" },
-    { value: "BA FRENCH", label: "BA FRENCH" },
-    { value: "BA CHINESE", label: "BA CHINESE" },
-    { value: "BA GERMAN", label: "BA GERMAN" },
-    { value: "BA JAPANESE", label: "BA JAPANESE" },
-    { value: "BA SANSKRIT", label: "BA SANSKRIT" },
-    { value: "BA PALI", label: "BA PALI" },
-  ];
-
-  const socialSciencesOptions = [
-    { value: "B ED", label: "B.ED" },
-    { value: "MA EDUCATION", label: "MA EDUCATION" },
-    { value: "MA JOURN_MASS_COMM", label: "MA JOURN MASS COMM" },
-    { value: "MA HISTORY", label: "MA HISTORY" },
-    { value: "MA GEOGRAPHY", label: "MA GEOGRAPHY" },
-    { value: "MA ECONOMICS", label: "MA ECONOMICS" },
-    { value: "MA FINE ARTS", label: "MA FINE ARTS" },
-    { value: "BA EDUCATION", label: "BA EDUCATION" },
-    { value: "BA HISTORY", label: "BA HISTORY" },
-    { value: "BA GEOGRAPHY", label: "BA GEOGRAPHY" },
-    { value: "BA ECONOMICS", label: "BA ECONOMICS" },
-    { value: "BA FINE ARTS", label: "BA FINE ARTS" },
-    { value: "BA POL SCIENCE", label: "BA POL SCIENCE" },
-    { value: "BA PHYSICAL EDU", label: "BA PHYSICAL EDU" },
-    { value: "BA JOURN_MASS_COMM", label: "BA JOURN MASS COMM" },
-    { value: "BA SOCIOLOGY", label: "BA SOCIOLOGY" },
-  ];
-
-  const semesterOptions = [
-    { value: "1", label: "1" },
-    { value: "2", label: "2" },
-    { value: "3", label: "3" },
-    { value: "4", label: "4" },
-    { value: "5", label: "5" },
-    { value: "6", label: "6" },
-    { value: "7", label: "7" },
-    { value: "8", label: "8" },
-  ];
-
-  const yearOptions = [
-    { value: "2019", label: "2019" },
-    { value: "2020", label: "2020" },
-    { value: "2021", label: "2021" },
-    { value: "2022", label: "2022" },
-    { value: "2023", label: "2023" },
-    { value: "2024", label: "2024" },
-    { value: "2025", label: "2025" },
-  ];
 
   let branchOptions = [];
 
@@ -410,6 +262,7 @@ export default function Upload() {
             onClick={(event) => handleSelectClick(event, "branch")}
             onChange={(value) => handleDataChange("branch", value)}
             placeholder="Branch"
+            inculudeAll = {true}
           />
           <CustomSelect
             options={semesterOptions}
@@ -417,6 +270,8 @@ export default function Upload() {
             onClick={(event) => handleSelectClick(event, "semester")}
             onChange={(value) => handleDataChange("semester", value)}
             placeholder="Semester"
+            inculudeAll = {true}
+
           />
           <CustomSelect
             options={yearOptions}
@@ -424,6 +279,7 @@ export default function Upload() {
             onClick={(event) => handleSelectClick(event, "year")}
             onChange={(value) => handleDataChange("year", value)}
             placeholder="Year"
+            inculudeAll = {true}
           />
 
           <div className={uploadcss["name"]}>

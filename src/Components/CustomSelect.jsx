@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
-const CustomSelect = ({ options, onChange, placeholder, isOpen, onClick }) => {
+const CustomSelect = ({ options, onChange, placeholder, isOpen, onClick, inculudeAll = false}) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleSelect = (option) => {
@@ -30,8 +30,9 @@ const CustomSelect = ({ options, onChange, placeholder, isOpen, onClick }) => {
                 key={option.value}
                 className="option"
                 onClick={() => handleSelect(option)}
+                hidden = {option.value == "All" && inculudeAll}
               >
-                {option.label}
+               {option.label}
               </div>
             ))}
           </div>

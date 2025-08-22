@@ -27,7 +27,6 @@ function Announcement() {
     fetchAnnouncement();
   }, []);
 
-
   // handle input  change
 
   const handleInputChange = (e) => {
@@ -36,26 +35,28 @@ function Announcement() {
 
   // handle announcement submit
 
-  const handleAnnouncementSubmit = () => {
+  const handleAnnouncementSubmit = async () => {
     setLoading(true);
-    fetch(`${url}/api/announcement`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
-      },
-      body: announcementText,
-    })
-      .then(async (res) => {
-        const data = await res.json();
 
-        if (!res.ok) throw new Error(data.message);
-        setLoading(false);
-        toast.success(data.message);
-      })
-      .catch((error) => {
-        setLoading(false);
-        toast.error(error.message);
+    try {
+      const response = await fetch(`${url}/api/announcement`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
+        },
+        body: announcementText,
       });
+
+      const data = await response.json();
+
+      if (!response.ok) throw new Error(data.message);
+      setAnnouncements((prev) => ({ ...prev }));
+      toast.success(data.message);
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // handle more/announcement button click
@@ -95,23 +96,27 @@ function Announcement() {
 
   //------------------- delete announcement --------------
 
-  const handleDeleteAnnouncement = (id) => {
+  const handleDeleteAnnouncement = async (id) => {
     const loadId = toast.loading("Deletion in progress.");
 
-    fetch(`${url}/api/announcement`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: id }),
-    })
-      .then(async (response) => {
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.message);
-        toast.success(data.message || "Announcement deleted", { id: loadId });
-      })
-      .catch((error) => toast.error(error.message, { id: loadId }));
+    try {
+      const response = await fetch(`${url}/api/announcement`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
+      setAnnouncements((prev) =>
+        prev.filter((announcement) => announcement._id != id)
+      );
+      toast.success(data.message || "Announcement deleted", { id: loadId });
+    } catch (error) {
+      toast.error(error.message, { id: loadId });
+    }
   };
 
   return (

@@ -82,7 +82,7 @@
   cursor: pointer;
   transition-duration: 0.4s;
   border-top: 1px solid rgba(255, 255, 255, 0.266);
-  animation: flowx 0.8s;
+  animation: flowx 0.5s;
 }
 
 
