@@ -54,7 +54,6 @@
 }
 
 .announcement-text-container {
-  display: none;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;

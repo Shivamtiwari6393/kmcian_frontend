@@ -40,13 +40,6 @@ export default function Card() {
     setOpenSelect((prev) => (prev === selectName ? null : selectName)); // Toggle open state
   };
 
-  // if user is admin
-  useEffect(() => {
-    if (isAdmin)
-      document.getElementById("downloadable-select").style.display = "block";
-  });
-
-  // =============================================
 
   //------------ Handle data change-------------------------
 
@@ -279,8 +272,7 @@ export default function Card() {
   return (
     <>
       {isLoading && <Loading></Loading>}
-      <div className="card-container" onClick={(e)=> setOpenSelect(null)
-      } >
+      <div className="card-container" onClick={(e) => setOpenSelect(null)}>
         <div className="card-fields">
           <div className="card-header">
             <h3>Search PYQs</h3>
@@ -319,22 +311,22 @@ export default function Card() {
             onChange={(value) => handleChange("year", value)}
             placeholder="Year"
           />
-          <select
-            name="downloadable"
-            value={paperData.downloadable}
-            id="downloadable-select"
-            onChange={handleAdminChange}
-            required
-            style={{
-              display: "none",
-            }}
-          >
-            <option value="0" disabled>
-              Downloadable
-            </option>
-            <option value="true">True</option>
-            <option value="false">False</option>
-          </select>
+
+          {isAdmin && (
+            <select
+              name="downloadable"
+              value={paperData.downloadable}
+              id="downloadable-select"
+              onChange={handleAdminChange}
+              required
+            >
+              <option value="0" disabled>
+                Downloadable
+              </option>
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+          )}
 
           <div id="search-button-container">
             <FontAwesomeIcon

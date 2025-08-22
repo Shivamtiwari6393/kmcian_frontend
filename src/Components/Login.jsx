@@ -17,27 +17,12 @@ function Login() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-
-  const [logout, setLogout] = useState(false);
-
   const [isAdmin, setIsAdmin] = useContext(adminContext);
-
-  let timerId = null;
 
   const doLogout = () => {
     sessionStorage.removeItem("kmcianToken");
-    setLogout(false);
     setIsAdmin(false);
     toast.success("Logged out successfully!");
-    if (timerId) {
-      clearTimeout(timerId);
-    }
-  };
-
-  const setcounter = () => {
-    timerId = setTimeout(() => {
-      doLogout();
-    }, 3600000);
   };
 
   // handle input change
@@ -48,40 +33,36 @@ function Login() {
 
   // on login button click
 
-  const handleLoginButtonClick = () => {
+  const handleLoginButtonClick = async () => {
     if (!credentials.email) return toast.error("Please enter your email.");
     if (!credentials.password) return toast.error("Please enter the password.");
 
+    //============ login fetch request==============
+    const id = toast.loading("Logging in");
     setIsLoading(true);
 
-    //============ login fetch request==============
-
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    })
-      .then(async (res) => {
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.message || "An error occurred");
-        setIsLoading(false);
-        sessionStorage.setItem("kmcianToken", data.token);
-        toast.success(data.message || "Login successful!");
-        setcounter();
-        setLogout(true);
-        setIsAdmin(true);
-      })
-      .catch((e) => {
-        setIsLoading(false);
-        toast.error(e.message);
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(credentials),
       });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "An error occurred");
+      sessionStorage.setItem("kmcianToken", data.token);
+      toast.success(data.message || "Login successful!", { id: id });
+      setIsAdmin(true);
+    } catch (e) {
+      toast.error(e.message, { id: id });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <>
-      {isLoading && <Loading></Loading>}
+      {/* {isLoading && <Loading></Loading>} */}
       <div className="login-container">
         <div className="login-header">
           <h3>Login</h3>
@@ -112,12 +93,14 @@ function Login() {
               onChange={handleInputChange}
             />
           </div>
+          {!isAdmin && (
+            <div className="login-button-container">
+              <button onClick={handleLoginButtonClick}>
+                {isLoading ? "Logging in..." : "Login"}
+              </button>
+            </div>
+          )}
 
-          <div className="login-button-container">
-            <button onClick={handleLoginButtonClick} hidden ={isAdmin}>
-              Login
-            </button>
-          </div>
           {isAdmin && (
             <div className="logout-button-container">
               <button onClick={doLogout}>Logout</button>

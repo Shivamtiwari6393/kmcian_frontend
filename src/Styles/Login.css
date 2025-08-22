@@ -70,15 +70,16 @@ label {
 }
 
 .login-fields .login-button-container button {
-  background-color: rgb(26, 26, 26);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  color: rgb(109, 143, 109);
+  cursor: pointer;
+  background-color: rgb(6, 153, 3);
+  color: rgb(255, 255, 255);
   width: 40%;
   max-width: 200px;
   padding: 10px;
   border-radius: 5px;
   margin: 15px 0px;
   font-weight: bold;
+  box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.399);
 
 }
 
@@ -89,8 +90,7 @@ label {
   width: 85%;
   max-width: 200px;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   border: none;
   margin: 10px 0px;
-  box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.399);
 }

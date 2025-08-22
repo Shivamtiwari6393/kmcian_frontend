@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import "../Styles/Announcement.css";
 import Loading from "./Loading";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRemove } from "@fortawesome/free-solid-svg-icons";
+import adminContext from "./adminContext";
 
 function Announcement() {
   // const url = "http://127.0.0.1:8000";
@@ -13,6 +14,7 @@ function Announcement() {
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(true);
   const [announcements, setAnnouncements] = useState([]);
+  const [admin, setIsAdmin] = useContext(adminContext);
 
   const [pageInfo, setPageInfo] = useState({
     currentPage: 0,
@@ -23,15 +25,8 @@ function Announcement() {
   useEffect(() => {
     setLoading(true);
     fetchAnnouncement();
-
-    setTimeout(() => {
-      const value = sessionStorage?.getItem("kmcianToken");
-      if (value) {
-        const element = document.getElementById("announcement-text");
-        if (element) element.style.display = "flex";
-      }
-    }, 0);
   }, []);
+
 
   // handle input  change
 
@@ -161,21 +156,23 @@ function Announcement() {
           </>
         )}
 
-        <div className="announcement-text-container" id="announcement-text">
-          <input
-            type="text"
-            name="announcementText"
-            placeholder="Annoncement"
-            onChange={handleInputChange}
-          />
-          <button
-            type="submit"
-            disabled={!announcementText}
-            onClick={handleAnnouncementSubmit}
-          >
-            Submit
-          </button>
-        </div>
+        {admin && (
+          <div className="announcement-text-container" id="announcement-text">
+            <input
+              type="text"
+              name="announcementText"
+              placeholder="Annoncement"
+              onChange={handleInputChange}
+            />
+            <button
+              type="submit"
+              disabled={!announcementText}
+              onClick={handleAnnouncementSubmit}
+            >
+              Submit
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
