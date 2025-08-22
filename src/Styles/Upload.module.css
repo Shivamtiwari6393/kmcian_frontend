@@ -133,11 +133,22 @@
   transform: scale(0.8);
 }
 
+#update-button {
+  margin: 20px;
+  font-weight: 700;
+  font-size: 0.8em;
+  padding: 10px 15px;
+  background-color: rgba(0, 128, 0, 0.77);
+  color: white;
+  border: none;
+  border-radius: 3px;
+}
+
 .delete-button-container {
   width: 100%;
   max-width: 200px;
   padding: 10px;
-  margin: 10px 0px 15px 0px;
+  margin: 5px 0px 15px 0px;
   background-color: rgb(24, 24, 24);
   border-radius: 5px;
   border: 1px solid rgba(255, 255, 255, 0.25);
