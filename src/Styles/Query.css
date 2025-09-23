@@ -20,8 +20,7 @@
 .discussion-container .reply-container {
   margin-top: 20px;
   padding: 10px;
-  background-color: rgb(0, 0, 0);
-  border-radius: 4px 10px 30px 10px;
+  background-color: rgb(35, 35, 35);
   overflow-y: scroll;
   transform-origin: top;
   animation: slidein 0.5s ease-in-out;
@@ -90,11 +89,10 @@
   position: relative;
   margin: 0px 0px;
   padding: 20px;
-  font-size: small;
+  font-size: x-small;
   /* background-color: rgb(89, 96, 100); */
   border-radius: 5px;
   word-wrap: break-word;
-  font-weight: bold;
 }
 
 .discussion-container .query-container {
