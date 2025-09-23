@@ -2,17 +2,33 @@
 import { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import "../Styles/Chat.css";
+import toast from "react-hot-toast";
 
 const Chat = () => {
+  const url = "https://kmcianbackend.vercel.app"
+  // const url = "http://127.0.0.1:8000";
+
   const [message, setMessage] = useState("");
-  const [chats, setChats] = useState([]);
+  const [chats, setChats] = useState([
+    { content: "xdcfvgbhnm,", sender: "drfghjnmk,l" },
+  ]);
 
   const socket = useRef(null);
 
-  useEffect(() => {
+  const loadId = useRef(null);
 
-    // const url = "http://127.0.0.1:8000"
-    const url = "https://kmcianbackend.vercel.app"
+  const handleSendMessage = () => {
+    if (message) {
+      if (socket.current) {
+        loadId.current = toast.loading("sending");
+        console.log("message send", message);
+        socket.current.emit("chatMessage", { content: message, sender: "st" });
+        setMessage("");
+      }
+    }
+  };
+
+  useEffect(() => {
     socket.current = io(url);
 
     socket.current.on("connect", () => {
@@ -26,9 +42,10 @@ const Chat = () => {
       console.log("Socket error:", err);
     });
 
-
     const handleChatMessage = (msg) => {
       console.log("Message received:", msg);
+      toast.success("message sent", { id: loadId.current });
+
       setChats((prevChats) => [...prevChats, msg]);
     };
 
@@ -40,17 +57,7 @@ const Chat = () => {
         socket.current.disconnect();
       }
     };
-  }, []);
-
-  const handleSendMessage = () => {
-    if (message) {
-      if (socket.current) {
-        console.log("message send", message);
-        socket.current.emit("chatMessage", { content: message, sender: "st" });
-        setMessage("");
-      }
-    }
-  };
+  }, [url]);
 
   return (
     <div className="chat-container">
@@ -69,7 +76,7 @@ const Chat = () => {
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Drop your Query"
         />
-       {/* <img src={go} alt="go" onClick={handleSendMessage} title="Send"/> */}
+        <button onClick={handleSendMessage}>Send</button>
       </div>
     </div>
   );
