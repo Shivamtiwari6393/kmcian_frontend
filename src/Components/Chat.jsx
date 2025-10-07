@@ -9,9 +9,7 @@ const Chat = () => {
   // const url = "http://127.0.0.1:8000";
 
   const [message, setMessage] = useState("");
-  const [chats, setChats] = useState([
-    { content: "xdcfvgbhnm,", sender: "drfghjnmk,l" },
-  ]);
+  const [chats, setChats] = useState();
 
   const socket = useRef(null);
 
@@ -62,7 +60,7 @@ const Chat = () => {
   return (
     <div className="chat-container">
       <div className="message-container">
-        {chats.map((chat, index) => (
+        {chats?.map((chat, index) => (
           <div className="chat-element" key={index}>
             <p key={index}>{chat.content}</p>
             <sub>{chat.sender}</sub>

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import "../Styles/Announcement.css";
 import Loading from "./Loading";
 import toast from "react-hot-toast";
@@ -16,10 +16,8 @@ function Announcement() {
   const [announcements, setAnnouncements] = useState([]);
   const [admin] = useContext(adminContext);
 
-  const [pageInfo, setPageInfo] = useState({
-    currentPage: 0,
-    totalPage: 1,
-  });
+  const pageInfoRef = useRef({ currentPage: 1, totalPage: 1 });
+
   const [announcementText, setAnnouncementText] = useState("");
 
   useEffect(() => {
@@ -50,7 +48,7 @@ function Announcement() {
       const data = await response.json();
 
       if (!response.ok) throw new Error(data.message);
-      setAnnouncements((prev) => ({ ...prev }));
+      setAnnouncements((prev) => [data.data, ...prev]);
       toast.success(data.message);
     } catch (error) {
       toast.error(error.message);
@@ -61,8 +59,13 @@ function Announcement() {
 
   // handle more/announcement button click
 
-  const handleClick = (e) => {
-    if (pageInfo.currentPage + 1 <= pageInfo.totalPage) fetchAnnouncement(e);
+  const handleMoreButtonClick = (e) => {
+    // if (pageInfo.currentPage + 1 <= pageInfo.totalPage) fetchAnnouncement(e);
+    pageInfoRef.current.currentPage += 1;
+    console.log(pageInfoRef.current.currentPage);
+
+    if (pageInfoRef.current.currentPage <= pageInfoRef.current.totalPage)
+      fetchAnnouncement(e);
     return;
   };
 
@@ -72,16 +75,15 @@ function Announcement() {
     setLoading(true);
     // const id = toast.loading("Fetching announcements...");
 
-    fetch(`${url}/api/announcement/${pageInfo.currentPage + 1}`)
+    fetch(`${url}/api/announcement/${pageInfoRef.current.currentPage}`)
       .then(async (res) => {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);
         setAnnouncements((prev) => [...prev, ...data.announcements]);
-        setPageInfo({
-          currentPage: data.currentPage,
-          totalPage: data.totalPage,
-        });
-        setLoading(false);
+
+        (pageInfoRef.current.currentPage = data.currentPage),
+          (pageInfoRef.current.totalPage = data.totalPage),
+          setLoading(false);
         // hide the more button if current page = total page
 
         if (data.currentPage == data.totalPage) e.target.hidden = true;
@@ -154,7 +156,7 @@ function Announcement() {
               ))}
             </div>
             <div className="button-container">
-              <button onClick={handleClick}>
+              <button onClick={handleMoreButtonClick}>
                 {announcements[0] ? "more..." : "Show Announcements"}
               </button>
             </div>

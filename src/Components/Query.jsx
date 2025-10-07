@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import "../Styles/Query.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import Loading from "./Loading";
 
@@ -13,6 +13,9 @@ export default function Query() {
   const url = "https://kmcianbackend.vercel.app";
 
   const [query, setQuery] = useState([]);
+
+  const pageInfoRef = useRef({ currentPage: 1, totalPage: 1 });
+
   const [pageInfo, setPageInfo] = useState({
     currentPage: 0,
     totalPage: 1,
@@ -34,7 +37,7 @@ export default function Query() {
     // setIsLoading(true);
     fetchQuery();
     // setIsLoading(false);
-  },[]);
+  }, []);
 
   // fetches updated 1st page
 
@@ -44,26 +47,24 @@ export default function Query() {
     fetchQuery();
   };
 
-
   // fetch updated reply
 
-
-  const fetchUpdatedReply = (queryId)=>{
-
-
-    fetchReply(queryId)
-
-
-
-  }
+  const fetchUpdatedReply = (queryId) => {
+    fetchReply(queryId);
+  };
 
   // ===============more button click========
 
   const handleMoreClick = (e) => {
-    console.log(pageInfo);
 
-    if (pageInfo.currentPage + 1 <= pageInfo.totalPage) fetchQuery(e);
+    if (pageInfoRef.current.currentPage + 1 <= pageInfoRef.current.totalPage) {
+      pageInfoRef.current.currentPage += 1;
+      fetchQuery(e);
+    }
     return;
+
+    // if (pageInfo.currentPage + 1 <= pageInfo.totalPage) fetchQuery(e);
+    // return;
   };
 
   // ===========query change=============
@@ -105,7 +106,7 @@ export default function Query() {
     // const loadId = toast.loading("Fetching queries...");
 
     setIsLoading(true);
-    fetch(`${url}/api/query/${pageInfo.currentPage + 1}`)
+    fetch(`${url}/api/query/${pageInfoRef.current.currentPage}`)
       .then(async (res) => {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || "An error occurred");
@@ -114,11 +115,17 @@ export default function Query() {
           currentPage: data.currentPage,
           totalPage: data.totalPage,
         });
-        setIsLoading(false);
+
+        (pageInfoRef.current.currentPage = data.currentPage),
+          (pageInfoRef.current.totalPage = data.totalPage),
+          setIsLoading(false);
 
         // hide the more button if current page = total page
+        
 
         if (data.currentPage == data.totalPage) e.target.hidden = true;
+        console.log(data.currentPage, data.totalPage);
+
         // toast.success("Completed", { id: loadId });
         setIsLoading(false);
         return;
@@ -146,9 +153,7 @@ export default function Query() {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || "An error occurred");
         // setIsLoading(false);
-
-        // fetching the updated page after successfull post of query
-            fetchUpdatedPage()
+        setQuery((prev) => [data.data, ...prev]);
         toast.success(data.message, { id: loadId });
       })
       .catch((error) => {
@@ -198,7 +203,7 @@ export default function Query() {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);
         // setIsLoading(false);
-        fetchUpdatedReply(queryId)
+        fetchUpdatedReply(queryId);
         toast.success(data.message, { id: loadId });
       })
       .catch((error) => {
@@ -234,7 +239,7 @@ export default function Query() {
       .then(async (response) => {
         const data = await response.json();
         if (!response.ok) throw new Error(data.message);
-        fetchUpdatedPage()
+        fetchUpdatedPage();
         return toast.success(data.message || "Query deleted successfully", {
           id: loadId,
         });
@@ -254,7 +259,7 @@ export default function Query() {
     <>
       {isLoading && <Loading></Loading>}
 
-      {query[0] && (
+      {(
         <div className="discussion-container">
           {query &&
             query.map((data) => (
