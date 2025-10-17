@@ -52,8 +52,9 @@
 }
 
 .reply-container .reply-input-container textarea {
+  font-size: small;
   margin: 20px 5px;
-  padding: 10px 5px;
+  padding: 5px 4px;
   height: max-content;
   border-radius: 4px;
   width: 80%;
@@ -70,6 +71,7 @@
   border: none;
   border-radius: 3px;
   margin-left: 10px;
+  font-size: x-small;
 }
 
 .reply-container .time-stamp {
@@ -88,11 +90,12 @@
   color: rgb(255, 255, 255);
   position: relative;
   margin: 0px 0px;
-  padding: 20px;
+  padding: 10px;
   font-size: x-small;
-  /* background-color: rgb(89, 96, 100); */
+  background-color: rgb(122, 39, 167);
   border-radius: 5px;
   word-wrap: break-word;
+  width: fit-content;
 }
 
 .discussion-container .query-container {
