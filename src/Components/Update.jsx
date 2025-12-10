@@ -14,7 +14,7 @@ export default function Upload() {
   const  [yearOptions,semesterOptions,socialSciencesOptins, artHumnanitiesOptions, pharmacyBranchOptions, scienceBranchOptions, legalStudiesBranchOptions,commerceBranchOptions, engineeringBranchOptions, courseOptions ] = data
 
   // const url = "http://127.0.0.1:8000/api/paper";
-  const url = "https://kmcianbackend.vercel.app/api/paper";
+  const url = "https://kmcianbackend.vercel.app";
 
   const location = useLocation();
   const {
@@ -73,6 +73,39 @@ export default function Upload() {
     setError("");
     setUpdateData((prev) => ({ ...prev, [name]: value }));
   };
+
+
+
+
+// -----------------------announcement submit----------------------------
+  
+    const handleAnnouncementSubmit = async (e,announcementText = `Paper - ${updateData.paper} | Branch - ${updateData.branch} | Semester - ${updateData.semester} | Year - ${updateData.year} ${updateData.semester} | has been uploaded by ${updateData.name}`) => {
+      // setLoading(true);
+       const loadId = toast.loading("Announcement upload in progress...");
+  
+      try {
+        console.log("annougfvujdycgskducgsdkldcih", announcementText);
+        
+        const response = await fetch(`${url}/api/announcement`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
+          },
+          body: announcementText,
+        });
+  
+        const data = await response.json();
+  
+        if (!response.ok) throw new Error(data.message);
+        // setAnnouncements((prev) => [data.data, ...prev]);
+        toast.success(data.message, {id : loadId});
+      } catch (error) {
+        toast.error(error.message, {id: loadId});
+      } finally {
+        // setLoading(false);
+      }
+    };
+  
 
   //---------------------- Update Paper-----------------------------
 
@@ -177,7 +210,7 @@ export default function Upload() {
     console.log("iddddd", _id);
     
     const loadId = toast.loading("Paper update in progress...");
-    fetch(`${url}/update/${_id}`, {
+    fetch(`${url}/api/paper/update/${_id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
@@ -206,7 +239,7 @@ export default function Upload() {
     if (!del) return;
     setIsLoading(true);
     const loadId = toast.loading("Deletion in progress...");
-    fetch(`${url}/delete/${course}/${_id}`, {
+    fetch(`${url}/api/paper/delete/${course}/${_id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
@@ -366,6 +399,15 @@ export default function Upload() {
             style={{ color: "red" }}
             onClick={handleDelete}
           ></FontAwesomeIcon>
+        </div>
+
+        <div className={uploadcss["announcement-container"]}>
+          <input type="text" value={`Paper - ${updateData.paper} | Branch - ${updateData.branch} | Semester - ${updateData.semester} | Year - ${updateData.year} | has been uploaded by ${updateData.name}`}/>
+
+          <div className={uploadcss["announcement-button-container"]}>
+            <button onClick={handleAnnouncementSubmit}>Do Announcement</button>
+          </div>
+
         </div>
       </div>
     </>

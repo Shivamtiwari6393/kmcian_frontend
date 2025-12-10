@@ -1,0 +1,43 @@
+.upload-video-component {
+  color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.upload-video-component h2 {
+  text-align: center;
+  border-bottom: 1px solid grey;
+  padding-bottom: 10px;
+  padding-top: 15px;
+}
+
+.upload-video-component form {
+  border: 1px solid grey;
+  border-radius: 5px;
+  /* margin: 10px; */
+  /* padding: 20px; */
+}
+
+.upload-video-component form input {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.upload-video-component form div {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.upload-video-component .submit-button-container {
+  text-align: center;
+}
+
+.upload-video-component .submit-button-container button {
+  padding: 3px 5px;
+  border-radius: 3px;
+  border: none;
+  font-weight: bold;
+}

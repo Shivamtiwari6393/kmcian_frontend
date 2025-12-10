@@ -145,15 +145,27 @@
 }
 
 .delete-button-container {
-  width: 100%;
+  /* width: 100%; */
   max-width: 200px;
-  padding: 10px;
+  padding: 10px 15px;
   margin: 5px 0px 15px 0px;
   background-color: rgb(24, 24, 24);
   border-radius: 5px;
   border: 1px solid rgba(255, 255, 255, 0.25);
   display: flex;
   justify-content: center;
+}
+
+.announcement-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.announcement-container .announcement-button-container button {
+  font-weight: bold;
+  padding: 10px 15px;
 }
 
 @media screen and (max-width: 450px) {
