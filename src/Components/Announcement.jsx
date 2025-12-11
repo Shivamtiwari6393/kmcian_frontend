@@ -143,6 +143,7 @@ function Announcement() {
                       </span>
                     </div>
                     <button
+                    hidden = {!admin}
                       onClick={() => {
                         handleDeleteAnnouncement(Announcement._id);
                       }}
