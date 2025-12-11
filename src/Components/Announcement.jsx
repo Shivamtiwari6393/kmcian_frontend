@@ -142,16 +142,17 @@ function Announcement() {
                         {new Date(Announcement.createdAt).toLocaleString()}
                       </span>
                     </div>
-                    <button
-                    hidden = {!admin}
-                      onClick={() => {
-                        handleDeleteAnnouncement(Announcement._id);
-                      }}
-                      data-value={`{"id": ${Announcement._id}}`}
-                      className="announcement-delete-button"
-                    >
-                      <FontAwesomeIcon icon={faRemove}></FontAwesomeIcon>
-                    </button>
+                    { admin &&
+                      <button
+                        onClick={() => {
+                          handleDeleteAnnouncement(Announcement._id);
+                        }}
+                        data-value={`{"id": ${Announcement._id}}`}
+                        className="announcement-delete-button"
+                      >
+                        <FontAwesomeIcon icon={faRemove}></FontAwesomeIcon>
+                      </button>
+                    }
                   </div>
                 </>
               ))}
