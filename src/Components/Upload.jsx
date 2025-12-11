@@ -146,7 +146,7 @@ export default function Upload() {
       });
 
       if (response.status === 201) {
-        toast.success(response.data.message, { id: loadId });
+        toast.success(response.data.message, { id: loadId});
         setProgress(0);
       } else {
         toast.error(response.data.message || "Upload failed", { id: loadId });

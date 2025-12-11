@@ -9,8 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReply, faRemove } from "@fortawesome/free-solid-svg-icons";
 
 export default function Query() {
-  const url = "http://127.0.0.1:8000";
-  // const url = "https://kmcianbackend.vercel.app";
+  // const url = "http://127.0.0.1:8000";
+  const url = "https://kmcianbackend.vercel.app";
 
   const [query, setQuery] = useState([]);
 
