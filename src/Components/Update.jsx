@@ -79,7 +79,7 @@ export default function Upload() {
 
 // -----------------------announcement submit----------------------------
   
-    const handleAnnouncementSubmit = async (e,announcementText = `Paper - ${updateData.paper} | Branch - ${updateData.branch} | Semester - ${updateData.semester} | Year - ${updateData.year} ${updateData.semester} | has been uploaded by ${updateData.name}`) => {
+    const handleAnnouncementSubmit = async (e,announcementText = `Paper - ${updateData.paper} | Branch - ${updateData.branch} | Semester - ${updateData.semester} | Year - ${updateData.year} | has been uploaded by ${updateData.name}`) => {
       // setLoading(true);
        const loadId = toast.loading("Announcement upload in progress...");
   
