@@ -207,7 +207,6 @@ export default function Upload() {
     //==================================== update ===================================
 
     setIsLoading(true);
-    console.log("iddddd", _id);
     
     const loadId = toast.loading("Paper update in progress...");
     fetch(`${url}/api/paper/update/${_id}`, {

@@ -127,7 +127,7 @@ export default function Upload() {
 
     //------------- POST DATA---------------
 
-    const loadId = toast.loading("Paper upload in progress...");
+    const loadId = toast.loading("Uploading... 1%");
     try {
       setIsUploading(true);
       const response = await axios.post(`${url}/post`, formData, {
@@ -139,6 +139,7 @@ export default function Upload() {
             const percentage = Math.round(
               (progressEvent.loaded / progressEvent.total) * 100
             );
+            toast.loading(`Uploading... ${percentage}%`, { id: loadId });
             setProgress(percentage);
           }
         },
