@@ -38,19 +38,25 @@ export default function Upload() {
 
   //------------- state for pdf file to be uploaded------------
   const [file, setFile] = useState(null);
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [error, setError] = useState("");
-
+  const [isUploading, setIsUploading] = useState(false);
   const [fileName, setFileName] = useState("No file chosen");
   const [openSelect, setOpenSelect] = useState(null);
 
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(1);
+
+  const branchMap = {
+    Engineering: engineeringBranchOptions,
+    Commerce: commerceBranchOptions,
+    "Legal Studies": legalStudiesBranchOptions,
+    Science: scienceBranchOptions,
+    Pharmacy: pharmacyBranchOptions,
+    "Art and Humanities": artHumnanitiesOptions,
+    "Social Science": socialSciencesOptions,
+  };
 
   const handleSelectClick = (event, selectName) => {
     event.stopPropagation();
-    setOpenSelect((prev) => (prev === selectName ? null : selectName)); // Toggle open state
+    setOpenSelect((prev) => (prev === selectName ? null : selectName));
   };
   // -----------handle file change-------------
 
@@ -67,80 +73,46 @@ export default function Upload() {
   //------------- handle data change-----------
 
   const handleDataChange = (name, value) => {
-    setError("");
-    // if (name === "course") setUploadData((prev)=> ({...prev, ["branch"] : ""}))
     setUploadData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleInputChange = (e) => {
-    setError("");
     setUploadData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const branchOptions = branchMap[uploadData.course] || [];
+
+  const validateFields = () => {
+    if (!uploadData.course) return "Please select a Faculty";
+    if (!uploadData.branch) return "Please select a Branch";
+    if (!uploadData.semester) return "Please select a Semester";
+    if (!uploadData.year) return "Please select a Year";
+    if (!uploadData.paper) return "Please enter a paper name";
+    if (uploadData.paper.length > 50 || uploadData.name.length > 25)
+      return "Name length limit exceeded";
+    if (!file) return "Please select a file";
+    if (file && file.type !== "application/pdf")
+      return "Please upload a PDF only";
+    if (file && file.size > 4 * 1024 * 1024)
+      return "File size must be under 4MB";
+    return null;
+  };
+
   const upload = async () => {
-    setError("");
-
-    // validating input fields
-
-    if (uploadData.course == 0) {
-      setError("Please select a Faculty");
-      return;
-    }
-
-    if (uploadData.branch == 0) {
-      setError("Please select a Branch");
-      return;
-    }
-
-    if (uploadData.semester == 0) {
-      setError("Please select a Semester");
-      return;
-    }
-
-    if (uploadData.year == 0) {
-      setError("Please select a Year");
-      return;
-    }
-
-    if (uploadData.paper == "") {
-      setError("Please enter a paper name");
-      return;
-    }
-
-    if (uploadData.paper.length > 50 || uploadData.name > 25) {
-      setError("Name length limit exceeded");
-      return;
-    }
-
-    if (!file) {
-      setError("Please select a file");
-      return;
-    }
-
-    const map = {
-      Engineering: engineeringBranchOptions,
-      Commerce: commerceBranchOptions,
-      "Legal Studies": legalStudiesBranchOptions,
-      Science: scienceBranchOptions,
-      Pharmacy: pharmacyBranchOptions,
-      "Art and Humanities": artHumnanitiesOptions,
-      "Social Science": socialSciencesOptions,
-    };
+    const err = validateFields();
+    if (err) return toast.error(err);
 
     // verify branch in selected faculty branch options
 
-    const exists = map[uploadData.course].some(
+    const exists = branchMap[uploadData.course].some(
       (option) => option.value === uploadData.branch
     );
 
     // if branch not matches
     if (!exists) {
-      setError("Please reselect the branch");
+      toast.error("Please reselect the branch");
       return;
     }
-    //----------- API---------------
-
-    console.log("inside upload");
 
     //------------------- form data-------------
 
@@ -157,6 +129,7 @@ export default function Upload() {
 
     const loadId = toast.loading("Paper upload in progress...");
     try {
+      setIsUploading(true);
       const response = await axios.post(`${url}/post`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -167,10 +140,8 @@ export default function Upload() {
               (progressEvent.loaded / progressEvent.total) * 100
             );
             setProgress(percentage);
-            console.log(`Progress: ${percentage}%`);
           }
         },
-        timeout: 10000, // Optional: 10 sec timeout
       });
 
       if (response.status === 201) {
@@ -190,51 +161,14 @@ export default function Upload() {
         toast.error("Network error occurred.", { id: loadId });
       }
     } finally {
-      setIsLoading(false);
+      setIsUploading(false);
     }
   };
-
-  let branchOptions = [];
-
-  uploadData.course === "Engineering"
-    ? (branchOptions = engineeringBranchOptions)
-    : "";
-  uploadData.course === "Commerce"
-    ? (branchOptions = commerceBranchOptions)
-    : "";
-  uploadData.course === "Legal Studies"
-    ? (branchOptions = legalStudiesBranchOptions)
-    : "";
-  uploadData.course === "Science" ? (branchOptions = scienceBranchOptions) : "";
-  uploadData.course === "Pharmacy"
-    ? (branchOptions = pharmacyBranchOptions)
-    : "";
-
-  uploadData.course === "Social Science"
-    ? (branchOptions = socialSciencesOptions)
-    : "";
-
-  uploadData.course === "Art and Humanities"
-    ? (branchOptions = artHumnanitiesOptions)
-    : "";
-
-  // for auto hide the notice
-  useEffect(() => {
-    if (error) {
-      const timeout = setTimeout(() => {
-        setError("");
-      }, 5000);
-      return () => clearTimeout(timeout);
-    }
-  }, [error]);
 
   // ------------------------------------------------------------
 
   return (
     <>
-      {error && <Notice m={error} />}
-      {isLoading && <Loading progress={progress}></Loading>}
-
       <div
         className={uploadcss["upload-container"]}
         onClick={() => setOpenSelect(null)}
@@ -243,12 +177,6 @@ export default function Upload() {
           <div className={uploadcss["upload-container-header"]}>
             <h3>Upload PYQs</h3>
           </div>
-          {/* {error && (
-            <div className="error-container">
-              <p>{error}</p>{" "}
-            </div>
-          )} */}
-
           <CustomSelect
             options={courseOptions}
             isOpen={openSelect === "course"}
@@ -262,7 +190,7 @@ export default function Upload() {
             onClick={(event) => handleSelectClick(event, "branch")}
             onChange={(value) => handleDataChange("branch", value)}
             placeholder="Branch"
-            inculudeAll = {true}
+            inculudeAll={true}
           />
           <CustomSelect
             options={semesterOptions}
@@ -270,8 +198,7 @@ export default function Upload() {
             onClick={(event) => handleSelectClick(event, "semester")}
             onChange={(value) => handleDataChange("semester", value)}
             placeholder="Semester"
-            inculudeAll = {true}
-
+            inculudeAll={true}
           />
           <CustomSelect
             options={yearOptions}
@@ -279,7 +206,7 @@ export default function Upload() {
             onClick={(event) => handleSelectClick(event, "year")}
             onChange={(value) => handleDataChange("year", value)}
             placeholder="Year"
-            inculudeAll = {true}
+            inculudeAll={true}
           />
 
           <div className={uploadcss["name"]}>
@@ -310,8 +237,13 @@ export default function Upload() {
             />
           </div>
 
-          <div className={uploadcss["upload-button-container"]}>
-            <button onClick={upload}>Upload</button>
+          <div
+            className={uploadcss["upload-button-container"]}
+            onClick={upload}
+          >
+            <button disabled={isUploading}>
+              {isUploading ? `${progress}%` : "Upload"}
+            </button>
           </div>
         </div>
       </div>
