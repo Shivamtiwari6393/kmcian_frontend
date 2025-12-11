@@ -1,0 +1,35 @@
+.round-motion-container {
+  position: absolute;
+  z-index: 7;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.067);
+}
+
+.round-motion {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  border-top-color:  #3D5AFE;
+  transform-origin: 50% 50%;
+  animation: round 0.6s linear infinite;
+}
+
+@keyframes round {
+  from {
+    transform: translate(-50%, -40%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -40%) rotate(360deg);
+  }
+}

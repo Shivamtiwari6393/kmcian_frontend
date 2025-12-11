@@ -3,11 +3,11 @@ import "./App.css";
 import "./Components/Header";
 import Header from "./Components/Header";
 import { Outlet } from "react-router-dom";
-import Loading from "./Components/Loading";
 import Footer from "./Components/Footer";
 import { Toaster } from "react-hot-toast";
 
 import adminContext from "./Components/adminContext";
+import RoundMotion from "./Components/RoundMotion";
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -26,7 +26,7 @@ function App() {
       <div className="app">
         <Toaster />
         <Header />
-        <Suspense fallback={<Loading></Loading>}>
+        <Suspense fallback={<RoundMotion></RoundMotion>}>
           <Outlet></Outlet>
         </Suspense>
         <Footer></Footer>
