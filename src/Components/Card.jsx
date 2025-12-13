@@ -91,7 +91,7 @@ const  [yearOptions,semesterOptions,socialSciencesOptions, artHumnanitiesOptions
 
     // Fetch request
     // setIsLoading(true);
-    const loadId = toast.loading("fetching details");
+    const loadId = toast.loading("Searching... 🔎");
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -104,7 +104,7 @@ const  [yearOptions,semesterOptions,socialSciencesOptions, artHumnanitiesOptions
       const data = await response.json();
       if (!response.ok) throw new Error(data.message);
       // setIsLoading(false);
-      toast.success("fetching completed", { id: loadId });
+      toast.success("Search completed", { id: loadId });
       // setReqPapers(data);
       navigate("/papers", { state: data });
     } catch (error) {
