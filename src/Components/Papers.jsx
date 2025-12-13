@@ -111,8 +111,8 @@ export default function Papers() {
   const descriptionOptions = [
     "It's not a PYQ.",
     "Wrong paper name.",
-    "Wrong semester or year.",
     "Wrong faculty.",
+    "Wrong semester or year.",
   ];
 
   const handleDescriptionOptionClick = (e, index) => {
@@ -123,7 +123,7 @@ export default function Papers() {
   const handleSubmitFlagReason = async (e, element) => {
     e.stopPropagation();
 
-    if (clicked === null) return 
+    if (clicked === null) return;
 
     const resposeId = toast.loading("Submitting response...");
 
@@ -191,9 +191,11 @@ export default function Papers() {
                                 ? "rgb(54, 170, 220)"
                                 : "rgb(255, 255, 255)",
                           }}
-                          onClick={(e) => handleDescriptionOptionClick(e, index)}
+                          onClick={(e) =>
+                            handleDescriptionOptionClick(e, index)
+                          }
                         >
-                        {index+1}.{data}
+                          {index + 1}.{data}
                         </p>
                         <hr />
                       </div>
