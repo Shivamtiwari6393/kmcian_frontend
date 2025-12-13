@@ -3,7 +3,7 @@
 import "../Styles/Query.css";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import Loading from "./Loading";
+import RoundMotion from "./RoundMotion";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReply, faRemove } from "@fortawesome/free-solid-svg-icons";
@@ -56,7 +56,6 @@ export default function Query() {
   // ===============more button click========
 
   const handleMoreClick = (e) => {
-
     if (pageInfoRef.current.currentPage + 1 <= pageInfoRef.current.totalPage) {
       pageInfoRef.current.currentPage += 1;
       fetchQuery(e);
@@ -121,7 +120,6 @@ export default function Query() {
           setIsLoading(false);
 
         // hide the more button if current page = total page
-        
 
         if (data.currentPage == data.totalPage) e.target.hidden = true;
         console.log(data.currentPage, data.totalPage);
@@ -257,9 +255,9 @@ export default function Query() {
 
   return (
     <>
-      {isLoading && <Loading></Loading>}
+      {isLoading && <RoundMotion></RoundMotion>}
 
-      {(
+      {
         <div className="discussion-container">
           {query &&
             query.map((data) => (
@@ -349,27 +347,31 @@ export default function Query() {
               </>
             ))}
 
-          <div className="button-container">
-            <button onClick={handleMoreClick} id="more-button">
-              {query[0] ? "more..." : "Show queries"}
-            </button>
-          </div>
+          {!isLoading && (
+            <>
+              <div className="button-container">
+                <button onClick={handleMoreClick} id="more-button">
+                  {query[0] ? "more..." : "Show queries"}
+                </button>
+              </div>
 
-          <div className="input-container">
-            <textarea
-              placeholder="Query"
-              value={userQuery}
-              onChange={handleUserQueryChange}
-            ></textarea>
-            <button
-              onClick={handleSubmitQueryButtonClick}
-              disabled={!userQuery}
-            >
-              Submit
-            </button>
-          </div>
+              <div className="input-container">
+                <textarea
+                  placeholder="Query"
+                  value={userQuery}
+                  onChange={handleUserQueryChange}
+                ></textarea>
+                <button
+                  onClick={handleSubmitQueryButtonClick}
+                  disabled={!userQuery}
+                >
+                  Submit
+                </button>
+              </div>
+            </>
+          )}
         </div>
-      )}
+      }
     </>
   );
 }
