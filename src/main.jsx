@@ -19,6 +19,7 @@ const About = lazy(() => import("./Components/About.jsx"));
 const route = createBrowserRouter([
   {
     path: "/",
+    errorElement : <Card/>,
     element: <App></App>,
     children: [
       {

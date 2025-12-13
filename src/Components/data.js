@@ -13,6 +13,7 @@ const courseOptions = [
 
 const engineeringBranchOptions = [
   { value: "All", label: "All" },
+  { value: "AUTOMATION AND ROBOTIC ENGINEERING", label: "AUTOMATION AND ROBOTIC ENGINEERING" },
   { value: "CSE(AI&ML)", label: "CSE(AI&ML)" },
   { value: "CSE(AI&DS)", label: "CSE(AI&DS)" },
   { value: "CSE", label: "CSE" },
