@@ -5,19 +5,25 @@ import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import CustomSelect from "./CustomSelect";
 import "../Styles/CustomSelect.css";
-
 import toast from "react-hot-toast";
 import adminContext from "./adminContext";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-
-
-import data from "./data.js"
-import RoundMotion from "./RoundMotion.jsx";
+import data from "./data.js";
 
 export default function Card() {
-const  [yearOptions,semesterOptions,socialSciencesOptions, artHumnanitiesOptions, pharmacyBranchOptions, scienceBranchOptions, legalStudiesBranchOptions,commerceBranchOptions, engineeringBranchOptions, courseOptions ] = data
+  const [
+    yearOptions,
+    semesterOptions,
+    socialSciencesOptions,
+    artHumnanitiesOptions,
+    pharmacyBranchOptions,
+    scienceBranchOptions,
+    legalStudiesBranchOptions,
+    commerceBranchOptions,
+    engineeringBranchOptions,
+    courseOptions,
+  ] = data;
 
   // const url = "http://127.0.0.1:8000/api/paper";
   const url = "https://kmcianbackend.vercel.app/api/paper";
@@ -39,7 +45,7 @@ const  [yearOptions,semesterOptions,socialSciencesOptions, artHumnanitiesOptions
   // const [reqPapers, setReqPapers] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
 
   const handleSelectClick = (selectName, e) => {
     e.stopPropagation();
@@ -49,7 +55,7 @@ const  [yearOptions,semesterOptions,socialSciencesOptions, artHumnanitiesOptions
   //------------ Handle data change-------------------------
 
   const handleChange = (name, value) => {
-    setError("");
+    // setError("");
     setPaperData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -59,7 +65,7 @@ const  [yearOptions,semesterOptions,socialSciencesOptions, artHumnanitiesOptions
   // when admin changes downloadable state
 
   const handleAdminChange = (e) => {
-    setError("");
+    // setError("");
     setPaperData((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
@@ -68,29 +74,21 @@ const  [yearOptions,semesterOptions,socialSciencesOptions, artHumnanitiesOptions
 
   // ---------------paper data fetch request----------------------
 
+  const validate = () => {
+    if (!paperData.course) return "Please select a Faculty";
+    if (!paperData.branch) return "Please select a Branch";
+    if (!paperData.semester) return "Please select a Semester";
+    if (!paperData.year) return "Please select a Year";
+  };
+
   const request = async () => {
     // Validating the fields
-
-    if (paperData.course == 0) {
-      setError("Please select a Faculty");
-      return;
-    }
-    if (paperData.branch == 0) {
-      setError("Please select a Branch");
-      return;
-    }
-    if (paperData.semester == 0) {
-      setError("Please select a Semester");
-      return;
-    }
-    if (paperData.year == 0) {
-      setError("Please select a Year");
-      return;
-    }
-    setError("");
+    const err = validate();
+    if (err) return toast.error(err);
+    // setError("");
 
     // Fetch request
-    // setIsLoading(true);
+    setIsLoading(true);
     const loadId = toast.loading("Searching... 🔎");
     try {
       const response = await fetch(url, {
@@ -103,12 +101,12 @@ const  [yearOptions,semesterOptions,socialSciencesOptions, artHumnanitiesOptions
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.message);
-      // setIsLoading(false);
+      setIsLoading(false);
       toast.success("Search completed", { id: loadId });
       // setReqPapers(data);
       navigate("/papers", { state: data });
     } catch (error) {
-      // setIsLoading(false);
+      setIsLoading(false);
       toast.error(error.message, { id: loadId });
     }
   };
@@ -137,17 +135,17 @@ const  [yearOptions,semesterOptions,socialSciencesOptions, artHumnanitiesOptions
     : "";
   return (
     <>
-      {isLoading && <Loading></Loading>}
+      {/* {isLoading && <Loading></Loading>} */}
       <div className="card-container" onClick={(e) => setOpenSelect(null)}>
         <div className="card-fields">
           <div className="card-header">
             <h3>Search PYQs</h3>
           </div>
-          {error && (
+          {/* {error && (
             <div className="error-container">
               <p>{error}</p>
             </div>
-          )}
+          )} */}
 
           <CustomSelect
             options={courseOptions}
@@ -194,13 +192,13 @@ const  [yearOptions,semesterOptions,socialSciencesOptions, artHumnanitiesOptions
             </select>
           )}
 
-          <div id="search-button-container">
+          <button disabled={isLoading} className="search-button-container">
             <FontAwesomeIcon
               icon={faSearch}
               style={{ color: "#ffffff", scale: "1.9" }}
               onClick={request}
             />
-          </div>
+          </button>
         </div>
       </div>
     </>

@@ -45,17 +45,35 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-.card-container #search-button-container {
+.card-container .hide-search-button-container {
+  background-color: transparent;
+  width: 0px;
+  box-shadow: none;
   margin-top: 40px;
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin: 40px auto;
+
+  
 }
 
-#search-button-container:active {
+.card-container .search-button-container {
+  background-color: transparent;
+  width: 0px;
+  box-shadow: none;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px auto;
 
+}
+
+.search-button-container:active {
   transform: scale(0.8);
-
 }
 
 #downloadable-select {
