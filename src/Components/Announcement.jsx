@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRemove } from "@fortawesome/free-solid-svg-icons";
 import adminContext from "./adminContext";
+import RoundMotion from "./RoundMotion";
 
 function Announcement() {
   // const url = "http://127.0.0.1:8000";
@@ -128,7 +129,7 @@ function Announcement() {
           show ? "announcement-container-in" : "announcement-container"
         }
       >
-        {loading && <Loading></Loading>}
+        {loading && <RoundMotion></RoundMotion>}
         {announcements[0] && (
           <>
             {" "}
@@ -142,7 +143,7 @@ function Announcement() {
                         {new Date(Announcement.createdAt).toLocaleString()}
                       </span>
                     </div>
-                    { admin &&
+                    {admin && (
                       <button
                         onClick={() => {
                           handleDeleteAnnouncement(Announcement._id);
@@ -152,16 +153,18 @@ function Announcement() {
                       >
                         <FontAwesomeIcon icon={faRemove}></FontAwesomeIcon>
                       </button>
-                    }
+                    )}
                   </div>
                 </>
               ))}
             </div>
-            <div className="button-container">
-              <button onClick={handleMoreButtonClick}>
-                {announcements[0] ? "more..." : "Show Announcements"}
-              </button>
-            </div>
+            {!loading && (
+              <div className="button-container">
+                <button onClick={handleMoreButtonClick}>
+                  {announcements[0] ? "more..." : "Show Announcements"}
+                </button>
+              </div>
+            )}
           </>
         )}
 

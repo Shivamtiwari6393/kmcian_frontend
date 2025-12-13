@@ -184,7 +184,7 @@ export default function Query() {
   //========================== post reply =================
 
   const postReply = (queryId) => {
-    const loadId = toast.loading("posting reply...");
+    const loadId = toast.loading("Posting reply...");
 
     // setIsLoading(true);
     fetch(`${url}/api/reply`, {
