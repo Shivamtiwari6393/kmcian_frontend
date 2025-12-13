@@ -181,7 +181,7 @@ export default function Upload() {
 
       const loadId = toast.loading("Paper upload in progress...");
 
-      fetch(`${url}/post`, {
+      fetch(`${url}/api/paper/post`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
