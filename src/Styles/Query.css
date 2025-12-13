@@ -79,9 +79,9 @@
   font-style: italic;
   margin-top: 10px;
   font-size: xx-small;
-  margin-left: 5px;
+  /* margin-left: 5px; */
   width: fit-content;
-  padding: 5px;
+  padding: 5px 0px;
   border-radius: 7px 7px 0px 0px;
 }
 
@@ -92,10 +92,11 @@
   margin: 0px 0px;
   padding: 10px;
   font-size: x-small;
-  background-color: rgb(122, 39, 167);
+  background-color: rgb(86, 50, 136);
   border-radius: 5px;
   word-wrap: break-word;
   width: fit-content;
+  border: none
 }
 
 .discussion-container .query-container {
