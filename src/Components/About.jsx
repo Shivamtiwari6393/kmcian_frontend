@@ -44,7 +44,7 @@ function About() {
       <div className="welcome-container">
         <h3>Welcome, KMCLU Students</h3>
         <p>
-          We are excited to introduce Kmcian, student portal designed
+          Student portal designed
           exclusively for KMCLU! This platform has been thoughtfully crafted to
           make your academic journey smoother, providing you with essential
           resources and interactive features to help you stay connected and
