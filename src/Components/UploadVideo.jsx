@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
-// import { useState } from "react";
 import toast from "react-hot-toast";
 import "../Styles/UploadVideo.css";
 import { useRef, useState } from "react";
 import axios from "axios";
+import { useContext } from "react";
+import adminContext from "./adminContext";
 
 function UploadVideo() {
   // const [Signedurl, setSignedUrl] = useState(null);
   const fileRef = useRef(null);
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(1);
+  const [isAdmin, setIsAdmin] = useContext(adminContext);
 
   // const url = "http://127.0.0.1:8000";
   // const url = "http://172.21.185.27:8000";
@@ -44,7 +46,7 @@ function UploadVideo() {
 
     const { signature, timestamp, cloudName, apiKey, folder } = signedUrl.data;
 
-    console.log(signedUrl, "inside upload vids");
+    // console.log(signedUrl, "inside upload vids");
 
     const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`;
     const formData = new FormData();
@@ -83,14 +85,14 @@ function UploadVideo() {
             duration: uploadRes.data.duration,
           });
 
-          if (data.status == 201) return   toast.success(data.message, { id: loadId });
+          if (data.status == 201)
+            return toast.success(data.message, { id: loadId });
           else return toast.error("error in uploading metadata", data.message);
         } catch (error) {
           console.log(error);
-         toast.error(error.message, { id: loadId });
+          toast.error(error.message, { id: loadId });
         }
 
-      
         setProgress(0);
       } else {
         toast.error(uploadRes.message || "Upload failed", { id: loadId });
@@ -112,29 +114,27 @@ function UploadVideo() {
 
   return (
     <div className="upload-video-component">
-      <div className="form">
-        <form onSubmit={upload}>
-          <h2>UploadVideo</h2>
+      {isAdmin && (
+        <div className="form">
+          <form onSubmit={upload}>
+            <h2>UploadVideo</h2>
 
-          <div className="title-container">
-            <label htmlFor="title">Title : </label>
-            <input type="text" name="title" id="title" />
-          </div>
+            <div className="title-container">
+              <label htmlFor="title">Title : </label>
+              <input type="text" name="title" id="title" />
+            </div>
 
-          <div className="upload-input-container">
-            <label htmlFor="video">File : </label>
-            <input type="file" name="video" id="video" ref={fileRef} />
-          </div>
+            <div className="upload-input-container">
+              <label htmlFor="video">File : </label>
+              <input type="file" name="video" id="video" ref={fileRef} />
+            </div>
 
-          <div className="submit-button-container">
-            <button type="submit">Submit</button>
-          </div>
-        </form>
-        {/* 
-        <div className="activate-button-container">
-          <button onClick={getSignedUrl}>Activate</button>
-        </div> */}
-      </div>
+            <div className="submit-button-container">
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 }

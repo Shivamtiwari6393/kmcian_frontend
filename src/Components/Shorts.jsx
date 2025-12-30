@@ -3,7 +3,14 @@ import { useContext, useEffect, useRef, useState } from "react";
 import "../Styles/short.css";
 import adminContext from "./adminContext";
 import RoundMotion from "./RoundMotion";
-
+import toast from "react-hot-toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCross,
+  faDeleteLeft,
+  faRemove,
+  faWifiStrong,
+} from "@fortawesome/free-solid-svg-icons";
 export default function ShortsFeed() {
   const [shorts, setShorts] = useState([]);
   const [cursor, setCursor] = useState(null);
@@ -15,7 +22,7 @@ export default function ShortsFeed() {
   const videoRefs = useRef({});
   const observerRef = useRef(null);
 
-  // const BASE_URL = "http://172.21.185.27:8000";
+  // const BASE_URL = "http://127.0.0.1:8000";
   const BASE_URL = "https://kmcianbackend.vercel.app";
 
   const fetchShorts = async () => {
@@ -71,7 +78,9 @@ export default function ShortsFeed() {
       if (!video) return;
 
       if (id === activeId) {
-        video.play().catch(() => {});
+        video.play().catch((err) => {
+          "err in playing video", console.log(err);
+        });
       } else {
         video.pause();
         video.currentTime = 0;
@@ -94,6 +103,28 @@ export default function ShortsFeed() {
     else video.pause();
   };
 
+  const handleDelete = async (e, shortId) => {
+    e.stopPropagation();
+    const loadId = toast.loading("Deletion in progress...");
+
+    try {
+      const response = await fetch(
+        `${BASE_URL}/api/storage/delete/${shortId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) return toast.success(data.message, { id: loadId });
+      toast.error(data.message || "Delete failed", { id: loadId });
+    } catch (error) {
+      console.log(error);
+      toast.error("error in deleting the short", { id: loadId });
+    }
+  };
+
   return (
     <>
       {loading && <RoundMotion></RoundMotion>}
@@ -114,6 +145,12 @@ export default function ShortsFeed() {
               key={short._id}
               style={{ scrollSnapAlign: "start", height: "90vh" }}
             >
+              <div
+                className="delete-button-container"
+                onClick={(e) => handleDelete(e, short._id)}
+              >
+                <FontAwesomeIcon icon={faRemove}></FontAwesomeIcon>
+              </div>
               <video
                 ref={(el) => (videoRefs.current[short._id] = el)}
                 data-id={short._id}
