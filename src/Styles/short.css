@@ -1,0 +1,11 @@
+.short-container .video-container {
+  background-color: rgb(62, 62, 62);
+  margin: 0px auto;
+  height: 100vh;
+  max-width: 500px;
+  scroll-snap-align: start;
+  position: relative;
+  border-radius: 15px;
+}
+
+

@@ -1,5 +1,5 @@
 .upload-video-component {
-  color: white;
+  color: rgb(241, 241, 241);
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -7,28 +7,41 @@
 }
 
 .upload-video-component h2 {
+  font-family: 'Times New Roman', Times, serif;
   text-align: center;
   border-bottom: 1px solid grey;
   padding-bottom: 10px;
   padding-top: 15px;
+  background-color: rgb(69, 98, 66);
+  box-shadow: 1px 5px 2px rgb(20, 20, 20);
+
 }
 
 .upload-video-component form {
-  border: 1px solid grey;
-  border-radius: 5px;
+  /* border: 1px solid grey; */
   /* margin: 10px; */
-  /* padding: 20px; */
+  padding: 20px;
+  /* background-color: rgb(21, 36, 36); */
+  /* box-shadow: 1px 5px 2px rgb(20, 20, 20); */
+  border-radius: 10px;
 }
 
 .upload-video-component form input {
   padding: 5px;
   border: none;
   border-radius: 5px;
+  background-color: rgb(231, 231, 231);
+  color: black;
+  font-weight: bold;
+  
 }
 
 .upload-video-component form div {
   margin-top: 20px;
   padding: 10px;
+  background-color: rgb(48, 115, 98);
+  box-shadow: 1px 5px 2px rgb(20, 20, 20);
+  border-radius: 5px;
 }
 
 .upload-video-component .submit-button-container {
@@ -40,4 +53,18 @@
   border-radius: 3px;
   border: none;
   font-weight: bold;
+  background-color: transparent;
+  color: rgb(221, 221, 221);
+}
+
+.activate-button-container {
+  padding: 30px;
+}
+
+.activate-button-container button {
+  width: 100%;
+  padding: 10px;
+  font-weight: bold;
+  background-color: rgb(51, 108, 110);
+  color: rgb(240, 240, 240);
 }

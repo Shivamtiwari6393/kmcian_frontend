@@ -28,6 +28,9 @@ export default function Card() {
   // const url = "http://127.0.0.1:8000/api/paper";
   const url = "https://kmcianbackend.vercel.app/api/paper";
 
+    // const url = "http://10.125.107.27:8000/api/paper";
+
+
   const [isAdmin, setIsAdmin] = useContext(adminContext);
 
   const [openSelect, setOpenSelect] = useState(null);

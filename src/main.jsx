@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // eslint-disable-next-line react-refresh/only-export-components
 import Card from "./Components/Card.jsx";
 import UploadVideo from "./Components/UploadVideo.jsx";
+import ShortsFeed from "./Components/Shorts.jsx";
 const Announcement = lazy(() => import("./Components/Announcement.jsx"));
 const Upload = lazy(() => import("./Components/Upload.jsx"));
 const Query = lazy(() => import("./Components/Query.jsx"));
@@ -57,6 +58,10 @@ const route = createBrowserRouter([
       {
         path: "/video",
         element: <UploadVideo/>,
+      },
+      {
+        path: "/shorts",
+        element: <ShortsFeed/>,
       },
       {
         path: "/about",
