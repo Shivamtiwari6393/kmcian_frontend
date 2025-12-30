@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Card from "./Components/Card.jsx";
 import UploadVideo from "./Components/UploadVideo.jsx";
 import ShortsFeed from "./Components/Shorts.jsx";
+import Registration from "./Components/Registration.jsx";
 const Announcement = lazy(() => import("./Components/Announcement.jsx"));
 const Upload = lazy(() => import("./Components/Upload.jsx"));
 const Query = lazy(() => import("./Components/Query.jsx"));
@@ -20,7 +21,7 @@ const About = lazy(() => import("./Components/About.jsx"));
 const route = createBrowserRouter([
   {
     path: "/",
-    errorElement : <Card/>,
+    errorElement: <Card />,
     element: <App></App>,
     children: [
       {
@@ -57,15 +58,19 @@ const route = createBrowserRouter([
       },
       {
         path: "/video",
-        element: <UploadVideo/>,
+        element: <UploadVideo />,
       },
       {
         path: "/shorts",
-        element: <ShortsFeed/>,
+        element: <ShortsFeed />,
       },
       {
         path: "/about",
         element: <About></About>,
+      },
+      {
+        path: "/registration",
+        element: <Registration/>,
       },
     ],
   },
