@@ -17,7 +17,6 @@ import adminContext from "./adminContext";
 export default function Header() {
   const [isAdmin, setIsAdmin] = useContext(adminContext);
 
-
   return (
     <div className="header-container">
       <div className="nav-links">
@@ -29,6 +28,11 @@ export default function Header() {
         <span>
           <NavLink to={"/upload"}>
             <FontAwesomeIcon icon={faUpload} />
+          </NavLink>
+        </span>
+        <span>
+          <NavLink to={"/shorts"}>
+            <FontAwesomeIcon icon={faCirclePlay} />
           </NavLink>
         </span>
         <span>
@@ -52,13 +56,6 @@ export default function Header() {
             <FontAwesomeIcon icon={faInfo} />
           </NavLink>
         </span>
-        {isAdmin && (
-          <span>
-            <NavLink to={"/shorts"}>
-              <FontAwesomeIcon icon={faCirclePlay} />
-            </NavLink>
-          </span>
-        )}
       </div>
     </div>
   );

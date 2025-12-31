@@ -1,3 +1,7 @@
+.short-container {
+  position: relative;
+}
+
 .short-container .video-container {
   position: relative;
   background-color: rgb(62, 62, 62);
@@ -24,3 +28,72 @@
 .delete-button-container:active {
   transform: scale(0.8);
 }
+
+.short-container .upload-video-container {
+  position: absolute;
+  bottom: 50px;
+  right: 0px;
+  z-index: 10;
+  color: rgba(255, 255, 255, 0.653);
+}
+
+.upload-video-container .upload-video-button-container {
+  margin-right: 10px;
+  color: rgb(79, 192, 104);
+  transform: scale(1.5);
+}
+
+.upload-video-button-container:active {
+  transform: scale(0.8);
+  color: red;
+}
+
+@keyframes showww {
+  0% {
+    transform: scale(0);
+    bottom: -350%;
+    right: -550%;
+  }
+}
+
+.upload-video-fields-container {
+  padding: 20px 10px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  bottom: 350%;
+  right: 250%;
+  animation: showww 0.4s;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.upload-video-fields-container input {
+  text-align: center;
+  margin: 10px 0px;
+  background-color: rgba(255, 255, 255, 0.625);
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.453);
+  border-radius: 3px;
+  font-weight: bold;
+  color: rgb(144, 44, 44);
+}
+
+.upload-video-fields-container #upload-button {
+  font-size: larger;
+  color: rgb(54, 188, 54);
+}
+
+#upload-button:active {
+  transform: scale(0.8);
+  color: red;
+}
+
+/* #file-input {
+
+
+} */
