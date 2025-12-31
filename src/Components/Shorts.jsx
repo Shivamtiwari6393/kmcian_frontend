@@ -29,12 +29,10 @@ export default function ShortsFeed() {
   // const BASE_URL = "http://172.21.185.27:8000";
   const BASE_URL = "https://kmcianbackend.vercel.app";
 
-
-
-  const toggle= (e)=>{
-    e.preventDefault()
-    setShow(!show)
-  }
+  const toggle = (e) => {
+    e.preventDefault();
+    setShow(!show);
+  };
 
   // ================get signed url=======================
 
@@ -62,21 +60,23 @@ export default function ShortsFeed() {
 
   const upload = async (e) => {
     e.preventDefault();
-    const signedUrl = await getSignedUrl();
 
-    if (!signedUrl) return toast.error("no signed url", { id: loadId });
-
-    const { signature, timestamp, cloudName, apiKey, folder } = signedUrl.data;
-
+    const file = fileRef.current.files[0];
+    if (!file) return;
+    if (file && file.size > 40 * 1024 * 1024) {
+      return toast.error("File size must be under 40MB");
+    }
     // console.log(signedUrl, "inside upload vids");
 
     const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`;
     const formData = new FormData();
-    const file = fileRef.current.files[0];
-    if (!file) return;
-
     formData.append("file", file);
     // formData.append("caption", "testing");
+
+    const signedUrl = await getSignedUrl();
+    if (!signedUrl) return toast.error("no signed url", { id: loadId });
+    const { signature, timestamp, cloudName, apiKey, folder } = signedUrl.data;
+
     formData.append("api_key", apiKey);
     formData.append("timestamp", timestamp);
     formData.append("signature", signature);
@@ -208,12 +208,10 @@ export default function ShortsFeed() {
     if (bottomReached) fetchShorts();
   };
 
-
-
   // ===================================handle click on video
 
   const handleClick = (id) => {
-    setShow(false)
+    setShow(false);
     const video = videoRefs.current[id];
     if (!video) return;
     if (video.paused) video.play();
@@ -261,12 +259,12 @@ export default function ShortsFeed() {
             key={short._id}
             style={{ scrollSnapAlign: "start", height: "90vh" }}
           >
-            <div
+            {/* <div
               className="delete-button-container"
               onClick={(e) => handleDelete(e, short._id)}
             >
               <FontAwesomeIcon icon={faRemove}></FontAwesomeIcon>
-            </div>
+            </div> */}
             <video
               ref={(el) => (videoRefs.current[short._id] = el)}
               data-id={short._id}
