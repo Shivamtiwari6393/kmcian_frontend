@@ -26,8 +26,8 @@ export default function ShortsFeed() {
   const videoRefs = useRef({});
   const observerRef = useRef(null);
 
-  const BASE_URL = "http://127.0.0.1:8000";
-  // const BASE_URL = "https://kmcianbackend.vercel.app";
+  // const BASE_URL = "http://127.0.0.1:8000";
+  const BASE_URL = "https://kmcianbackend.vercel.app";
 
   // ================get signed url=======================
 
