@@ -26,8 +26,15 @@ export default function ShortsFeed() {
   const videoRefs = useRef({});
   const observerRef = useRef(null);
 
-  // const BASE_URL = "http://127.0.0.1:8000";
+  // const BASE_URL = "http://172.21.185.27:8000";
   const BASE_URL = "https://kmcianbackend.vercel.app";
+
+
+
+  const toggle= (e)=>{
+    e.preventDefault()
+    setShow(!show)
+  }
 
   // ================get signed url=======================
 
@@ -201,10 +208,14 @@ export default function ShortsFeed() {
     if (bottomReached) fetchShorts();
   };
 
+
+
+  // ===================================handle click on video
+
   const handleClick = (id) => {
+    setShow(false)
     const video = videoRefs.current[id];
     if (!video) return;
-
     if (video.paused) video.play();
     else video.pause();
   };
@@ -276,7 +287,7 @@ export default function ShortsFeed() {
               <div className="upload-video-button-container">
                 <FontAwesomeIcon
                   icon={faPlus}
-                  onClick={() => setShow(!show)}
+                  onClick={toggle}
                 ></FontAwesomeIcon>
               </div>
 
