@@ -6,9 +6,6 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // eslint-disable-next-line react-refresh/only-export-components
 import Card from "./Components/Card.jsx";
-import UploadVideo from "./Components/UploadVideo.jsx";
-import ShortsFeed from "./Components/Shorts.jsx";
-import Registration from "./Components/Registration.jsx";
 const Announcement = lazy(() => import("./Components/Announcement.jsx"));
 const Upload = lazy(() => import("./Components/Upload.jsx"));
 const Query = lazy(() => import("./Components/Query.jsx"));
@@ -17,6 +14,9 @@ const Update = lazy(() => import("./Components/Update.jsx"));
 const Login = lazy(() => import("./Components/Login.jsx"));
 const Chat = lazy(() => import("./Components/Chat.jsx"));
 const About = lazy(() => import("./Components/About.jsx"));
+const Registration = lazy(() => import("./Components/Registration.jsx"));
+const Shorts = lazy(() => import("./Components/Shorts.jsx"));
+
 
 const route = createBrowserRouter([
   {
@@ -56,22 +56,19 @@ const route = createBrowserRouter([
         path: "/announcements",
         element: <Announcement></Announcement>,
       },
-      {
-        path: "/video",
-        element: <UploadVideo />,
-      },
+
       {
         path: "/shorts",
-        element: <ShortsFeed />,
+        element: <Shorts />,
       },
       {
         path: "/about",
         element: <About></About>,
       },
-      {
-        path: "/registration",
-        element: <Registration/>,
-      },
+      // {
+      //   path: "/registration",
+      //   element: <Registration/>,
+      // },
     ],
   },
 ]);
