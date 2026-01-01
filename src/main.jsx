@@ -14,7 +14,7 @@ const Update = lazy(() => import("./Components/Update.jsx"));
 const Login = lazy(() => import("./Components/Login.jsx"));
 const Chat = lazy(() => import("./Components/Chat.jsx"));
 const About = lazy(() => import("./Components/About.jsx"));
-// const Registration = lazy(() => import("./Components/Registration.jsx"));
+const Registration = lazy(() => import("./Components/Registration.jsx"));
 const Shorts = lazy(() => import("./Components/Shorts.jsx"));
 
 const route = createBrowserRouter([
@@ -64,10 +64,10 @@ const route = createBrowserRouter([
         path: "/about",
         element: <About></About>,
       },
-      // {
-      //   path: "/registration",
-      //   element: <Registration/>,
-      // },
+      {
+        path: "/registration",
+        element: <Registration/>,
+      },
     ],
   },
 ]);

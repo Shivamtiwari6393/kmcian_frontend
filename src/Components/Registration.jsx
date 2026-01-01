@@ -12,7 +12,7 @@ export default function Registration() {
   const url = "https://kmcianbackend.vercel.app/api/user/register";
 
   const [credentials, setCredentials] = useState({
-    username : "",
+    username: "",
     email: "",
     password: "",
   });
@@ -38,7 +38,10 @@ export default function Registration() {
     try {
       const response = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
+        },
         body: JSON.stringify(credentials),
       });
 
@@ -64,7 +67,10 @@ export default function Registration() {
         <div className="login-fields">
           <div className="username-container">
             <label htmlFor="username">
-              <FontAwesomeIcon icon={faFaceFrown} style={{ color: "#ffffff" }} />
+              <FontAwesomeIcon
+                icon={faFaceFrown}
+                style={{ color: "#ffffff" }}
+              />
             </label>
             <input
               type="text"
@@ -100,7 +106,7 @@ export default function Registration() {
             />
           </div>
 
-          {!isAdmin && (
+          {isAdmin && (
             <div className="logout-button-container">
               <button onClick={handleLoginButtonClick}>Register</button>
             </div>
