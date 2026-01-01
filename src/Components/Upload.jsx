@@ -226,7 +226,7 @@ export default function Upload() {
               <img src={pdf} alt="pdf" />
               <span id={uploadcss["upload-name"]}>{fileName}</span>
             </label>
-            <input id="file-upload" type="file" onChange={handleFileChange} />
+            <input id="file-upload" type="file" onChange={handleFileChange} multiple={false} accept="application/pdf"/>
           </div>
           <div className={uploadcss["name"]}>
             <input

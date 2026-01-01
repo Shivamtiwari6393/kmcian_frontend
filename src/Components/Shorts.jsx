@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import "../Styles/short.css";
 import adminContext from "./adminContext";
 import RoundMotion from "./RoundMotion";
-import toast from "react-hot-toast";
+import toast, { ToastBar, ToastIcon } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCloudArrowUp,
@@ -22,6 +22,7 @@ export default function ShortsFeed() {
   const fileRef = useRef(null);
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(1);
+  const loadIdRef = useRef(null);
 
   const videoRefs = useRef({});
   const observerRef = useRef(null);
@@ -30,16 +31,16 @@ export default function ShortsFeed() {
   const BASE_URL = "https://kmcianbackend.vercel.app";
 
   const toggle = (e) => {
-    e.preventDefault();
-    setShow(!show);
+    e.stopPropagation();
+    setShow((prev) => !prev);
   };
 
   // ================get signed url=======================
 
-  let loadId = "";
-
   const getSignedUrl = async () => {
-    loadId = toast.loading("getting signed url ");
+    loadIdRef.current = toast.loading("getting signed url", {
+      id: loadIdRef.current,
+    });
 
     try {
       const signRes = await axios.get(`${BASE_URL}/api/storage/signupload`);
@@ -48,11 +49,13 @@ export default function ShortsFeed() {
         // toast.success(signRes.message || "Got the signed url", { id: loadId });
         return signRes;
       } else {
-        return toast.error(signRes.message || "failed", { id: loadId });
+        return toast.error(signRes.message || "failed", {
+          id: loadIdRef.current,
+        });
       }
     } catch (error) {
       console.log("error in getting signed url", error);
-      toast.error(error, { id: loadId });
+      toast.error(error, { id: loadIdRef.current });
     }
   };
 
@@ -60,28 +63,33 @@ export default function ShortsFeed() {
 
   const upload = async (e) => {
     e.preventDefault();
-
+    e.stopPropagation();
     const file = fileRef.current.files[0];
+    // console.log(file);
     if (!file) return;
-    if (file && file.size > 40 * 1024 * 1024) {
-      return toast.error("File size must be under 40MB");
+    if (file && file.size > 100 * 1024 * 1024) {
+      return toast.error(
+        `File size ${(file.size / (1024 * 1024)).toFixed(
+          1
+        )}MB, it must be under 100MB`
+      );
     }
-    // console.log(signedUrl, "inside upload vids");
 
-    const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`;
     const formData = new FormData();
     formData.append("file", file);
     // formData.append("caption", "testing");
 
     const signedUrl = await getSignedUrl();
-    if (!signedUrl) return toast.error("no signed url", { id: loadId });
+    if (!signedUrl)
+      return toast.error("no signed url", { id: loadIdRef.current });
     const { signature, timestamp, cloudName, apiKey, folder } = signedUrl.data;
+    const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`;
 
     formData.append("api_key", apiKey);
     formData.append("timestamp", timestamp);
     formData.append("signature", signature);
     formData.append("folder", folder);
-    // toast.loading("Uploading... ", {id: loadId});
+    toast.loading("Uploading... ", { id: loadIdRef.current });
 
     try {
       setIsUploading(true);
@@ -92,7 +100,9 @@ export default function ShortsFeed() {
             const percentage = Math.round(
               (progressEvent.loaded / progressEvent.total) * 100
             );
-            toast.loading(`Uploading... ${percentage}%`, { id: loadId });
+            toast.loading(`Uploading... ${percentage}%`, {
+              id: loadIdRef.current,
+            });
             setProgress(percentage);
           }
         },
@@ -100,6 +110,7 @@ export default function ShortsFeed() {
 
       if (uploadRes.status === 200) {
         try {
+          toast.loading("Posting metadata...",{id: loadIdRef.current})
           const data = await axios.post(
             `${BASE_URL}/api/storage/uploadmetadata`,
             {
@@ -107,30 +118,35 @@ export default function ShortsFeed() {
               publicId: uploadRes.data.public_id,
               size: uploadRes.data.bytes,
               duration: uploadRes.data.duration,
+              show: isAdmin ? false : true,
             }
           );
 
-          if (data.status == 201)
-            return toast.success(data.message, { id: loadId });
-          else return toast.error("error in uploading metadata", data.message);
+          if (data.status == 201) {
+            fileRef.current.value = "";
+            return toast.success(data.message || "uploaded", { id: loadIdRef.current });
+          } else
+            return toast.error("error in uploading metadata", data.message);
         } catch (error) {
           console.log(error);
-          toast.error(error.message, { id: loadId });
+          toast.error(error.message, { id: loadIdRef.current });
         }
 
         setProgress(0);
       } else {
-        toast.error(uploadRes.message || "Upload failed", { id: loadId });
+        toast.error(uploadRes.message || "Upload failed", {
+          id: loadIdRef.current,
+        });
       }
     } catch (error) {
       if (error.code === "ECONNABORTED") {
-        toast.error("Request timed out.", { id: loadId });
+        toast.error("Request timed out.", { id: loadIdRef.current });
       } else if (error.response) {
         toast.error(error.response.data?.message || "Server error", {
-          id: loadId,
+          id: loadIdRef.current,
         });
       } else {
-        toast.error("Network error occurred.", { id: loadId });
+        toast.error("Network error occurred.", { id: loadIdRef.current });
       }
     } finally {
       setIsUploading(false);
@@ -190,7 +206,7 @@ export default function ShortsFeed() {
     Object.entries(videoRefs.current).forEach(([id, video]) => {
       if (!video) return;
 
-      if (id === !activeId) {
+      if (id === activeId) {
         video.play().catch((err) => {
           "err in playing video", console.log(err);
         });
@@ -253,6 +269,31 @@ export default function ShortsFeed() {
           scrollSnapType: "y mandatory",
         }}
       >
+        <div className="upload-video-container">
+          {/* <FontAwesomeIcon icon={faHeart}></FontAwesomeIcon> */}
+          <div className="upload-video-button-container">
+            <FontAwesomeIcon icon={faPlus} onClick={toggle}></FontAwesomeIcon>
+          </div>
+
+          {show && (
+            <div className="upload-video-fields-container">
+              <input
+                type="file"
+                id="file-input"
+                ref={fileRef}
+                multiple={false}
+                accept="video/*"
+              />
+              <input type="text" placeholder="Title" />
+              <FontAwesomeIcon
+                icon={faCloudArrowUp}
+                id="upload-button"
+                onClick={!isUploading ? upload : undefined}
+              ></FontAwesomeIcon>
+            </div>
+          )}
+        </div>
+
         {shorts.map((short) => (
           <div
             className="video-container"
@@ -279,28 +320,6 @@ export default function ShortsFeed() {
                 objectFit: "cover",
               }}
             />
-
-            <div className="upload-video-container">
-              {/* <FontAwesomeIcon icon={faHeart}></FontAwesomeIcon> */}
-              <div className="upload-video-button-container">
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  onClick={toggle}
-                ></FontAwesomeIcon>
-              </div>
-
-              {show && (
-                <div className="upload-video-fields-container">
-                  <input type="file" id="file-input" ref={fileRef} />
-                  <input type="text" placeholder="Title" />
-                  <FontAwesomeIcon
-                    icon={faCloudArrowUp}
-                    id="upload-button"
-                    onClick={upload}
-                  ></FontAwesomeIcon>
-                </div>
-              )}
-            </div>
           </div>
         ))}
       </div>
