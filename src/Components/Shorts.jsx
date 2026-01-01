@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useContext } from "react";
+
 import "../Styles/short.css";
 import adminContext from "./adminContext";
 import RoundMotion from "./RoundMotion";
@@ -14,10 +16,9 @@ import {
   faVectorSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 export default function ShortsFeed() {
   const [shorts, setShorts] = useState([]);
-  const [cursor, setCursor] = useState(null);
+  const [cursor, setCursor] = useState("");
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [activeId, setActiveId] = useState(null);
@@ -30,9 +31,6 @@ export default function ShortsFeed() {
 
   const videoRefs = useRef({});
   const observerRef = useRef(null);
-
-  const { c } = useParams();
-
   // const BASE_URL = "http://172.21.185.27:8000";
   const BASE_URL = "https://kmcianbackend.vercel.app";
 
@@ -175,19 +173,15 @@ export default function ShortsFeed() {
     setLoading(true);
 
     try {
-      let url = "";
+      const url = `${BASE_URL}/api/storage?cursor=${cursor}`;
 
-      if (c == "abz") {
-        url = cursor
-          ? `${BASE_URL}/api/storage?cursor=${cursor}&c=abz`
-          : `${BASE_URL}/api/storage?c=abz`;
-      } else {
-        url = cursor
-          ? `${BASE_URL}/api/storage?cursor=${cursor}`
-          : `${BASE_URL}/api/storage`;
-      }
-
-      const res = await fetch(url);
+      const res = isAdmin
+        ? await fetch(`${BASE_URL}/api/storage/c/?cursor=${cursor}`, {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
+            },
+          })
+        : await fetch(url);
       const data = await res.json();
 
       setShorts((prev) => [...prev, ...data.shorts]);
@@ -310,7 +304,7 @@ export default function ShortsFeed() {
           )}
         </div>
 
-        {shorts.map((short) => (
+        {shorts?.map((short) => (
           <div
             className="video-container"
             key={short._id}

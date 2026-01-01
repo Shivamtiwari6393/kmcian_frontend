@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import "../Styles/Card.css";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";

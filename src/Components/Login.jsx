@@ -9,6 +9,7 @@ import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 
 function Login() {
   // const url = "http://127.0.0.1:8000/api/user/login";
+  // const url =  "http://172.21.185.27:8000/api/user/login"
   const url = "https://kmcianbackend.vercel.app/api/user/login";
 
   const [credentials, setCredentials] = useState({
