@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
+
 import { useContext, useEffect, useRef, useState } from "react";
 import "../Styles/short.css";
 import adminContext from "./adminContext";
 import RoundMotion from "./RoundMotion";
-import toast, { ToastBar, ToastIcon } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCloudArrowUp,
@@ -12,6 +14,7 @@ import {
   faVectorSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 export default function ShortsFeed() {
   const [shorts, setShorts] = useState([]);
   const [cursor, setCursor] = useState(null);
@@ -28,6 +31,8 @@ export default function ShortsFeed() {
   const videoRefs = useRef({});
   const observerRef = useRef(null);
 
+  const { c } = useParams();
+
   // const BASE_URL = "http://172.21.185.27:8000";
   const BASE_URL = "https://kmcianbackend.vercel.app";
 
@@ -37,12 +42,11 @@ export default function ShortsFeed() {
   };
 
   const fullscreen = (id) => {
-  const video = videoRefs.current[id];
-  if (!video) return;
+    const video = videoRefs.current[id];
+    if (!video) return;
     video.requestFullscreen();
     video.webkitRequestFullscreen();
-  }
-  
+  };
 
   // ================get signed url=======================
 
@@ -169,10 +173,19 @@ export default function ShortsFeed() {
     if (loading || !hasMore) return;
 
     setLoading(true);
+
     try {
-      const url = cursor
-        ? `${BASE_URL}/api/storage?cursor=${cursor}`
-        : `${BASE_URL}/api/storage`;
+      let url = "";
+
+      if (c == "abz") {
+        url = cursor
+          ? `${BASE_URL}/api/storage?cursor=${cursor}&c=abz`
+          : `${BASE_URL}/api/storage?c=abz`;
+      } else {
+        url = cursor
+          ? `${BASE_URL}/api/storage?cursor=${cursor}`
+          : `${BASE_URL}/api/storage`;
+      }
 
       const res = await fetch(url);
       const data = await res.json();
@@ -306,7 +319,7 @@ export default function ShortsFeed() {
             <div
               className="delete-button-container"
               // onClick={(e) => handleDelete(e, short._id)}
-              onClick={()=>fullscreen(short._id)}
+              onClick={() => fullscreen(short._id)}
             >
               <FontAwesomeIcon icon={faVectorSquare}></FontAwesomeIcon>
             </div>
