@@ -331,6 +331,7 @@ export default function ShortsFeed() {
               loop
               playsInline
               controls={false}
+               controlsList="nodownload"
             />
           </div>
         ))}
