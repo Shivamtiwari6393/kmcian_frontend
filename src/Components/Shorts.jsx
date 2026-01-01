@@ -110,7 +110,7 @@ export default function ShortsFeed() {
 
       if (uploadRes.status === 200) {
         try {
-          toast.loading("Posting metadata...",{id: loadIdRef.current})
+          toast.loading("Posting metadata...", { id: loadIdRef.current });
           const data = await axios.post(
             `${BASE_URL}/api/storage/uploadmetadata`,
             {
@@ -118,13 +118,15 @@ export default function ShortsFeed() {
               publicId: uploadRes.data.public_id,
               size: uploadRes.data.bytes,
               duration: uploadRes.data.duration,
-              show: isAdmin ? false : true,
+              show: !isAdmin,
             }
           );
 
           if (data.status == 201) {
             fileRef.current.value = "";
-            return toast.success(data.message || "uploaded", { id: loadIdRef.current });
+            return toast.success(data.message || "uploaded", {
+              id: loadIdRef.current,
+            });
           } else
             return toast.error("error in uploading metadata", data.message);
         } catch (error) {
