@@ -9,6 +9,7 @@ import {
   faCloudArrowUp,
   faPlus,
   faRemove,
+  faVectorSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 export default function ShortsFeed() {
@@ -34,6 +35,14 @@ export default function ShortsFeed() {
     e.stopPropagation();
     setShow((prev) => !prev);
   };
+
+  const fullscreen = (id) => {
+  const video = videoRefs.current[id];
+  if (!video) return;
+    video.requestFullscreen();
+    video.webkitRequestFullscreen();
+  }
+  
 
   // ================get signed url=======================
 
@@ -262,15 +271,7 @@ export default function ShortsFeed() {
     <>
       {loading && <RoundMotion></RoundMotion>}
 
-      <div
-        className="short-container"
-        onScroll={handleScroll}
-        style={{
-          height: "90vh",
-          overflowY: "scroll",
-          scrollSnapType: "y mandatory",
-        }}
-      >
+      <div className="short-container" onScroll={handleScroll}>
         <div className="upload-video-container">
           {/* <FontAwesomeIcon icon={faHeart}></FontAwesomeIcon> */}
           <div className="upload-video-button-container">
@@ -302,12 +303,13 @@ export default function ShortsFeed() {
             key={short._id}
             style={{ scrollSnapAlign: "start", height: "90vh" }}
           >
-            {/* <div
+            <div
               className="delete-button-container"
-              onClick={(e) => handleDelete(e, short._id)}
+              // onClick={(e) => handleDelete(e, short._id)}
+              onClick={()=>fullscreen(short._id)}
             >
-              <FontAwesomeIcon icon={faRemove}></FontAwesomeIcon>
-            </div> */}
+              <FontAwesomeIcon icon={faVectorSquare}></FontAwesomeIcon>
+            </div>
             <video
               ref={(el) => (videoRefs.current[short._id] = el)}
               data-id={short._id}
@@ -316,11 +318,6 @@ export default function ShortsFeed() {
               loop
               playsInline
               controls={false}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
             />
           </div>
         ))}
