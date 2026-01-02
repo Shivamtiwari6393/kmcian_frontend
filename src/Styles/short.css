@@ -9,11 +9,12 @@
   position: relative;
   background-color: rgb(62, 62, 62);
   margin: 0px auto;
-  height: 100vh;
+  height: 90vh;
   max-width: 95%;
   scroll-snap-align: start;
   position: relative;
   border-radius: 15px;
+  margin: 10px;
 }
 
 .short-container .video-container .delete-button-container {
@@ -110,15 +111,12 @@
   object-fit: contain;
 }
 
-
-.short-container .video-container video:fullscreen{
-
+.short-container .video-container video:fullscreen {
   width: 100vw;
   height: 100vh;
   object-fit: contain;
   background: black;
 }
-
 
 /* #file-input {
 

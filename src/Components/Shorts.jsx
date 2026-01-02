@@ -54,7 +54,7 @@ export default function ShortsFeed() {
     });
 
     try {
-      const signRes = await axios.get(`${BASE_URL}/api/storage/signupload`);
+      const signRes = await axios.get(`${BASE_URL}/api/shorts/signupload`);
 
       if (signRes.status == 200) {
         // toast.success(signRes.message || "Got the signed url", { id: loadId });
@@ -123,7 +123,7 @@ export default function ShortsFeed() {
         try {
           toast.loading("Posting metadata...", { id: loadIdRef.current });
           const data = await axios.post(
-            `${BASE_URL}/api/storage/uploadmetadata`,
+            `${BASE_URL}/api/shorts/uploadmetadata`,
             {
               videoUrl: uploadRes.data.secure_url,
               publicId: uploadRes.data.public_id,
@@ -167,16 +167,17 @@ export default function ShortsFeed() {
   };
 
   // ====================short meta-data fetch==============================
+
   const fetchShorts = async () => {
     if (loading || !hasMore) return;
 
     setLoading(true);
 
     try {
-      const url = `${BASE_URL}/api/storage?cursor=${cursor}`;
+      const url = `${BASE_URL}/api/shorts?cursor=${cursor}`;
 
       const res = isAdmin
-        ? await fetch(`${BASE_URL}/api/storage/c/?cursor=${cursor}`, {
+        ? await fetch(`${BASE_URL}/api/shorts/c/?cursor=${cursor}`, {
             headers: {
               Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
             },
@@ -194,46 +195,67 @@ export default function ShortsFeed() {
     }
   };
 
+  //======initial shorts metadata fetch
+
   useEffect(() => {
     fetchShorts();
   }, []);
 
+  // ================== intersection observer ======================
+
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
       (entries) => {
+        let mostVisible = null;
         entries.forEach((entry) => {
-          const id = entry.target.dataset.id;
-          if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
-            setActiveId(id);
+          if (entry.isIntersecting) {
+            if (
+              !mostVisible ||
+              entry.intersectionRatio > mostVisible.intersectionRatio
+            ) {
+              mostVisible = entry;
+            }
           }
         });
+
+        if (mostVisible) {
+          setActiveId(mostVisible.target.dataset.id);
+        }
       },
       { threshold: 0.6 }
     );
+    return () => observerRef.current.disconnect();
+  }, []);
+
+  // =============== register video to observe =================
+
+  useEffect(() => {
+    const observer = observerRef.current;
+    if (!observer) return;
 
     Object.values(videoRefs.current).forEach((video) => {
-      if (video) observerRef.current.observe(video);
+      if (video && !video.dataset.observed) {
+        observer.observe(video);
+        video.dataset.observed = "true";
+      }
     });
-
-    return () => observerRef.current.disconnect();
   }, [shorts]);
 
-  //-------------------------=============== -------------------------------
+  // ===================== play control ==================
 
   useEffect(() => {
     Object.entries(videoRefs.current).forEach(([id, video]) => {
       if (!video) return;
 
       if (id === activeId) {
-        video.play().catch((err) => {
-          "err in playing video", console.log(err);
-        });
+        video.play().catch(() => {});
       } else {
         video.pause();
-        video.currentTime = 0;
       }
     });
   }, [activeId]);
+
+  // ============ handle scroll ==========================
 
   const handleScroll = (e) => {
     const bottomReached =
@@ -242,27 +264,39 @@ export default function ShortsFeed() {
     if (bottomReached) fetchShorts();
   };
 
-  // ===================================handle click on video
+  // ===================================handle click on video=============================
 
   const handleClick = (id) => {
     setShow(false);
     const video = videoRefs.current[id];
     if (!video) return;
-    if (video.paused) video.play();
+    if (video.paused)
+      video.play().catch((err) => {
+        alert(err);
+      });
     else video.pause();
   };
+
+  const cloudinaryVideoUrl = (publicId) => {
+    console.log(publicId);
+
+    return (
+      `https://res.cloudinary.com/kmcian/video/upload/` +
+      `so_0,c_fill,br_800k,f_auto,q_auto,vc_auto/` +
+      `${publicId}`
+    );
+  };
+
+  // =================== delete short ======================
 
   const handleDelete = async (e, shortId) => {
     e.stopPropagation();
     const loadId = toast.loading("Deletion in progress...");
 
     try {
-      const response = await fetch(
-        `${BASE_URL}/api/storage/delete/${shortId}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`${BASE_URL}/api/shorts/delete/${shortId}`, {
+        method: "DELETE",
+      });
 
       const data = await response.json();
 
@@ -305,11 +339,7 @@ export default function ShortsFeed() {
         </div>
 
         {shorts?.map((short) => (
-          <div
-            className="video-container"
-            key={short._id}
-            style={{ scrollSnapAlign: "start", height: "90vh" }}
-          >
+          <div className="video-container" key={short._id}>
             <div
               className="delete-button-container"
               // onClick={(e) => handleDelete(e, short._id)}
@@ -320,7 +350,7 @@ export default function ShortsFeed() {
             <video
               ref={(el) => (videoRefs.current[short._id] = el)}
               data-id={short._id}
-              src={short.videoUrl}
+              src={cloudinaryVideoUrl(short.publicId)}
               onClick={() => handleClick(short._id)}
               loop
               playsInline
