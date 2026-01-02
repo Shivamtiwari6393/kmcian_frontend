@@ -278,8 +278,6 @@ export default function ShortsFeed() {
   };
 
   const cloudinaryVideoUrl = (publicId) => {
-    console.log(publicId);
-
     return (
       `https://res.cloudinary.com/kmcian/video/upload/` +
       `so_0,c_fill,br_800k,f_auto,q_auto,vc_auto/` +
