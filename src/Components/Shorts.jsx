@@ -11,8 +11,10 @@ import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCloudArrowUp,
+  faDeleteLeft,
   faPlus,
   faRemove,
+  faTrash,
   faVectorSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -32,6 +34,7 @@ export default function ShortsFeed() {
   const videoRefs = useRef({});
   const observerRef = useRef(null);
   // const BASE_URL = "http://172.21.185.27:8000";
+  // const BASE_URL = "http://127.0.0.1:8000";
   const BASE_URL = "https://kmcianbackend.vercel.app";
 
   const toggle = (e) => {
@@ -130,6 +133,8 @@ export default function ShortsFeed() {
               size: uploadRes.data.bytes,
               duration: uploadRes.data.duration,
               show: !isAdmin,
+              title: "",
+              userId: isAdmin,
             }
           );
 
@@ -176,18 +181,27 @@ export default function ShortsFeed() {
     try {
       const url = `${BASE_URL}/api/shorts?cursor=${cursor}`;
 
-      const res = isAdmin
-        ? await fetch(`${BASE_URL}/api/shorts/c/?cursor=${cursor}`, {
-            headers: {
-              Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
-            },
-          })
-        : await fetch(url);
+      let res = null;
+
+      if (isAdmin) {
+        res = await fetch(`${BASE_URL}/api/shorts/c/?cursor=${cursor}`, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
+          },
+        });
+
+        if (!res.ok) res = await fetch(url);
+      } else {
+        res = await fetch(url);
+      }
+
       const data = await res.json();
 
-      setShorts((prev) => [...prev, ...data.shorts]);
-      setCursor(data.nextCursor);
-      setHasMore(Boolean(data.nextCursor));
+      if (res.ok) {
+        setShorts((prev) => [...prev, ...data.shorts]);
+        setCursor(data.nextCursor);
+        setHasMore(Boolean(data.nextCursor));
+      } else return toast.error(data.message);
     } catch (err) {
       console.error("Failed to fetch shorts", err);
     } finally {
@@ -294,11 +308,17 @@ export default function ShortsFeed() {
     try {
       const response = await fetch(`${BASE_URL}/api/shorts/delete/${shortId}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
+        },
       });
 
       const data = await response.json();
 
-      if (response.ok) return toast.success(data.message, { id: loadId });
+      if (response.ok) {
+        setShorts(() => shorts.filter((short) => short._id != shortId));
+        return toast.success(data.message, { id: loadId });
+      }
       toast.error(data.message || "Delete failed", { id: loadId });
     } catch (error) {
       console.log(error);
@@ -313,7 +333,7 @@ export default function ShortsFeed() {
       <div className="short-container" onScroll={handleScroll}>
         <div className="upload-video-container">
           {/* <FontAwesomeIcon icon={faHeart}></FontAwesomeIcon> */}
-          <div className="upload-video-button-container">
+          <div className="upload-video-plus-button-container">
             <FontAwesomeIcon icon={faPlus} onClick={toggle}></FontAwesomeIcon>
           </div>
 
@@ -339,11 +359,16 @@ export default function ShortsFeed() {
         {shorts?.map((short) => (
           <div className="video-container" key={short._id}>
             <div
-              className="delete-button-container"
-              // onClick={(e) => handleDelete(e, short._id)}
+              className="short-button-container"
               onClick={() => fullscreen(short._id)}
             >
               <FontAwesomeIcon icon={faVectorSquare}></FontAwesomeIcon>
+              {isAdmin && (
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={(e) => handleDelete(e, short._id)}
+                ></FontAwesomeIcon>
+              )}
             </div>
             <video
               ref={(el) => (videoRefs.current[short._id] = el)}

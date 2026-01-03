@@ -12,10 +12,12 @@ import RoundMotion from "./Components/RoundMotion";
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
 
+
   useEffect(() => {
     const token = sessionStorage.getItem("kmcianToken");
-    if (token) {
-      setIsAdmin(true);
+    const userId = sessionStorage.getItem("userId")
+    if (token && userId) {
+      setIsAdmin(userId);
     }
   }, []);
 

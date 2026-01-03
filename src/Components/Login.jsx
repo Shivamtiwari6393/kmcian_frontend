@@ -8,9 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 
 function Login() {
-  // const url = "http://127.0.0.1:8000/api/user/login";
+  const url = "http://127.0.0.1:8000/api/user/login";
   // const url =  "http://172.21.185.27:8000/api/user/login"
-  const url = "https://kmcianbackend.vercel.app/api/user/login";
+  // const url = "https://kmcianbackend.vercel.app/api/user/login";
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -22,6 +22,7 @@ function Login() {
 
   const doLogout = () => {
     sessionStorage.removeItem("kmcianToken");
+    sessionStorage.removeItem("userId")
     setIsAdmin(false);
     toast.success("Logged out successfully!");
   };
@@ -52,8 +53,9 @@ function Login() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "An error occurred");
       sessionStorage.setItem("kmcianToken", data.token);
+      sessionStorage.setItem("userId", data.userId)
       toast.success(data.message || "Login successful!", { id: id });
-      setIsAdmin(true);
+      setIsAdmin(data.userId);
     } catch (e) {
       toast.error(e.message, { id: id });
     } finally {

@@ -17,38 +17,40 @@
   margin: 10px;
 }
 
-.short-container .video-container .delete-button-container {
+.short-container .video-container .short-button-container {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   right: 0px;
   z-index: 10;
 }
 
-.delete-button-container svg {
+.short-button-container svg {
   background-color: transparent;
   color: red;
   margin: 10px;
 }
 
-.delete-button-container:active {
+.short-button-container:active {
   transform: scale(0.8);
 }
 
 .short-container .upload-video-container {
   position: fixed;
-  bottom: 10%;
+  bottom: 7%;
   right: 4%;
   z-index: 10;
   color: rgba(255, 255, 255, 0.653);
 }
 
-.upload-video-container .upload-video-button-container {
+.upload-video-container .upload-video-plus-button-container {
   padding: 0px;
   margin-right: 10px;
   color: rgb(79, 192, 104);
   transform: scale(1);
 }
 
-.upload-video-button-container:active {
+.upload-video-plus-button-container:active {
   transform: scale(0.8);
   color: red;
 }
