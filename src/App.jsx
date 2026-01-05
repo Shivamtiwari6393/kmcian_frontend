@@ -10,21 +10,23 @@ import adminContext from "./Components/adminContext";
 import RoundMotion from "./Components/RoundMotion";
 
 function App() {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [user, setUser] = useState({userId: null, role : null});
 
 
   useEffect(() => {
     const token = sessionStorage.getItem("kmcianToken");
     const userId = sessionStorage.getItem("userId")
+    const role = sessionStorage.getItem("role")
+
     if (token && userId) {
-      setIsAdmin(userId);
+      setUser({userId ,role});
     }
   }, []);
 
   // ============================================================
 
   return (
-    <adminContext.Provider value={[isAdmin, setIsAdmin]}>
+    <adminContext.Provider value={[user, setUser]}>
       <div className="app">
         <Toaster />
         <Header />

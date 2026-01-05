@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState, useContext, useRef } from "react";
 import "../Styles/Announcement.css";
-import Loading from "./Loading";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRemove } from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +14,7 @@ function Announcement() {
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(true);
   const [announcements, setAnnouncements] = useState([]);
-  const [admin] = useContext(adminContext);
+  const [user] = useContext(adminContext);
 
   const pageInfoRef = useRef({ currentPage: 1, totalPage: 1 });
 
@@ -143,7 +142,7 @@ function Announcement() {
                         {new Date(Announcement.createdAt).toLocaleString()}
                       </span>
                     </div>
-                    {admin && (
+                    {user.userId && (
                       <button
                         onClick={() => {
                           handleDeleteAnnouncement(Announcement._id);
@@ -168,7 +167,7 @@ function Announcement() {
           </>
         )}
 
-        {admin && (
+        {user.userId && (
           <div className="announcement-text-container" id="announcement-text">
             <input
               type="text"

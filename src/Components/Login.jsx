@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useContext, useState } from "react";
 import "../Styles/Login.css";
-import Loading from "./Loading";
 import { toast } from "react-hot-toast";
 import adminContext from "./adminContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,12 +17,17 @@ function Login() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [isAdmin, setIsAdmin] = useContext(adminContext);
+  const [user, setUser] = useContext(adminContext);
 
   const doLogout = () => {
     sessionStorage.removeItem("kmcianToken");
-    sessionStorage.removeItem("userId")
-    setIsAdmin(false);
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("role");
+    setUser((prev) => ({
+      ...prev,
+      userId: null,
+      role: null,
+    }));
     toast.success("Logged out successfully!");
   };
 
@@ -39,8 +43,8 @@ function Login() {
     if (!credentials.email) return toast.error("Please enter your email.");
     if (!credentials.password) return toast.error("Please enter the password.");
 
-    //============ login fetch request==============
-    const id = toast.loading("Logging in");
+    //============ login request==============
+    const id = toast.loading("Request in process...");
     setIsLoading(true);
 
     try {
@@ -53,9 +57,15 @@ function Login() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "An error occurred");
       sessionStorage.setItem("kmcianToken", data.token);
-      sessionStorage.setItem("userId", data.userId)
+      sessionStorage.setItem("userId", data.userId);
+      sessionStorage.setItem("role", data.role);
+
       toast.success(data.message || "Login successful!", { id: id });
-      setIsAdmin(data.userId);
+      setUser((prev) => ({
+        ...prev,
+        userId: data.userId,
+        role: data.role,
+      }));
     } catch (e) {
       toast.error(e.message, { id: id });
     } finally {
@@ -96,19 +106,29 @@ function Login() {
               onChange={handleInputChange}
             />
           </div>
-          {!isAdmin && (
-            <div className="login-button-container">
-              <button onClick={handleLoginButtonClick}>
-                {isLoading ? "Logging in..." : "Login"}
+
+          {console.log(user.userId, "==============userid==============")}
+          {console.log(!user.userId, "ttttttttt")}
+
+          {true && (
+            <div
+              className={
+                user.userId
+                  ? "logout-button-container"
+                  : "login-button-container"
+              }
+            >
+              <button onClick={user.userId ? doLogout : handleLoginButtonClick} disabled = {isLoading}>
+                {isLoading ? "Processing..." : user.userId ? "Logout" : "Login"}
               </button>
             </div>
           )}
-
-          {isAdmin && (
+{/* 
+          {user.userId && (
             <div className="logout-button-container">
               <button onClick={doLogout}>Logout</button>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </>

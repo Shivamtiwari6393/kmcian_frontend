@@ -21,7 +21,7 @@ export default function Papers() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [isAdmin] = useContext(adminContext);
+  const [user] = useContext(adminContext);
 
   const [searchInput, setSearchInput] = useState("");
 
@@ -37,7 +37,7 @@ export default function Papers() {
   // -------------search function----------------------
 
   const onSearchInputChange = (e) => {
-    console.log(isAdmin);
+    // console.log(user.userId ,"");
 
     setSearchInput(e.target.value);
     setFilterdData(filter());
@@ -246,7 +246,7 @@ export default function Papers() {
               className="update-button-container"
               onClick={(e) => handleUpdate(element)}
             >
-              {isAdmin && (
+              {user.userId && (
                 <>
                   <FontAwesomeIcon
                     icon={faEdit}

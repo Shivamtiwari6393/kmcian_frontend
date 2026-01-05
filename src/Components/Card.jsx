@@ -2,9 +2,7 @@
 import { useContext, useState } from "react";
 import "../Styles/Card.css";
 import { useNavigate } from "react-router-dom";
-import Loading from "./Loading";
 import CustomSelect from "./CustomSelect";
-import "../Styles/CustomSelect.css";
 import toast from "react-hot-toast";
 import adminContext from "./adminContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,7 +29,7 @@ export default function Card() {
     // const url = "http://10.125.107.27:8000/api/paper";
 
 
-  const [isAdmin, setIsAdmin] = useContext(adminContext);
+  const [user] = useContext(adminContext);
 
   const [openSelect, setOpenSelect] = useState(null);
 
@@ -75,7 +73,7 @@ export default function Card() {
     }));
   };
 
-  // ---------------paper data fetch request----------------------
+  // ---------------paper data fetch fetchPaperData----------------------
 
   const validate = () => {
     if (!paperData.course) return "Please select a Faculty";
@@ -84,13 +82,13 @@ export default function Card() {
     if (!paperData.year) return "Please select a Year";
   };
 
-  const request = async () => {
+  const fetchPaperData = async () => {
     // Validating the fields
     const err = validate();
     if (err) return toast.error(err);
     // setError("");
 
-    // Fetch request
+    // Fetch fetchPaperData
     setIsLoading(true);
     const loadId = toast.loading("Searching... 🔎");
     try {
@@ -179,7 +177,7 @@ export default function Card() {
             placeholder="Year"
           />
 
-          {isAdmin && (
+          {user.userId && (
             <select
               name="downloadable"
               value={paperData.downloadable}
@@ -199,7 +197,7 @@ export default function Card() {
             <FontAwesomeIcon
               icon={faSearch}
               style={{ color: "#ffffff", scale: "1.9" }}
-              onClick={request}
+              onClick={fetchPaperData}
             />
           </button>
         </div>

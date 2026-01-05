@@ -5,8 +5,8 @@ import "../Styles/Chat.css";
 import toast from "react-hot-toast";
 
 const Chat = () => {
-  const url = "https://kmcianbackend.vercel.app"
-  // const url = "http://127.0.0.1:8000";
+  // const url = "https://kmcianbackend.vercel.app"
+  const url = "http://127.0.0.1:8000";
 
   const [message, setMessage] = useState("");
   const [chats, setChats] = useState();

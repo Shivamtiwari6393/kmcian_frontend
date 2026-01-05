@@ -8,7 +8,7 @@ import { faFaceFrown, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Login.css";
 
 export default function Registration() {
-  //   const url = "http://127.0.0.1:8000/api/user/register";
+    // const url = "http://127.0.0.1:8000/api/user/register";
   const url = "https://kmcianbackend.vercel.app/api/user/register";
 
   const [credentials, setCredentials] = useState({
@@ -18,7 +18,7 @@ export default function Registration() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [isAdmin, setIsAdmin] = useContext(adminContext);
+  const [user] = useContext(adminContext);
   // handle input change
 
   const handleInputChange = (e) => {
@@ -27,7 +27,7 @@ export default function Registration() {
 
   // on login button click
 
-  const handleLoginButtonClick = async () => {
+  const handleRegistrationButtonClick = async () => {
     if (!credentials.email) return toast.error("Please enter your email.");
     if (!credentials.password) return toast.error("Please enter the password.");
 
@@ -47,9 +47,7 @@ export default function Registration() {
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "An error occurred");
-      sessionStorage.setItem("kmcianToken", data.token);
       toast.success(data.message || "Registration successful!", { id: id });
-      setIsAdmin(true);
     } catch (e) {
       toast.error(e.message, { id: id });
     } finally {
@@ -106,9 +104,9 @@ export default function Registration() {
             />
           </div>
 
-          {isAdmin && (
+          {user.userId && (
             <div className="logout-button-container">
-              <button onClick={handleLoginButtonClick}>Register</button>
+              <button onClick={handleRegistrationButtonClick}>Register</button>
             </div>
           )}
         </div>

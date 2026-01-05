@@ -1,11 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import uploadcss from "../Styles/Upload.module.css";
-import Loading from "./Loading";
 import CustomSelect from "./CustomSelect";
 import pdf from "../assets/pdf.png";
 import toast from "react-hot-toast";
-import Notice from "./Notice";
 import axios from "axios";
 import data from "./data.js";
 

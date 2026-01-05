@@ -24,7 +24,7 @@ export default function ShortsFeed() {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [activeId, setActiveId] = useState(null);
-  const [isAdmin, setIsAdmin] = useContext(adminContext);
+  const [user] = useContext(adminContext);
   const [show, setShow] = useState(false);
   const fileRef = useRef(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -132,9 +132,9 @@ export default function ShortsFeed() {
               publicId: uploadRes.data.public_id,
               size: uploadRes.data.bytes,
               duration: uploadRes.data.duration,
-              show: !isAdmin,
+              show: !user.userId,
               title: "",
-              userId: isAdmin,
+              userId: user.userId,
             }
           );
 
@@ -183,7 +183,7 @@ export default function ShortsFeed() {
 
       let res = null;
 
-      if (isAdmin) {
+      if (user.userId) {
         res = await fetch(`${BASE_URL}/api/shorts/c/?cursor=${cursor}`, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
@@ -363,7 +363,7 @@ export default function ShortsFeed() {
               onClick={() => fullscreen(short._id)}
             >
               <FontAwesomeIcon icon={faVectorSquare}></FontAwesomeIcon>
-              {isAdmin && (
+              {user.userId && (
                 <FontAwesomeIcon
                   icon={faTrash}
                   onClick={(e) => handleDelete(e, short._id)}

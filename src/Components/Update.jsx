@@ -13,7 +13,7 @@ import data from "./data.js"
 export default function Upload() {
   const  [yearOptions,semesterOptions,socialSciencesOptins, artHumnanitiesOptions, pharmacyBranchOptions, scienceBranchOptions, legalStudiesBranchOptions,commerceBranchOptions, engineeringBranchOptions, courseOptions ] = data
 
-  // const url = "http://127.0.0.1:8000/api/paper";
+  // const url = "http://127.0.0.1:8000";
   const url = "https://kmcianbackend.vercel.app";
 
   const location = useLocation();

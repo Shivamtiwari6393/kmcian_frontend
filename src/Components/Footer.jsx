@@ -6,13 +6,19 @@ function Footer() {
 
   useEffect(() => {
     const url = "https://kmcianbackend.vercel.app/api/request";
-    fetch(`${url}`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then((data) => setCounter(data.count));
+    try {
+      fetch(`${url}`)
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+        })
+        .then((data) => setCounter(data.count))
+        .catch((err) => {
+          console.log(err.message, "view count");
+        });
+    } catch (error) {console.log(error);
+    }
   }, []);
 
   return (

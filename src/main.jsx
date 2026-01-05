@@ -4,8 +4,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ErrorComponent from "./Components/ErrorComponent.jsx";
-// eslint-disable-next-line react-refresh/only-export-components
 const Announcement = lazy(() => import("./Components/Announcement.jsx"));
 const Upload = lazy(() => import("./Components/Upload.jsx"));
 const Query = lazy(() => import("./Components/Query.jsx"));
@@ -17,11 +15,12 @@ const About = lazy(() => import("./Components/About.jsx"));
 const Registration = lazy(() => import("./Components/Registration.jsx"));
 const Shorts = lazy(() => import("./Components/Shorts.jsx"));
 const Card = lazy(() => import("./Components/Card.jsx"));
+const ErrorComponent = lazy(() => import("./Components/ErrorComponent.jsx"));
 
 const route = createBrowserRouter([
   {
     path: "/",
-    errorElement: <ErrorComponent/>,
+    errorElement: <ErrorComponent />,
     element: <App></App>,
     children: [
       {
