@@ -10,12 +10,13 @@ import {
   faBullhorn,
   faInfo,
   faCirclePlay,
+  faFaceSmile,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
 import adminContext from "./adminContext";
 
 export default function Header() {
-  const [isAdmin, setIsAdmin] = useContext(adminContext);
+  const [user] = useContext(adminContext);
 
   return (
     <div className="header-container">
@@ -56,6 +57,14 @@ export default function Header() {
             <FontAwesomeIcon icon={faInfo} />
           </NavLink>
         </span>
+        {user.userId && (
+          <span>
+            <NavLink to={"/user"}>
+              <FontAwesomeIcon icon={faFaceSmile} />
+              {/* {user.username} */}
+            </NavLink>
+          </span>
+        )}
       </div>
     </div>
   );

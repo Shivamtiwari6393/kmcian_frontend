@@ -10,16 +10,20 @@ import adminContext from "./Components/adminContext";
 import RoundMotion from "./Components/RoundMotion";
 
 function App() {
-  const [user, setUser] = useState({userId: null, role : null});
-
+  const [user, setUser] = useState({
+    userId: null,
+    role: null,
+    username: null,
+  });
 
   useEffect(() => {
     const token = sessionStorage.getItem("kmcianToken");
-    const userId = sessionStorage.getItem("userId")
-    const role = sessionStorage.getItem("role")
+    const userId = sessionStorage.getItem("userId");
+    const role = sessionStorage.getItem("role");
+    const username = sessionStorage.getItem("username");
 
     if (token && userId) {
-      setUser({userId ,role});
+      setUser({ userId, role, username });
     }
   }, []);
 

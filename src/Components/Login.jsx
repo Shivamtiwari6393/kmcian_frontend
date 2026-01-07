@@ -27,6 +27,7 @@ function Login() {
       ...prev,
       userId: null,
       role: null,
+      username: null,
     }));
     toast.success("Logged out successfully!");
   };
@@ -59,12 +60,14 @@ function Login() {
       sessionStorage.setItem("kmcianToken", data.token);
       sessionStorage.setItem("userId", data.userId);
       sessionStorage.setItem("role", data.role);
+      sessionStorage.setItem("username", data.username);
 
       toast.success(data.message || "Login successful!", { id: id });
       setUser((prev) => ({
         ...prev,
         userId: data.userId,
         role: data.role,
+        username: data.username,
       }));
     } catch (e) {
       toast.error(e.message, { id: id });
@@ -106,10 +109,6 @@ function Login() {
               onChange={handleInputChange}
             />
           </div>
-
-          {console.log(user.userId, "==============userid==============")}
-          {console.log(!user.userId, "ttttttttt")}
-
           {true && (
             <div
               className={
@@ -118,12 +117,15 @@ function Login() {
                   : "login-button-container"
               }
             >
-              <button onClick={user.userId ? doLogout : handleLoginButtonClick} disabled = {isLoading}>
+              <button
+                onClick={user.userId ? doLogout : handleLoginButtonClick}
+                disabled={isLoading}
+              >
                 {isLoading ? "Processing..." : user.userId ? "Logout" : "Login"}
               </button>
             </div>
           )}
-{/* 
+          {/* 
           {user.userId && (
             <div className="logout-button-container">
               <button onClick={doLogout}>Logout</button>

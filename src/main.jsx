@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import User from "./Components/User.jsx";
 const Announcement = lazy(() => import("./Components/Announcement.jsx"));
 const Upload = lazy(() => import("./Components/Upload.jsx"));
 const Query = lazy(() => import("./Components/Query.jsx"));
@@ -67,6 +68,10 @@ const route = createBrowserRouter([
       {
         path: "/registration",
         element: <Registration />,
+      },
+      {
+        path: "/user",
+        element: <User />,
       },
     ],
   },
