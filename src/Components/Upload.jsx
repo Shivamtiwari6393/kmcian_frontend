@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import uploadcss from "../Styles/Upload.module.css";
 import CustomSelect from "./CustomSelect";
 import pdf from "../assets/pdf.png";
 import toast from "react-hot-toast";
 import axios from "axios";
 import data from "./data.js";
+import adminContext from "./adminContext.jsx";
 
 export default function Upload() {
   const [
@@ -39,6 +40,7 @@ export default function Upload() {
   const [isUploading, setIsUploading] = useState(false);
   const [fileName, setFileName] = useState("No file chosen");
   const [openSelect, setOpenSelect] = useState(null);
+  const [user] = useContext(adminContext);
 
   const [progress, setProgress] = useState(1);
 
@@ -122,6 +124,7 @@ export default function Upload() {
     formData.append("year", uploadData.year);
     formData.append("name", uploadData.name);
     formData.append("pdf", file);
+    if (user.userId) formData.append("userId", user.userId);
 
     //------------- POST DATA---------------
 
@@ -144,7 +147,7 @@ export default function Upload() {
       });
 
       if (response.status === 201) {
-        toast.success(response.data.message, { id: loadId});
+        toast.success(response.data.message, { id: loadId });
         setProgress(0);
       } else {
         toast.error(response.data.message || "Upload failed", { id: loadId });
@@ -224,7 +227,13 @@ export default function Upload() {
               <img src={pdf} alt="pdf" />
               <span id={uploadcss["upload-name"]}>{fileName}</span>
             </label>
-            <input id="file-upload" type="file" onChange={handleFileChange} multiple={false} accept="application/pdf"/>
+            <input
+              id="file-upload"
+              type="file"
+              onChange={handleFileChange}
+              multiple={false}
+              accept="application/pdf"
+            />
           </div>
           <div className={uploadcss["name"]}>
             <input

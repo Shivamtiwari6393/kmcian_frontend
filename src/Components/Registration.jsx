@@ -49,6 +49,7 @@ export default function Registration() {
       if (!response.ok) throw new Error(data.message || "An error occurred");
       toast.success(data.message || "Registration successful!", { id: id });
     } catch (e) {
+      console.log("err in registration", e);
       toast.error(e.message, { id: id });
     } finally {
       setIsLoading(false);
