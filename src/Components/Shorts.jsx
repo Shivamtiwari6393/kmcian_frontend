@@ -42,7 +42,8 @@ export default function ShortsFeed() {
     setShow((prev) => !prev);
   };
 
-  const fullscreen = (id) => {
+  const fullscreen = (e,id) => {
+    e.stopPropagation()
     const video = videoRefs.current[id];
     if (!video) return;
     video.requestFullscreen();
@@ -358,13 +359,15 @@ export default function ShortsFeed() {
 
         {shorts?.map((short) => (
           <div className="video-container" key={short._id}>
-            <div
-              className="short-button-container"
-              onClick={() => fullscreen(short._id)}
-            >
-              <FontAwesomeIcon icon={faVectorSquare}></FontAwesomeIcon>
+            <div className="short-control-button-container">
+              <FontAwesomeIcon
+                id="fullscreen-button"
+                icon={faVectorSquare}
+                onClick={(e) => fullscreen(e, short._id)}
+              ></FontAwesomeIcon>
               {user.userId && (
                 <FontAwesomeIcon
+                  id="delete-button"
                   icon={faTrash}
                   onClick={(e) => handleDelete(e, short._id)}
                 ></FontAwesomeIcon>

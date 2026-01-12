@@ -17,21 +17,22 @@
   margin: 10px;
 }
 
-.short-container .video-container .short-button-container {
+.short-container .video-container .short-control-button-container {
   display: flex;
   flex-direction: column;
   position: absolute;
   right: 0px;
+  gap: 10px;
   z-index: 10;
 }
 
-.short-button-container svg {
+.short-control-button-container svg {
   background-color: transparent;
   color: red;
   margin: 10px;
 }
 
-.short-button-container:active {
+.short-control-button-container #delete-button:active {
   transform: scale(0.8);
 }
 
