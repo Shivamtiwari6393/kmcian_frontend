@@ -11,9 +11,7 @@ import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCloudArrowUp,
-  faDeleteLeft,
   faPlus,
-  faRemove,
   faTrash,
   faVectorSquare,
 } from "@fortawesome/free-solid-svg-icons";
@@ -133,9 +131,9 @@ export default function ShortsFeed() {
               publicId: uploadRes.data.public_id,
               size: uploadRes.data.bytes,
               duration: uploadRes.data.duration,
-              show: !user.userId,
+              show: user?.role === "user" || !user.userId ? 1 : 2,
               title: "",
-              userId: user.userId,
+              userId: user?.userId,
             }
           );
 
