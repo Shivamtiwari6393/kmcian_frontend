@@ -8,8 +8,8 @@ import { faFaceFrown, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Login.css";
 
 export default function Registration() {
-    // const url = "http://127.0.0.1:8000/api/user/register";
-  const url = "https://kmcianbackend.vercel.app/api/user/register";
+  // const url = "http://127.0.0.1:8000/api/user";
+  const url = "https://kmcianbackend.vercel.app/api/user";
 
   const [credentials, setCredentials] = useState({
     username: "",
@@ -36,14 +36,23 @@ export default function Registration() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
-        },
-        body: JSON.stringify(credentials),
-      });
+      let response = null;
+      user.userId
+        ? (response = await fetch(`${url}/v1/register`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
+            },
+            body: JSON.stringify(credentials),
+          }))
+        : (response = await fetch(`${url}/v2/register`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(credentials),
+          }));
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "An error occurred");
@@ -91,7 +100,6 @@ export default function Registration() {
               onChange={handleInputChange}
             />
           </div>
-
           <div className="password-container">
             <label htmlFor="password">
               <FontAwesomeIcon icon={faLock} style={{ color: "#ffffff" }} />
@@ -105,11 +113,9 @@ export default function Registration() {
             />
           </div>
 
-          {user.userId && (
-            <div className="logout-button-container">
-              <button onClick={handleRegistrationButtonClick}>Register</button>
-            </div>
-          )}
+          <div className="logout-button-container">
+            <button onClick={handleRegistrationButtonClick}>Register</button>
+          </div>
         </div>
       </div>
     </>

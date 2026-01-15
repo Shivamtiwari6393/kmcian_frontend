@@ -4,7 +4,8 @@ import "../Styles/Login.css";
 import { toast } from "react-hot-toast";
 import adminContext from "./adminContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faLock, faBullhorn } from "@fortawesome/free-solid-svg-icons";
+import { NavLink } from "react-router-dom";
 
 function Login() {
   // const url = "http://127.0.0.1:8000/api/user/login";
@@ -132,6 +133,9 @@ function Login() {
             </div>
           )} */}
         </div>
+        <span>
+          <NavLink to={"/registration"}>Registration</NavLink>
+        </span>
       </div>
     </>
   );
