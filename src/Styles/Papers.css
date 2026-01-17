@@ -95,6 +95,9 @@
   margin: 5px auto;
   background-color: rgb(26, 26, 26);
   border-radius: 4px;
+  overflow-x:scroll ;
+  scrollbar-width: none;
+
 }
 
 .paperName p {

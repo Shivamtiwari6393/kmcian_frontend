@@ -62,7 +62,7 @@ function User() {
                 icon={faEdit}
                 onClick={() =>
                   handleUpdate({
-                    _id: d.paperId.paperId,
+                    _id: d.paperId._id,
                     branch: d.paperId.branch,
                     course: d.paperId.course,
                     paper: d.paperId.paper,
