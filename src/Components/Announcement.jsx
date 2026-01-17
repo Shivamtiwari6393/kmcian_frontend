@@ -8,8 +8,8 @@ import adminContext from "./adminContext";
 import RoundMotion from "./RoundMotion";
 
 function Announcement() {
-  // const url = "http://127.0.0.1:8000";
-  const url = "https://kmcianbackend.vercel.app";
+  const url = "http://127.0.0.1:8000";
+  // const url = "https://kmcianbackend.vercel.app";
 
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(true);
@@ -62,8 +62,6 @@ function Announcement() {
   const handleMoreButtonClick = (e) => {
     // if (pageInfo.currentPage + 1 <= pageInfo.totalPage) fetchAnnouncement(e);
     pageInfoRef.current.currentPage += 1;
-    console.log(pageInfoRef.current.currentPage);
-
     if (pageInfoRef.current.currentPage <= pageInfoRef.current.totalPage)
       fetchAnnouncement(e);
     return;

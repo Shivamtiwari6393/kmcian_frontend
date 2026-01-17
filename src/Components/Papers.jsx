@@ -3,7 +3,7 @@ import "../Styles/Papers.css";
 import { saveAs } from "file-saver";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "./Loading";
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState, useCallback } from "react";
 import toast from "react-hot-toast";
 import adminContext from "./adminContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,99 +14,55 @@ export default function Papers() {
   const url = "https://kmcianbackend.vercel.app/api";
 
   const navigate = useNavigate();
-
   const location = useLocation();
-
   const reqPapers = location.state;
 
   const [isLoading, setIsLoading] = useState(false);
-
   const [user] = useContext(adminContext);
-
   const [searchInput, setSearchInput] = useState("");
-
-  const [FilterdData, setFilterdData] = useState(reqPapers);
-
-  const [description, setDescription] = useState("");
-  const [showDescription, setShowDescription] = useState(false);
-  const [id, setId] = useState(null);
+  const [activeId, setActiveId] = useState(null);
   const [clicked, setClicked] = useState(null);
 
-  // checking token
 
-  // -------------search function----------------------
+  const filteredData = useMemo(() => {
+    return reqPapers.filter((el) =>
+      el.paper.toLowerCase().includes(searchInput.toLowerCase())
+    );
+  }, [reqPapers, searchInput]);
 
   const onSearchInputChange = (e) => {
-    // console.log(user.userId ,"");
-
     setSearchInput(e.target.value);
-    setFilterdData(filter());
   };
 
-  const filter = () => {
-    const filterdData = reqPapers.filter((element) => {
-      return element.paper.toLowerCase().includes(searchInput.toLowerCase());
-    });
 
-    return filterdData;
-  };
-
-  // ---------------Handle file download----------------------------
-
-  const handleDownload = async (element) => {
-    const selectedPaper = element;
-
-    const encodedCourse = encodeURIComponent(selectedPaper.course);
-    const encodedYear = encodeURIComponent(selectedPaper.year);
-    const encodedBranch = encodeURIComponent(selectedPaper.branch);
-    const encodedPaper = encodeURIComponent(selectedPaper.paper);
-
+  const handleDownload = async (paper) => {
     const loadId = toast.loading("Downloading...");
     setIsLoading(true);
 
     try {
       const response = await fetch(
-        `${url}/paper/download?course=${encodedCourse}&year=${encodedYear}&paper=${encodedPaper}&branch=${encodedBranch}&semester=${selectedPaper.semester}&t=${selectedPaper.t}`
+        `${url}/paper/download?course=${encodeURIComponent(
+          paper.course
+        )}&year=${encodeURIComponent(paper.year)}&paper=${encodeURIComponent(
+          paper.paper
+        )}&branch=${encodeURIComponent(paper.branch)}&semester=${
+          paper.semester
+        }&t=${paper.t}`
       );
 
-      if (!response.ok) {
-        setIsLoading(false);
-        const data = await response.json();
-        throw new Error(data.message);
-      }
+      if (!response.ok) throw new Error("Download failed");
 
       const blob = await response.blob();
+      saveAs(blob, paper.paper || "paper.pdf");
 
-      // ---------  Accessing filename--------------
-
-      const filename = selectedPaper.paper || "Kmcian_Paper.pdf";
-
-      //------------------ Saving pdf-----------------------------
-
-      saveAs(blob, filename);
+     return toast.success("Downloaded", { id: loadId });
+    } catch (err) {
+     return toast.error(err.message, { id: loadId });
+    } finally {
       setIsLoading(false);
-      toast.success("Paper downloaded succesfully", { id: loadId });
-    } catch (error) {
-      setIsLoading(false);
-      toast.error(error.message, { id: loadId });
     }
   };
 
-  // on update button click
-
-  const handleUpdate = (selectedOption) => {
-    navigate("/update", { state: selectedOption });
-  };
-
-  // handle flag button click
-
-  const handleFlagButtonClick = async (e, element) => {
-    e.stopPropagation();
-    setId(element._id);
-    setShowDescription(!showDescription);
-  };
-
-  // description
 
   const descriptionOptions = [
     "It's not a PYQ.",
@@ -115,147 +71,114 @@ export default function Papers() {
     "Wrong semester or year.",
   ];
 
-  const handleDescriptionOptionClick = (e, index) => {
+  const handleFlagClick = (e, id) => {
+    e.stopPropagation();
+    setActiveId(id);
+    setClicked(null);
+  };
+
+  const handleOptionClick = (e, index) => {
     e.stopPropagation();
     setClicked(index);
   };
 
-  const handleSubmitFlagReason = async (e, element) => {
+  const handleSubmitFlag = async (e, paper) => {
     e.stopPropagation();
-
     if (clicked === null) return;
 
-    const resposeId = toast.loading("Submitting response...");
-
+    const toastId = toast.loading("Submitting...");
     try {
-      const response = await fetch(`${url}/flag`, {
+      const res = await fetch(`${url}/flag`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...element,
+          ...paper,
           description: descriptionOptions[clicked],
         }),
       });
 
-      if (response.ok) return toast.success("Done", { id: resposeId });
+      if (!res.ok) throw new Error("Failed");
 
-      const data = await response.json();
-
-      throw new Error(data.message);
-    } catch (error) {
-      return toast.error(error.message, { id: resposeId });
+      toast.success("Submitted", { id: toastId });
+    } catch (err) {
+      toast.error(err.message, { id: toastId });
     } finally {
-      setId(null);
+      setActiveId(null);
       setClicked(null);
-      setDescription(null);
     }
   };
 
-  // ==================================================================================
+  const closePopup = useCallback(() => setActiveId(null), []);
+
+  // ---------------- UPDATE ----------------
+
+  const handleUpdate = (paper) => {
+    navigate("/update", { state: paper });
+  };
+
+  // ====================================================
 
   return (
-    <div className="papers-container" onClick={() => setId(null)}>
+    <div className="papers-container" onClick={closePopup}>
       <div className="search-container">
         <input
           type="text"
           placeholder="Search"
-          onChange={onSearchInputChange}
           value={searchInput}
+          onChange={onSearchInputChange}
         />
       </div>
 
-      {isLoading && <Loading></Loading>}
+      {isLoading && <Loading />}
 
-      {FilterdData.map((element) => (
-        <div className="paper-details" key={element["_id"]}>
+      {filteredData.map((paper) => (
+        <div className="paper-details" key={paper._id}>
           <div className="report">
             <FontAwesomeIcon
               icon={faFlag}
-              alt="flag button"
-              onClick={(e) => handleFlagButtonClick(e, element)}
+              onClick={(e) => handleFlagClick(e, paper._id)}
             />
-            {element._id === id && showDescription && (
-              <>
-                <div className="description-container">
-                  <h3>Select a Reason</h3>
-                  <hr />
-                  {showDescription &&
-                    descriptionOptions.map((data, index) => (
-                      <div className="description-options" key={index}>
-                        <p
-                          style={{
-                            backgroundColor:
-                              clicked === index
-                                ? "rgb(54, 170, 220)"
-                                : "rgb(255, 255, 255)",
-                          }}
-                          onClick={(e) =>
-                            handleDescriptionOptionClick(e, index)
-                          }
-                        >
-                          {index + 1}.{data}
-                        </p>
-                        <hr />
-                      </div>
-                    ))}
-                  <div className="submit-button-container">
-                    <button onClick={(e) => handleSubmitFlagReason(e, element)}>
-                      Submit
-                    </button>
-                  </div>
-                </div>
-              </>
+
+            {activeId === paper._id && (
+              <div className="description-container">
+                <h3>Select a Reason</h3>
+                <hr />
+                {descriptionOptions.map((opt, i) => (
+                  <p
+                    key={i}
+                    className={clicked === i ? "desc-active" : "desc"}
+                    onClick={(e) => handleOptionClick(e, i)}
+                  >
+                    {i + 1}. {opt}
+                  </p>
+                ))}
+                <button onClick={(e) => handleSubmitFlag(e, paper)}>
+                  Submit
+                </button>
+              </div>
             )}
           </div>
 
-          <div className="paperName">
-            <p>{element.paper}</p>
-          </div>
+          <div className="paperName"><p>{paper.paper}</p></div>
+          <div className="branch"><p>{paper.branch}</p></div>
+          <div className="semester"><p>{paper.semester}</p></div>
+          <div className="year"><p>{paper.year}</p></div>
 
-          <div className="branch">
-            <p>{element.branch}</p>
-          </div>
-          <div className="semester">
-            <p>{element.semester}</p>
-          </div>
-          <div className="year">
-            <p>{element.year}</p>
-          </div>
           <div className="name">
-            <p>
-              <div>Uploaded by</div>
-              {element.name}
-            </p>
+            <p>Uploaded by</p>
+            <p>{paper.name}</p>
           </div>
 
           <div className="button-container">
-            <div
-              className="download-button-container"
-              onClick={() => handleDownload(element)}
-            >
-              <FontAwesomeIcon
-                icon={faDownload}
-                style={{ fontSize: "1.2rem" }}
-                alt="download button"
-              />
+            <div onClick={() => handleDownload(paper)}>
+              <FontAwesomeIcon icon={faDownload} />
             </div>
 
-            <div
-              className="update-button-container"
-              onClick={(e) => handleUpdate(element)}
-            >
-              {user.userId && (
-                <>
-                  <FontAwesomeIcon
-                    icon={faEdit}
-                    style={{ fontSize: "1.2rem" }}
-                    alt="download button"
-                  />
-                </>
-              )}
-            </div>
+            {user.userId && (
+              <div onClick={() => handleUpdate(paper)}>
+                <FontAwesomeIcon icon={faEdit} />
+              </div>
+            )}
           </div>
         </div>
       ))}

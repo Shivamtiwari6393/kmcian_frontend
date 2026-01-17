@@ -2,23 +2,36 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import "../Styles/CustomSelect.css"
-const CustomSelect = ({ options, onChange, placeholder, isOpen, onClick, inculudeAll = false}) => {
+import "../Styles/CustomSelect.css";
+const CustomSelect = ({
+  options,
+  onChange,
+  placeholder,
+  isOpen,
+  onClick,
+  inculudeAll = false,
+}) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
-  const handleSelect = (option) => {
-    setSelectedOption(option);
-    onChange(option.value);
-    onClick();
-  };
-
+ const handleSelect = (option, e) => {
+  e.stopPropagation();
+  setSelectedOption(option);
+  onChange(option.value);
+  onClick(e);
+};
   return (
     <div className="select-container">
-      <div className="select" onClick={onClick}>
+      <div className="select" onClick={(e) => onClick(e)}>
         <div className="placeholder">
           {selectedOption ? selectedOption.label : placeholder}
         </div>
-        <div className={isOpen? "drop-down-icon-container-rotate": "drop-down-icon-container"}>
+        <div
+          className={
+            isOpen
+              ? "drop-down-icon-container-rotate"
+              : "drop-down-icon-container"
+          }
+        >
           <FontAwesomeIcon icon={faCaretDown} />
         </div>
       </div>
@@ -29,10 +42,10 @@ const CustomSelect = ({ options, onChange, placeholder, isOpen, onClick, inculud
               <div
                 key={option.value}
                 className="option"
-                onClick={() => handleSelect(option)}
-                hidden = {option.value == "All" && inculudeAll}
+                onClick={(e) => handleSelect(option, e)}
+                hidden={option.value == "All" && inculudeAll}
               >
-               {option.label}
+                {option.label}
               </div>
             ))}
           </div>

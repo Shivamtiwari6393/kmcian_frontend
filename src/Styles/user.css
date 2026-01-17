@@ -1,5 +1,49 @@
-.user-container{
-    color: white;
-    text-align: center;
-    padding: 10px 10px;
+.user-container {
+  color: white;
+  padding: 10px 10px;
+  text-overflow: clip;
+}
+
+.user-container h3 {
+  text-align: center;
+}
+
+.data-container {
+  text-overflow: clip;
+  margin: 5px;
+}
+
+.data-container .column-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 0.5fr;
+}
+
+.data-container .info-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 0.5fr;
+  border: 1px solid grey;
+  margin: 10px 0px;
+}
+
+.data-container p {
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+  padding: 10px;
+  background-color: rgb(27, 70, 55);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.data-container p:nth-child(3) {
+  text-align: center;
+}
+
+.data-container p:nth-last-child(1) {
+  text-align: center;
+}
+
+@media screen and (width <= 380px) {
+  .user-container {
+    font-size: x-small;
+  }
 }

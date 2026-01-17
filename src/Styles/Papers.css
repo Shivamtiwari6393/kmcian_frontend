@@ -1,77 +1,145 @@
-/* keyframes */
-
 @keyframes showw {
-  0% {
+  from {
     transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
 @keyframes scroll {
   from {
-    transform: scale(90%);
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
-
-/* ----------------------------------------------------------------- */
 .papers-container {
   position: relative;
   padding-bottom: 50px;
   user-select: none;
+  max-width: 600px;
+  margin: 0px auto;
 }
 
-.papers-container .search-container {
+.search-container {
   text-align: center;
   padding: 5px;
-  margin: 5px 0px;
+  margin: 5px 0;
 }
 
-.papers-container .search-container input {
+.search-container input {
   padding: 10px;
   text-align: center;
-  border: none;
-  border-radius: 5px;
   width: 80%;
-  background: none;
+  border-radius: 5px;
   border: 1px solid rgba(255, 255, 255, 0.5);
+  background: none;
   color: white;
 }
-
-.papers-container .paper-details {
-  position: relative;
-  width: 95%;
-  margin: 25px auto;
-  padding: 10px 20px;
-  border-radius: 10px;
-  display: grid;
-  grid-template-columns: 2fr repeat(5, 1fr);
-  gap: 15px;
-  align-items: center;
-  font-weight: bold;
-  border: 1px solid rgba(255, 255, 255, 0.573);
-}
-
 .report {
   position: absolute;
   top: 10px;
   right: 10px;
   font-size: 0.8rem;
-  color: rgba(255, 0, 0, 0.871);
+  color: rgba(255, 0, 0, 0.85);
+  cursor: pointer;
 }
 
 .description-container {
-  background-color: rgb(255, 255, 255);
+  background: white;
   position: absolute;
   right: 100%;
-  display: flex;
-  flex-direction: column;
   width: 80vw;
   max-width: 600px;
-  z-index: 99999;
-  animation-name: showw;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-out;
-  transform-origin: 100% 0%;
+  max-width: 500px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transform-origin: top right;
+  animation: showw 0.25s ease-out;
+  will-change: transform, opacity;
+}
+
+.description-container > p {
+  border-bottom: 1px solid grey;
+}
+.paper-details {
+  padding: 15px 20px;
+  position: relative;
+  width: 95%;
+  margin: 25px auto;
+  font-weight: bold;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.paperName,
+.branch,
+.semester,
+.year,
+.name {
+  width: 90%;
+  padding: 10px;
+  text-align: center;
+  margin: 5px auto;
+  background-color: rgb(26, 26, 26);
+  border-radius: 4px;
+}
+
+.paperName p {
+  color: rgb(120, 58, 58);
+}
+
+.branch p {
+  color: cadetblue;
+}
+
+.semester p {
+  color: blueviolet;
+}
+
+.year p {
+  color: cornflowerblue;
+}
+
+.name p {
+  color: rgb(111, 120, 137);
+}
+
+.papers-container .button-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.papers-container .button-container > div {
+  text-align: center;
+  width: 100px;
+  background: rgb(32, 32, 32);
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  margin: 10px;
+}
+
+.papers-container .button-container > div:active {
+  transform: scale(0.95);
+}
+
+.button-container svg {
+  font-size: 1.2rem;
+  color: green;
 }
 
 .description-container h3 {
@@ -80,246 +148,64 @@
   color: brown;
 }
 
-.description-container p {
-  width: 100%;
-  display: block;
-  padding: 10px;
-  padding-bottom: 20px;
-  padding-top: 20px;
+.desc,
+.desc-active {
+  padding: 15px;
+  cursor: pointer;
   color: black;
 }
 
-.description-container .submit-button-container {
-  padding: 10px;
-  text-align: center;
-}
-
-.description-container .submit-button-container button {
-  border: none;
-  padding: 5px;
-  font-style: italic;
-  font-weight: 700;
-  background-color: green;
+.desc-active {
+  background-color: rgb(54, 170, 220);
   color: white;
-  min-width: 20%;
 }
 
-.description-container .submit-button-container button:active {
-  transform: scale(0.9);
-}
-
-.description-container p:hover {
-  background-color: rgba(6, 10, 57, 0.83);
-}
-
-.paperName p {
-  overflow: hidden;
-  color: rgb(120, 58, 58);
-  background: rgb(32, 32, 32);
-  padding: 10px;
-}
-
-.branch p {
-  text-align: center;
-  color: cadetblue;
-  background: rgb(32, 32, 32);
-  padding: 10px;
-
-}
-
-.semester p {
-  text-align: center;
-  overflow: hidden;
-  color: blueviolet;
-  background: rgb(32, 32, 32);
-  padding: 10px;
-
-}
-
-.year p {
-  text-align: center;
-  overflow: hidden;
-  color: cornflowerblue;
-  background: rgb(32, 32, 32);
-  padding: 10px;
-}
-
-.name p {
-  overflow: hidden;
-  color: rgb(111, 120, 137);
-  padding: 10px;
-  background: rgb(32, 32, 32);
-  padding: 10px;
-}
-
-.name p div {
-  margin: 5px 0px;
-  color: rgb(80, 80, 246);
-}
-
-.paper-details .button-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.papers-container .download-button-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 10px;
+.description-container button {
+  margin: 10px auto;
+  padding: 6px 14px;
   border: none;
-  width: 50%;
-  min-width: 60px;
-  max-width: 200px;
-  background-color: rgb(37, 37, 37);
-  border-radius: 5px;
-  margin: 5px;
-  transition-duration: 0.3s;
-  color: green;
-}
-.download-button-container :active {
-  transform: scale(0.9);
+  font-weight: 700;
+  background: green;
+  color: white;
+  cursor: pointer;
 }
 
-.papers-container .update-button-container {
-  display: flex;
-  justify-content: center;
-  min-width: 60px;
-  max-width: 200px;
-  width: 50%;
-  background: rgb(37, 37, 37);
-  color: rgb(156, 111, 181);
+.description-container button:active {
+  transform: scale(0.95);
 }
 
-.update-button-container svg {
-  margin: 10px;
-}
-
-/* screen <= 1200px */
-
-@media screen and (width <= 1200px) {
-  .papers-container {
-    margin: 0px 5px;
-  }
-
-  .papers-container .paper-details {
+/* 
+@media screen and (width >= 1200px) {
+  .paper-details {
     grid-template-columns: 1fr;
-    margin: 20px auto;
     max-width: 700px;
-    animation-name: scroll;
-    justify-items: center;
-
-    animation-timeline: view();
-    animation-range-start: entry;
+    animation: scroll 0.4s ease-out;
+    background-color: none;
   }
 
-  .papers-container .button-container {
+  .button-container {
     flex-direction: column;
-    margin-top: 10px;
+    gap: 15px;
   }
-
-  .papers-container .button-container div {
-    margin-top: 15px;
-  }
-
-  .paperName {
-    width: 90%;
-  }
-
-  .paperName p {
-    text-align: center;
-    color: rgb(131, 98, 208);
-    display: block;
-    width: 100%;
-    margin: 10px 0px;
-    border-radius: 5px;
-  }
-
-  .branch {
-    width: 90%;
-  }
-
-  .branch p {
-    text-align: center;
-    color: rgb(110, 181, 194);
-    display: block;
-    width: 100%;
-    margin: 5px 0px;
-    border-radius: 5px;
-    /* box-shadow: 0px 4px 5px rgb(195, 195, 195); */
-  }
-
-  .semester {
-    width: 90%;
-  }
-
-  .semester p {
-    color: brown;
-    width: fit-content;
-    text-align: center;
-    width: 100%;
-    margin: 5px 0px;
-  }
-
-  .year {
-    width: 90%;
-  }
-
-  .year p {
-    color: rgb(141, 46, 188);
-    width: fit-content;
-    text-align: center;
-    width: 100%;
-    /* box-shadow: 0px 4px 5px rgb(195, 195, 195); */
-    margin: 5px 0px;
-  }
-
+  .paperName,
+  .branch,
+  .semester,
+  .year,
   .name {
-    width: 90%;
-    margin: 5px 0px;
-  }
-
-  .name div {
-    color: rgb(69, 69, 195);
-  }
-
-  .name p {
-    color: rgb(141, 46, 188);
-    text-align: center;
-    /* box-shadow: 0px 4px 5px rgb(195, 195, 195); */
-  }
-
-  .download-button-container {
-    margin-top: 5px;
     width: 100%;
+    border-right: 1px grey;
+    background: none;
   }
-
-  .papers-container #update-button {
-    justify-content: center;
-    color: white;
-  }
-}
-
-/* screen <= 500px */
+} */
 
 @media screen and (width <= 500px) {
-  .papers-container .paper-details div p {
-    font-size: small;
+  .paper-details p {
+    font-size: 0.85rem;
   }
 }
 
-/* screen <= 300 */
-
 @media screen and (width <= 300px) {
-  .papers-container {
-    margin: 0px 5px;
-  }
-
-  .papers-container .paper-details div p {
-    font-size: xx-small;
+  .paper-details p {
+    font-size: 0.7rem;
   }
 }

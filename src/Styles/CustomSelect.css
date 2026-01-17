@@ -2,7 +2,7 @@
   color: rgb(187, 187, 187);
   text-align: center;
   position: relative;
-  width: 96%;
+  width: 80%;
   max-width: 300px;
   margin: 7px auto;
   border-radius: 5px;
@@ -13,6 +13,7 @@
   /* box-shadow: inset 3px 3px 6px #141414, inset -6px -6px 12px #373737; */
   box-shadow: 1px 3px 4px rgb(0, 0, 0);
   background: #2a2a2a;
+  font-size: small;
 }
 
 .select {
@@ -108,7 +109,7 @@
   background-color: rgb(17, 17, 17);
 }
 
-@media screen and (max-width: 330px) {
+@media screen and (max-width: 380px) {
   .select-container {
     font-size: x-small;
   }

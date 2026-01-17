@@ -122,8 +122,6 @@ export default function Query() {
         // hide the more button if current page = total page
 
         if (data.currentPage == data.totalPage) e.target.hidden = true;
-        console.log(data.currentPage, data.totalPage);
-
         // toast.success("Completed", { id: loadId });
         setIsLoading(false);
         return;
