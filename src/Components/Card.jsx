@@ -23,8 +23,8 @@ export default function Card() {
     courseOptions,
   ] = data;
 
-  const url = "http://127.0.0.1:8000/api/paper/v1";
-  // const url = "https://kmcianbackend.vercel.app/api/paper/v1";
+  // const url = "http://127.0.0.1:8000/api/paper/v1";
+  const url = "https://kmcianbackend.vercel.app/api/paper/v1";
 
     // const url = "http://10.125.107.27:8000/api/paper";
 

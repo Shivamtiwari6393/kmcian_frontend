@@ -22,8 +22,8 @@ export default function Upload() {
     courseOptions,
   ] = data;
 
-  const url = "http://127.0.0.1:8000/api/paper/v2";
-  // const url = "https://kmcianbackend.vercel.app/api/paper/v2";
+  // const url = "http://127.0.0.1:8000/api/paper/v2";
+  const url = "https://kmcianbackend.vercel.app/api/paper/v2";
 
   //--------------- state for data to be uploaded---------------------
   const [uploadData, setUploadData] = useState({
