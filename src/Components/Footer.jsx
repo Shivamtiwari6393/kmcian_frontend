@@ -5,7 +5,7 @@ function Footer() {
   const [counter, setCounter] = useState("");
 
   useEffect(() => {
-    const url = "https://kmcianbackend.vercel.app/api/request";
+    const url = "https://kmcianbackend.vercel.app/api/request/v1";
     try {
       fetch(`${url}`)
         .then((res) => {

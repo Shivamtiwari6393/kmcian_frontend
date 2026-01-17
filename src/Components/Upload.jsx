@@ -22,8 +22,8 @@ export default function Upload() {
     courseOptions,
   ] = data;
 
-  // const url = "http://127.0.0.1:8000/api/paper";
-  const url = "https://kmcianbackend.vercel.app/api/paper";
+  const url = "http://127.0.0.1:8000/api/paper/v2";
+  // const url = "https://kmcianbackend.vercel.app/api/paper/v2";
 
   //--------------- state for data to be uploaded---------------------
   const [uploadData, setUploadData] = useState({
@@ -131,7 +131,7 @@ export default function Upload() {
     const loadId = toast.loading("Uploading... 1%");
     try {
       setIsUploading(true);
-      const response = await axios.post(`${url}/post`, formData, {
+      const response = await axios.post(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -56,7 +56,7 @@ export default function ShortsFeed() {
     });
 
     try {
-      const signRes = await axios.get(`${BASE_URL}/api/shorts/signupload`);
+      const signRes = await axios.get(`${BASE_URL}/api/shorts/v1/signupload`);
 
       if (signRes.status == 200) {
         // toast.success(signRes.message || "Got the signed url", { id: loadId });
@@ -178,12 +178,12 @@ export default function ShortsFeed() {
     setLoading(true);
 
     try {
-      const url = `${BASE_URL}/api/shorts?cursor=${cursor}`;
+      const url = `${BASE_URL}/api/shorts/v2?cursor=${cursor}`;
 
       let res = null;
 
       if (user.userId) {
-        res = await fetch(`${BASE_URL}/api/shorts/c/?cursor=${cursor}`, {
+        res = await fetch(`${BASE_URL}/api/shorts/v3?cursor=${cursor}`, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
           },
