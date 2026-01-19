@@ -23,17 +23,15 @@ export default function Papers() {
   const [activeId, setActiveId] = useState(null);
   const [clicked, setClicked] = useState(null);
 
-
   const filteredData = useMemo(() => {
     return reqPapers.filter((el) =>
-      el.paper.toLowerCase().includes(searchInput.toLowerCase())
+      el.paper.toLowerCase().includes(searchInput.toLowerCase()),
     );
   }, [reqPapers, searchInput]);
 
   const onSearchInputChange = (e) => {
     setSearchInput(e.target.value);
   };
-
 
   const handleDownload = async (paper) => {
     const loadId = toast.loading("Downloading...");
@@ -42,12 +40,12 @@ export default function Papers() {
     try {
       const response = await fetch(
         `${url}/paper/download?course=${encodeURIComponent(
-          paper.course
+          paper.course,
         )}&year=${encodeURIComponent(paper.year)}&paper=${encodeURIComponent(
-          paper.paper
+          paper.paper,
         )}&branch=${encodeURIComponent(paper.branch)}&semester=${
           paper.semester
-        }&t=${paper.t}`
+        }&t=${paper.t}`,
       );
 
       if (!response.ok) throw new Error("Download failed");
@@ -55,14 +53,13 @@ export default function Papers() {
       const blob = await response.blob();
       saveAs(blob, paper.paper || "paper.pdf");
 
-     return toast.success("Downloaded", { id: loadId });
+      return toast.success("Downloaded", { id: loadId });
     } catch (err) {
-     return toast.error(err.message, { id: loadId });
+      return toast.error(err.message, { id: loadId });
     } finally {
       setIsLoading(false);
     }
   };
-
 
   const descriptionOptions = [
     "It's not a PYQ.",
@@ -73,8 +70,7 @@ export default function Papers() {
 
   const handleFlagClick = (e, id) => {
     e.stopPropagation();
-    if(activeId) return closePopup()
-    setActiveId(id);
+    setActiveId((prev) => (prev === id ? null : id));
     setClicked(null);
   };
 
@@ -141,7 +137,10 @@ export default function Papers() {
             />
 
             {activeId === paper._id && (
-              <div className="description-container">
+              <div
+                className="description-container"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <h3>Select a Reason</h3>
                 <hr />
                 {descriptionOptions.map((opt, i) => (
@@ -160,10 +159,18 @@ export default function Papers() {
             )}
           </div>
 
-          <div className="paperName"><p>{paper.paper}</p></div>
-          <div className="branch"><p>{paper.branch}</p></div>
-          <div className="semester"><p>{paper.semester}</p></div>
-          <div className="year"><p>{paper.year}</p></div>
+          <div className="paperName">
+            <p>{paper.paper}</p>
+          </div>
+          <div className="branch">
+            <p>{paper.branch}</p>
+          </div>
+          <div className="semester">
+            <p>{paper.semester}</p>
+          </div>
+          <div className="year">
+            <p>{paper.year}</p>
+          </div>
 
           <div className="name">
             <p>Uploaded by</p>

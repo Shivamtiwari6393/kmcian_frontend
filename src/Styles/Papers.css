@@ -51,11 +51,6 @@
   color: rgba(255, 0, 0, 0.85);
   cursor: pointer;
 }
-
-.report:active{
-  scale: 0.7;
-}
-
 .description-container {
   background: white;
   position: absolute;
@@ -99,9 +94,8 @@
   margin: 5px auto;
   background-color: rgb(26, 26, 26);
   border-radius: 4px;
-  overflow-x:scroll ;
+  overflow-x: scroll;
   scrollbar-width: none;
-
 }
 
 .paperName p {
