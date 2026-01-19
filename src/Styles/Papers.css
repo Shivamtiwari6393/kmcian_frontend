@@ -52,6 +52,10 @@
   cursor: pointer;
 }
 
+.report:active{
+  scale: 0.7;
+}
+
 .description-container {
   background: white;
   position: absolute;

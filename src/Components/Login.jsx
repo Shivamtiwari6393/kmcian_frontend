@@ -110,7 +110,7 @@ function Login() {
               onChange={handleInputChange}
             />
           </div>
-          {true && (
+         
             <div
               className={
                 user.userId
@@ -125,13 +125,6 @@ function Login() {
                 {isLoading ? "Processing..." : user.userId ? "Logout" : "Login"}
               </button>
             </div>
-          )}
-          {/* 
-          {user.userId && (
-            <div className="logout-button-container">
-              <button onClick={doLogout}>Logout</button>
-            </div>
-          )} */}
         </div>
         <span>
           <NavLink to={"/registration"}>Registration</NavLink>

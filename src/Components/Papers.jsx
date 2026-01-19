@@ -73,6 +73,7 @@ export default function Papers() {
 
   const handleFlagClick = (e, id) => {
     e.stopPropagation();
+    if(activeId) return closePopup()
     setActiveId(id);
     setClicked(null);
   };

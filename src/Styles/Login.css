@@ -14,10 +14,17 @@
   border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-.login-container span {
+.login-container span{
   font-size: small;
   margin: 5px;
   text-align: right;
+}
+
+
+.login-container span a{
+font-weight: bold;
+  /* text-decoration: none; */
+  color: rgb(109, 179, 63);
 
 }
 
@@ -85,6 +92,7 @@ label {
   margin: 15px 0px;
   font-weight: bold;
   box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.399);
+  border: none;
 }
 
 .login-fields .logout-button-container button {
