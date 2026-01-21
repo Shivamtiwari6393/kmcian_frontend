@@ -33,6 +33,8 @@ export default function Papers() {
     setSearchInput(e.target.value);
   };
 
+  //===========  DOWNLOAD PAPER
+
   const handleDownload = async (paper) => {
     const loadId = toast.loading("Downloading...");
     setIsLoading(true);
@@ -61,12 +63,18 @@ export default function Papers() {
     }
   };
 
+
+
+
   const descriptionOptions = [
     "It's not a PYQ.",
     "Wrong paper name.",
     "Wrong faculty.",
     "Wrong semester or year.",
   ];
+
+
+  //======== FLAG CLICK
 
   const handleFlagClick = (e, id) => {
     e.stopPropagation();

@@ -238,7 +238,7 @@ export default function Upload() {
     if (!del) return;
     setIsLoading(true);
     const loadId = toast.loading("Deletion in progress...");
-    fetch(`${url}/api/paper/delete/${course}/${_id}`, {
+    fetch(`${url}/api/paper/delete/${_id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
