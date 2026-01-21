@@ -95,6 +95,7 @@ function Login() {
               name="email"
               value={credentials.email}
               onChange={handleInputChange}
+              id="username"
             />
           </div>
 
@@ -108,6 +109,7 @@ function Login() {
               placeholder="Password"
               value={credentials.password}
               onChange={handleInputChange}
+              id="password"
             />
           </div>
          

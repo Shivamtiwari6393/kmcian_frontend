@@ -86,10 +86,11 @@ export default function Registration() {
               name="username"
               value={credentials.username}
               onChange={handleInputChange}
+              id="username"
             />
           </div>
           <div className="username-container">
-            <label htmlFor="username">
+            <label htmlFor="email">
               <FontAwesomeIcon icon={faUser} style={{ color: "#ffffff" }} />
             </label>
             <input
@@ -97,6 +98,7 @@ export default function Registration() {
               placeholder="Username/Email"
               name="email"
               value={credentials.email}
+              id="email"
               onChange={handleInputChange}
             />
           </div>
@@ -109,6 +111,7 @@ export default function Registration() {
               name="password"
               placeholder="Password"
               value={credentials.password}
+              id="password"
               onChange={handleInputChange}
             />
           </div>

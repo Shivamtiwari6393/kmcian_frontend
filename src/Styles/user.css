@@ -42,6 +42,30 @@
   text-align: center;
 }
 
+.flag-activity-container h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: cadetblue;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 5px;
+  margin: 10px 0px;
+}
+
+.flag-activity-container h3:active {
+  transform: translateY(4px);
+}
+
+.flag-activity-container .flag {
+  background-color: rgb(72, 57, 125);
+  margin: 10px;
+  padding: 5px;
+}
+.flag-activity-container .flag p {
+  padding: 5px;
+}
+
 @media screen and (width <= 380px) {
   .user-container {
     font-size: x-small;

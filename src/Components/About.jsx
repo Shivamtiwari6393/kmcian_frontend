@@ -24,13 +24,12 @@ function About() {
     fetch(url, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
-    },
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ comment: comment }),
     })
-      .then(async(response) => {
-
-        const data = await response.json()
+      .then(async (response) => {
+        const data = await response.json();
         if (!response.ok) throw new Error(data.message);
         toast.success(data.message || "Response posted", { id: id });
       })
@@ -44,20 +43,18 @@ function About() {
       <div className="welcome-container">
         <h3>Welcome, KMCLU Students</h3>
         <p>
-          Student portal designed
-          exclusively for KMCLU! This platform has been thoughtfully crafted to
-          make your academic journey smoother, providing you with essential
-          resources and interactive features to help you stay connected and
-          informed.
+          Student portal designed exclusively for KMCLU! This platform has been
+          thoughtfully crafted to make your academic journey smoother, providing
+          you with essential resources and interactive features to help you stay
+          connected and informed.
         </p>
-        <p>
-          Here’s what you can do on Kmcian:
+        <div>
+          <p> Here’s what you can do on Kmcian:</p>
           <div className="info">
             <p>
-              <br />
-              <b>PYQs</b> – Browse, download, and even upload
-              previous year papers! Contribute to a shared resource pool, making
-              exam preparation more accessible for everyone.
+              <b>PYQs</b> – Browse, download, and even upload previous year
+              papers! Contribute to a shared resource pool, making exam
+              preparation more accessible for everyone.
               <br />
               <br />
               <b>Queries & Discussions</b> – Post questions, seek advice, or
@@ -81,13 +78,16 @@ function About() {
               your university life.
             </p>
           </div>
-        </p>
+        </div>
       </div>
 
       <div className="contact">
         <p>
           Contact:{" "}
-          <a href="mailto:shivamtiwari6223@gmail.com" style={{color: "white"}}>
+          <a
+            href="mailto:shivamtiwari6223@gmail.com"
+            style={{ color: "white" }}
+          >
             shivamtiwari6223@gmail.com
           </a>{" "}
         </p>
