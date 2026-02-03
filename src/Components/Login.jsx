@@ -73,6 +73,8 @@ function Login() {
         userId: data.userId,
         role: data.role,
         username: data.username,
+        email: data.email,
+
       }));
     } catch (e) {
       toast.error(e.message, { id: id });

@@ -115,8 +115,7 @@ export default function Upload() {
       return;
     }
 
-    //------------------- form data-------------
-
+    //------------------- form data-------------    
     const formData = new FormData();
     formData.append("course", uploadData.course);
     formData.append("branch", uploadData.branch);
