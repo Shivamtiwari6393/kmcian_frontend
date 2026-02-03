@@ -14,6 +14,7 @@ function App() {
     userId: null,
     role: null,
     username: null,
+    email: null
   });
 
   useEffect(() => {

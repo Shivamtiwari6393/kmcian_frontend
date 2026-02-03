@@ -32,7 +32,6 @@ function User() {
     if (!user.userId) return toast.error("UserId missing");
     const res = await fetch(`${url}/api/user/?userId=${user.userId}`);
     const data = await res.json();
-
     if (res.ok) setData(data);
     else toast.error(data.message);
   };
