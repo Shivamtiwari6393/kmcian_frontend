@@ -29,18 +29,13 @@ export default function Card() {
     // const url = "http://10.125.107.27:8000/api/paper";
 
 
-  const [user] = useContext(adminContext);
-
   const [openSelect, setOpenSelect] = useState(null);
-
   const navigate = useNavigate();
-
   const [paperData, setPaperData] = useState({
     course: 0,
     branch: 0,
     semester: 0,
     year: 0,
-    downloadable: true,
   });
 
   // const [reqPapers, setReqPapers] = useState(null);
@@ -63,17 +58,7 @@ export default function Card() {
     }));
   };
 
-  // when admin changes downloadable state
-
-  const handleAdminChange = (e) => {
-    // setError("");
-    setPaperData((prevData) => ({
-      ...prevData,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  // ---------------paper data fetch fetchPaperData----------------------
+  // ---------------fetch Paper Data----------------------
 
   const validate = () => {
     if (!paperData.course) return "Please select a Faculty";
@@ -176,23 +161,6 @@ export default function Card() {
             onChange={(value) => handleChange("year", value)}
             placeholder="Year"
           />
-
-          {user.userId && (
-            <select
-              name="downloadable"
-              value={paperData.downloadable}
-              id="downloadable-select"
-              onChange={handleAdminChange}
-              required
-            >
-              <option value="0" disabled>
-                Downloadable
-              </option>
-              <option value="true">True</option>
-              <option value="false">False</option>
-            </select>
-          )}
-
           <button disabled={isLoading} className="search-button-container">
             <FontAwesomeIcon
               icon={faSearch}

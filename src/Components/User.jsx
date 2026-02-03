@@ -60,7 +60,11 @@ function User() {
     if (newPapers) return setNewPapers(null);
     const loadId = toast.loading("fetching Flag Data");
     try {
-      const res = await fetch(`${url}/api/paper/v1`);
+      const res = await fetch(`${url}/api/paper/v1`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
+        },
+      });
       toast.success("fetching completed", { id: loadId });
       if (!res.ok) return toast.error("error in fetching flag data");
       const data = await res.json();
@@ -74,7 +78,6 @@ function User() {
   // console.log(data.papers[0].paperId);
 
   // console.log(data.papers[0].paperId, "------DATA-PAPERS------------------");
-  
 
   return (
     <div className="user-container">
@@ -82,38 +85,39 @@ function User() {
       <br />
       <hr />
       <div className="data-container">
-        {data?.papers[0]?.paperId && data?.papers?.map((d) => (
-          <div className="info-container" key={d?._id}>
-            <p>{d?.paperId?.paper}</p>
-            <p key={d?.paperId?._id}>{d?.paperId?.paper}</p>
-            <p>
-              {d?.paperId?.downloadable ? (
-                <FontAwesomeIcon icon={faCheck} />
-              ) : (
-                <FontAwesomeIcon icon={faHourglass} />
-              )}
-            </p>
-            <p>
-              <FontAwesomeIcon
-                icon={faEdit}
-                onClick={() =>
-                  handleUpdate({
-                    _id: d.paperId._id,
-                    branch: d.paperId.branch,
-                    course: d.paperId.course,
-                    paper: d.paperId.paper,
-                    semester: d.paperId.semester,
-                    year: d.paperId.year,
-                    name: d.paperId.name,
-                    downloadable: d.paperId.downloadable,
-                    createdAt: d.paperId.createdAt,
-                    updatedAt: d.paperId.updatedAt,
-                  })
-                }
-              ></FontAwesomeIcon>
-            </p>
-          </div>
-        ))}
+        {data?.papers[0]?.paperId &&
+          data?.papers?.map((d) => (
+            <div className="info-container" key={d?._id}>
+              <p>{d?.paperId?.paper}</p>
+              <p key={d?.paperId?._id}>{d?.paperId?.paper}</p>
+              <p>
+                {d?.paperId?.downloadable ? (
+                  <FontAwesomeIcon icon={faCheck} />
+                ) : (
+                  <FontAwesomeIcon icon={faHourglass} />
+                )}
+              </p>
+              <p>
+                <FontAwesomeIcon
+                  icon={faEdit}
+                  onClick={() =>
+                    handleUpdate({
+                      _id: d.paperId._id,
+                      branch: d.paperId.branch,
+                      course: d.paperId.course,
+                      paper: d.paperId.paper,
+                      semester: d.paperId.semester,
+                      year: d.paperId.year,
+                      name: d.paperId.name,
+                      downloadable: d.paperId.downloadable,
+                      createdAt: d.paperId.createdAt,
+                      updatedAt: d.paperId.updatedAt,
+                    })
+                  }
+                ></FontAwesomeIcon>
+              </p>
+            </div>
+          ))}
       </div>
       {user.role === "superadmin" && (
         <>
