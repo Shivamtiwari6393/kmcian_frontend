@@ -411,6 +411,7 @@ export default function Upload() {
 
         <div className={uploadcss["announcement-container"]}>
           <input
+            readOnly
             type="text"
             value={`Paper - ${updateData.paper} | Branch - ${updateData.branch} | Semester - ${updateData.semester} | Year - ${updateData.year} | has been uploaded by ${updateData.name}`}
           />

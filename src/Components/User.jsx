@@ -73,18 +73,21 @@ function User() {
 
   // console.log(data.papers[0].paperId);
 
+  // console.log(data.papers[0].paperId, "------DATA-PAPERS------------------");
+  
+
   return (
     <div className="user-container">
       <h3 onClick={fetchData}>Welcome, {user.username}</h3>
       <br />
       <hr />
       <div className="data-container">
-        {data?.papers.map((d) => (
-          <div className="info-container" key={d._id}>
-            <p>{d.paperId.paper}</p>
-            <p key={d.paperId._id}>{d.paperId.paper}</p>
+        {data?.papers[0]?.paperId && data?.papers?.map((d) => (
+          <div className="info-container" key={d?._id}>
+            <p>{d?.paperId?.paper}</p>
+            <p key={d?.paperId?._id}>{d?.paperId?.paper}</p>
             <p>
-              {d.paperId.downloadable ? (
+              {d?.paperId?.downloadable ? (
                 <FontAwesomeIcon icon={faCheck} />
               ) : (
                 <FontAwesomeIcon icon={faHourglass} />
