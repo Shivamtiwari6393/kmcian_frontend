@@ -8,10 +8,21 @@ import CustomSelect from "./CustomSelect";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import data from "./data.js"
+import data from "./data.js";
 
 export default function Upload() {
-  const  [yearOptions,semesterOptions,socialSciencesOptins, artHumnanitiesOptions, pharmacyBranchOptions, scienceBranchOptions, legalStudiesBranchOptions,commerceBranchOptions, engineeringBranchOptions, courseOptions ] = data
+  const [
+    yearOptions,
+    semesterOptions,
+    socialSciencesOptins,
+    artHumnanitiesOptions,
+    pharmacyBranchOptions,
+    scienceBranchOptions,
+    legalStudiesBranchOptions,
+    commerceBranchOptions,
+    engineeringBranchOptions,
+    courseOptions,
+  ] = data;
 
   // const url = "http://127.0.0.1:8000";
   const url = "https://kmcianbackend.vercel.app";
@@ -25,6 +36,7 @@ export default function Upload() {
     semester,
     year,
     name,
+    email,
     downloadable,
     createdAt,
     updatedAt,
@@ -51,7 +63,7 @@ export default function Upload() {
   const [openSelect, setOpenSelect] = useState(null);
 
   const handleSelectClick = (selectName) => {
-    setOpenSelect((prev) => (prev === selectName ? null : selectName)); 
+    setOpenSelect((prev) => (prev === selectName ? null : selectName));
   };
 
   const handleFileChange = (e) => {
@@ -74,38 +86,37 @@ export default function Upload() {
     setUpdateData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // -----------------------announcement submit----------------------------
 
+  const handleAnnouncementSubmit = async (
+    e,
+    announcementText = `Paper - ${updateData.paper} | Branch - ${updateData.branch} | Semester - ${updateData.semester} | Year - ${updateData.year} | has been uploaded by ${updateData.name}`,
+  ) => {
+    // setLoading(true);
+    const loadId = toast.loading("Announcement upload in progress...");
 
+    try {
+      console.log("annougfvujdycgskducgsdkldcih", announcementText);
 
-// -----------------------announcement submit----------------------------
-  
-    const handleAnnouncementSubmit = async (e,announcementText = `Paper - ${updateData.paper} | Branch - ${updateData.branch} | Semester - ${updateData.semester} | Year - ${updateData.year} | has been uploaded by ${updateData.name}`) => {
-      // setLoading(true);
-       const loadId = toast.loading("Announcement upload in progress...");
-  
-      try {
-        console.log("annougfvujdycgskducgsdkldcih", announcementText);
-        
-        const response = await fetch(`${url}/api/announcement`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
-          },
-          body: announcementText,
-        });
-  
-        const data = await response.json();
-  
-        if (!response.ok) throw new Error(data.message);
-        // setAnnouncements((prev) => [data.data, ...prev]);
-        toast.success(data.message, {id : loadId});
-      } catch (error) {
-        toast.error(error.message, {id: loadId});
-      } finally {
-        // setLoading(false);
-      }
-    };
-  
+      const response = await fetch(`${url}/api/announcement`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
+        },
+        body: announcementText,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) throw new Error(data.message);
+      // setAnnouncements((prev) => [data.data, ...prev]);
+      toast.success(data.message, { id: loadId });
+    } catch (error) {
+      toast.error(error.message, { id: loadId });
+    } finally {
+      // setLoading(false);
+    }
+  };
 
   //---------------------- Update Paper-----------------------------
 
@@ -121,8 +132,9 @@ export default function Upload() {
     updatedData.append("semester", updateData.semester);
     updatedData.append("year", updateData.year);
     updatedData.append("name", updateData.name);
-    updatedData.append("downloadable", updateData.downloadable),
-      file && updatedData.append("pdf", file);
+    (updatedData.append("downloadable", updateData.downloadable),
+      file && updatedData.append("pdf", file));
+    updatedData.append("email", email);
 
     //  if user changed the faculty
 
@@ -131,7 +143,7 @@ export default function Upload() {
       updateData.branch != location.state.branch
     ) {
       const update = confirm(
-        "You have changed the faculty or branch. Paper can be created only."
+        "You have changed the faculty or branch. Paper can be created only.",
       );
 
       if (!update) return;
@@ -148,7 +160,7 @@ export default function Upload() {
       // verify branch in selected faculty branch options
 
       const exists = map[updateData.course].some(
-        (option) => option.value === updateData.branch
+        (option) => option.value === updateData.branch,
       );
       // if branch not matches
       if (!exists) {
@@ -162,7 +174,7 @@ export default function Upload() {
             }}
           >
             Please reselect the branch
-          </div>
+          </div>,
         );
         setError("Please reselect the branch");
         return;
@@ -207,7 +219,7 @@ export default function Upload() {
     //==================================== update ===================================
 
     setIsLoading(true);
-    
+
     const loadId = toast.loading("Paper update in progress...");
     fetch(`${url}/api/paper/update/${_id}`, {
       method: "PUT",
@@ -329,8 +341,7 @@ export default function Upload() {
           onClick={() => handleSelectClick("branch")}
           onChange={(value) => handleDataChange("branch", value)}
           placeholder={updateData.branch}
-          inculudeAll = {true}
-          
+          inculudeAll={true}
         />
         <CustomSelect
           options={semesterOptions}
@@ -338,8 +349,7 @@ export default function Upload() {
           onClick={() => handleSelectClick("semester")}
           onChange={(value) => handleDataChange("semester", value)}
           placeholder={updateData.semester}
-          inculudeAll = {true}
-
+          inculudeAll={true}
         />
         <CustomSelect
           options={yearOptions}
@@ -347,8 +357,7 @@ export default function Upload() {
           onClick={() => handleSelectClick("year")}
           onChange={(value) => handleDataChange("year", value)}
           placeholder={updateData.year}
-          inculudeAll = {true}
-
+          inculudeAll={true}
         />
 
         <div className={uploadcss["name"]}>
@@ -401,12 +410,14 @@ export default function Upload() {
         </div>
 
         <div className={uploadcss["announcement-container"]}>
-          <input type="text" value={`Paper - ${updateData.paper} | Branch - ${updateData.branch} | Semester - ${updateData.semester} | Year - ${updateData.year} | has been uploaded by ${updateData.name}`}/>
+          <input
+            type="text"
+            value={`Paper - ${updateData.paper} | Branch - ${updateData.branch} | Semester - ${updateData.semester} | Year - ${updateData.year} | has been uploaded by ${updateData.name}`}
+          />
 
           <div className={uploadcss["announcement-button-container"]}>
             <button onClick={handleAnnouncementSubmit}>Do Announcement</button>
           </div>
-
         </div>
       </div>
     </>

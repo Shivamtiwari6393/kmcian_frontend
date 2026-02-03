@@ -24,11 +24,14 @@ function Login() {
     sessionStorage.removeItem("kmcianToken");
     sessionStorage.removeItem("userId");
     sessionStorage.removeItem("role");
+    sessionStorage.removeItem("email");
+
     setUser((prev) => ({
       ...prev,
       userId: null,
       role: null,
       username: null,
+      email: null,
     }));
     toast.success("Logged out successfully!");
   };
@@ -62,6 +65,7 @@ function Login() {
       sessionStorage.setItem("userId", data.userId);
       sessionStorage.setItem("role", data.role);
       sessionStorage.setItem("username", data.username);
+      sessionStorage.setItem("email", data.email);
 
       toast.success(data.message || "Login successful!", { id: id });
       setUser((prev) => ({
@@ -112,21 +116,19 @@ function Login() {
               id="password"
             />
           </div>
-         
-            <div
-              className={
-                user.userId
-                  ? "logout-button-container"
-                  : "login-button-container"
-              }
+
+          <div
+            className={
+              user.userId ? "logout-button-container" : "login-button-container"
+            }
+          >
+            <button
+              onClick={user.userId ? doLogout : handleLoginButtonClick}
+              disabled={isLoading}
             >
-              <button
-                onClick={user.userId ? doLogout : handleLoginButtonClick}
-                disabled={isLoading}
-              >
-                {isLoading ? "Processing..." : user.userId ? "Logout" : "Login"}
-              </button>
-            </div>
+              {isLoading ? "Processing..." : user.userId ? "Logout" : "Login"}
+            </button>
+          </div>
         </div>
         <span>
           <NavLink to={"/registration"}>Registration</NavLink>

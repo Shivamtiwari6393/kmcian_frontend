@@ -26,14 +26,6 @@ export default function Upload() {
   const url = "https://kmcianbackend.vercel.app/api/paper/v2";
 
   //--------------- state for data to be uploaded---------------------
-  const [uploadData, setUploadData] = useState({
-    course: 0,
-    branch: 0,
-    semester: 0,
-    paper: "",
-    name: "",
-    year: 0,
-  });
 
   //------------- state for pdf file to be uploaded------------
   const [file, setFile] = useState(null);
@@ -43,6 +35,15 @@ export default function Upload() {
   const [user] = useContext(adminContext);
 
   const [progress, setProgress] = useState(1);
+
+  const [uploadData, setUploadData] = useState({
+    course: 0,
+    branch: 0,
+    semester: 0,
+    paper: "",
+    name: user ? user.username : "",
+    year: 0,
+  });
 
   const branchMap = {
     Engineering: engineeringBranchOptions,
@@ -105,7 +106,7 @@ export default function Upload() {
     // verify branch in selected faculty branch options
 
     const exists = branchMap[uploadData.course].some(
-      (option) => option.value === uploadData.branch
+      (option) => option.value === uploadData.branch,
     );
 
     // if branch not matches
@@ -125,6 +126,7 @@ export default function Upload() {
     formData.append("name", uploadData.name);
     formData.append("pdf", file);
     if (user.userId) formData.append("userId", user.userId);
+    if (user.email) formData.append("email", user.email);
 
     //------------- POST DATA---------------
 
@@ -138,7 +140,7 @@ export default function Upload() {
         onUploadProgress: (progressEvent) => {
           if (progressEvent.total) {
             const percentage = Math.round(
-              (progressEvent.loaded / progressEvent.total) * 100
+              (progressEvent.loaded / progressEvent.total) * 100,
             );
             toast.loading(`Uploading... ${percentage}%`, { id: loadId });
             setProgress(percentage);

@@ -21,9 +21,11 @@ function App() {
     const userId = sessionStorage.getItem("userId");
     const role = sessionStorage.getItem("role");
     const username = sessionStorage.getItem("username");
+    const email = sessionStorage.getItem("email");
+
 
     if (token && userId) {
-      setUser({ userId, role, username });
+      setUser({ userId, role, username, email });
     }
   }, []);
 
