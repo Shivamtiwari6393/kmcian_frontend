@@ -24,11 +24,18 @@
 }
 
 .about-container .contact {
+  display: flex;
   font-style: oblique;
-  padding: 10px;
-  font-size: 70%;
-  max-width: 300px;
-  text-align: left;
+  padding: 5px;
+}
+
+.about-container .contact p{
+  margin: 0px 5px;
+}
+
+
+.about-container .contact p a{
+  color: white;
 }
 
 .about-container .comment-container {

@@ -1,6 +1,8 @@
 import toast from "react-hot-toast";
 import "../Styles/About.css";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 function About() {
   // const url = "http://127.0.0.1:8000/api/comment";
@@ -82,14 +84,23 @@ function About() {
       </div>
 
       <div className="contact">
+        Contact:{" "}
         <p>
-          Contact:{" "}
           <a
             href="mailto:shivamtiwari6223@gmail.com"
             style={{ color: "white" }}
           >
             shivamtiwari6223@gmail.com
           </a>{" "}
+        </p>
+        <p>
+          <a
+            href="https://t.me/@bit0001101"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FontAwesomeIcon icon={faPaperPlane}></FontAwesomeIcon>
+          </a>
         </p>
       </div>
       <div className="comment-container">
