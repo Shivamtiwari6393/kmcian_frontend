@@ -95,7 +95,7 @@ function About() {
         </p>
         <p>
           <a
-            href="https://t.me/@bit0001101"
+            href="https://t.me/bit0001101"
             target="_blank"
             rel="noopener noreferrer"
           >
