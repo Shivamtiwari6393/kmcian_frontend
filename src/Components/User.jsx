@@ -10,6 +10,7 @@ import {
   faCheck,
   faEdit,
   faHourglass,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 function User() {
@@ -65,18 +66,59 @@ function User() {
         },
       });
       toast.success("fetching completed", { id: loadId });
-      if (!res.ok) return toast.error("error in fetching flag data");
+      if (!res.ok)
+        return toast.error("error in fetching paper data", { id: loadId });
       const data = await res.json();
       setNewPapers(data);
     } catch (error) {
       console.log(error);
-      toast.error(error);
+      toast.error(error, { id: loadId });
     }
   };
 
-  // console.log(data.papers[0].paperId);
+  const handleDelete = (e, paperId) => {
+    const del = confirm("Delete?");
+    if (!del) return;
+    const loadId = toast.loading("Deletion in progress...");
+    fetch(`${url}/api/paper/delete/${paperId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
+      },
+    })
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "An error occurred");
+        toast.success(data.message, { id: loadId });
+        return;
+      })
+      .catch((e) => {
+        toast.error(e.message, { id: loadId });
+      });
+  };
 
-  // console.log(data.papers[0].paperId, "------DATA-PAPERS------------------");
+  const handleFlagDelete = async (e, flagId) => {
+    const del = confirm("Delete?");
+    if (!del) return;
+    const loadId = toast.loading("Deletion in progress...");
+    fetch(`${url}/api/flag/${flagId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
+      },
+    })
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "An error occurred");
+        toast.success(data.message, { id: loadId });
+        return;
+      })
+      .catch((e) => {
+        toast.error(e.message, { id: loadId });
+      });
+  };
+
+  // console.log(data.papers[0].paperId);
 
   return (
     <div className="user-container">
@@ -84,7 +126,7 @@ function User() {
       <br />
       <hr />
       <div className="data-container">
-        {data?.papers[0]?.paperId &&
+        {data?.papers[0]?.paperId ? (
           data?.papers?.map((d) => (
             <div className="info-container" key={d?._id}>
               <p>{d?.paperId?.paper}</p>
@@ -116,7 +158,10 @@ function User() {
                 ></FontAwesomeIcon>
               </p>
             </div>
-          ))}
+          ))
+        ) : (
+          <div style={{textAlign : "center", color: "grey", marginTop: "10px"}}>No PYQs uploaded</div>
+        )}
       </div>
       {user.role === "superadmin" && (
         <>
@@ -128,11 +173,15 @@ function User() {
             <hr />
             {flag?.map((data) => (
               <div className="flag" key={data._id}>
-                <p>REASON: {data.description}</p>
-                <p>BRANCH: {data.branch}</p>
-                <p>PAPER: {data.paper}</p>
-                <p>UPLOADED BY: {data.name}</p>
-                <p>
+                <p>REASON:</p>
+                <p>{data.description}</p>
+                <p>BRANCH:</p>
+                <p>{data.branch}</p>
+                <p>PAPER:</p>
+                <p> {data.paper}</p>
+                <p>UPLOADED BY:</p>
+                <p> {data.name}</p>
+                <p className="control-button">
                   <FontAwesomeIcon
                     icon={faEdit}
                     onClick={() =>
@@ -151,6 +200,12 @@ function User() {
                     }
                   ></FontAwesomeIcon>
                 </p>
+                <p className="control-button">
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    onClick={(e) => handleFlagDelete(e, data._id)}
+                  ></FontAwesomeIcon>
+                </p>
               </div>
             ))}
           </div>
@@ -162,13 +217,19 @@ function User() {
             <hr />
             {newPapers?.map((data) => (
               <div className="flag" key={data._id}>
-                <p>BRANCH: {data.branch}</p>
-                <p>COURSE: {data.course}</p>
-                <p>PAPER: {data.paper}</p>
-                <p>SEMESTER: {data.semester}</p>
-                <p>YEAR: {data.year}</p>
-                <p>UPLOADED BY: {data.name}</p>
-                <p>
+                <p>BRANCH:</p>
+                <p>{data.branch}</p>
+                <p>COURSE:</p>
+                <p> {data.course}</p>
+                <p>PAPER:</p>
+                <p>{data.paper}</p>
+                <p>SEMESTER: </p>
+                <p>{data.semester}</p>
+                <p>YEAR:</p>
+                <p>{data.year}</p>
+                <p>UPLOADED BY: </p>
+                <p> {data.name}</p>
+                <p className="control-button">
                   <FontAwesomeIcon
                     icon={faEdit}
                     onClick={() =>
@@ -185,6 +246,12 @@ function User() {
                         updatedAt: data.updatedAt,
                       })
                     }
+                  ></FontAwesomeIcon>
+                </p>
+                <p className="control-button">
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    onClick={(e) => handleDelete(e, data._id)}
                   ></FontAwesomeIcon>
                 </p>
               </div>
