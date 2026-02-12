@@ -1,63 +1,91 @@
 .about-container {
-  color: rgb(255, 255, 255, 0.8);
-  user-select: none;
+  width: 98%;
+  max-width: 60rem;
+  margin: var(--space-lg) auto;
+  padding: var(--space-sm);
   text-align: center;
-  margin: 20px auto;
-  width: 95vw;
+  color: var(--text-muted);
+  border: 1px solid grey;
+  border-radius: var(--radius-lg);
+
 }
-.about-container h4 {
+
+
+.about-container h1{
+  font-size: var(--text-xl);
+  /* border-bottom: 1px solid grey; */
+
+}
+
+.about-container h2 {
+  font-size: var(--text-lg);
   font-family: monospace;
+  margin-bottom: var(--space-sm);
 }
 
-.about-container .welcome-container h4 {
-  font-size: large;
-}
 
-.about-container .welcome-container p {
-  padding: 5px;
-  margin: 10px 0px;
-  font-family: "Times New Roman", Times, serif;
+.welcome-container p {
+  padding: var(--space-sm);
   text-align: justify;
-}
-.about-container .welcome-container .info p {
-  padding: 0px;
+  font-size: var(--text-md);
+  line-height: 1.6;
 }
 
-.about-container .contact {
+.contact {
   display: flex;
-  font-style: oblique;
-  padding: 5px;
+  justify-content: center;
+  gap: var(--space-md);
+  font-style: italic;
+  padding: var(--space-sm);
+  flex-wrap: wrap;
 }
 
-.about-container .contact p{
-  margin: 0px 5px;
+.contact p {
+  margin: 0;
 }
 
+.contact a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
 
-.about-container .contact p a{
+.contact a:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.comment-container {
+  margin: var(--space-md) 0;
+}
+
+.comment-container textarea {
+  width: 100%;
+  max-width: 40rem; /* 640px */
+  min-height: 15rem; /* scalable instead of 40vh */
+  padding: var(--space-md);
+  margin: var(--space-md) 0;
+
+  background-color: var(--bg-input);
+  color: var(--text-primary);
+
+  border-radius: var(--radius-md);
+  border: 0.0625rem solid var(--border-light); /* 1px */
+
+  font-family: inherit;
+  font-size: var(--text-md);
+  resize: vertical;
+}
+
+.comment-container .button-container button {
+  background-color: var(--success);
   color: white;
 }
 
-.about-container .comment-container {
-  margin: 10px 0px;
+.comment-container .button-container button:hover {
+  opacity: 0.85;
 }
 
-.about-container .comment-container textarea {
-  color: white;
-  background-color:rgb(26, 26, 26) ;
-  padding: 10px;
-  border-radius: 10px;
-  margin: 10px 0px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  width: 80%;
-  height: 40vh;
-}
-
-.about-container .comment-container .button-container button {
-  padding: 10px 15px;
-  font-weight: bold;
-  background-color: rgba(0, 128, 0, 0.77);
-  color: white;
-  border: none;
-  border-radius: 3px;
+.comment-container .button-container button:active {
+  transform: scale(0.95);
 }

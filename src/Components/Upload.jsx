@@ -89,8 +89,6 @@ export default function Upload() {
     if (!uploadData.semester) return "Please select a Semester";
     if (!uploadData.year) return "Please select a Year";
     if (!uploadData.paper) return "Please enter a paper name";
-    if (uploadData.paper.length > 50 || uploadData.name.length > 25)
-      return "Name length limit exceeded";
     if (!file) return "Please select a file";
     if (file && file.type !== "application/pdf")
       return "Please upload a PDF only";
@@ -220,6 +218,8 @@ export default function Upload() {
               value={uploadData.paper}
               onChange={handleInputChange}
               required
+              maxLength={50}
+
             />
           </div>
 
@@ -243,6 +243,7 @@ export default function Upload() {
               placeholder="Your Name"
               value={uploadData.name}
               onChange={handleInputChange}
+              maxLength={25}
             />
           </div>
 

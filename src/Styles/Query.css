@@ -1,228 +1,146 @@
+/* DISCUSSION CONTAINER */
 .discussion-container {
-  color: white;
-  user-select: none;
+  color: var(--text-primary);
   position: relative;
-  transform-origin: 50% 50%;
   text-align: justify;
-  margin-bottom: 20px;
-}
-
-@keyframes slidein {
-  from {
-    transform: translateY(-20%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-.discussion-container .reply-container {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: rgb(35, 35, 35);
-  overflow-y: scroll;
-  transform-origin: top;
-  animation: slidein 0.5s ease-in-out;
-  color: white;
-  border-top: 2px solid rgba(255, 255, 255, 0.5);
-}
-
-.reply-container .cancel-button-container {
-  text-align: end;
-}
-
-.cancel-button-container button {
-  background: none;
-  padding: 2px 6px;
-  transition-duration: 0.1s;
-}
-
-.cancel-button-container button:active {
-  transform: scale(0.8);
-  box-shadow: 0px 0px 10px 3px red;
-}
-
-.reply-container .reply-input-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  align-items: center;
-  padding: 5px;
-}
-
-.reply-container .reply-input-container textarea {
-  font-size: small;
-  margin: 20px 5px;
-  padding: 5px 4px;
-  height: max-content;
-  border-radius: 4px;
-  width: 80%;
-  border: 1px solid white;
-  background: none;
-  color: white;
-}
-
-.reply-input-container button {
-  padding: 5px 10px;
-  font-weight: bold;
-  background-color: rgba(0, 128, 0, 0.77);
-  color: white;
-  border: none;
-  border-radius: 3px;
-  margin-left: 10px;
-  font-size: x-small;
-}
-
-.reply-container .time-stamp {
-  color: rgba(255, 255, 255, 0.5);
-  font-style: italic;
-  margin-top: 10px;
-  font-size: xx-small;
-  /* margin-left: 5px; */
-  width: fit-content;
-  padding: 5px 0px;
-  border-radius: 7px 7px 0px 0px;
-}
-
-.reply-container .reply-body p {
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  color: rgb(255, 255, 255);
-  position: relative;
-  margin: 0px 0px;
-  padding: 10px;
-  font-size: x-small;
-  background-color: rgb(86, 50, 136);
-  border-radius: 5px;
-  word-wrap: break-word;
-  width: fit-content;
-  border: none
-}
-
-.discussion-container .query-container {
-  width: 90%;
-  max-width: 768px;
-  margin: 20px auto;
-  position: relative;
-  background-color: rgb(30, 30, 30);
-  border-radius: 10px;
-}
-
-.query-container .delete-button-container-hide {
-  display: none;
-}
-
-/* .query-container .delete-button-container {
-  user-select: none;
-  border: none;
-  background-color: white;
-  padding: 0px;
-  height: fit-content;
-  background-color: transparent;
-} */
-
-.query-container .delete-button-container button {
-  border: none;
-  /* padding: 0px 5px; */
-  scale: 1.4;
-  background: none;
-}
-
-.query-container .query-header {
-  width: 100%;
-  margin: 0px auto;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  background-color: rgb(67, 67, 67);
-  border-radius: 10px 10px 0px 0px;
-}
-
-.query-container .query-header .time-stamp {
-  font-size: xx-small;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.query-container .query-header .reply-button-container {
-  border: none;
-}
-
-.query-header .reply-button-container:active {
-  scale: 0.8;
-}
-
-.query-header .query-header-side-menu {
-  display: flex;
-}
-
-.query-header .query-header-side-menu button {
-  margin: 0px 20px;
-}
-
-.query-body p {
-  font-size: small;
-  margin-top: 5px;
-  padding: 10px 15px;
-  background-color: rgba(255, 255, 255, 0);
-  word-wrap: break-word;
+  margin-bottom: var(--space-lg);
 }
 
 .discussion-container .button-container {
   text-align: center;
 }
 
-.button-container button {
-  margin: 10px;
-  padding: 10px 15px;
-  border: none;
+.discussion-container .button-container button {
+  background-color: rgb(54, 54, 54);
   color: white;
+  box-shadow: 2px 3px 5px rgb(0, 0, 0);
+}
+
+.discussion-container .input-container button {
+  background-color: var(--success);
+  color: white;
+}
+
+/* =========================== */
+
+/* QUERY SECTION */
+.query-container {
+  width: 95%;
+  max-width: 60rem;
+  margin: var(--space-lg) auto;
+  background-color: var(--bg-primary);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 2px 3px 5px rgb(0, 0, 0);
+}
+
+.query-header {
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-header);
+}
+
+.query-header .time-stamp {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.query-header-side-menu {
+  display: flex;
+  gap: 1rem;
+}
+
+.query-body p {
+  font-size: 1rem;
+  padding: var(--space-sm) var(--space-md);
+  overflow-wrap: break-word;
+}
+
+/* ============================ */
+
+/* REPLY SECTION */
+.reply-container {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-light);
+  animation: slidein 0.4s ease-in-out;
+  overflow-y: auto;
+  will-change: transform, opacity;
+}
+
+.reply-body p {
+  padding: var(--space-sm);
+  margin: var(--space-xs) 0px;
+  font-size: 0.8rem;
+  background-color: var(--bg-reply);
+  border-radius: var(--radius-md);
+  overflow-wrap: break-word;
+}
+
+.reply-container .time-stamp {
+  font-size: 0.65rem;
   font-style: italic;
-  border-radius: 5px;
-  background-color: rgb(26, 26, 26);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: var(--text-muted);
+  margin-top: var(--space-xs);
 }
 
-.button-container button:active {
-  transform: scale(0.9);
-  background-color: rgb(78, 78, 78);
-}
-
-.discussion-container .input-container {
+.input-container,
+.reply-input-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  margin: var(--space-md);
 }
 
-.discussion-container .input-container input {
-  padding: 5px;
-  margin: 5px;
-  width: 80%;
-  border-radius: 4px;
+.reply-input-container button {
+  box-shadow: var(--shadow);
+  background-color: var(--success);
+  color: var(--text-primary);
 }
 
-.input-container textarea {
-  color: white;
-  padding: 5px;
-  margin: 10px;
-  /* height: 30px; */
+textarea,
+input {
+  width: 100%;
+  max-width: 50rem;
+  padding: var(--space-sm);
+  border-radius: var(--space-xs);
+  border: 1px solid var(--border-light);
+  background-color: var(--bg-input);
+  color: var(--text-primary);
+  resize: vertical;
+  font-size: 1rem;
+  box-shadow: var(--shadow);
+}
+
+.reply-button-container svg:active {
+  transform: scale(0.7);
+}
+
+.reply-button-container svg:hover{
+    transform: scale(1.1);
+}
+
+.delete-button-container button {
+  background: none;
   border: none;
-  border-radius: 5px;
-  width: 80%;
-  background: rgb(26, 26, 26);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+  color: red;
 }
 
-.discussion-container .input-container button {
-  user-select: none;
-  padding: 10px 15px;
-  font-weight: bold;
-  background-color: rgba(0, 128, 0, 0.77);
-  color: white;
-  border: none;
-  border-radius: 3px;
-}
+/* ============================= */
 
-.input-container button:active {
-  scale: 0.9;
+/* ANIMATION */
+@keyframes slidein {
+  from {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

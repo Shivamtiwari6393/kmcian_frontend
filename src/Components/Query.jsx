@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import "../Styles/Query.css";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import RoundMotion from "./RoundMotion";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faReply, faRemove } from "@fortawesome/free-solid-svg-icons";
+import { faReply, faTrash } from "@fortawesome/free-solid-svg-icons";
+import adminContext from "./adminContext";
 
 export default function Query() {
   // const url = "http://127.0.0.1:8000";
@@ -16,54 +17,40 @@ export default function Query() {
 
   const pageInfoRef = useRef({ currentPage: 1, totalPage: 1 });
 
-  const [pageInfo, setPageInfo] = useState({
-    currentPage: 0,
-    totalPage: 1,
-  });
-
   const [userQuery, setUserQuery] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [reply, setReply] = useState("");
+  const [reply, setReply] = useState([]);
 
   const [qId, setQId] = useState("");
 
   const [userReply, setUserReply] = useState("");
 
-  const [show, setShow] = useState(false);
+  const [user] = useContext(adminContext);
+
+  const controllerRef = useRef(null);
 
   useEffect(() => {
-    // setIsLoading(true);
+    pageInfoRef.current.currentPage = 1;
     fetchQuery();
-    // setIsLoading(false);
+    return () => {
+      if (controllerRef.current) {
+        controllerRef.current.abort();
+      }
+      setQuery([]);
+    };
   }, []);
-
-  // fetches updated 1st page
-
-  const fetchUpdatedPage = () => {
-    setQuery("");
-    pageInfo.currentPage = 0;
-    fetchQuery();
-  };
-
-  // fetch updated reply
-
-  const fetchUpdatedReply = (queryId) => {
-    fetchReply(queryId);
-  };
 
   // ===============more button click========
 
-  const handleMoreClick = (e) => {
-    if (pageInfoRef.current.currentPage + 1 <= pageInfoRef.current.totalPage) {
-      pageInfoRef.current.currentPage += 1;
-      fetchQuery(e);
-    }
-    return;
+  const handleMoreClick = () => {
+    const { currentPage, totalPage } = pageInfoRef.current;
 
-    // if (pageInfo.currentPage + 1 <= pageInfo.totalPage) fetchQuery(e);
-    // return;
+    if (currentPage < totalPage) {
+      pageInfoRef.current.currentPage += 1;
+      fetchQuery();
+    }
   };
 
   // ===========query change=============
@@ -74,8 +61,8 @@ export default function Query() {
 
   // ============handle submit button click==============
 
-  const handleSubmitQueryButtonClick = () => {
-    postQuery();
+  const handleSubmitQueryButtonClick = (e) => {
+    postQuery(e);
   };
 
   // ============handle reply change===========
@@ -86,131 +73,152 @@ export default function Query() {
 
   // ============handle reply submit button click=========
 
-  const handleReplySubmitButtonClick = () => {
+  const handleReplySubmitButtonClick = async (e) => {
+    e.stopPropagation()
     postReply(qId);
-    setUserReply("");
   };
 
   // ==========reply button click==============
 
-  const replyButtonClick = (e) => {
-    const queryId = e.currentTarget.dataset.value;
+  const replyButtonClick = (e, queryId) => {
+    if (qId) {
+      setQId(null);
+      return;
+    }
+    e.stopPropagation();
     setQId(queryId);
     fetchReply(queryId);
   };
 
   //================== fetch query===============
 
-  const fetchQuery = (e) => {
-    // const loadId = toast.loading("Fetching queries...");
+  const fetchQuery = async () => {
+    if (controllerRef.current) {
+      controllerRef.current.abort();
+    }
 
-    setIsLoading(true);
-    fetch(`${url}/api/query/${pageInfoRef.current.currentPage}`)
-      .then(async (res) => {
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.message || "An error occurred");
-        setQuery((prev) => [...prev, ...data.query]);
-        setPageInfo({
-          currentPage: data.currentPage,
-          totalPage: data.totalPage,
-        });
-
-        (pageInfoRef.current.currentPage = data.currentPage),
-          (pageInfoRef.current.totalPage = data.totalPage),
-          setIsLoading(false);
-
-        // hide the more button if current page = total page
-
-        if (data.currentPage == data.totalPage) e.target.hidden = true;
-        // toast.success("Completed", { id: loadId });
-        setIsLoading(false);
-        return;
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        // toast.error(error.message, { id: loadId });
-      });
+    controllerRef.current = new AbortController();
+    const loadId = toast.loading("Fetching queries...");
+    try {
+      const res = await fetch(
+        `${url}/api/query/${pageInfoRef.current.currentPage}`,
+        { signal: controllerRef.current.signal },
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || "An error occurred");
+      }
+      setQuery((prev) => [...prev, ...data.query]);
+      pageInfoRef.current.currentPage = data.currentPage;
+      pageInfoRef.current.totalPage = data.totalPage;
+      toast.success("Fetched successfully", { id: loadId });
+      return;
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        console.log("error in fetching query", error);
+        toast.error(error.message, { id: loadId });
+      }
+    }
   };
 
   //====================== Post query====================
+  const postQuery = async (e) => {
+    e.stopPropagation();
 
-  const postQuery = () => {
+    if (!userQuery.trim()) {
+      return toast.error("Query cannot be empty");
+    }
+
+    setIsLoading(true);
     const loadId = toast.loading("Posting query...");
 
-    // setIsLoading(true);
-    fetch(`${url}/api/query`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ content: userQuery, name: "unknown person" }),
-    })
-      .then(async (res) => {
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.message || "An error occurred");
-        // setIsLoading(false);
-        setQuery((prev) => [data.data, ...prev]);
-        toast.success(data.message, { id: loadId });
-      })
-      .catch((error) => {
-        // setIsLoading(false);
-        toast.error(error.message, { id: loadId });
+    try {
+      const res = await fetch(`${url}/api/query`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content: userQuery.trim(),
+          name: user?.username || "unknown person",
+        }),
       });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to post query");
+      }
+
+      setQuery((prev) => [data.data, ...prev]);
+      setUserQuery("");
+      toast.success(data.message, { id: loadId });
+    } catch (error) {
+      console.error("error posting query:", error);
+      toast.error(error.message, { id: loadId });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // =============== fetch reply ==========================
+  const fetchReply = async (queryId) => {
+    const loadId = toast.loading("Fetching replies...");
 
-  const fetchReply = (queryId) => {
-    setReply(null);
-    const loadId = toast.loading("fetching reply...");
+    try {
+      const res = await fetch(`${url}/api/reply/${queryId}`);
+      const data = await res.json();
 
-    // setIsLoading(true);
-    fetch(`${url}/api/reply/${queryId}`)
-      .then(async (res) => {
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.message || "An error occurred");
-        setReply(data);
-        toast.success("fetching completed", { id: loadId });
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        toast.error(error.message, { id: loadId });
-      });
+      if (!res.ok) {
+        throw new Error(data.message);
+      }
+
+      setReply(data);
+
+      toast.success("Fetched successfully", { id: loadId });
+    } catch (error) {
+      console.log("error in fetching reply", error);
+
+      toast.error(error.message, { id: loadId });
+    }
   };
 
   //========================== post reply =================
+  const postReply = async (queryId) => {
+    if (!userReply.trim()) {
+      return toast.error("Reply cannot be empty");
+    }
 
-  const postReply = (queryId) => {
     const loadId = toast.loading("Posting reply...");
 
-    // setIsLoading(true);
-    fetch(`${url}/api/reply`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        queryId: queryId,
-        content: userReply,
-      }),
-    })
-      .then(async (res) => {
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.message);
-        // setIsLoading(false);
-        fetchUpdatedReply(queryId);
-        toast.success(data.message, { id: loadId });
-      })
-      .catch((error) => {
-        // setIsLoading(false);
-        toast.error(error.message, { id: loadId });
+    try {
+      const res = await fetch(`${url}/api/reply`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          queryId,
+          content: userReply.trim(),
+        }),
       });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message);
+      }
+
+      setUserReply("");
+      toast.success(data.message, { id: loadId });
+      setReply((prev) => [...prev, data.reply]);
+    } catch (error) {
+      console.log("error in posting reply", error);
+      toast.error(error.message, { id: loadId });
+    }
   };
 
   //------------- data format-----------------
 
-  const formatData = (text) => {
+  const formatData = (text = "") => {
     return text.split("\n").map((line, index) => (
       <span key={index}>
         {line}
@@ -220,34 +228,35 @@ export default function Query() {
   };
 
   // =========delete query=================
+  const handleDeleteQuery = async (e, queryId) => {
+    const loadId = toast.loading("Deleting query...");
 
-  const handleDeleteQuery = (queryId) => {
-    const loadId = toast.loading("Query deletion in progress...");
+    try {
+      const res = await fetch(`${url}/api/query`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ queryId }),
+      });
 
-    fetch(`${url}/api/query`, {
-      method: "DELETE",
-      body: JSON.stringify({ queryId: queryId }),
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then(async (response) => {
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.message);
-        fetchUpdatedPage();
-        return toast.success(data.message || "Query deleted successfully", {
-          id: loadId,
-        });
-      })
-      .catch((error) => toast.error(error.message, { id: loadId }));
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message);
+      }
+
+      setQuery((prev) => prev.filter((q) => q._id !== queryId));
+
+      toast.success(data.message, { id: loadId });
+    } catch (error) {
+      console.log("error in deleting query", error);
+      toast.error(error.message, { id: loadId });
+    }
   };
 
   // delete button show or hide control function
-
-  const handledeleteShow = () => {
-    setShow(!show);
-  };
 
   // =========================================================================
 
@@ -256,118 +265,111 @@ export default function Query() {
       {isLoading && <RoundMotion></RoundMotion>}
 
       {
-        <div className="discussion-container">
+        <div
+          className="discussion-container"
+          onClick={(e) => {
+            e.stopPropagation();
+            setReply([]);
+            setQId(null);
+          }}
+        >
           {query &&
             query.map((data) => (
-              <>
-                <div className="query-container" key={data["_id"]}>
-                  <div
-                    className="query-header"
-                    onDoubleClick={handledeleteShow}
-                  >
-                    <span className="time-stamp">
-                      {new Date(data.createdAt).toLocaleString()}
-                    </span>
-                    <div className="query-header-side-menu">
-                      <div
-                        className={
-                          show
-                            ? "delete-button-container"
-                            : "delete-button-container-hide"
-                        }
-                      >
-                        <button onClick={() => handleDeleteQuery(data._id)}>
+              <div className="query-container" key={data["_id"]}>
+                <div className="query-header">
+                  <span className="time-stamp">
+                    {new Date(data.createdAt).toLocaleString()}
+                  </span>
+                  <div className="query-header-side-menu">
+                    {user.userId && (
+                      <div className={"delete-button-container"}>
+                        <button
+                          onClick={(e) => handleDeleteQuery(e, data["_id"])}
+                        >
                           <FontAwesomeIcon
-                            icon={faRemove}
-                            style={{ color: "#ffffff" }}
+                            icon={faTrash}
                             data-value={data["_id"]}
                           />
                         </button>
                       </div>
-                      <div className="reply-button-container">
-                        <FontAwesomeIcon
-                          icon={faReply}
-                          style={{ color: "#ffffff" }}
-                          onClick={replyButtonClick}
-                          data-value={data["_id"]}
-                        />
-                      </div>
+                    )}
+                    <div className="reply-button-container">
+                      <FontAwesomeIcon
+                        icon={faReply}
+                        style={{ color: "#ffffff" }}
+                        onClick={(e) => replyButtonClick(e, data._id)}
+                      />
                     </div>
                   </div>
-                  <div className="query-body">
-                    <p className="query">
-                      {data.content && formatData(data.content)}
-                    </p>
-                  </div>
-                  {reply && data["_id"] === qId && (
-                    <>
-                      <div className="reply-container">
-                        <div className="cancel-button-container">
-                          <button
-                            onClick={() => setReply(null) || setQId(null)}
-                          >
-                            <FontAwesomeIcon
-                              icon={faRemove}
-                              style={{ color: "#ffffff" }}
-                              data-value={data["_id"]}
-                            />
-                          </button>
-                        </div>
-
-                        {reply.map((data) => (
-                          <>
-                            <div className="time-stamp">
-                              {new Date(data.createdAt).toLocaleString()}
-                            </div>
-                            <div className="reply-body">
-                              <p>{formatData(data.content)}</p>
-                            </div>
-                          </>
-                        ))}
-
-                        <div className="reply-input-container">
-                          <textarea
-                            placeholder="Reply"
-                            onChange={handleUserReplyChange}
-                            value={userReply}
-                          ></textarea>
-                          <button
-                            onClick={handleReplySubmitButtonClick}
-                            disabled={!userReply}
-                          >
-                            Submit
-                          </button>
-                        </div>
-                      </div>
-                    </>
-                  )}
                 </div>
-              </>
+                <div className="query-body">
+                  <p className="query">
+                    {data.content && formatData(data.content)}
+                  </p>
+                </div>
+                {reply && data["_id"] === qId && (
+                  <>
+                    <div className="reply-container">
+                      {reply.map((data) => (
+                        <>
+                          <div className="time-stamp">
+                            {new Date(data.createdAt).toLocaleString()}
+                          </div>
+                          <div className="reply-body">
+                            <p>{formatData(data.content)}</p>
+                          </div>
+                        </>
+                      ))}
+
+                      <div className="reply-input-container">
+                        <textarea
+                          placeholder="Reply"
+                          onChange={(e) => handleUserReplyChange(e)}
+                          value={userReply}
+                          onClick={(e) => e.stopPropagation()}
+                        ></textarea>
+                        <button
+                          className="button"
+                          onClick={(e) => handleReplySubmitButtonClick(e)}
+                          disabled={isLoading}
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
             ))}
 
-          {!isLoading && (
-            <>
-              <div className="button-container">
-                <button onClick={handleMoreClick} id="more-button">
-                  {query[0] ? "more..." : "Show queries"}
-                </button>
-              </div>
+          <>
+            <div className="button-container">
+              <button
+                onClick={(e) => handleMoreClick(e)}
+                id="more-button"
+                className="button"
+                disabled={isLoading}
+                hidden = {pageInfoRef.current.currentPage == pageInfoRef.current.totalPage}
+              >
+                {query[0] ? "more..." : "Show queries"}
+              </button>
+            </div>
 
-              <div className="input-container">
-                <textarea
-                  placeholder="Query"
-                  value={userQuery}
-                  onChange={handleUserQueryChange}
-                ></textarea>
-                <button
-                  onClick={handleSubmitQueryButtonClick}
-                  disabled={!userQuery}
-                >
-                  Submit
-                </button>
-              </div>
-            </>
-          )}
+            <div className="input-container">
+              <textarea
+                placeholder="Query"
+                value={userQuery}
+                onChange={(e) => handleUserQueryChange(e)}
+              ></textarea>
+              <button
+                onClick={(e) => handleSubmitQueryButtonClick(e)}
+                disabled={isLoading}
+                className="button"
+              >
+                Submit
+              </button>
+            </div>
+          </>
         </div>
       }
     </>
