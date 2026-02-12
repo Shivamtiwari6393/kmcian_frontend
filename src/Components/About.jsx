@@ -110,14 +110,12 @@ function About() {
         </div>
       </div>
 
-      {/* Contact Section */}
+      {/* Contact */}
       <div className="contact">
         <span>Contact:</span>
-
         <a href="mailto:shivamtiwari6223@gmail.com">
           shivamtiwari6223@gmail.com
         </a>
-
         <a
           href="https://t.me/bit0001101"
           target="_blank"
@@ -128,7 +126,7 @@ function About() {
         </a>
       </div>
 
-      {/* Comment Section */}
+      {/* Comment*/}
       <div className="comment-container">
         <h2>Suggestions / Comment</h2>
 

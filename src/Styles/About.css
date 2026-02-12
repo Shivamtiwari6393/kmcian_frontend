@@ -34,14 +34,18 @@
 .contact {
   display: flex;
   justify-content: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
   font-style: italic;
   padding: var(--space-sm);
   flex-wrap: wrap;
 }
 
-.contact p {
-  margin: 0;
+.contact :nth-child(2){
+  color: thistle;
+}
+
+.contact :nth-child(3){
+  color: cornflowerblue;
 }
 
 .contact a {
