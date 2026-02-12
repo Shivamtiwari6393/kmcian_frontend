@@ -74,7 +74,7 @@ export default function Query() {
   // ============handle reply submit button click=========
 
   const handleReplySubmitButtonClick = async (e) => {
-    e.stopPropagation()
+    e.stopPropagation();
     postReply(qId);
   };
 
@@ -98,6 +98,7 @@ export default function Query() {
     }
 
     controllerRef.current = new AbortController();
+    setIsLoading(true);
     const loadId = toast.loading("Fetching queries...");
     try {
       const res = await fetch(
@@ -118,6 +119,8 @@ export default function Query() {
         console.log("error in fetching query", error);
         toast.error(error.message, { id: loadId });
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -343,32 +346,38 @@ export default function Query() {
             ))}
 
           <>
-            <div className="button-container">
-              <button
-                onClick={(e) => handleMoreClick(e)}
-                id="more-button"
-                className="button"
-                disabled={isLoading}
-                hidden = {pageInfoRef.current.currentPage == pageInfoRef.current.totalPage}
-              >
-                {query[0] ? "more..." : "Show queries"}
-              </button>
-            </div>
-
-            <div className="input-container">
-              <textarea
-                placeholder="Query"
-                value={userQuery}
-                onChange={(e) => handleUserQueryChange(e)}
-              ></textarea>
-              <button
-                onClick={(e) => handleSubmitQueryButtonClick(e)}
-                disabled={isLoading}
-                className="button"
-              >
-                Submit
-              </button>
-            </div>
+            {!isLoading && (
+              <div className="button-container">
+                <button
+                  onClick={(e) => handleMoreClick(e)}
+                  id="more-button"
+                  className="button"
+                  disabled={isLoading}
+                  hidden={
+                    pageInfoRef.current.currentPage ==
+                    pageInfoRef.current.totalPage
+                  }
+                >
+                  {query[0] ? "more..." : "Show queries"}
+                </button>
+              </div>
+            )}
+            {!isLoading && (
+              <div className="input-container">
+                <textarea
+                  placeholder="Query"
+                  value={userQuery}
+                  onChange={(e) => handleUserQueryChange(e)}
+                ></textarea>
+                <button
+                  onClick={(e) => handleSubmitQueryButtonClick(e)}
+                  disabled={isLoading}
+                  className="button"
+                >
+                  Submit
+                </button>
+              </div>
+            )}
           </>
         </div>
       }
