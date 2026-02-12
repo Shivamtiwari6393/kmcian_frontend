@@ -40,12 +40,12 @@ function About() {
       return;
     }
 
+    const loadId = toast.loading("Posting...");
+
     try {
       setLoading(true);
 
       abortControllerRef.current = new AbortController();
-
-      const toastId = toast.loading("Posting...");
 
       const response = await fetch(API_URL, {
         method: "POST",
@@ -63,13 +63,13 @@ function About() {
       }
 
       toast.success(data.message || "Comment posted successfully", {
-        id: toastId,
+        id: loadId,
       });
 
       setComment("");
     } catch (error) {
       if (error.name !== "AbortError") {
-        toast.error(error.message || "Something went wrong");
+        toast.error(error.message || "Something went wrong", { id: loadId });
       }
     } finally {
       setLoading(false);
@@ -95,9 +95,9 @@ function About() {
               <b>PYQs</b> – Browse, download, and upload previous year question
               papers.
               <br />
-              <b>Shorts</b> –Students can upload,
-              watch, and share short academic or informational videos. Designed
-              to make learning more engaging and interactive.
+              <b>Shorts</b> –Students can upload, watch, and share short
+              academic or informational videos. Designed to make learning more
+              engaging and interactive.
               <br />
               <b>Queries & Discussions</b> – Post questions and collaborate with
               peers.
