@@ -312,14 +312,14 @@ export default function Query() {
                   <>
                     <div className="reply-container">
                       {reply.map((data) => (
-                        <>
+                        <div className="reply" key={data._id}>
                           <div className="time-stamp">
                             {new Date(data.createdAt).toLocaleString()}
                           </div>
                           <div className="reply-body">
                             <p>{formatData(data.content)}</p>
                           </div>
-                        </>
+                        </div>
                       ))}
 
                       <div className="reply-input-container">
