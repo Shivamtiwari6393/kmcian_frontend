@@ -259,8 +259,6 @@ export default function Query() {
     }
   };
 
-  // delete button show or hide control function
-
   // =========================================================================
 
   return (

@@ -5,6 +5,18 @@
   scroll-snap-type: y mandatory;
 }
 
+
+.short-container .play-button{
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+
+.play-button svg{
+  font-size: 2.5rem;
+}
+
 .short-container .video-container {
   position: relative;
   background-color: rgb(62, 62, 62);

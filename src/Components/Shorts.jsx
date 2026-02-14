@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCloudArrowUp,
+  faPlay,
   faPlus,
   faTrash,
   faVectorSquare,
@@ -28,6 +29,7 @@ export default function ShortsFeed() {
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(1);
   const loadIdRef = useRef(null);
+  const [play, setPlay] = useState({});
 
   const videoRefs = useRef({});
   const observerRef = useRef(null);
@@ -83,8 +85,8 @@ export default function ShortsFeed() {
     if (file && file.size > 100 * 1024 * 1024) {
       return toast.error(
         `File size ${(file.size / (1024 * 1024)).toFixed(
-          1
-        )}MB, it must be under 100MB`
+          1,
+        )}MB, it must be under 100MB`,
       );
     }
 
@@ -111,7 +113,7 @@ export default function ShortsFeed() {
         onUploadProgress: (progressEvent) => {
           if (progressEvent.total) {
             const percentage = Math.round(
-              (progressEvent.loaded / progressEvent.total) * 100
+              (progressEvent.loaded / progressEvent.total) * 100,
             );
             toast.loading(`Uploading... ${percentage}%`, {
               id: loadIdRef.current,
@@ -134,7 +136,7 @@ export default function ShortsFeed() {
               show: user?.role === "user" || !user.userId ? 1 : 2,
               title: "",
               userId: user?.userId,
-            }
+            },
           );
 
           if (data.status == 201) {
@@ -235,7 +237,7 @@ export default function ShortsFeed() {
           setActiveId(mostVisible.target.dataset.id);
         }
       },
-      { threshold: 0.6 }
+      { threshold: 0.6 },
     );
     return () => observerRef.current.disconnect();
   }, []);
@@ -371,6 +373,16 @@ export default function ShortsFeed() {
                 ></FontAwesomeIcon>
               )}
             </div>
+
+            {!play[short._id] && (
+              <div className="play-button">
+                <FontAwesomeIcon
+                  id="fullscreen-button"
+                  icon={faPlay}
+                ></FontAwesomeIcon>
+              </div>
+            )}
+
             <video
               ref={(el) => (videoRefs.current[short._id] = el)}
               data-id={short._id}
@@ -381,6 +393,10 @@ export default function ShortsFeed() {
               controls={false}
               controlsList="nodownload"
               disablePictureInPicture
+              onPlay={() =>
+                setPlay((prev) => ({ ...prev, [short._id]: true }))
+              }
+              onPause={() => setPlay((p) => ({ ...p, [short._id]: false }))}
             />
           </div>
         ))}
