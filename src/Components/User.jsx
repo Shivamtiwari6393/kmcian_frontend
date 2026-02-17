@@ -58,14 +58,14 @@ function User() {
 
   const getNewPapersData = async () => {
     if (newPapers) return setNewPapers(null);
-    const loadId = toast.loading("fetching Flag Data");
+    const loadId = toast.loading("fetching Paper Data");
     try {
       const res = await fetch(`${url}/api/paper/v1`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("kmcianToken")}`,
         },
       });
-      toast.success("fetching completed", { id: loadId });
+      toast.success("fetched successfully", { id: loadId });
       if (!res.ok)
         return toast.error("error in fetching paper data", { id: loadId });
       const data = await res.json();
