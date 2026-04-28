@@ -14,7 +14,6 @@
   color: rgb(92, 92, 92);
   padding: 10px 30px 30px 10px;
   margin: 10px;
-  
   background-color: rgb(30, 30, 30);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
@@ -83,11 +82,11 @@
 
 .announcement-container-in .announcement-delete-button {
   position: absolute;
-  color: white;
+  color: rgb(255, 0, 0);
   top: 0px;
   right: 0px;
-  background: none;
-  padding: 1px 4px;
+  padding: 3px;
+  background-color:transparent;
 }
 .announcement-container-in .announcement-delete-button:active {
   scale: 0.3;

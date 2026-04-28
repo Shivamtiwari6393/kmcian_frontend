@@ -3,7 +3,7 @@ import { useEffect, useState, useContext, useRef } from "react";
 import "../Styles/Announcement.css";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRemove } from "@fortawesome/free-solid-svg-icons";
+import { faRemove, faTrash } from "@fortawesome/free-solid-svg-icons";
 import adminContext from "./adminContext";
 import RoundMotion from "./RoundMotion";
 
@@ -148,7 +148,7 @@ function Announcement() {
                         data-value={`{"id": ${Announcement._id}}`}
                         className="announcement-delete-button"
                       >
-                        <FontAwesomeIcon icon={faRemove}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faTrash}/>
                       </button>
                     )}
                   </div>
