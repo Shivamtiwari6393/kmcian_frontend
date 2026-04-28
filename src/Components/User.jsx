@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import adminContext from "./adminContext.jsx";
+import { saveAs } from "file-saver";
 import "../Styles/user.css";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +23,6 @@ function User() {
   const [flag, setFlag] = useState();
   const [newPapers, setNewPapers] = useState();
   const navigate = useNavigate();
-
   //====== fetching data ============
 
   useEffect(() => {
@@ -118,6 +118,32 @@ function User() {
       });
   };
 
+  // DOWNLOAD PAPER
+
+  const handleDownload = async (paper) => {
+    const loadId = toast.loading("Downloading...");
+    try {
+      const response = await fetch(
+        `${url}/api/paper/download?course=${encodeURIComponent(
+          paper.course,
+        )}&year=${encodeURIComponent(paper.year)}&paper=${encodeURIComponent(
+          paper.paper,
+        )}&branch=${encodeURIComponent(paper.branch)}&semester=${
+          paper.semester
+        }&t=${paper.t}`,
+      );
+
+      if (!response.ok) throw new Error("Download failed");
+
+      const blob = await response.blob();
+      saveAs(blob, paper.paper || "paper.pdf");
+
+      return toast.success("Downloaded", { id: loadId });
+    } catch (err) {
+      return toast.error(err.message, { id: loadId });
+    }
+  };
+
   // console.log(data.papers[0].paperId);
 
   return (
@@ -160,7 +186,11 @@ function User() {
             </div>
           ))
         ) : (
-          <div style={{textAlign : "center", color: "grey", marginTop: "10px"}}>No PYQs uploaded</div>
+          <div
+            style={{ textAlign: "center", color: "grey", marginTop: "10px" }}
+          >
+            No PYQs uploaded
+          </div>
         )}
       </div>
       {user.role === "superadmin" && (
@@ -216,7 +246,7 @@ function User() {
             </h3>
             <hr />
             {newPapers?.map((data) => (
-              <div className="flag" key={data._id}>
+              <div className="flag" key={data._id}  onDoubleClick={() => handleDownload(data)}>
                 <p>BRANCH:</p>
                 <p>{data.branch}</p>
                 <p>COURSE:</p>

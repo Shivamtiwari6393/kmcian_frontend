@@ -7,8 +7,9 @@ import pdf from "../assets/pdf.png";
 import CustomSelect from "./CustomSelect";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faTrash } from "@fortawesome/free-solid-svg-icons";
 import data from "./data.js";
+import { saveAs } from "file-saver";
 
 export default function Upload() {
   const [
@@ -294,6 +295,32 @@ export default function Upload() {
     ? (branchOptions = artHumnanitiesOptions)
     : "";
 
+  // DOWNLOAD PAPER
+
+  const handleDownload = async (paper) => {
+    const loadId = toast.loading("Downloading...");
+    try {
+      const response = await fetch(
+        `${url}/api/paper/download?course=${encodeURIComponent(
+          paper.course,
+        )}&year=${encodeURIComponent(paper.year)}&paper=${encodeURIComponent(
+          paper.paper,
+        )}&branch=${encodeURIComponent(paper.branch)}&semester=${
+          paper.semester
+        }&t=${paper.t}`,
+      );
+
+      if (!response.ok) throw new Error("Download failed");
+
+      const blob = await response.blob();
+      saveAs(blob, paper.paper || "paper.pdf");
+
+      return toast.success("Downloaded", { id: loadId });
+    } catch (err) {
+      return toast.error(err.message, { id: loadId });
+    }
+  };
+
   return (
     <>
       {isLoading && <Loading></Loading>}
@@ -401,6 +428,11 @@ export default function Upload() {
           Update
         </button>
 
+        <div className={uploadcss["download-button-container"]}>
+          <div onClick={() => handleDownload(updateData)}>
+            <FontAwesomeIcon icon={faDownload}/>
+          </div>
+        </div>
         <div className={uploadcss["delete-button-container"]}>
           <FontAwesomeIcon
             icon={faTrash}
