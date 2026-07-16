@@ -97,9 +97,33 @@ export default function Upload() {
     return null;
   };
 
+  const checkRequirement = async () => {
+    const loadId = toast.loading("Checking requirments");
+
+    try {
+      const check = await axios.get(
+        `${url}?course=${encodeURIComponent(uploadData.course)}&branch=${encodeURIComponent(uploadData.branch)}&semester=${encodeURIComponent(uploadData.semester)}&year=${encodeURIComponent(uploadData.year)}&paper=${encodeURIComponent(uploadData.paper)}`,
+      );
+      if (check.status === 200)
+        toast.success(check.data.message, { id: loadId });
+        return null;
+    } catch (e) {
+      if (e.status === 409) {
+        toast.error(e.response.data.message, { id: loadId });
+        return 1;
+      } else {
+        toast.error(e.code, { id: loadId });
+        return 1;
+      }
+    }
+  };
+
   const upload = async () => {
     const err = validateFields();
     if (err) return toast.error(err);
+    // CHECK IF PAPER EXIST
+    const check = await checkRequirement();    
+    if (check) return;
 
     // verify branch in selected faculty branch options
 
@@ -113,7 +137,7 @@ export default function Upload() {
       return;
     }
 
-    //------------------- form data-------------    
+    //------------------- form data-------------
     const formData = new FormData();
     formData.append("course", uploadData.course);
     formData.append("branch", uploadData.branch);
@@ -126,8 +150,9 @@ export default function Upload() {
     if (user.email) formData.append("email", user.email);
 
     //------------- POST DATA---------------
-
+    
     const loadId = toast.loading("Uploading... 1%");
+
     try {
       setIsUploading(true);
       const response = await axios.post(url, formData, {
@@ -152,9 +177,7 @@ export default function Upload() {
         toast.error(response.data.message || "Upload failed", { id: loadId });
       }
     } catch (error) {
-      if (error.code === "ECONNABORTED") {
-        toast.error("Request timed out.", { id: loadId });
-      } else if (error.response) {
+      if (error.response) {
         toast.error(error.response.data?.message || "Server error", {
           id: loadId,
         });
@@ -219,7 +242,6 @@ export default function Upload() {
               onChange={handleInputChange}
               required
               maxLength={50}
-
             />
           </div>
 
