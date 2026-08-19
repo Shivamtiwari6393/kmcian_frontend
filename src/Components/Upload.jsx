@@ -22,8 +22,7 @@ export default function Upload() {
     courseOptions,
   ] = data;
 
-  // const url = "http://127.0.0.1:8000/api/paper/v2";
-  const url = "https://kmcianbackend.vercel.app/api/paper/v2";
+  const url = import.meta.env.VITE_API_URL + "/api/paper/v2";
 
   //--------------- state for data to be uploaded---------------------
 
@@ -106,7 +105,7 @@ export default function Upload() {
       );
       if (check.status === 200)
         toast.success(check.data.message, { id: loadId });
-        return null;
+      return null;
     } catch (e) {
       if (e.status === 409) {
         toast.error(e.response.data.message, { id: loadId });
@@ -122,7 +121,7 @@ export default function Upload() {
     const err = validateFields();
     if (err) return toast.error(err);
     // CHECK IF PAPER EXIST
-    const check = await checkRequirement();    
+    const check = await checkRequirement();
     if (check) return;
 
     // verify branch in selected faculty branch options
@@ -150,7 +149,7 @@ export default function Upload() {
     if (user.email) formData.append("email", user.email);
 
     //------------- POST DATA---------------
-    
+
     const loadId = toast.loading("Uploading... 1%");
 
     try {

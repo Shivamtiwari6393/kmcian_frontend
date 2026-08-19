@@ -15,8 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 function User() {
-  // const url = "http://127.0.0.1:8000";
-  const url = "https://kmcianbackend.vercel.app";
+  const url = import.meta.env.VITE_API_URL;
 
   const [user] = useContext(adminContext);
   const [data, setData] = useState(null);

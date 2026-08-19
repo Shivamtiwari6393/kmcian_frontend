@@ -10,8 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload, faEdit, faFlag } from "@fortawesome/free-solid-svg-icons";
 
 export default function Papers() {
-  // const url = "http://127.0.0.1:8000/api";
-  const url = "https://kmcianbackend.vercel.app/api";
+  const url = import.meta.env.VITE_API_URL + "/api";
 
   const navigate = useNavigate();
   const location = useLocation();

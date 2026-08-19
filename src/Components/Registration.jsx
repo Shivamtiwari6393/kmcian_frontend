@@ -8,8 +8,7 @@ import { faFaceFrown, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Login.css";
 
 export default function Registration() {
-  // const url = "http://127.0.0.1:8000/api/user";
-  const url = "https://kmcianbackend.vercel.app/api/user";
+  const url = import.meta.env.VITE_API_URL + "/api/user";
 
   const [credentials, setCredentials] = useState({
     username: "",

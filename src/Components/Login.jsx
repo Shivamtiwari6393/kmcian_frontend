@@ -8,9 +8,7 @@ import { faUser, faLock, faBullhorn } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 
 function Login() {
-  // const url = "http://127.0.0.1:8000/api/user/login";
-  // const url =  "http://172.21.185.27:8000/api/user/login"
-  const url = "https://kmcianbackend.vercel.app/api/user/login";
+  const url = import.meta.env.VITE_API_URL + "/api/user/login";
 
   const [credentials, setCredentials] = useState({
     email: "",

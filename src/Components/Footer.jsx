@@ -5,7 +5,7 @@ function Footer() {
   const [counter, setCounter] = useState("");
 
   useEffect(() => {
-    const url = "https://kmcianbackend.vercel.app/api/request/v1";
+    const url = import.meta.env.VITE_API_URL + "/api/request/v1";
     try {
       fetch(`${url}`)
         .then((res) => {
