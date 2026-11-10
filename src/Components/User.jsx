@@ -192,7 +192,7 @@ function User() {
           </div>
         )}
       </div>
-      {user.role === "superadmin" && (
+      {user.role === "admin" && (
         <>
           <div className="flag-activity-container">
             <h3 onClick={getFlagData}>
