@@ -192,7 +192,7 @@ function User() {
           </div>
         )}
       </div>
-      {user.role === "admin" && (
+      {user.role !== "user" && (
         <>
           <div className="flag-activity-container">
             <h3 onClick={getFlagData}>
@@ -245,7 +245,11 @@ function User() {
             </h3>
             <hr />
             {newPapers?.map((data) => (
-              <div className="flag" key={data._id}  onDoubleClick={() => handleDownload(data)}>
+              <div
+                className="flag"
+                key={data._id}
+                onDoubleClick={() => handleDownload(data)}
+              >
                 <p>BRANCH:</p>
                 <p>{data.branch}</p>
                 <p>COURSE:</p>
